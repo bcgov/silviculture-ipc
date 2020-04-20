@@ -1,15 +1,6 @@
-# Common Service Get Token [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE) [![Quality Gate](https://sonarqube-k8vopl-tools.pathfinder.gov.bc.ca/api/badges/gate?key=nr-get-token-master)](https://sonarqube-k8vopl-tools.pathfinder.gov.bc.ca/dashboard?id=nr-get-token-master)
+# Silviculture and Planting Operator Infection Prevention and Control [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
-[![Bugs](https://sonarqube-k8vopl-tools.pathfinder.gov.bc.ca/api/badges/measure?key=nr-get-token-master&metric=bugs)](https://sonarqube-k8vopl-tools.pathfinder.gov.bc.ca/dashboard?id=nr-get-token-master)
-[![Vulnerabilities](https://sonarqube-k8vopl-tools.pathfinder.gov.bc.ca/api/badges/measure?key=nr-get-token-master&metric=vulnerabilities)](https://sonarqube-k8vopl-tools.pathfinder.gov.bc.ca/dashboard?id=nr-get-token-master)
-[![Code Smells](https://sonarqube-k8vopl-tools.pathfinder.gov.bc.ca/api/badges/measure?key=nr-get-token-master&metric=code_smells)](https://sonarqube-k8vopl-tools.pathfinder.gov.bc.ca/dashboard?id=nr-get-token-master)
-[![Coverage](https://sonarqube-k8vopl-tools.pathfinder.gov.bc.ca/api/badges/measure?key=nr-get-token-master&metric=coverage)](https://sonarqube-k8vopl-tools.pathfinder.gov.bc.ca/dashboard?id=nr-get-token-master)
-[![Lines](https://sonarqube-k8vopl-tools.pathfinder.gov.bc.ca/api/badges/measure?key=nr-get-token-master&metric=lines)](https://sonarqube-k8vopl-tools.pathfinder.gov.bc.ca/dashboard?id=nr-get-token-master)
-[![Duplication](https://sonarqube-k8vopl-tools.pathfinder.gov.bc.ca/api/badges/measure?key=nr-get-token-master&metric=duplicated_lines_density)](https://sonarqube-k8vopl-tools.pathfinder.gov.bc.ca/dashboard?id=nr-get-token-master)
-
-To learn more about the **Common Services** available visit the [Common Services Showcase](https://bcgov.github.io/common-service-showcase/) page.
-
-GETOK is a web-based tool for development teams to manage their application's secure access to Common Services. Users can create and deploy Keycloak or WebADE service client application configuration instantly to gain access to common service APIs like email notifications, document management, or document generation.
+Silviculture and Planting Operator Infection Prevention and Control (SilvIPC)
 
 ## Directory Structure
 
@@ -32,13 +23,10 @@ GETOK is a web-based tool for development teams to manage their application's se
 ## Documentation
 
 * [Overview](docs/overview.md)
-* [Developer Guide](docs/developer-guide.md)
 * [Application Readme](app/README.md)
 * [Frontend Readme](app/frontend/README.md)
 * [Openshift Readme](openshift/README.md)
 * [Devops Tools Setup](https://github.com/bcgov/nr-showcase-devops-tools)
-* [Get Token Wiki](https://github.com/bcgov/nr-get-token/wiki)
-* [Showcase Team Roadmap](https://github.com/bcgov/nr-get-token/wiki/Product-Roadmap)
 
 ## Getting Help or Reporting an Issue
 
@@ -52,7 +40,7 @@ Please note that this project is released with a [Contributor Code of Conduct](C
 
 ## License
 
-    Copyright 2019 Province of British Columbia
+    Copyright 2020 Province of British Columbia
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
