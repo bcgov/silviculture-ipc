@@ -33,6 +33,12 @@ p {
   line-height: 1.6;
 }
 
+// Horizontal Rule
+hr {
+  border-top: 1px solid #494949;
+  margin-bottom: 1em;
+}
+
 // Anchor and Tab Behavior
 a, .v-tab {
   text-decoration: none;
