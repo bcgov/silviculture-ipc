@@ -54,50 +54,52 @@ def runStageBuild() {
         echo "DEBUG - Using project: ${openshift.project()}"
       }
 
-      parallel(
-        App: {
-          try {
-            notifyStageStatus('App', 'PENDING')
+      // parallel(
+      //   App: {
 
-            echo "Processing BuildConfig ${REPO_NAME}-app-${JOB_NAME}..."
-            def bcApp = openshift.process('-f',
-              'openshift/app.bc.yaml',
-              "REPO_NAME=${REPO_NAME}",
-              "JOB_NAME=${JOB_NAME}",
-              "SOURCE_REPO_URL=${SOURCE_REPO_URL}",
-              "SOURCE_REPO_REF=${SOURCE_REPO_REF}"
-            )
+      try {
+        notifyStageStatus('App', 'PENDING')
 
-            echo "Building ImageStream..."
-            openshift.apply(bcApp).narrow('bc').startBuild('-w').logs('-f')
+        echo "Processing BuildConfig ${REPO_NAME}-app-${JOB_NAME}..."
+        def bcApp = openshift.process('-f',
+          'openshift/app.bc.yaml',
+          "REPO_NAME=${REPO_NAME}",
+          "JOB_NAME=${JOB_NAME}",
+          "SOURCE_REPO_URL=${SOURCE_REPO_URL}",
+          "SOURCE_REPO_REF=${SOURCE_REPO_REF}"
+        )
 
-            echo "Tagging Image ${REPO_NAME}-app:latest..."
-            openshift.tag("${REPO_NAME}-app:latest",
-              "${REPO_NAME}-app:${JOB_NAME}"
-            )
+        echo "Building ImageStream..."
+        openshift.apply(bcApp).narrow('bc').startBuild('-w').logs('-f')
 
-            echo 'App build successful'
-            notifyStageStatus('App', 'SUCCESS')
-          } catch (e) {
-            echo 'App build failed'
-            notifyStageStatus('App', 'FAILURE')
-            throw e
-          }
-        },
+        echo "Tagging Image ${REPO_NAME}-app:latest..."
+        openshift.tag("${REPO_NAME}-app:latest",
+          "${REPO_NAME}-app:${JOB_NAME}"
+        )
 
-        SonarQube: {
-          unstash APP_COV_STASH
-          unstash FE_COV_STASH
+        echo 'App build successful'
+        notifyStageStatus('App', 'SUCCESS')
+      } catch (e) {
+        echo 'App build failed'
+        notifyStageStatus('App', 'FAILURE')
+        throw e
+      }
 
-          echo 'Performing SonarQube static code analysis...'
-          sh """
-          sonar-scanner \
-            -Dsonar.host.url='${SONARQUBE_URL_INT}' \
-            -Dsonar.projectKey='${REPO_NAME}-${JOB_NAME}' \
-            -Dsonar.projectName='${APP_NAME} (${JOB_NAME.toUpperCase()})'
-          """
-        }
-      )
+      //   },
+
+      //   SonarQube: {
+      //     unstash APP_COV_STASH
+      //     unstash FE_COV_STASH
+
+      //     echo 'Performing SonarQube static code analysis...'
+      //     sh """
+      //     sonar-scanner \
+      //       -Dsonar.host.url='${SONARQUBE_URL_INT}' \
+      //       -Dsonar.projectKey='${REPO_NAME}-${JOB_NAME}' \
+      //       -Dsonar.projectName='${APP_NAME} (${JOB_NAME.toUpperCase()})'
+      //     """
+      //   }
+      // )
     }
   }
 }
@@ -118,17 +120,11 @@ def runStageDeploy(String stageEnv, String projectEnv, String hostEnv, String pa
       createDeploymentStatus(projectEnv, 'PENDING', JOB_NAME, hostEnv, pathEnv)
 
       echo "Checking for ConfigMaps and Secrets in project ${openshift.project()}..."
-      if(!(openshift.selector('cm', "getok-frontend-config").exists() &&
-      openshift.selector('cm', "getok-sc-config").exists() &&
-      openshift.selector('cm', "getok-server-config").exists() &&
-      openshift.selector('secret', "getok-keycloak-secret").exists() &&
-      openshift.selector('secret', "getok-sc-ches-secret").exists() &&
-      openshift.selector('secret', "getok-sc-keycloak-dev-secret").exists() &&
-      openshift.selector('secret', "getok-sc-keycloak-test-secret").exists() &&
-      openshift.selector('secret', "getok-sc-keycloak-prod-secret").exists() &&
-      openshift.selector('secret', "getok-sc-webade-int-secret").exists() &&
-      openshift.selector('secret', "getok-sc-webade-test-secret").exists() &&
-      openshift.selector('secret', "getok-sc-webade-prod-secret").exists())) {
+      if(!(openshift.selector('cm', "silvipc-frontend-config").exists() &&
+      openshift.selector('cm', "silvipc-sc-config").exists() &&
+      openshift.selector('cm', "silvipc-server-config").exists() &&
+      openshift.selector('secret', "silvipc-keycloak-secret").exists() &&
+      openshift.selector('secret', "silvipc-sc-ches-secret").exists())) {
         echo 'Some ConfigMaps and/or Secrets are missing. Please consult the openshift readme for details.'
         throw new Exception('Missing ConfigMaps and/or Secrets')
       }
