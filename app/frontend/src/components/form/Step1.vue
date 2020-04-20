@@ -5,15 +5,19 @@
       class="mb-8"
     >The Government of Canada and Province of British Columbia have initiated emergency measures to slow the spread of COVID-19. Silviculture and Planting operators must ensure a safe workplace for their workers and demonstrate proof of an Infection Prevention Control Plan.</p>
 
-    <p class="mb-8"><strong>Before you complete this form:</strong></p>
+    <p class="mb-8">
+      <strong>Before you complete this form:</strong>
+    </p>
 
-    <hr class="orange"/>
+    <hr class="orange" />
     <v-container>
       <v-row no-gutters>
-        <v-col cols="1">
-          <h1>1</h1>
+        <v-col cols="12" sm="1">
+          <v-avatar color="#003366" size="62">
+            <span class="white--text headline">1</span>
+          </v-avatar>
         </v-col>
-        <v-col cols="11">
+        <v-col cols="12" sm="11">
           <p>
             Read
             <em>Protecting planters and silviculture workers during the COVID-19 pandemic.</em>
@@ -28,10 +32,12 @@
     <hr />
     <v-container>
       <v-row no-gutters>
-        <v-col cols="1">
-          <h1>2</h1>
+        <v-col cols="12" sm="1">
+          <v-avatar color="#003366" size="62">
+            <span class="white--text headline">2</span>
+          </v-avatar>
         </v-col>
-        <v-col cols="11">
+        <v-col cols="12" sm="11">
           <p>Based on the guidance document, copmplete a silviculture camp risk assessment.</p>
           <p>Complete a COVID-19 risk assessment silviculture or planting operation. This is mandatory.</p>
 
@@ -61,10 +67,12 @@
     <hr />
     <v-container>
       <v-row no-gutters>
-        <v-col cols="1">
-          <h1>3</h1>
+        <v-col cols="12" sm="1">
+          <v-avatar color="#003366" size="62">
+            <span class="white--text headline">3</span>
+          </v-avatar>
         </v-col>
-        <v-col cols="11">
+        <v-col cols="12" sm="11">
           <p>
             Infection Prevention and Control Plan. By following the guidance in
             <em>Guidelines for Silviculture Worker Camps during the COVID-19 pandemic</em>, you will be developing an Infection Prevention and Control (IPC) Plan.
@@ -78,10 +86,19 @@
       </v-row>
     </v-container>
 
-    <hr class="orange"/>
-    <v-card outlined class="my-6 silv-info-card" >
+    <hr class="orange" />
+    <v-card outlined class="my-6 silv-contact-card">
       <v-card-text>
-        <h3>If you need assistance completing these tasks, please contact the Ministry of Agriculture (toll free 1-888-xxx-xxxx) for help.</h3>
+        <v-row no-gutters>
+          <v-col cols="12" sm="1">
+            <h1>
+              <v-icon large>phone</v-icon>
+            </h1>
+          </v-col>
+          <v-col cols="12" sm="11">
+            <h3>If you need assistance completing these tasks, please contact the Ministry of Ministry name: Forests, Lands, Natural Resource Operations & Rural Development (toll free 1-888-xxx-xxxx) for help.</h3>
+          </v-col>
+        </v-row>
       </v-card-text>
     </v-card>
 
@@ -97,12 +114,12 @@
       <v-card-text>
         <v-container>
           <v-row no-gutters>
-            <v-col cols="1">
+            <v-col cols="12" sm="1">
               <h1>
                 <v-icon large>warning</v-icon>
               </h1>
             </v-col>
-            <v-col cols="11">
+            <v-col cols="12" sm="11">
               <h3>If you fail to comply with these requirements, the arrival of silviculture workers or planters at your work site will be delayed and/or denied / prohibited.</h3>(source: BC Ministry of Health, Provincial Health Officer Order, PHO supplemental / Apr 13, date)
             </v-col>
           </v-row>
