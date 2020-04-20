@@ -1,15 +1,15 @@
 <template>
   <v-container>
-    <Welcome />
+    <Form />
   </v-container>
 </template>
 
 <script>
-import Welcome from '@/components/Welcome.vue';
+import Form from '@/components/form/Form.vue';
 export default {
-  name: 'About',
+  name: 'Home',
   components: {
-    Welcome
+    Form
   }
 };
 </script>

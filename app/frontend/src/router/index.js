@@ -8,12 +8,12 @@ const router = new VueRouter({
   routes: [
     {
       path: '/',
-      redirect: { name: 'About' }
+      redirect: { name: 'Home' }
     },
     {
-      path: '/about',
-      name: 'About',
-      component: () => import(/* webpackChunkName: "about" */ '@/views/About.vue')
+      path: '/home',
+      name: 'Home',
+      component: () => import(/* webpackChunkName: "about" */ '@/views/Home.vue')
     },
     {
       path: '/admin',

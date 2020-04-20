@@ -3,7 +3,7 @@
     <div class="container">
       <ul>
         <li>
-          <router-link :to="{ name: 'About' }">Home</router-link>
+          <router-link :to="{ name: 'Home' }">Home</router-link>
         </li>
         <li v-if="isAdmin">
           <router-link :to="{ name: 'Admin' }">Admin</router-link>
