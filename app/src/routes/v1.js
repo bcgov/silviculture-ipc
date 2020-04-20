@@ -9,7 +9,7 @@ const ipcRouter = require('./v1/ipc');
 /** Base v1 Responder */
 router.get('/', (_req, res) => {
   res.status(200).json({
-    endpoints: [ '/ipc']
+    endpoints: [ '/email', '/ipc']
   });
 });
 

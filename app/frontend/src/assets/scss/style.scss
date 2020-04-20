@@ -33,6 +33,15 @@ p {
   line-height: 1.6;
 }
 
+// Horizontal Rule
+hr {
+  border-top: 1px solid lightgrey;
+  margin-bottom: 1em;
+  .orange {
+    border-top: 2px solid orange;
+  }
+}
+
 // Anchor and Tab Behavior
 a, .v-tab {
   text-decoration: none;
@@ -74,3 +83,41 @@ a, .v-tab {
   }
 }
 
+// Stepper
+.v-stepper--alt-labels {
+  .v-stepper__step {
+    .v-stepper__label {
+      font-size: .7em;
+    }
+  }
+}
+
+// Cards
+.silv-info-card {
+  background-color: lightgrey !important;
+  .v-icon {
+    color: #003366 !important;
+    margin-right: .5em;
+  }
+  ul {
+    padding-left: 4em !important;
+  }
+}
+
+.silv-contact-card {
+  background-color: #003366 !important;
+  h3 {
+    color: white !important;
+  }
+  .v-icon {
+    color: white !important;
+    margin-right: .5em;
+  }
+}
+
+.silv-warning-card {
+  background-color: orange !important;
+  .v-icon {
+    color: black !important;
+  }
+}

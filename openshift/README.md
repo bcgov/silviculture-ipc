@@ -1,4 +1,4 @@
-# Common Service Get Token on Openshift
+# Silviculture IPC on Openshift
 
 This application is deployed on Openshift. This readme will outline how to setup and configure an Openshift project to get the application to a deployable state. There are also some historical notes on how to bootstrap from nothing to fully deployed on Openshift. This document assumes a working knowledge of Kubernetes/Openshift container orchestration concepts (i.e. buildconfigs, deployconfigs, imagestreams, secrets, configmaps, routes, etc)
 
@@ -15,34 +15,27 @@ In order to prepare an environment, you will need to ensure that all of the foll
 *Note:* Replace anything in angle brackets with the appropriate value!
 
 ```sh
-oc create -n k8vopl-<env> configmap getok-frontend-config \
+export NAMESPACE=<yournamespace>
+
+oc create -n $NAMESPACE configmap silvipc-frontend-config \
   --from-literal=FRONTEND_APIPATH=api/v1 \
   --from-literal=FRONTEND_BASEPATH=/app \
-  --from-literal=FRONTEND_KC_CLIENTID=getok-frontend \
-  --from-literal=FRONTEND_KC_REALM=vehizw2t \
+  --from-literal=FRONTEND_KC_CLIENTID=silvipc-frontend \
+  --from-literal=FRONTEND_KC_REALM=cp1qly2d \
   --from-literal=FRONTEND_KC_SERVERURL=https://sso-dev.pathfinder.gov.bc.ca/auth
 ```
 
 ```sh
-oc create -n k8vopl-<env> configmap getok-sc-config \
-  --from-literal=SC_CHES_API_ENDPOINT=https://ches-master-9f0fbe-dev.pathfinder.gov.bc.ca/api \
-  --from-literal=SC_CHES_TOKEN_ENDPOINT=https://sso-dev.pathfinder.gov.bc.ca/auth/realms/jbd6rnxw/protocol/openid-connect/token \
-  --from-literal=SC_GETOK_ENDPOINT_INT=https://i1api.nrs.gov.bc.ca/webade-api/v1 \
-  --from-literal=SC_GETOK_ENDPOINT_TEST=https://t1api.nrs.gov.bc.ca/webade-api/v1 \
-  --from-literal=SC_GETOK_ENDPOINT_PROD=https://api.nrs.gov.bc.ca/webade-api/v1 \
-  --from-literal=SC_KC_DEV_ENDPOINT=https://sso-dev.pathfinder.gov.bc.ca \
-  --from-literal=SC_KC_TEST_ENDPOINT=https://sso-test.pathfinder.gov.bc.ca \
-  --from-literal=SC_KC_PROD_ENDPOINT=https://sso.pathfinder.gov.bc.ca \
-  --from-literal=SC_KC_DEV_REALM=jbd6rnxw \
-  --from-literal=SC_KC_TEST_REALM=jbd6rnxw \
-  --from-literal=SC_KC_PROD_REALM=jbd6rnxw
+oc create -n $NAMESPACE configmap silvipc-sc-config \
+  --from-literal=SC_CS_CHES_ENDPOINT=https://ches-master-9f0fbe-dev.pathfinder.gov.bc.ca/api \
+  --from-literal=SC_CS_TOKEN_ENDPOINT=https://sso-dev.pathfinder.gov.bc.ca/auth/realms/jbd6rnxw/protocol/openid-connect/token
 ```
 
 ```sh
-oc create -n k8vopl-<env> configmap getok-server-config \
+oc create -n $NAMESPACE configmap silvipc-server-config \
   --from-literal=SERVER_APIPATH=/api/v1 \
   --from-literal=SERVER_BODYLIMIT=30mb \
-  --from-literal=SERVER_KC_REALM=vehizw2t \
+  --from-literal=SERVER_KC_REALM=cp1qly2d \
   --from-literal=SERVER_KC_SERVERURL=https://sso-dev.pathfinder.gov.bc.ca/auth \
   --from-literal=SERVER_LOGLEVEL=info \
   --from-literal=SERVER_MORGANFORMAT=combined \
@@ -53,59 +46,17 @@ oc create -n k8vopl-<env> configmap getok-server-config \
 
 Replace anything in angle brackets with the appropriate value!
 
-*Note:* Publickey must be a PEM-encoded value encapsulated in double quotes in the argument. Newlines should not be re-encoded when using this command. If authentication fails, it's very likely a newline whitespace issue.
-
 ```sh
-oc create -n k8vopl-<env> secret generic getok-keycloak-secret \
+export NAMESPACE=<yournamespace>
+
+oc create -n $NAMESPACE secret generic silvipc-keycloak-secret \
   --type=kubernetes.io/basic-auth \
   --from-literal=username=<username> \
   --from-literal=password=<password>
 ```
 
 ```sh
-oc create -n k8vopl-<env> secret generic getok-sc-ches-secret \
-  --type=kubernetes.io/basic-auth \
-  --from-literal=username=<username> \
-  --from-literal=password=<password>
-```
-
-```sh
-oc create -n k8vopl-<env> secret generic getok-sc-keycloak-dev-secret \
-  --type=kubernetes.io/basic-auth \
-  --from-literal=username=<username> \
-  --from-literal=password=<password>
-```
-
-```sh
-oc create -n k8vopl-<env> secret generic getok-sc-keycloak-test-secret \
-  --type=kubernetes.io/basic-auth \
-  --from-literal=username=<username> \
-  --from-literal=password=<password>
-```
-
-```sh
-oc create -n k8vopl-<env> secret generic getok-sc-keycloak-prod-secret \
-  --type=kubernetes.io/basic-auth \
-  --from-literal=username=<username> \
-  --from-literal=password=<password>
-```
-
-```sh
-oc create -n k8vopl-<env> secret generic getok-sc-webade-int-secret \
-  --type=kubernetes.io/basic-auth \
-  --from-literal=username=<username> \
-  --from-literal=password=<password>
-```
-
-```sh
-oc create -n k8vopl-<env> secret generic getok-sc-webade-test-secret \
-  --type=kubernetes.io/basic-auth \
-  --from-literal=username=<username> \
-  --from-literal=password=<password>
-```
-
-```sh
-oc create -n k8vopl-<env> secret generic getok-sc-webade-prod-secret \
+oc create -n $NAMESPACE secret generic silvipc-sc-cs-secret \
   --type=kubernetes.io/basic-auth \
   --from-literal=username=<username> \
   --from-literal=password=<password>
@@ -113,7 +64,7 @@ oc create -n k8vopl-<env> secret generic getok-sc-webade-prod-secret \
 
 ## Build Config & Deployment
 
-Get Token is currently designed as a single application pod deployments. It will host a static frontend containing all of the Vue.js resources and assets, and a Node.js backend which serves the API that the frontend requires. We are currently leveraging Openshift Routes with path based filtering in order to forward incoming traffic to the right deployment service.
+Silviculture IPC is currently designed as a single application pod deployments. It will host a static frontend containing all of the Vue.js resources and assets, and a Node.js backend which serves the API that the frontend requires. We are currently leveraging Openshift Routes with path based filtering in order to forward incoming traffic to the right deployment service.
 
 ### Frontend
 
@@ -141,20 +92,22 @@ Build configurations will emit and handle the chained builds or standard builds 
 The template can be manually invoked and deployed via Openshift CLI. For example:
 
 ```sh
-oc -n k8vopl-<env> process -f openshift/app.bc.yaml -p REPO_NAME=nr-get-token
- -p JOB_NAME=master -p SOURCE_REPO_URL=https://github.com/bcgov/nr-get-token.git -p SOURCE_REPO_REF=master -o yaml | oc -n k8vopl-<env> apply -f -
+export NAMESPACE=<yournamespace>
+
+oc process -n $NAMESPACE -f openshift/app.bc.yaml -p REPO_NAME=nr-get-token
+ -p JOB_NAME=master -p SOURCE_REPO_URL=https://github.com/bcgov/nr-get-token.git -p SOURCE_REPO_REF=master -o yaml | oc apply -n k8vopl-<env> -f -
 ```
 
 Note that these build configurations do not have any triggers defined. They will be invoked by the Jenkins pipeline, started manually in the console, or by an equivalent oc command for example:
 
 ```sh
-oc -n k8vopl-<env> start-build <buildname> --follow
+oc start-build -n $NAMESPACE <buildname> --follow
 ```
 
 Finally, we generally tag the resultant image so that the deployment config will know which exact image to use. This is also handled by the Jenkins pipeline. The equivalent oc command for example is:
 
 ```sh
-oc -n k8vopl-<env> tag <buildname>:latest <buildname>:master
+oc tag -n $NAMESPACE <buildname>:latest <buildname>:master
 ```
 
 *Note: Remember to swap out the bracketed values with the appropriate values!*
@@ -177,13 +130,15 @@ Our application template take in the following parameters:
 The Jenkins pipeline will handle deployment invocation automatically. However should you need to run it manually, you can do so with the following for example:
 
 ```sh
-oc -n k8vopl-<env> process -f openshift/app.dc.yaml -p REPO_NAME=nr-get-token -p JOB_NAME=master -p NAMESPACE=k8vopl-<env> -p APP_NAME=getok -p ROUTE_HOST=getok-dev.pathfinder.gov.bc.ca -p ROUTE_PATH=master -o yaml | oc -n k8vopl-<env> apply -f -
+export NAMESPACE=<yournamespace>
+
+oc process -n $NAMESPACE -f openshift/app.dc.yaml -p REPO_NAME=nr-get-token -p JOB_NAME=master -p NAMESPACE=k8vopl-<env> -p APP_NAME=getok -p ROUTE_HOST=silviculture-ipc-dev.pathfinder.gov.bc.ca -p ROUTE_PATH=master -o yaml | oc apply -n $NAMESPACE -f -
 ```
 
 Due to the triggers that are set in the deploymentconfig, the deployment will begin automatically. However, you can deploy manually by use the following command for example:
 
 ```sh
-oc -n k8vopl-<env> rollout latest dc/<buildname>-master
+oc rollout -n $NAMESPACE latest dc/<buildname>-master
 ```
 
 *Note: Remember to swap out the bracketed values with the appropriate values!*
@@ -193,7 +148,7 @@ oc -n k8vopl-<env> rollout latest dc/<buildname>-master
 As of this time, we do not automatically clean up resources generated by a Pull Request once it has been accepted and merged in. This is still a manual process. Our PR deployments are all named in the format "pr-###", where the ### is the number of the specific PR. In order to clear all resources for a specific PR, run the following two commands to delete all relevant resources from the Openshift project (replacing `PRNUMBER` with the appropriate number):
 
 ```sh
-oc delete all,secret,nsp -n k8vopl-dev --selector app=getok-pr-<PRNUMBER>
+oc delete all,secret,nsp -n k8vopl-dev --selector app=silviculture-ipc-pr-<PRNUMBER>
 oc delete all,svc,cm,sa,role,secret -n k8vopl-dev --selector cluster-name=pr-<PRNUMBER>
 ```
 

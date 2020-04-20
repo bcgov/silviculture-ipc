@@ -1,28 +1,28 @@
 <template>
   <v-container>
-    <v-stepper v-model="step" class="elevation-0">
+    <v-stepper v-model="step" alt-labels class="elevation-0">
       <v-stepper-header>
-        <v-stepper-step :complete="step > 1" step="1">Step 1</v-stepper-step>
+        <v-stepper-step :complete="step > 1" step="1">Before You Begin</v-stepper-step>
 
         <v-divider></v-divider>
 
-        <v-stepper-step :complete="step > 2" step="2">Step 2</v-stepper-step>
+        <v-stepper-step :complete="step > 2" step="2">Contact Information</v-stepper-step>
 
         <v-divider></v-divider>
 
-        <v-stepper-step :complete="step > 3" step="3">Step 3</v-stepper-step>
+        <v-stepper-step :complete="step > 3" step="3">Before Workers Arive</v-stepper-step>
 
         <v-divider></v-divider>
 
-        <v-stepper-step :complete="step > 4" step="4">Step 4</v-stepper-step>
+        <v-stepper-step :complete="step > 4" step="4">After Workers Arrive</v-stepper-step>
 
         <v-divider></v-divider>
 
-        <v-stepper-step :complete="step > 5" step="5">Step 5</v-stepper-step>
+        <v-stepper-step :complete="step > 5" step="5">If Workers Become Ill</v-stepper-step>
 
         <v-divider></v-divider>
 
-        <v-stepper-step step="6">Step 6</v-stepper-step>
+        <v-stepper-step step="6">Review</v-stepper-step>
       </v-stepper-header>
 
       <v-stepper-items>
