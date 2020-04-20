@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <h2 class="pb-8">If workers become ill at the farm</h2>
-    <hr class="orange"/>
+    <hr class="orange" />
 
     <h3>Provide safe lodging and accommodation: Self-Isolation</h3>
 
@@ -24,7 +24,7 @@
       label="I am prepared to clean and disinfect any rooms that the person has been in while symptomatic."
     ></v-checkbox>
 
-    <v-card outlined class="my-6">
+    <v-card outlined class="my-6 silv-warning-card">
       <v-card-text>
         <v-container>
           <v-row no-gutters>
@@ -47,7 +47,7 @@
 
     <h3 class="mb-1 mt-8">Providing Food for Ill Workers</h3>
     <v-checkbox label="I am able to provide food in a safe manner to a self-isolated worker"></v-checkbox>
-    <v-card outlined>
+    <v-card outlined class="silv-info-card">
       <v-card-title>
         <v-icon>play_circle_filled</v-icon>What does this mean?
       </v-card-title>
@@ -62,7 +62,7 @@
 
     <h3 class="mb-1 mt-8">Housekeeping for Ill Workers</h3>
     <v-checkbox label="I am able to perform adequate housekeeping for a self isolated worker"></v-checkbox>
-    <v-card outlined>
+    <v-card outlined class="silv-info-card">
       <v-card-title>
         <v-icon>play_circle_filled</v-icon>What does this mean?
       </v-card-title>
@@ -80,7 +80,7 @@
 
     <h3 class="mb-1 mt-8">Waste Management for Ill Workers</h3>
     <v-checkbox label="I am able to perform waste management for supporting a self-isolated worker"></v-checkbox>
-    <v-card outlined>
+    <v-card outlined class="silv-info-card">
       <v-card-title>
         <v-icon>play_circle_filled</v-icon>What does this mean?
       </v-card-title>

@@ -95,6 +95,10 @@ a, .v-tab {
 // Cards
 .silv-info-card {
   background-color: lightgrey !important;
+  .v-icon {
+    color: mediumblue !important;
+    margin-right: .5em;
+  }
 }
 
 .silv-warning-card {
