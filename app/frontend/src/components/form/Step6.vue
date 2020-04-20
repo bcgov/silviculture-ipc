@@ -1,8 +1,13 @@
 <template>
   <v-container>
     <h2 class="pb-8">Please review your answers</h2>
+    <hr class="orange"/>
 
     FORM RESULTS HERE
+
+    <v-checkbox label="I certify this information to be accurate"></v-checkbox>
+
+    <v-checkbox label="I am able to perform waste management for supporting a self-isolated worker"></v-checkbox>
 
     <h3 class="mt-8 pb-2">Collection Notice</h3>
     <p>

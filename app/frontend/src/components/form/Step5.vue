@@ -1,6 +1,7 @@
 <template>
   <v-container>
     <h2 class="pb-8">If workers become ill at the farm</h2>
+    <hr class="orange"/>
 
     <h3>Provide safe lodging and accommodation: Self-Isolation</h3>
 

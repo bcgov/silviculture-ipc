@@ -35,8 +35,11 @@ p {
 
 // Horizontal Rule
 hr {
-  border-top: 1px solid #494949;
+  border-top: 1px solid lightgrey;
   margin-bottom: 1em;
+  .orange {
+    border-top: 2px solid orange;
+  }
 }
 
 // Anchor and Tab Behavior
@@ -80,3 +83,23 @@ a, .v-tab {
   }
 }
 
+// Stepper
+.v-stepper--alt-labels {
+  .v-stepper__step {
+    .v-stepper__label {
+      font-size: .7em;
+    }
+  }
+}
+
+// Cards
+.silv-info-card {
+  background-color: lightgrey !important;
+}
+
+.silv-warning-card {
+  background-color: orange !important;
+  .v-icon {
+    color: black !important;
+  }
+}

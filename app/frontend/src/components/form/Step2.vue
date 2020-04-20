@@ -1,6 +1,7 @@
 <template>
   <v-container>
     <h2 class="pb-8">Provide your business contact information</h2>
+    <hr class="orange"/>
 
     <v-container>
       <v-form ref="form" lazy-validation>

@@ -1,6 +1,7 @@
 <template>
   <v-container>
     <h2 class="pb-8">After workers arrive at the silviculture/planting camp</h2>
+    <hr class="orange"/>
 
     <p>Once your temporary foreign workers arrive at camp, you are expected to continue your work enacting an infection control plan and minimize the risk of transmission of COVID-19 through the following key activities.</p>
 

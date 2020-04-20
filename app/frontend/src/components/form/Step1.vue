@@ -1,11 +1,13 @@
 <template>
   <v-container>
     <h2 class="mb-8">Apply for permission to protect workers during the COVID-19 pandemic</h2>
-    <h4
+    <p
       class="mb-8"
-    >The Government of Canada and Province of British Columbia have initiated emergency measures to slow the spread of COVID-19. Silviculture and Planting operators must ensure a safe workplace for their workers and demonstrate proof of an Infection Prevention Control Plan.</h4>
+    >The Government of Canada and Province of British Columbia have initiated emergency measures to slow the spread of COVID-19. Silviculture and Planting operators must ensure a safe workplace for their workers and demonstrate proof of an Infection Prevention Control Plan.</p>
 
-    <hr />
+    <p class="mb-8"><strong>Before you complete this form:</strong></p>
+
+    <hr class="orange"/>
     <v-container>
       <v-row no-gutters>
         <v-col cols="1">
@@ -40,13 +42,16 @@
           <p>For example, if workers need to be transported to the work site in vehicles where a 2m distance cannot be maintained, this should be identified as a risk. Silviculture and Planting operators can take practical actions to reduce the risk of disease transmission (see section 7).</p>
           <p>Have you worked through all the sections in Guidelines for Silviculture Worker Camps during the COVID-19 pandemic to identify the risks at your farm?</p>
 
-          <v-card outlined>
+          <v-card outlined class="silv-info-card">
             <v-card-title>
               <v-icon>play_circle_filled</v-icon>What is workplace risk assessment?
             </v-card-title>
             <v-card-text>
               If you need help doing a COVID-19 workplace risk assessment, read the
-              <a href="https://www.google.com" target="_blank">Government of Canada’s resource guide on how to make risk-informed decisions during the COVID-19 pandemic.</a>
+              <a
+                href="https://www.google.com"
+                target="_blank"
+              >Government of Canada’s resource guide on how to make risk-informed decisions during the COVID-19 pandemic.</a>
             </v-card-text>
           </v-card>
         </v-col>
@@ -73,8 +78,8 @@
       </v-row>
     </v-container>
 
-    <hr />
-    <v-card outlined class="my-6">
+    <hr class="orange"/>
+    <v-card outlined class="my-6 silv-info-card" >
       <v-card-text>
         <h3>If you need assistance completing these tasks, please contact the Ministry of Agriculture (toll free 1-888-xxx-xxxx) for help.</h3>
       </v-card-text>
@@ -88,16 +93,17 @@
       <li>The Province of BC will use the IPC plan you provide through this online form for the site inspection that determines your compliance and readiness to receive workers.</li>
     </ul>
 
-    <v-card outlined class="my-6">
+    <v-card outlined class="my-6 silv-warning-card">
       <v-card-text>
         <v-container>
           <v-row no-gutters>
             <v-col cols="1">
-              <h1><v-icon large>warning</v-icon></h1>
+              <h1>
+                <v-icon large>warning</v-icon>
+              </h1>
             </v-col>
             <v-col cols="11">
-              <h3>If you fail to comply with these requirements, the arrival of silviculture workers or planters at your work site will be delayed and/or denied / prohibited.</h3>
-              (source: BC Ministry of Health, Provincial Health Officer Order, PHO supplemental / Apr 13, date)
+              <h3>If you fail to comply with these requirements, the arrival of silviculture workers or planters at your work site will be delayed and/or denied / prohibited.</h3>(source: BC Ministry of Health, Provincial Health Officer Order, PHO supplemental / Apr 13, date)
             </v-col>
           </v-row>
         </v-container>
