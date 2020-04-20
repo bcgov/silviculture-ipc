@@ -31,19 +31,23 @@
         </v-stepper-content>
 
         <v-stepper-content step="2">
-          <v-card class="mb-12" color="grey lighten-1" height="200px"></v-card>
-
-          <v-btn color="primary" @click="step = 3">Continue</v-btn>
-
-          <v-btn text>Back</v-btn>
+          <Step2/>
         </v-stepper-content>
 
         <v-stepper-content step="3">
-          <v-card class="mb-12" color="grey lighten-1" height="200px"></v-card>
+          <Step3/>
+        </v-stepper-content>
 
-          <v-btn color="primary" @click="step = 1">Continue</v-btn>
+        <v-stepper-content step="4">
+          <Step4/>
+        </v-stepper-content>
 
-          <v-btn text>Back</v-btn>
+        <v-stepper-content step="5">
+          <Step5/>
+        </v-stepper-content>
+
+        <v-stepper-content step="6">
+          <Step6/>
         </v-stepper-content>
       </v-stepper-items>
     </v-stepper>
@@ -51,17 +55,31 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 import Step1 from '@/components/form/Step1.vue';
+import Step2 from '@/components/form/Step2.vue';
+import Step3 from '@/components/form/Step3.vue';
+import Step4 from '@/components/form/Step4.vue';
+import Step5 from '@/components/form/Step5.vue';
+import Step6 from '@/components/form/Step6.vue';
 
 export default {
   name: 'Form',
   components: {
-    Step1
+    Step1,
+    Step2,
+    Step3,
+    Step4,
+    Step5,
+    Step6
   },
   data () {
     return {
-      step: 1
     };
+  },
+  computed: {
+    ...mapGetters('form', ['step']),
   }
 };
 </script>

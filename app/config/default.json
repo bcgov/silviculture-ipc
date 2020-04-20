@@ -29,20 +29,6 @@
     "ches": {
       "apiEndpoint": "https://ches-master-9f0fbe-dev.pathfinder.gov.bc.ca/api",
       "tokenEndpoint": "https://sso-dev.pathfinder.gov.bc.ca/auth/realms/jbd6rnxw/protocol/openid-connect/token"
-    },
-    "keycloak": {
-      "dev": {
-        "endpoint": "https://sso-dev.pathfinder.gov.bc.ca",
-        "realm": "jbd6rnxw"
-      },
-      "test": {
-        "endpoint": "https://sso-test.pathfinder.gov.bc.ca",
-        "realm": "jbd6rnxw"
-      },
-      "prod": {
-        "endpoint": "https://sso.pathfinder.gov.bc.ca",
-        "realm": "jbd6rnxw"
-      }
     }
   }
 }

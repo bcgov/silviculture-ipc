@@ -1,32 +1,26 @@
 <template>
   <v-container>
-    <h2 class="pb-8">API Access for Common Services</h2>
-    <p>Your application has a service client with access to:</p>
-    <ul>
-      <li>Common Hosted Email Service</li>
-      <li>Common Document Generation Service</li>
-    </ul>
-    <h2 class="mt-8 pb-2">Service Client Status</h2>
-    <p>
-      * Available each service client in order:
-      <strong>DEV - TEST - PROD</strong>
-    </p>
+    <h2 class="pb-8">Apply for permission to protect workers during the COVID-19 pandemic</h2>
+    <h4>The Government of Canada and Province of British Columbia have initiated emergency measures to slow the spread of COVID-19. Silviculture and Planting operators must ensure a safe workplace for their workers and demonstrate proof of an Infection Prevention Control Plan.</h4>
 
-    <v-container>
-    </v-container>
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <v-btn color="primary" @click="incrementStep">Go to Step 2</v-btn>
   </v-container>
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
 
 export default {
   name: 'Step1',
   computed: {
   },
   methods: {
-    next() {
-      return true;
-    }
+    ...mapMutations('form', ['incrementStep']),
   }
 };
 </script>
