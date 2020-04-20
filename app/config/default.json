@@ -1,14 +1,14 @@
 {
   "db": {
-    "database": "getok",
+    "database": "silvipc",
     "host": "localhost"
   },
   "frontend": {
     "apiPath": "api/v1",
     "basePath" : "/app",
     "keycloak": {
-      "clientId": "getok-frontend",
-      "realm": "vehizw2t",
+      "clientId": "silvipc-frontend",
+      "realm": "cp1qly2d",
       "serverUrl": "https://sso-dev.pathfinder.gov.bc.ca/auth"
     }
   },
@@ -17,8 +17,8 @@
     "basePath" : "/app",
     "bodyLimit": "30mb",
     "keycloak": {
-      "clientId": "getok",
-      "realm": "vehizw2t",
+      "clientId": "silvipc",
+      "realm": "cp1qly2d",
       "serverUrl": "https://sso-dev.pathfinder.gov.bc.ca/auth"
     },
     "logLevel": "debug",
