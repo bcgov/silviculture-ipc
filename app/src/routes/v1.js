@@ -19,13 +19,8 @@ const getSpec = () => {
 router.get('/', (_req, res) => {
   res.status(200).json({
     endpoints: [
-      '/acronyms',
-      '/checks',
       '/docs',
-      '/email',
-      '/keycloak',
-      '/users',
-      '/webade'
+      '/email'
     ]
   });
 });

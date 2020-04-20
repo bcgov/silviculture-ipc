@@ -10,23 +10,9 @@
     "logLevel": "silent"
   },
   "serviceClient": {
-    "ches": {
+    "commonServices": {
       "username": "username",
       "password": "password"
-    },
-    "keycloak": {
-      "dev": {
-        "username": "username",
-        "password": "password"
-      },
-      "test": {
-        "username": "username",
-        "password": "password"
-      },
-      "prod": {
-        "username": "username",
-        "password": "password"
-      }
     }
   }
 }

@@ -14,10 +14,10 @@ const email = {
    * @param {string} idir The sender's IDIR
    */
   sendRequest: async (acronym, comments, from, idir) => {
-    const apiEndpoint = config.get('serviceClient.ches.apiEndpoint');
-    const tokenEndpoint = config.get('serviceClient.ches.tokenEndpoint');
-    const username = config.get('serviceClient.ches.username');
-    const password = config.get('serviceClient.ches.password');
+    const apiEndpoint = config.get('serviceClient.commonServices.ches.endpoint');
+    const tokenEndpoint = config.get('serviceClient.commonServices.tokenEndpoint');
+    const username = config.get('serviceClient.commonServices.username');
+    const password = config.get('serviceClient.commonServices.password');
     try {
       const token = await utils.getKeyCloakToken(username, password, tokenEndpoint);
       const response = await axios.post(apiEndpoint + '/v1/email', {
