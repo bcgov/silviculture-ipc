@@ -154,16 +154,16 @@ objects:
                     secretKeyRef:
                       key: password
                       name: silvipc-keycloak-secret
-                - name: SC_CHES_USERNAME
+                - name: SC_CS_USERNAME
                   valueFrom:
                     secretKeyRef:
                       key: username
-                      name: silvipc-sc-ches-secret
-                - name: SC_CHES_PASSWORD
+                      name: silvipc-sc-cs-secret
+                - name: SC_CS_PASSWORD
                   valueFrom:
                     secretKeyRef:
                       key: password
-                      name: silvipc-sc-ches-secret
+                      name: silvipc-sc-cs-secret
               envFrom:
                 - configMapRef:
                     name: silvipc-frontend-config

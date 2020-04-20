@@ -124,7 +124,7 @@ def runStageDeploy(String stageEnv, String projectEnv, String hostEnv, String pa
       openshift.selector('cm', "silvipc-sc-config").exists() &&
       openshift.selector('cm', "silvipc-server-config").exists() &&
       openshift.selector('secret', "silvipc-keycloak-secret").exists() &&
-      openshift.selector('secret', "silvipc-sc-ches-secret").exists())) {
+      openshift.selector('secret', "silvipc-sc-cs-secret").exists())) {
         echo 'Some ConfigMaps and/or Secrets are missing. Please consult the openshift readme for details.'
         throw new Exception('Missing ConfigMaps and/or Secrets')
       }
