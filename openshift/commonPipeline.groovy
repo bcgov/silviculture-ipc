@@ -120,11 +120,11 @@ def runStageDeploy(String stageEnv, String projectEnv, String hostEnv, String pa
       createDeploymentStatus(projectEnv, 'PENDING', JOB_NAME, hostEnv, pathEnv)
 
       echo "Checking for ConfigMaps and Secrets in project ${openshift.project()}..."
-      if(!(openshift.selector('cm', "getok-frontend-config").exists() &&
-      openshift.selector('cm', "getok-sc-config").exists() &&
-      openshift.selector('cm', "getok-server-config").exists() &&
-      openshift.selector('secret', "getok-keycloak-secret").exists() &&
-      openshift.selector('secret', "getok-sc-ches-secret").exists())) {
+      if(!(openshift.selector('cm', "silvipc-frontend-config").exists() &&
+      openshift.selector('cm', "silvipc-sc-config").exists() &&
+      openshift.selector('cm', "silvipc-server-config").exists() &&
+      openshift.selector('secret', "silvipc-keycloak-secret").exists() &&
+      openshift.selector('secret', "silvipc-sc-ches-secret").exists())) {
         echo 'Some ConfigMaps and/or Secrets are missing. Please consult the openshift readme for details.'
         throw new Exception('Missing ConfigMaps and/or Secrets')
       }
