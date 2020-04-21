@@ -24,14 +24,6 @@ const router = new VueRouter({
       }
     },
     {
-      path: '/submissions',
-      name: 'Submissions',
-      component: () => import(/* webpackChunkName: "submissions" */ '@/views/Submissions.vue'),
-      meta: {
-        requiresAuth: true
-      }
-    },
-    {
       path: '/404',
       alias: '*',
       name: 'NotFound',
