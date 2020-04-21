@@ -95,7 +95,7 @@
     </v-card>
 
     <div class="hide-on-review">
-      <hr />
+      <hr class="mt-5"/>
 
       <v-btn color="primary" @click="setStep(6)">Go to Step 6</v-btn>
       <v-btn text @click="setStep(4)">Back</v-btn>
