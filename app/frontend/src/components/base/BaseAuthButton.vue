@@ -25,7 +25,11 @@ export default {
   methods: {
     login() {
       if (this.keycloakReady) {
-        window.location.replace(this.createLoginUrl({ redirectUri: location.origin + '/#/admin' }));
+        window.location.replace(
+          this.createLoginUrl({
+            redirectUri: location.origin + location.pathname + '/#/admin'
+          })
+        );
       }
     },
     logout() {
