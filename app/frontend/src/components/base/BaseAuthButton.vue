@@ -25,7 +25,6 @@ export default {
   methods: {
     login() {
       if (this.keycloakReady) {
-        alert(JSON.stringify(this.$router));
         window.location.replace(this.createLoginUrl({ redirectUri: location.origin + '/#/admin' }));
       }
     },
