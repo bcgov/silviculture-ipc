@@ -40,14 +40,23 @@
             </v-btn>
           </h2>
           <Step5 />
-
         </v-col>
       </v-row>
     </v-card>
 
-    <v-checkbox label="I certify this information to be accurate"></v-checkbox>
+    <v-form v-model="step6Valid">
+      <v-checkbox
+        :rules="[v => !!v || 'You must certify to continue']"
+        v-model="certifyAccurateInformation"
+        label="I certify this information to be accurate"
+      ></v-checkbox>
 
-    <v-checkbox label="I am able to perform waste management for supporting a self-isolated worker"></v-checkbox>
+      <v-checkbox
+        :rules="[v => !!v || 'You must agree to continue']"
+        v-model="agreeToInspection"
+        label="I agree that my farm will be subject to a site inspection"
+      ></v-checkbox>
+    </v-form>
 
     <h3 class="mt-8 pb-2">Collection Notice</h3>
     <p>
@@ -59,13 +68,13 @@
       <br />Telephone: xxx-xxx-xxxx
     </p>
 
-    <v-btn color="primary" @click="submitForm">Submit</v-btn>
+    <v-btn color="primary" :disabled="!step6Valid" @click="submitForm">Submit</v-btn>
     <v-btn text @click="setStep(5)">Back</v-btn>
   </v-container>
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 import Step2 from '@/components/form/Step2.vue';
 import Step3 from '@/components/form/Step3.vue';
@@ -81,9 +90,18 @@ export default {
     Step5,
   },
   computed: {
+    ...mapGetters('form', ['ipcPlan']),
+    certifyAccurateInformation: {
+      get() { return this.ipcPlan.certifyAccurateInformation; },
+      set(value) { this.updateIpcPlan({['certifyAccurateInformation']: value}); }
+    },
+    agreeToInspection: {
+      get() { return this.ipcPlan.agreeToInspection; },
+      set(value) { this.updateIpcPlan({['agreeToInspection']: value}); }
+    },
   },
   methods: {
-    ...mapMutations('form', ['setStep']),
+    ...mapMutations('form', ['setStep', 'updateIpcPlan']),
     submitForm() {
       alert('TBD');
     }
