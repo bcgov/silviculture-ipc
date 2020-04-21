@@ -23,6 +23,9 @@ module.exports = (sequelize, DataTypes) => {
     Business.hasMany(models.Contact, {
       foreignKey: 'businessId'
     });
+    Business.hasOne(models.IPCPlan, {
+      foreignKey: 'businessId'
+    });
   };
   return Business;
 };

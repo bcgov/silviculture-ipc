@@ -1,28 +1,62 @@
-const log = require('npmlog');
-
 const constants = require('../components/constants');
 const db = require('../models');
 
-module.exports = {
-  /**
-   * @function dumpAll
-   * Returns the entire database contents as an array grouped by business objects
-   * @returns {object} An array of submissions
-   */
-  dumpAll() {
-    return db.sequelize.transaction(async t => {
-      const businessObjs = await db.Business.findAll({}, { transaction: t });
-      const contactObjs = await db.Contact.findAll({}, { transaction: t });
-      const ipcPlanObjs = await db.IPCPlan.findAll({}, { transaction: t });
+const transformBusiness = b => {
+  const biz = {...b.dataValues};
 
-      return businessObjs.map(b => {
-        return {
-          business: b,
-          contacts: contactObjs.filter(c => c.businessId === b.businessId),
-          ipcPlan: ipcPlanObjs.find(ipc => ipc.businessId === b.businessId)
-        };
-      });
+  const contacts = biz.Contacts.map(c => {
+    return {...c.dataValues};
+  });
+  delete biz.Contacts;
+
+  const ipcPlan = {...biz.IPCPlan.dataValues};
+  delete biz.IPCPlan;
+
+  return {
+    business: biz,
+    contacts: contacts,
+    ipcPlan: ipcPlan
+  };
+};
+
+module.exports = {
+
+  /**
+   * @function getBusiness
+   * @param {uuid} business id
+   * Get a fully inflated businesses
+   * @returns {object} An business if found, undefined otherwise
+   */
+  async getBusiness(id) {
+    const businessObj = await db.Business.findByPk(id,
+      {
+        include: [
+          {model: db.Contact},
+          {model: db.IPCPlan}]
+      }
+    );
+    return businessObj ? transformBusiness(businessObj) : undefined;
+  },
+
+  /**
+   * @function getBusinesses
+   * Returns all fully inflated businesses
+   * @returns {object} An array of businesses
+   */
+  async getBusinesses() {
+    const businessObjs = await db.Business.findAll(
+      {
+        include: [
+          {model: db.Contact},
+          {model: db.IPCPlan}
+        ]
+      }
+    );
+    const result = businessObjs.map(b => {
+      return transformBusiness(b);
     });
+
+    return result;
   },
 
   /**
@@ -31,34 +65,27 @@ module.exports = {
    * @param {object} business Business data
    * @param {object[]} contacts Array of contact data
    * @param {object} ipcPlan IPC Plan data
-   * @returns {object} Contains the primary key ids of the generated objects
+   * @returns {object} Business Data
    */
   async save(business, contacts, ipcPlan) {
-    const results = {};
+    let businessId;
     await db.sequelize.transaction(async t => {
-      const businessObj = await db.Business.create(business, { transaction: t });
-      results.businessId = businessObj.businessId;
+      const businessObj = await db.Business.create(business, {transaction: t});
+      businessId = businessObj.businessId;
 
-
-      const contactObjs = await db.Contact.bulkCreate(contacts.map(c => {
-        return { ...c, businessId: businessObj.businessId };
-      }), { transaction: t });
-      results.contactIds = contactObjs.map(c => c.dataValues.contactId);
+      await db.Contact.bulkCreate(contacts.map(c => {
+        return {...c, businessId: businessId};
+      }), {transaction: t});
 
       if (ipcPlan.sleepingAreaType === constants.SLEEPING_AREA_TYPE_SINGLE) {
         ipcPlan.sharedSleepingPerRoom = 0;
         ipcPlan.sharedSleepingDistancing = false;
       }
-      const ipcPlanObj = await db.IPCPlan.create(
-        { ...ipcPlan, businessId: businessObj.businessId },
-        { transaction: t });
-      results.ipcPlanId = ipcPlanObj.ipcPlanId;
+      await db.IPCPlan.create(
+        {...ipcPlan, businessId: businessId},
+        {transaction: t});
     });
 
-    log.verbose('dataService.save', `businessId: ${results.businessId}`);
-    log.verbose('dataService.save', `contactIds: ${results.contactIds}`);
-    log.verbose('dataService.save', `ipcPlanId: ${results.ipcPlanId}`);
-
-    return results;
+    return await this.getBusiness(businessId);
   }
 };
