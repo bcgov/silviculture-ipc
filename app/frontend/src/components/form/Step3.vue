@@ -42,17 +42,19 @@
 
     <p>Do you have shared sleeping areas or single beds?</p>
     <div class="pl-4">
-      <v-radio-group v-model="radios" :mandatory="true">
-        <v-radio label="Individual Beds or Single beds" value="radio-1"></v-radio>
-        <v-radio label="Shared sleeping areas" value="radio-2"></v-radio>
+      <v-radio-group v-model="sleepingAreaType" :mandatory="true">
+        <v-radio label="Individual Beds or Single beds" value="1"></v-radio>
+        <v-radio label="Shared sleeping areas" value="2"></v-radio>
       </v-radio-group>
 
-      <v-row no-gutters>
-        <v-col cols="4" lg="3">
-          <v-combobox :items="numbers" label="How many people are in a room?"></v-combobox>
-        </v-col>
-      </v-row>
-      <v-checkbox label="Beds in the right configuration with the right distance apart"></v-checkbox>
+      <div v-if="sleepingAreaType == 2">
+        <v-row no-gutters>
+          <v-col cols="4" lg="3">
+            <v-combobox :items="numbers" label="How many people are in a room?"></v-combobox>
+          </v-col>
+        </v-row>
+        <v-checkbox label="Beds in the right configuration with the right distance apart"></v-checkbox>
+      </div>
     </div>
 
     <h3 class="mt-4">Self-isolation space if a worker comes down with COVID-19-like symptoms</h3>
@@ -110,7 +112,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   name: 'Step3',
@@ -120,9 +122,14 @@ export default {
     };
   },
   computed: {
+    ...mapGetters('form', ['ipcPlan']),
+    sleepingAreaType: {
+      get() { return this.ipcPlan.sleepingAreaType; },
+      set(value) { this.updateIpcPlan({['sleepingAreaType']: value}); }
+    },
   },
   methods: {
-    ...mapMutations('form', ['setStep']),
+    ...mapMutations('form', ['setStep', 'updateIpcPlan']),
   }
 };
 </script>

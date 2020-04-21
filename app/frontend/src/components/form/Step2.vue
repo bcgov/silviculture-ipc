@@ -8,7 +8,14 @@
         <v-row>
           <v-col cols="12" lg="8">
             <h4 class="mb-1 silv-required">Registered Business Name</h4>
-            <v-text-field dense outlined flat solo :rules="businessNameRules" />
+            <v-text-field
+              dense
+              outlined
+              flat
+              solo
+              v-model="businessName"
+              :rules="businessNameRules"
+            />
           </v-col>
         </v-row>
 
@@ -16,32 +23,48 @@
         <v-row>
           <v-col cols="12" sm="6" lg="4">
             <label class="silv-required">First Name</label>
-            <v-text-field dense flat outlined solo :rules="firstNameRules" />
+            <v-text-field dense flat outlined solo v-model="firstName" :rules="firstNameRules" />
           </v-col>
           <v-col cols="12" sm="6" lg="4">
             <label class="silv-required">Last Name</label>
-            <v-text-field dense flat outlined solo :rules="lastNameRules" />
+            <v-text-field dense flat outlined solo v-model="lastName" :rules="lastNameRules" />
           </v-col>
         </v-row>
 
         <v-row>
           <v-col cols="12" sm="6" lg="4">
             <label class="silv-required">Phone Number</label>
-            <v-text-field dense flat outlined solo :rules="phone1Rules" prepend-inner-icon="phone" />
+            <v-text-field
+              dense
+              flat
+              outlined
+              solo
+              :rules="phone1Rules"
+              prepend-inner-icon="phone"
+              v-model="phone1"
+            />
           </v-col>
         </v-row>
 
         <v-row>
           <v-col cols="12" sm="6" lg="4">
             <label>Phone Number (Secondary Contact)</label>
-            <v-text-field dense flat outlined solo prepend-inner-icon="phone" />
+            <v-text-field dense flat outlined solo prepend-inner-icon="phone" v-model="phone2" />
           </v-col>
         </v-row>
 
         <v-row>
           <v-col cols="12" sm="6" lg="4">
             <label class="silv-required">e-mail Address (Primary Contact)</label>
-            <v-text-field dense flat outlined solo :rules="emailRules" prepend-inner-icon="email" />
+            <v-text-field
+              dense
+              flat
+              outlined
+              solo
+              :rules="emailRules"
+              prepend-inner-icon="email"
+              v-model="email"
+            />
           </v-col>
         </v-row>
       </v-form>
@@ -55,7 +78,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   name: 'Step2',
@@ -85,9 +108,34 @@ export default {
     };
   },
   computed: {
+    ...mapGetters('form', ['business', 'contacts']),
+    businessName: {
+      get() { return this.business.businessName; },
+      set(value) { this.updateBusiness({['businessName']: value}); }
+    },
+    firstName: {
+      get() { return this.contacts.firstName; },
+      set(value) { this.updateContacts({['firstName']: value}); }
+    },
+    lastName: {
+      get() { return this.contacts.lastName; },
+      set(value) { this.updateContacts({['lastName']: value}); }
+    },
+    phone1: {
+      get() { return this.contacts.phone1; },
+      set(value) { this.updateContacts({['phone1']: value}); }
+    },
+    phone2: {
+      get() { return this.contacts.phone2; },
+      set(value) { this.updateContacts({['phone2']: value}); }
+    },
+    email: {
+      get() { return this.contacts.email; },
+      set(value) { this.updateContacts({['email']: value}); }
+    },
   },
   methods: {
-    ...mapMutations('form', ['setStep']),
+    ...mapMutations('form', ['setStep', 'updateBusiness', 'updateContacts']),
   }
 };
 </script>
