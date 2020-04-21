@@ -26,7 +26,13 @@
     },
     "logLevel": "SERVER_LOGLEVEL",
     "morganFormat": "SERVER_MORGANFORMAT",
-    "port": "SERVER_PORT"
+    "port": "SERVER_PORT",
+    "rateLimit" : {
+      "ipc": {
+        "windowMs": "SERVER_RATELIMIT_IPC_WINDOWMS",
+        "max": "SERVER_RATELIMIT_IPC_MAX"
+      }
+    }
   },
   "serviceClient": {
     "commonServices": {

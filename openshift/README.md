@@ -39,7 +39,9 @@ oc create -n $NAMESPACE configmap silvipc-server-config \
   --from-literal=SERVER_KC_SERVERURL=https://sso-dev.pathfinder.gov.bc.ca/auth \
   --from-literal=SERVER_LOGLEVEL=info \
   --from-literal=SERVER_MORGANFORMAT=combined \
-  --from-literal=SERVER_PORT=8080
+  --from-literal=SERVER_PORT=8080 \
+  --from-literal=SERVER_RATELIMIT_IPC_WINDOWMS=600000 \
+  --from-literal=SERVER_RATELIMIT_IPC_MAX=10
 ```
 
 ### Secrets
