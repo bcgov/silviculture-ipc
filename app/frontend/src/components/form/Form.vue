@@ -33,7 +33,7 @@
 
       <v-container>
         <v-row no-gutters>
-          <v-col cols="12" xl="10" offset-xl="1">
+          <v-col cols="12" xl="8" offset-xl="2">
             <v-stepper-items>
               <v-stepper-content step="1">
                 <Step1 />
