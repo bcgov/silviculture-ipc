@@ -28,12 +28,12 @@
       <v-card-text>
         <v-container>
           <v-row no-gutters>
-            <v-col cols="1">
+            <v-col cols="12" sm="1">
               <h1>
                 <v-icon large>warning</v-icon>
               </h1>
             </v-col>
-            <v-col cols="11">
+            <v-col cols="12" sm="11">
               As COVID-19 recommendations are evolving daily, please keep up to date with
               <a
                 target="_blank"

@@ -30,9 +30,11 @@ export default {
       state.clientStatus = statusObj;
     },
     decrementStep: (state) => {
+      window.scrollTo(0,0);
       state.step--;
     },
     incrementStep: (state) => {
+      window.scrollTo(0,0);
       state.step++;
     }
   },
