@@ -16,6 +16,7 @@
     "sleepingAreaType": 2,
     "sharedSleepingPerRoom": 10,
     "sharedSleepingDistancing": true,
+
     "guidelinesRead": true,
     "assessmentCompleted": true,
     "developedPlan": true,
