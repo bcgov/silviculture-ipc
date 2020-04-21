@@ -1,7 +1,5 @@
 <template>
-  <v-container>
-    <Form />
-  </v-container>
+  <Form />
 </template>
 
 <script>

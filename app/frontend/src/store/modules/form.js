@@ -29,11 +29,9 @@ export default {
     setClientStatus: (state, statusObj) => {
       state.clientStatus = statusObj;
     },
-    decrementStep: (state) => {
-      state.step--;
-    },
-    incrementStep: (state) => {
-      state.step++;
+    setStep: (state, step) => {
+      window.scrollTo(0,0);
+      state.step = step;
     }
   },
   actions: {

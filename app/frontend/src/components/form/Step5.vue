@@ -28,12 +28,12 @@
       <v-card-text>
         <v-container>
           <v-row no-gutters>
-            <v-col cols="1">
+            <v-col cols="12" sm="1">
               <h1>
                 <v-icon large>warning</v-icon>
               </h1>
             </v-col>
-            <v-col cols="11">
+            <v-col cols="12" sm="11">
               As COVID-19 recommendations are evolving daily, please keep up to date with
               <a
                 target="_blank"
@@ -96,8 +96,8 @@
     <br />
     <br />
 
-    <v-btn color="primary" @click="incrementStep">Go to Step 6</v-btn>
-    <v-btn text @click="decrementStep">Back</v-btn>
+    <v-btn color="primary" @click="setStep(6)">Go to Step 6</v-btn>
+    <v-btn text @click="setStep(4)">Back</v-btn>
   </v-container>
 </template>
 
@@ -109,7 +109,7 @@ export default {
   computed: {
   },
   methods: {
-    ...mapMutations('form', ['decrementStep', 'incrementStep']),
+    ...mapMutations('form', ['setStep']),
   }
 };
 </script>

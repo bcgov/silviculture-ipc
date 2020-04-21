@@ -22,7 +22,7 @@
     </p>
 
     <v-btn color="primary" @click="submitForm">Submit</v-btn>
-    <v-btn text @click="decrementStep">Back</v-btn>
+    <v-btn text @click="setStep(5)">Back</v-btn>
   </v-container>
 </template>
 
@@ -34,7 +34,7 @@ export default {
   computed: {
   },
   methods: {
-    ...mapMutations('form', ['decrementStep']),
+    ...mapMutations('form', ['setStep']),
     submitForm() {
       alert('TBD');
     }

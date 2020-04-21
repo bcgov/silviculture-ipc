@@ -4,7 +4,7 @@
       <span>Logout</span>
     </v-btn>
     <v-btn v-else dark outlined @click="login">
-      <span>Login</span>
+      <span>Login (Staff IDIR)</span>
     </v-btn>
   </div>
 </template>
@@ -25,7 +25,7 @@ export default {
   methods: {
     login() {
       if (this.keycloakReady) {
-        window.location.replace(this.createLoginUrl());
+        window.location.replace(this.createLoginUrl({ redirectUri: location.origin + '/#/admin' }));
       }
     },
     logout() {

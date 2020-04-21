@@ -3,6 +3,13 @@
  * This globally extends the base Vuetify style
  */
 
+// Variables
+$bcgov-blue: #003366;
+$bcgov-blue-secondary: #38598a;
+$bcgov-orange: #fcba19;
+$bcgov-grey: #efefef;
+$bcgov-font: #494949;
+
 // Sticky Footer
 body {
   display: flex;
@@ -24,12 +31,12 @@ h3 { font-size: 1.444em; /* (25.92px) */ }
 h4 { font-size: 1.2em; /* (21.60px) */ }
 
 h1, h2, h3, h4, h5 {
-  color: #494949;
+  color: $bcgov-font;
   line-height: 1.2;
 }
 
 p {
-  color: #494949;
+  color: $bcgov-font;
   line-height: 1.6;
 }
 
@@ -38,7 +45,7 @@ hr {
   border-top: 1px solid lightgrey;
   margin-bottom: 1em;
   .orange {
-    border-top: 2px solid orange;
+    border-top: 2px solid $bcgov-orange;
   }
 }
 
@@ -84,19 +91,33 @@ a, .v-tab {
 }
 
 // Stepper
-.v-stepper--alt-labels {
-  .v-stepper__step {
-    .v-stepper__label {
-      font-size: .7em;
+.silv-stepper {
+  .header-row{
+    background-color: $bcgov-grey !important;
+  }
+  &.v-stepper--alt-labels {
+    .v-stepper__step {
+      padding-left: 0;
+      padding-right: 0;
+      .v-stepper__label {
+        color: $bcgov-font;
+        font-size: .75em;
+      }
+      &.v-stepper__step--active {
+        .v-stepper__label{
+          color: $bcgov-font;
+          font-weight: bold;
+        }
+      }
     }
   }
 }
 
 // Cards
 .silv-info-card {
-  background-color: lightgrey !important;
+  background-color: $bcgov-grey !important;
   .v-icon {
-    color: #003366 !important;
+    color: $bcgov-blue-secondary !important;
     margin-right: .5em;
   }
   ul {
@@ -105,7 +126,7 @@ a, .v-tab {
 }
 
 .silv-contact-card {
-  background-color: #003366 !important;
+  background-color: $bcgov-blue-secondary !important;
   h3 {
     color: white !important;
   }
@@ -116,7 +137,7 @@ a, .v-tab {
 }
 
 .silv-warning-card {
-  background-color: orange !important;
+  background-color: $bcgov-orange !important;
   .v-icon {
     color: black !important;
   }

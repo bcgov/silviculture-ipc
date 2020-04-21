@@ -12,12 +12,12 @@
     <hr class="orange" />
     <v-container>
       <v-row no-gutters>
-        <v-col cols="12" sm="1">
+        <v-col cols="12" sm="2" lg="1">
           <v-avatar color="#003366" size="62">
             <span class="white--text headline">1</span>
           </v-avatar>
         </v-col>
-        <v-col cols="12" sm="11">
+        <v-col cols="12" sm="10" lg="11">
           <p>
             Read
             <em>Protecting planters and silviculture workers during the COVID-19 pandemic.</em>
@@ -32,12 +32,12 @@
     <hr />
     <v-container>
       <v-row no-gutters>
-        <v-col cols="12" sm="1">
+        <v-col cols="12" sm="2" lg="1">
           <v-avatar color="#003366" size="62">
             <span class="white--text headline">2</span>
           </v-avatar>
         </v-col>
-        <v-col cols="12" sm="11">
+        <v-col cols="12" sm="10" lg="11">
           <p>Based on the guidance document, copmplete a silviculture camp risk assessment.</p>
           <p>Complete a COVID-19 risk assessment silviculture or planting operation. This is mandatory.</p>
 
@@ -67,12 +67,12 @@
     <hr />
     <v-container>
       <v-row no-gutters>
-        <v-col cols="12" sm="1">
+        <v-col cols="12" sm="2" lg="1">
           <v-avatar color="#003366" size="62">
             <span class="white--text headline">3</span>
           </v-avatar>
         </v-col>
-        <v-col cols="12" sm="11">
+        <v-col cols="12" sm="10" lg="11">
           <p>
             Infection Prevention and Control Plan. By following the guidance in
             <em>Guidelines for Silviculture Worker Camps during the COVID-19 pandemic</em>, you will be developing an Infection Prevention and Control (IPC) Plan.
@@ -129,7 +129,7 @@
 
     <hr />
 
-    <v-btn color="primary" @click="incrementStep">Go to Step 2</v-btn>
+    <v-btn color="primary" @click="setStep(2)">Go to Step 2</v-btn>
   </v-container>
 </template>
 
@@ -141,7 +141,7 @@ export default {
   computed: {
   },
   methods: {
-    ...mapMutations('form', ['incrementStep']),
+    ...mapMutations('form', ['setStep']),
   }
 };
 </script>
