@@ -4,6 +4,11 @@ const constants = require('../components/constants');
 const db = require('../models');
 
 module.exports = {
+  /**
+   * @function dumpAll
+   * Returns the entire database contents as an array grouped by business objects
+   * @returns {object} An array of submissions
+   */
   dumpAll() {
     return db.sequelize.transaction(async t => {
       const businessObjs = await db.Business.findAll({}, { transaction: t });
@@ -11,17 +16,23 @@ module.exports = {
       const ipcPlanObjs = await db.IPCPlan.findAll({}, { transaction: t });
 
       return businessObjs.map(b => {
-        const record = {
+        return {
           business: b,
           contacts: contactObjs.filter(c => c.businessId === b.businessId),
           ipcPlan: ipcPlanObjs.find(ipc => ipc.businessId === b.businessId)
         };
-
-        return record;
       });
     });
   },
 
+  /**
+   * @function save
+   * Writes the `business`, `contacts` and `ipcPlan` to database
+   * @param {object} business Business data
+   * @param {object[]} contacts Array of contact data
+   * @param {object} ipcPlan IPC Plan data
+   * @returns {object} Contains the primary key ids of the generated objects
+   */
   async save(business, contacts, ipcPlan) {
     const results = {};
     await db.sequelize.transaction(async t => {
@@ -44,9 +55,9 @@ module.exports = {
       results.ipcPlanId = ipcPlanObj.ipcPlanId;
     });
 
-    log.debug('dataService.save', `businessId: ${results.businessId}`);
-    log.debug('dataService.save', `contactIds: ${results.contactIds}`);
-    log.debug('dataService.save', `ipcPlanId: ${results.ipcPlanId}`);
+    log.verbose('dataService.save', `businessId: ${results.businessId}`);
+    log.verbose('dataService.save', `contactIds: ${results.contactIds}`);
+    log.verbose('dataService.save', `ipcPlanId: ${results.ipcPlanId}`);
 
     return results;
   }

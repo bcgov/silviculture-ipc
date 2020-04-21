@@ -4,6 +4,7 @@ const Problem = require('api-problem');
 const rateLimit = require('express-rate-limit');
 const router = require('express').Router();
 
+const keycloak = require('../../components/keycloak');
 const validation = require('../../middleware/validation');
 const dataService = require('../../services/dataService');
 
@@ -12,10 +13,20 @@ const ipcRateLimiter = rateLimit({
   max: config.get('server.rateLimit.ipc.max')
 });
 
+router.get('/', ipcRateLimiter, keycloak.protect(), async (_req, res) => {
+  try {
+    const result = await dataService.dumpAll();
+    return res.status(200).json(result);
+  } catch (error) {
+    log.error(error);
+    return new Problem(500, { detail: error.message }).send(res);
+  }
+});
+
 router.post('/', ipcRateLimiter, validation.validateIPC, async (req, res) => {
   try {
-    await dataService.save(req.body.business, req.body.contacts, req.body.ipcPlan);
-    return res.sendStatus(201);
+    const result = await dataService.save(req.body.business, req.body.contacts, req.body.ipcPlan);
+    return res.status(201).json(result);
   } catch (error) {
     log.error(error);
     return new Problem(500, { detail: error.message }).send(res);
