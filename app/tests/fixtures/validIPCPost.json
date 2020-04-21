@@ -1,0 +1,60 @@
+{
+  "business": {
+    "name": "TemporaryBusinessName"
+  },
+  "contacts": [
+    {
+      "primary": true,
+      "firstName": "First",
+      "lastName": "Last",
+      "phone1": "+1 555-555-5555",
+      "phone2": "+1 (555) 555-5556",
+      "email": "first@last.xyz"
+    }
+  ],
+  "ipcPlan": {
+    "sleepingAreaType": 2,
+    "sharedSleepingPerRoom": 10,
+    "sharedSleepingDistancing": true,
+    "guidelinesRead": true,
+    "assessmentCompleted": true,
+    "developedPlan": true,
+    "protectionSignage": true,
+    "workerContactPersonnel": true,
+    "mhoContacted": true,
+    "commonAreaDistancing": true,
+    "selfIsolateUnderstood": true,
+    "selfIsolateAccommodation": true,
+    "laundryServices": true,
+    "wasteManagementGloves": true,
+    "wasteManagementSchedule": true,
+    "wasteManagementBags": true,
+    "handWashingStations": true,
+    "handWashingSoapWater": true,
+    "handWashingWaterless": true,
+    "handWashingPaperTowels": true,
+    "handWashingSignage": true,
+    "distancingSleepingBarriers": true,
+    "distancingFaceShields": true,
+    "disinfectingSchedule": true,
+    "educationSignage": true,
+    "educationContactPersonnel": true,
+    "trainingCovid19": true,
+    "trainingEtiquette": true,
+    "trainingLocations": true,
+    "trainingFirstAid": true,
+    "trainingReporting": true,
+    "mealsDistancing": true,
+    "mealsDishware": true,
+    "mealsDishwashing": true,
+    "infectionSeparation": true,
+    "infectionSymptoms": true,
+    "infectionHeathLinkBC": true,
+    "infectionSanitization": true,
+    "infectedFeeding": true,
+    "infectedHousekeeping": true,
+    "infectedWaste": true,
+    "certifyAccurateInformation": true,
+    "agreeToInspection": true
+  }
+}
