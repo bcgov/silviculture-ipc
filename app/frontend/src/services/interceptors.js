@@ -2,12 +2,12 @@ import axios from 'axios';
 import Vue from 'vue';
 
 /**
- * @function getokAxios
+ * @function appAxios
  * Returns an Axios instance with auth header and preconfiguration
  * @param {integer} [timeout=10000] Number of milliseconds before timing out the request
  * @returns {object} An axios instance
  */
-export function getokAxios(timeout = 10000) {
+export function appAxios(timeout = 10000) {
   const axiosOptions = { timeout: timeout };
   if (Vue.prototype.$config) {
     const config = Vue.prototype.$config;

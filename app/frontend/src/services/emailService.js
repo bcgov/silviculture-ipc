@@ -1,4 +1,4 @@
-import { getokAxios } from '@/services/interceptors';
+import { appAxios } from '@/services/interceptors';
 import { ApiRoutes } from '@/utils/constants';
 
 export default {
@@ -9,6 +9,6 @@ export default {
    * @returns {Promise} An axios response
    */
   sendRegistrationEmail(content) {
-    return getokAxios().post(ApiRoutes.EMAIL, content);
+    return appAxios().post(ApiRoutes.EMAIL, content);
   }
 };

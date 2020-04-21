@@ -1,4 +1,4 @@
-import { getokAxios } from '@/services/interceptors';
+import { appAxios } from '@/services/interceptors';
 import { ApiRoutes } from '@/utils/constants';
 
 export default {
@@ -8,7 +8,7 @@ export default {
    * @returns {Promise} An axios response
    */
   getAllIPCData() {
-    return getokAxios().get(ApiRoutes.IPC);
+    return appAxios().get(ApiRoutes.IPC);
   },
 
   /**
@@ -18,6 +18,6 @@ export default {
    * @returns {Promise} An axios response
    */
   sendIPCContent(content) {
-    return getokAxios().post(ApiRoutes.IPC, content);
+    return appAxios().post(ApiRoutes.IPC, content);
   }
 };

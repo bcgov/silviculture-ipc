@@ -1,4 +1,4 @@
-import { getokAxios } from '@/services/interceptors';
+import { appAxios } from '@/services/interceptors';
 
 export default {
   /**
@@ -8,6 +8,6 @@ export default {
    * @returns {Promise} An axios response
    */
   getTestResponse(path) {
-    return getokAxios().get(path);
+    return appAxios().get(path);
   }
 };
