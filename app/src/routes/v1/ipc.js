@@ -1,13 +1,19 @@
+const config = require('config');
+const log = require('npmlog');
+const Problem = require('api-problem');
+const rateLimit = require('express-rate-limit');
 const router = require('express').Router();
 
 const Constants = require('../../components/constants');
-const log = require('npmlog');
-const Problem = require('api-problem');
 const validation = require('../../middleware/validation');
-
 const db = require('../../models');
 
-router.post('/', validation.validateIPC, async (req, res) => {
+const ipcRateLimiter = rateLimit({
+  windowMs: config.get('server.rateLimit.ipc.windowMs'),
+  max: config.get('server.rateLimit.ipc.max')
+});
+
+router.post('/', ipcRateLimiter, validation.validateIPC, async (req, res) => {
 
   try {
     const body = req.body;
