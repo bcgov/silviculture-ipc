@@ -13,9 +13,9 @@ const ipcRateLimiter = rateLimit({
   max: config.get('server.rateLimit.ipc.max')
 });
 
-router.get('/', ipcRateLimiter, keycloak.protect(), async (_req, res) => {
+router.get('/', keycloak.protect(), async (_req, res) => {
   try {
-    const result = await dataService.dumpAll();
+    const result = await dataService.getBusinesses();
     return res.status(200).json(result);
   } catch (error) {
     log.error(error);
