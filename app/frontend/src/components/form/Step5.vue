@@ -1,12 +1,15 @@
 <template>
   <v-container>
-    <h2 class="pb-8">If workers become ill at the farm</h2>
-    <hr class="orange" />
+    <div class="hide-on-review">
+      <h2 class="pb-8">If workers become ill at the farm</h2>
+      <hr class="orange" />
+    </div>
 
     <h3>Provide safe lodging and accommodation: Self-Isolation</h3>
+    Questions here TBD?? Not on word doc
 
     <h3 class="mb-1 mt-4">Plan to manage individuals with suspected COVID-19 Infection</h3>
-    <p>
+    <p class="hide-on-review">
       Silviculture/planting operators must have a plan and protocol to deal with workers demonstrating symptoms of COVID-19, including immediate self isolation of the worker and notifying the local health authority. If two or more workers become sick, you must notify the local
       <a
         target="_blank"
@@ -24,7 +27,7 @@
       label="I am prepared to clean and disinfect any rooms that the person has been in while symptomatic."
     ></v-checkbox>
 
-    <v-card outlined class="my-6 silv-warning-card">
+    <v-card outlined class="my-6 silv-warning-card hide-on-review">
       <v-card-text>
         <v-container>
           <v-row no-gutters>
@@ -47,7 +50,7 @@
 
     <h3 class="mb-1 mt-8">Providing Food for Ill Workers</h3>
     <v-checkbox label="I am able to provide food in a safe manner to a self-isolated worker"></v-checkbox>
-    <v-card outlined class="silv-info-card">
+    <v-card outlined class="silv-info-card hide-on-review">
       <v-card-title>
         <v-icon>play_circle_filled</v-icon>What does this mean?
       </v-card-title>
@@ -62,7 +65,7 @@
 
     <h3 class="mb-1 mt-8">Housekeeping for Ill Workers</h3>
     <v-checkbox label="I am able to perform adequate housekeeping for a self isolated worker"></v-checkbox>
-    <v-card outlined class="silv-info-card">
+    <v-card outlined class="silv-info-card hide-on-review">
       <v-card-title>
         <v-icon>play_circle_filled</v-icon>What does this mean?
       </v-card-title>
@@ -80,7 +83,7 @@
 
     <h3 class="mb-1 mt-8">Waste Management for Ill Workers</h3>
     <v-checkbox label="I am able to perform waste management for supporting a self-isolated worker"></v-checkbox>
-    <v-card outlined class="silv-info-card">
+    <v-card outlined class="silv-info-card hide-on-review">
       <v-card-title>
         <v-icon>play_circle_filled</v-icon>What does this mean?
       </v-card-title>
@@ -91,13 +94,12 @@
       </v-card-text>
     </v-card>
 
-    <br />
-    <br />
-    <br />
-    <br />
+    <div class="hide-on-review">
+      <hr />
 
-    <v-btn color="primary" @click="setStep(6)">Go to Step 6</v-btn>
-    <v-btn text @click="setStep(4)">Back</v-btn>
+      <v-btn color="primary" @click="setStep(6)">Go to Step 6</v-btn>
+      <v-btn text @click="setStep(4)">Back</v-btn>
+    </div>
   </v-container>
 </template>
 

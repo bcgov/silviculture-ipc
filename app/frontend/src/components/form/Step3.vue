@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <h2 class="pb-8">Before workers arrive at your farm</h2>
+    <h2 class="pb-8 hide-on-review">Before workers arrive at your farm</h2>
 
     <h3>Please certify:</h3>
 
@@ -14,7 +14,9 @@
 
     <h3 class="mb-1 mt-4">COVID-19 Information</h3>
 
-    <p>Silviculture/Planting operators need to make workers aware of the risks of COVID-19 and be prepared if workers have questions about COVID-19.</p>
+    <p
+      class="hide-on-review"
+    >Silviculture/Planting operators need to make workers aware of the risks of COVID-19 and be prepared if workers have questions about COVID-19.</p>
 
     <v-checkbox
       label="I have signage in place in the appropriate language on how employees can protect themselves from COVID-19 "
@@ -36,7 +38,9 @@
 
     <h3 class="mb-1 mt-4">Provide safe lodging and accommodation: General Worker</h3>
 
-    <p>Silviculture/Planting operators must be able to provide accommodations that minimize crowding, social interactions, and provide sufficient physical distance (individual tents or beds 2m apart and head-to-toe in shared accommodations).</p>
+    <p
+      class="hide-on-review"
+    >Silviculture/Planting operators must be able to provide accommodations that minimize crowding, social interactions, and provide sufficient physical distance (individual tents or beds 2m apart and head-to-toe in shared accommodations).</p>
 
     <v-checkbox label="Common areas allow physical distancing of 2m / 6ft at all times"></v-checkbox>
 
@@ -64,17 +68,23 @@
     ></v-checkbox>
 
     <h3 class="mb-1 mt-4">Make sure laundry services are available and handled safely</h3>
-    <p>Laundry must be performed properly to ensure the spread and transmission of COVID-19, including using hot water for laundry machines and having adequate supply of detergent.</p>
+    <p
+      class="hide-on-review"
+    >Laundry must be performed properly to ensure the spread and transmission of COVID-19, including using hot water for laundry machines and having adequate supply of detergent.</p>
     <v-checkbox label="I have laundry services available for regular use"></v-checkbox>
 
     <h3 class="mb-1 mt-4">Practicing waste management: At work-site and accommodation</h3>
-    <p>Proper collection and removal of garbage is crucial to reducing the risk of disease transmission. This includes wearing disposable gloves to remove waste from rooms and common areas and using sturdy, leak resistant garbage bags for containing waste.</p>
+    <p
+      class="hide-on-review"
+    >Proper collection and removal of garbage is crucial to reducing the risk of disease transmission. This includes wearing disposable gloves to remove waste from rooms and common areas and using sturdy, leak resistant garbage bags for containing waste.</p>
     <v-checkbox label="I have disposable gloves for the handling of garbage"></v-checkbox>
     <v-checkbox label="I have a waste removal schedule"></v-checkbox>
     <v-checkbox label="I have sturdy, leak resistant garbage bags"></v-checkbox>
 
     <h3 class="mb-1 mt-4">Have proper hand-washing facilities: At work-site and accommodation</h3>
-    <p>Helping workers to engage in hand hygiene prevents or reduces the spread of COVID-19 and other illnesses. Siliculture/Planting operators should ensure easy access to hand hygiene facilities either through hand hygiene stations or the provisions of hand sanitizer at the work site and at the accommodation site.</p>
+    <p
+      class="hide-on-review"
+    >Helping workers to engage in hand hygiene prevents or reduces the spread of COVID-19 and other illnesses. Siliculture/Planting operators should ensure easy access to hand hygiene facilities either through hand hygiene stations or the provisions of hand sanitizer at the work site and at the accommodation site.</p>
     <v-checkbox
       label="I have an adequate number of hand washing stations (either permanent or portable) available to workers"
     ></v-checkbox>
@@ -88,9 +98,11 @@
     <hr />
 
     <h3 class="mb-1 mt-4">Physical Distancing Practices</h3>
-    <p>Keeping a 2 meter distance between people is one of the most important ways to break the chain of transmission of COVID-19. Silviculture/planting operators can take practical steps to ensure physical distancing is maintained while workers are transported to or from the work site, while working indoors or outdoors, during break times.</p>
-    <p>Keeping a 2 meter distance between people is one of the most important ways to break the chain of transmission of COVID-19. Silviculture/planting operators can take practical steps to ensure physical distancing is maintained while workers are transported to or from the work site, while working indoors or outdoors, during break times.</p>
-    <p>Physical barriers such as the use of plexi-glass, face shields, masks, and other techniques can be used where physical distancing is not possible.</p>
+    <div class="hide-on-review">
+      <p>Keeping a 2 meter distance between people is one of the most important ways to break the chain of transmission of COVID-19. Silviculture/planting operators can take practical steps to ensure physical distancing is maintained while workers are transported to or from the work site, while working indoors or outdoors, during break times.</p>
+      <p>Keeping a 2 meter distance between people is one of the most important ways to break the chain of transmission of COVID-19. Silviculture/planting operators can take practical steps to ensure physical distancing is maintained while workers are transported to or from the work site, while working indoors or outdoors, during break times.</p>
+      <p>Physical barriers such as the use of plexi-glass, face shields, masks, and other techniques can be used where physical distancing is not possible.</p>
+    </div>
     <v-checkbox
       label="I have sleeping arrangements that maintains physical distancing or uses physical barriers"
     ></v-checkbox>
@@ -104,10 +116,12 @@
       label="I have a schedule to ensure common and high touch areas are cleaned or disinfected at the start and end of each day"
     ></v-checkbox>
 
-    <hr />
+    <div class="hide-on-review">
+      <hr />
 
-    <v-btn color="primary" @click="setStep(4)">Go to Step 4</v-btn>
-    <v-btn text @click="setStep(2)">Back</v-btn>
+      <v-btn color="primary" @click="setStep(4)">Go to Step 4</v-btn>
+      <v-btn text @click="setStep(2)">Back</v-btn>
+    </div>
   </v-container>
 </template>
 

@@ -1,7 +1,9 @@
 <template>
   <v-container>
-    <h2 class="pb-8">Provide your business contact information</h2>
-    <hr class="orange" />
+    <div class="hide-on-review">
+      <h2 class="pb-8">Provide your business contact information</h2>
+      <hr class="orange" />
+    </div>
 
     <v-container>
       <v-form v-model="step2Valid">
@@ -48,7 +50,10 @@
 
         <v-row>
           <v-col cols="12" sm="6" lg="4">
-            <label>Phone Number (Secondary Contact) <small>- optional</small></label>
+            <label>
+              Phone Number (Secondary Contact)
+              <small>- optional</small>
+            </label>
             <v-text-field dense flat outlined solo prepend-inner-icon="phone" v-model="phone2" />
           </v-col>
         </v-row>
@@ -70,10 +75,12 @@
       </v-form>
     </v-container>
 
-    <hr />
+    <div class="hide-on-review">
+      <hr />
 
-    <v-btn color="primary" :disabled="!step2Valid" @click="setStep(3)">Go to Step 3</v-btn>
-    <v-btn text @click="setStep(1)">Back</v-btn>
+      <v-btn color="primary" :disabled="!step2Valid" @click="setStep(3)">Go to Step 3</v-btn>
+      <v-btn text @click="setStep(1)">Back</v-btn>
+    </div>
   </v-container>
 </template>
 
@@ -110,8 +117,8 @@ export default {
   computed: {
     ...mapGetters('form', ['business', 'contacts']),
     businessName: {
-      get() { return this.business.businessName; },
-      set(value) { this.updateBusiness({['businessName']: value}); }
+      get() { return this.business.name; },
+      set(value) { this.updateBusiness({['name']: value}); }
     },
     firstName: {
       get() { return this.contacts.firstName; },
