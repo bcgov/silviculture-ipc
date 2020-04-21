@@ -5,9 +5,7 @@
       <hr class="orange" />
     </div>
 
-    <h3>Provide safe lodging and accommodation: Self-Isolation</h3>
-    Questions here TBD?? Not on word doc
-
+    <h3>Provide safe lodging and accommodation: Self-Isolation</h3>Questions here TBD?? Not on word doc
     <h3 class="mb-1 mt-4">Plan to manage individuals with suspected COVID-19 Infection</h3>
     <p class="hide-on-review">
       Silviculture/planting operators must have a plan and protocol to deal with workers demonstrating symptoms of COVID-19, including immediate self isolation of the worker and notifying the local health authority. If two or more workers become sick, you must notify the local
@@ -17,13 +15,19 @@
       >Medical Health Officer</a> of the outbreak.
     </p>
     <v-checkbox
+      :readonly="reviewMode"
       label="I am prepared to promptly separate the individual from others in their own accommodation"
     ></v-checkbox>
     <v-checkbox
+      :readonly="reviewMode"
       label="I am prepared to provide individuals exhibiting symptoms of COVID-19 with a surgical/procedural mask or tissues to cover their mouth and nose."
     ></v-checkbox>
-    <v-checkbox label="I am prepared to direct the person to call  HealthLinkBC (8-1-1)."></v-checkbox>
     <v-checkbox
+      :readonly="reviewMode"
+      label="I am prepared to direct the person to call  HealthLinkBC (8-1-1)."
+    ></v-checkbox>
+    <v-checkbox
+      :readonly="reviewMode"
       label="I am prepared to clean and disinfect any rooms that the person has been in while symptomatic."
     ></v-checkbox>
 
@@ -49,7 +53,10 @@
     </v-card>
 
     <h3 class="mb-1 mt-8">Providing Food for Ill Workers</h3>
-    <v-checkbox label="I am able to provide food in a safe manner to a self-isolated worker"></v-checkbox>
+    <v-checkbox
+      :readonly="reviewMode"
+      label="I am able to provide food in a safe manner to a self-isolated worker"
+    ></v-checkbox>
     <v-card outlined class="silv-info-card hide-on-review">
       <v-card-title>
         <v-icon>play_circle_filled</v-icon>What does this mean?
@@ -64,7 +71,10 @@
     </v-card>
 
     <h3 class="mb-1 mt-8">Housekeeping for Ill Workers</h3>
-    <v-checkbox label="I am able to perform adequate housekeeping for a self isolated worker"></v-checkbox>
+    <v-checkbox
+      :readonly="reviewMode"
+      label="I am able to perform adequate housekeeping for a self isolated worker"
+    ></v-checkbox>
     <v-card outlined class="silv-info-card hide-on-review">
       <v-card-title>
         <v-icon>play_circle_filled</v-icon>What does this mean?
@@ -82,7 +92,10 @@
     </v-card>
 
     <h3 class="mb-1 mt-8">Waste Management for Ill Workers</h3>
-    <v-checkbox label="I am able to perform waste management for supporting a self-isolated worker"></v-checkbox>
+    <v-checkbox
+      :readonly="reviewMode"
+      label="I am able to perform waste management for supporting a self-isolated worker"
+    ></v-checkbox>
     <v-card outlined class="silv-info-card hide-on-review">
       <v-card-title>
         <v-icon>play_circle_filled</v-icon>What does this mean?
@@ -95,7 +108,7 @@
     </v-card>
 
     <div class="hide-on-review">
-      <hr class="mt-5"/>
+      <hr class="mt-5" />
 
       <v-btn color="primary" @click="setStep(6)">Go to Step 6</v-btn>
       <v-btn text @click="setStep(4)">Back</v-btn>
@@ -108,6 +121,7 @@ import { mapMutations } from 'vuex';
 
 export default {
   name: 'Step5',
+  props: ['reviewMode'],
   computed: {
   },
   methods: {

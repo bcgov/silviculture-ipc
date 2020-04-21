@@ -12,7 +12,7 @@
               <v-icon>mdi-pencil</v-icon>
             </v-btn>
           </h2>
-          <Step2 />
+          <Step2 reviewMode="true"/>
           <hr />
 
           <h2>
@@ -21,7 +21,7 @@
               <v-icon>mdi-pencil</v-icon>
             </v-btn>
           </h2>
-          <Step3 />
+          <Step3 reviewMode="true"/>
           <hr />
 
           <h2>
@@ -30,7 +30,7 @@
               <v-icon>mdi-pencil</v-icon>
             </v-btn>
           </h2>
-          <Step4 />
+          <Step4 reviewMode="true" />
           <hr />
 
           <h2>
@@ -39,7 +39,7 @@
               <v-icon>mdi-pencil</v-icon>
             </v-btn>
           </h2>
-          <Step5 />
+          <Step5 reviewMode="true" />
         </v-col>
       </v-row>
     </v-card>
@@ -88,6 +88,11 @@ export default {
     Step3,
     Step4,
     Step5,
+  },
+  data() {
+    return {
+      step6Valid: false
+    };
   },
   computed: {
     ...mapGetters('form', ['ipcPlan']),

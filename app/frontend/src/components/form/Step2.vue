@@ -89,6 +89,7 @@ import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   name: 'Step2',
+  props: ['reviewMode'],
   data() {
     return {
       step2Valid: false,
