@@ -7,7 +7,7 @@
       <v-form v-model="step2Valid">
         <v-row>
           <v-col cols="12" lg="8">
-            <h4 class="mb-1 silv-required">Registered Business Name</h4>
+            <h4 class="mb-1">Registered Business Name</h4>
             <v-text-field
               dense
               outlined
@@ -22,18 +22,18 @@
         <h4>Primary Contact</h4>
         <v-row>
           <v-col cols="12" sm="6" lg="4">
-            <label class="silv-required">First Name</label>
+            <label>First Name</label>
             <v-text-field dense flat outlined solo v-model="firstName" :rules="firstNameRules" />
           </v-col>
           <v-col cols="12" sm="6" lg="4">
-            <label class="silv-required">Last Name</label>
+            <label>Last Name</label>
             <v-text-field dense flat outlined solo v-model="lastName" :rules="lastNameRules" />
           </v-col>
         </v-row>
 
         <v-row>
           <v-col cols="12" sm="6" lg="4">
-            <label class="silv-required">Phone Number</label>
+            <label>Phone Number</label>
             <v-text-field
               dense
               flat
@@ -48,14 +48,14 @@
 
         <v-row>
           <v-col cols="12" sm="6" lg="4">
-            <label>Phone Number (Secondary Contact)</label>
+            <label>Phone Number (Secondary Contact) <small>- optional</small></label>
             <v-text-field dense flat outlined solo prepend-inner-icon="phone" v-model="phone2" />
           </v-col>
         </v-row>
 
         <v-row>
           <v-col cols="12" sm="6" lg="4">
-            <label class="silv-required">e-mail Address (Primary Contact)</label>
+            <label>e-mail Address (Primary Contact)</label>
             <v-text-field
               dense
               flat
