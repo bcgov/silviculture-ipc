@@ -42,7 +42,10 @@ module.exports = {
             allowNull: false,
             comment: 'Associated Business id',
             type: Sequelize.UUID,
-            unique: false
+            references: {
+              model: 'business',
+              key: 'businessId'
+            }
           },
           createdAt: {
             allowNull: false,
@@ -104,7 +107,10 @@ module.exports = {
             allowNull: false,
             comment: 'Associated Business id',
             type: Sequelize.UUID,
-            unique: false
+            references: {
+              model: 'business',
+              key: 'businessId'
+            }
           },
           createdAt: {
             allowNull: false,
