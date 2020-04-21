@@ -4,7 +4,7 @@
       <span>Logout</span>
     </v-btn>
     <v-btn v-else dark outlined @click="login">
-      <span>Login</span>
+      <span>Login (Staff IDIR)</span>
     </v-btn>
   </div>
 </template>
