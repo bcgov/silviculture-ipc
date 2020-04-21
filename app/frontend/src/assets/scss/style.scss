@@ -22,13 +22,14 @@ body {
 // Typography
 .v-application {
   font-family: -apple-system, BlinkMacSystemFont, BCSans, Roboto, Verdana, Arial, sans-serif !important;
-  line-height: 1.5;
+  line-height: 1.4;
+  font-size: 0.875rem;
 }
 
-h1 { font-size: 2.074em; /* (37.32px) */ }
-h2 { font-size: 1.728em; /* (31.10px) */ }
-h3 { font-size: 1.444em; /* (25.92px) */ }
-h4 { font-size: 1.2em; /* (21.60px) */ }
+h1 { font-size: 1.9em;  }
+h2 { font-size: 1.7em;  }
+h3 { font-size: 1.3em;  }
+h4 { font-size: 1.05em;  }
 
 h1, h2, h3, h4, h5 {
   color: $bcgov-font;
@@ -37,7 +38,7 @@ h1, h2, h3, h4, h5 {
 
 p {
   color: $bcgov-font;
-  line-height: 1.6;
+  line-height: 1.4;
 }
 
 // Horizontal Rule
@@ -141,4 +142,10 @@ a, .v-tab {
   .v-icon {
     color: black !important;
   }
+}
+
+.silv-required::after {
+  content: "*";
+  color: rgb(216, 41, 47);
+  margin-left: .2em;
 }
