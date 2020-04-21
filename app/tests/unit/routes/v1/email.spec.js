@@ -16,7 +16,6 @@ describe(`POST ${basePath}`, () => {
 
   beforeEach(() => {
     body = {
-      applicationAcronym: 'TEST',
       comments: 'comment',
       from: 'email@example.com',
       idir: 'user@idir'
@@ -33,7 +32,7 @@ describe(`POST ${basePath}`, () => {
     expect(response.body).toBeTruthy();
     expect(response.body).toMatch('test');
     expect(sendRequestSpy).toHaveBeenCalledTimes(1);
-    expect(sendRequestSpy).toHaveBeenCalledWith(body.applicationAcronym, body.comments, body.from, body.idir);
+    expect(sendRequestSpy).toHaveBeenCalledWith(body.comments, body.from, body.idir);
   });
 
   it('should yield a validation failure', async () => {
@@ -47,8 +46,8 @@ describe(`POST ${basePath}`, () => {
     expect(response.body).toBeTruthy();
     expect(response.body.detail).toMatch('Validation failed');
     expect(response.body.errors).toHaveLength(1);
-    expect(response.body.errors[0].param).toMatch('from');
     expect(response.body.errors[0].value).toMatch(email);
+    expect(response.body.errors[0].message).toMatch('Invalid value for `from`.');
     expect(sendRequestSpy).toHaveBeenCalledTimes(0);
   });
 
@@ -64,6 +63,6 @@ describe(`POST ${basePath}`, () => {
     expect(response.body).toBeTruthy();
     expect(response.body.detail).toBe(errMsg);
     expect(sendRequestSpy).toHaveBeenCalledTimes(1);
-    expect(sendRequestSpy).toHaveBeenCalledWith(body.applicationAcronym, body.comments, body.from, body.idir);
+    expect(sendRequestSpy).toHaveBeenCalledWith(body.comments, body.from, body.idir);
   });
 });

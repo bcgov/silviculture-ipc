@@ -8,12 +8,11 @@ const email = {
   /**
    * @function sendRequest
    * Sends an email request through CHES
-   * @param {string} acronym The sender's requested application acronym
    * @param {string} comments The sender's unformatted comment text
    * @param {string} from The sender's registered email
    * @param {string} idir The sender's IDIR
    */
-  sendRequest: async (acronym, comments, from, idir) => {
+  sendRequest: async (comments, from, idir) => {
     const apiEndpoint = config.get('serviceClient.commonServices.ches.endpoint');
     const tokenEndpoint = config.get('serviceClient.commonServices.tokenEndpoint');
     const username = config.get('serviceClient.commonServices.username');
@@ -21,12 +20,12 @@ const email = {
     try {
       const token = await utils.getKeyCloakToken(username, password, tokenEndpoint);
       const response = await axios.post(apiEndpoint + '/v1/email', {
-        body: `<p>Request from GETOK for acronym creation/access</p> <p><strong>User comments:</strong><br/>${comments}`,
+        body: `<p>Message from Silviculture IPC</p> <p><strong>User comments:</strong><br/>${comments}`,
         bodyType: 'html',
         from: from,
         priority: 'high',
         to: ['NR.CommonServiceShowcase@gov.bc.ca'],
-        subject: `GETOK Registration for ${acronym} - ${idir}`
+        subject: `Silviculture IPC Message from ${idir}`
       }, {
         headers: { Authorization: `Bearer ${token.access_token}` }
       });

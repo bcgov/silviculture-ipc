@@ -13,6 +13,11 @@ const handleValidationErrors = (res, next, errors) => {
 };
 
 const validation = {
+  validateEmail: (req, res, next) => {
+    const errors = validators.email(req.body);
+    handleValidationErrors(res, next, errors);
+  },
+
   validateIPC: (req, res, next) => {
     const errors = validators.ipc(req.body);
     handleValidationErrors(res, next, errors);
