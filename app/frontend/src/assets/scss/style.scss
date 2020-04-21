@@ -97,8 +97,10 @@ a, .v-tab {
   }
   &.v-stepper--alt-labels {
     .v-stepper__step {
+      padding-left: 0;
+      padding-right: 0;
       .v-stepper__label {
-        color: $bcgov-blue;
+        color: $bcgov-font;
         font-size: .75em;
       }
       &.v-stepper__step--active {

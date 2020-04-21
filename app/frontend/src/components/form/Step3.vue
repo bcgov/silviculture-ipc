@@ -104,8 +104,8 @@
 
     <hr />
 
-    <v-btn color="primary" @click="incrementStep">Go to Step 4</v-btn>
-    <v-btn text @click="decrementStep">Back</v-btn>
+    <v-btn color="primary" @click="setStep(4)">Go to Step 4</v-btn>
+    <v-btn text @click="setStep(2)">Back</v-btn>
   </v-container>
 </template>
 
@@ -122,7 +122,7 @@ export default {
   computed: {
   },
   methods: {
-    ...mapMutations('form', ['decrementStep', 'incrementStep']),
+    ...mapMutations('form', ['setStep']),
   }
 };
 </script>

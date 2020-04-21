@@ -96,8 +96,8 @@
     <br />
     <br />
 
-    <v-btn color="primary" @click="incrementStep">Go to Step 6</v-btn>
-    <v-btn text @click="decrementStep">Back</v-btn>
+    <v-btn color="primary" @click="setStep(6)">Go to Step 6</v-btn>
+    <v-btn text @click="setStep(4)">Back</v-btn>
   </v-container>
 </template>
 
@@ -109,7 +109,7 @@ export default {
   computed: {
   },
   methods: {
-    ...mapMutations('form', ['decrementStep', 'incrementStep']),
+    ...mapMutations('form', ['setStep']),
   }
 };
 </script>
