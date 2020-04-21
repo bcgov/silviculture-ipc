@@ -142,3 +142,9 @@ a, .v-tab {
     color: black !important;
   }
 }
+
+.silv-required::after {
+  content: "*";
+  color: rgb(216, 41, 47);
+  margin-left: .2em;
+}

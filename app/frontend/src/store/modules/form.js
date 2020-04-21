@@ -1,14 +1,17 @@
 export default {
   namespaced: true,
   state: {
-    acronym: '',
-    appName: '',
-    appDescription: '',
-    clientStatus: {
-      dev: false,
-      test: false,
-      prod: false
+    business: {
+      name: ''
     },
+    contacts: [{
+      primary: true,
+      firstName: '',
+      lastName: '',
+      phone1: '',
+      phone2: '',
+      email: ''
+    }],
     step: 1
   },
   getters: {
@@ -30,7 +33,7 @@ export default {
       state.clientStatus = statusObj;
     },
     setStep: (state, step) => {
-      window.scrollTo(0,0);
+      window.scrollTo(0, 0);
       state.step = step;
     }
   },
