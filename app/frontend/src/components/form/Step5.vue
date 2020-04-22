@@ -15,18 +15,22 @@
       >Medical Health Officer</a> of the outbreak.
     </p>
     <v-checkbox
+      v-model="infectionSeparation"
       :readonly="reviewMode"
       label="I am prepared to promptly separate the individual from others in their own accommodation"
     ></v-checkbox>
     <v-checkbox
+      v-model="infectionSymptoms"
       :readonly="reviewMode"
       label="I am prepared to provide individuals exhibiting symptoms of COVID-19 with a surgical/procedural mask or tissues to cover their mouth and nose."
     ></v-checkbox>
     <v-checkbox
+      v-model="infectionHeathLinkBC"
       :readonly="reviewMode"
       label="I am prepared to direct the person to call  HealthLinkBC (8-1-1)."
     ></v-checkbox>
     <v-checkbox
+      v-model="infectionSanitization"
       :readonly="reviewMode"
       label="I am prepared to clean and disinfect any rooms that the person has been in while symptomatic."
     ></v-checkbox>
@@ -54,6 +58,7 @@
 
     <h3 class="mb-1 mt-8">Providing Food for Ill Workers</h3>
     <v-checkbox
+      v-model="infectedFeeding"
       :readonly="reviewMode"
       label="I am able to provide food in a safe manner to a self-isolated worker"
     ></v-checkbox>
@@ -72,6 +77,7 @@
 
     <h3 class="mb-1 mt-8">Housekeeping for Ill Workers</h3>
     <v-checkbox
+      v-model="infectedHousekeeping"
       :readonly="reviewMode"
       label="I am able to perform adequate housekeeping for a self isolated worker"
     ></v-checkbox>
@@ -93,6 +99,7 @@
 
     <h3 class="mb-1 mt-8">Waste Management for Ill Workers</h3>
     <v-checkbox
+      v-model="infectedWaste"
       :readonly="reviewMode"
       label="I am able to perform waste management for supporting a self-isolated worker"
     ></v-checkbox>
@@ -117,15 +124,55 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   name: 'Step5',
   props: ['reviewMode'],
   computed: {
+    ...mapGetters('form', ['ipcPlan']),
+
+    // Safe Lodging
+    //TBD??
+
+    // Infection
+    infectionSeparation: {
+      get() { return this.ipcPlan.infectionSeparation; },
+      set(value) { this.updateIpcPlan({['infectionSeparation']: value}); }
+    },
+    infectionSymptoms: {
+      get() { return this.ipcPlan.infectionSymptoms; },
+      set(value) { this.updateIpcPlan({['infectionSymptoms']: value}); }
+    },
+    infectionHeathLinkBC: {
+      get() { return this.ipcPlan.infectionHeathLinkBC; },
+      set(value) { this.updateIpcPlan({['infectionHeathLinkBC']: value}); }
+    },
+    infectionSanitization: {
+      get() { return this.ipcPlan.infectionSanitization; },
+      set(value) { this.updateIpcPlan({['infectionSanitization']: value}); }
+    },
+
+    // Food
+    infectedFeeding: {
+      get() { return this.ipcPlan.infectedFeeding; },
+      set(value) { this.updateIpcPlan({['infectedFeeding']: value}); }
+    },
+
+    // HouseKeeping
+    infectedHousekeeping: {
+      get() { return this.ipcPlan.infectedHousekeeping; },
+      set(value) { this.updateIpcPlan({['infectedHousekeeping']: value}); }
+    },
+
+    // Waste
+    infectedWaste: {
+      get() { return this.ipcPlan.infectedWaste; },
+      set(value) { this.updateIpcPlan({['infectedWaste']: value}); }
+    },
   },
   methods: {
-    ...mapMutations('form', ['setStep']),
+    ...mapMutations('form', ['setStep', 'updateIpcPlan']),
   }
 };
 </script>

@@ -117,10 +117,14 @@ export default {
   },
   computed: {
     ...mapGetters('form', ['business', 'contacts']),
+
+    // Business
     businessName: {
       get() { return this.business.name; },
       set(value) { this.updateBusiness({['name']: value}); }
     },
+
+    // Contact
     firstName: {
       get() { return this.contacts.firstName; },
       set(value) { this.updateContacts({['firstName']: value}); }
