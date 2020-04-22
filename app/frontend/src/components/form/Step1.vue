@@ -96,7 +96,7 @@
             </h1>
           </v-col>
           <v-col cols="12" sm="11">
-            <h3>If you need assistance completing these tasks, please contact the Ministry of Ministry name: Forests, Lands, Natural Resource Operations & Rural Development (toll free 1-888-xxx-xxxx) for help.</h3>
+            <h3>If you need assistance completing these tasks, please contact the Ministry of Forests, Lands, Natural Resource Operations & Rural Development (toll free 1-888-xxx-xxxx) for help.</h3>
           </v-col>
         </v-row>
       </v-card-text>
