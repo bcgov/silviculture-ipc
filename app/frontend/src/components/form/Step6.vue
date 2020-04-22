@@ -3,46 +3,49 @@
     <h2 class="pb-8">Please review your answers</h2>
     <hr class="orange" />
 
-    <v-card outlined class="review-form">
-      <v-row>
-        <v-col offset-lg="1" cols="12" lg="11">
-          <h2>
+    <v-row>
+      <v-col offset-lg="1" cols="12" lg="10">
+        <v-card outlined class="review-form">
+          <h2 class="review-heading">
             2. Business Contact Information
-            <v-btn color="primary" class="mx-5" fab small @click="setStep(2)">
+            <v-btn color="primary" class="mx-5" fab x-small @click="setStep(2)">
               <v-icon>mdi-pencil</v-icon>
             </v-btn>
           </h2>
-          <Step2 reviewMode="true"/>
-          <hr />
+          <Step2 reviewMode="true" />
+        </v-card>
 
-          <h2>
+        <v-card outlined class="review-form">
+          <h2 class="review-heading">
             3. Before workers arrive at your farm
-            <v-btn color="primary" class="mx-5" fab small @click="setStep(3)">
+            <v-btn color="primary" class="mx-5" fab x-small @click="setStep(3)">
               <v-icon>mdi-pencil</v-icon>
             </v-btn>
           </h2>
-          <Step3 reviewMode="true"/>
-          <hr />
+          <Step3 reviewMode="true" />
+        </v-card>
 
-          <h2>
+        <v-card outlined class="review-form">
+          <h2 class="review-heading">
             4. After workers arrive at the silviculture/planting camp
-            <v-btn color="primary" class="mx-5" fab small @click="setStep(4)">
+            <v-btn color="primary" class="mx-5" fab x-small @click="setStep(4)">
               <v-icon>mdi-pencil</v-icon>
             </v-btn>
           </h2>
           <Step4 reviewMode="true" />
-          <hr />
+        </v-card>
 
-          <h2>
+        <v-card outlined class="review-form">
+          <h2 class="review-heading">
             5. If workers become ill at the farm
-            <v-btn color="primary" class="mx-5" fab small @click="setStep(5)">
+            <v-btn color="primary" class="mx-5" fab x-small @click="setStep(5)">
               <v-icon>mdi-pencil</v-icon>
             </v-btn>
           </h2>
           <Step5 reviewMode="true" />
-        </v-col>
-      </v-row>
-    </v-card>
+        </v-card>
+      </v-col>
+    </v-row>
 
     <v-form v-model="step6Valid">
       <v-checkbox
@@ -58,7 +61,7 @@
       ></v-checkbox>
     </v-form>
 
-    <h3 class="mt-8 pb-2">Collection Notice</h3>
+    <h2 class="mt-8 pb-2">Collection Notice</h2>
     <p>
       Your personal information as well as those of your household is collected by the Ministry of Health under the authority of sections 26(a), (c), (e) and s.27(1)(a)(iii) of the Freedom of Information and Protection of Privacy Act, the Public Health Act and the federal Quarantine Act, for the purposes of reducing the spread of COVID-19. Personal information may be shared with personnel providing support services and follow-up during self-isolation.
       Should you have any questions or concerns about the collection of your personal information please contact:
@@ -121,9 +124,16 @@ export default {
 
 <style scoped lang="scss">
 .review-form {
+  font-size: smaller;
+  margin-bottom: 2em;
+  padding: 1em;
+  .review-heading {
+    margin-left: 0.5em;
+    margin-bottom: 1em;
+  }
   background-color: #efefef;
   &::v-deep .hide-on-review {
-    display: none !important;
+    display: none;
   }
 }
 </style>
