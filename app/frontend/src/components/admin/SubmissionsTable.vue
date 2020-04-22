@@ -63,7 +63,7 @@ export default {
       search: '',
       headers: [
         { text: '', value: 'data-table-expand' },
-        { text: 'IPC ID', align: 'start', value: 'id' },
+        { text: 'Confirmation ID', align: 'start', value: 'confId' },
         { text: 'Business Name', align: 'start', value: 'name' },
         { text: 'Created', value: 'created' },
       ],
@@ -81,8 +81,6 @@ export default {
     },
     // get table data from frontend service layer
     getData() {
-
-      // TODO: need frontend service layer
       ipcService
         .getAllIPCData()
         .then(response => {
@@ -93,7 +91,7 @@ export default {
             return {
               name: submission.business.name,
               created: this.formatDate(submission.business.createdAt),
-              id: submission.ipcPlan.ipcPlanId,
+              confId: submission.ipcPlan.ipcPlanId.split('-')[0].toUpperCase(),
               data: submission
             };
           });
