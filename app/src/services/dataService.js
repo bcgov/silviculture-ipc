@@ -49,6 +49,9 @@ module.exports = {
         include: [
           {model: db.Contact},
           {model: db.IPCPlan}
+        ],
+        order: [
+          ['createdAt', 'DESC']
         ]
       }
     );
