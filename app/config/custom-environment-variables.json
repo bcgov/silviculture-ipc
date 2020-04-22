@@ -12,6 +12,9 @@
       "clientId": "FRONTEND_KC_CLIENTID",
       "realm": "FRONTEND_KC_REALM",
       "serverUrl": "FRONTEND_KC_SERVERURL"
+    },
+    "orgbook": {
+      "endpoint": "ORGBOOK_API_ENDPOINT"
     }
   },
   "server": {
