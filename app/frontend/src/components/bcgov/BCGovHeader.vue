@@ -2,7 +2,7 @@
   <header class="gov-header">
     <v-toolbar color="#003366" flat>
       <!-- Navbar content -->
-      <a href="https://www2.gov.bc.ca">
+      <a class="hidden-xs-only" href="https://www2.gov.bc.ca">
         <v-img src="@/assets/images/17_gov3_bc_logo.svg" alt="B.C. Government Logo" />
       </a>
       <v-toolbar-title class="title">{{ appTitle }}</v-toolbar-title>
