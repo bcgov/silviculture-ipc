@@ -4,7 +4,7 @@ const transformService = {
 
   ipcResult: (business, contacts, ipcPlan) => {
     return {
-      confId: transformService.confirmationId(ipcPlan),
+      confirmationId: transformService.confirmationId(ipcPlan),
       business: business,
       contacts: contacts,
       ipcPlan: ipcPlan

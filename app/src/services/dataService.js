@@ -50,7 +50,10 @@ module.exports = {
         include: {
           model: db.Business,
           attributes: ['name']
-        }
+        },
+        order: [
+          ['createdAt', 'DESC']
+        ]
       }
     );
     return ipcObjs;
