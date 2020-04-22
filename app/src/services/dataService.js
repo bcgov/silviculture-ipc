@@ -1,62 +1,59 @@
 const constants = require('../components/constants');
 const db = require('../models');
 
-const transformBusiness = b => {
-  const biz = {...b.dataValues};
-
-  const contacts = biz.Contacts.map(c => {
-    return {...c.dataValues};
-  });
-  delete biz.Contacts;
-
-  const ipcPlan = {...biz.IPCPlan.dataValues};
-  delete biz.IPCPlan;
-
-  return {
-    business: biz,
-    contacts: contacts,
-    ipcPlan: ipcPlan
-  };
-};
-
 module.exports = {
 
   /**
-   * @function getBusiness
-   * @param {uuid} business id
-   * Get a fully inflated businesses
-   * @returns {object} An business if found, undefined otherwise
+   * @function getIPCPlan
+   * @param {uuid} ipcPlan id
+   * Get a IPC Plan and related business/contact info
+   * @returns {object} A plan if id found, undefined otherwise
    */
-  async getBusiness(id) {
-    const businessObj = await db.Business.findByPk(id,
+  async getIPCPlan(id) {
+    const ipcObj = await db.IPCPlan.findByPk(id,
       {
-        include: [
-          {model: db.Contact},
-          {model: db.IPCPlan}]
+        include: {
+          model: db.Business,
+          include: {model: db.Contact}
+        }
       }
     );
-    return businessObj ? transformBusiness(businessObj) : undefined;
+    return ipcObj;
   },
 
   /**
-   * @function getBusinesses
-   * Returns all fully inflated businesses
-   * @returns {object} An array of businesses
+   * @function getIPCPlans
+   * Get all IPC Plans and related business/contact info
+   * @returns {object} array of ICP Plans
    */
-  async getBusinesses() {
-    const businessObjs = await db.Business.findAll(
+  async getIPCPlans() {
+    const ipcObjs = await db.IPCPlan.findAll(
       {
-        include: [
-          {model: db.Contact},
-          {model: db.IPCPlan}
-        ]
+        include: {
+          model: db.Business,
+          include: {model: db.Contact}
+        }
       }
     );
-    const result = businessObjs.map(b => {
-      return transformBusiness(b);
-    });
+    return ipcObjs;
+  },
 
-    return result;
+  /**
+   * @function getIPCPlansMeta
+   * Get limited data for all IPCPlans
+   * @returns {object} array of ICP Plans metadata
+   */
+  async getIPCPlansMeta() {
+    const ipcObjs = await db.IPCPlan.findAll(
+      {
+        attributes:['ipcPlanId', 'createdAt'],
+        include: {
+          model: db.Business,
+          attributes: ['name']
+        }
+      }
+    );
+    return ipcObjs;
   },
 
   /**
@@ -65,7 +62,7 @@ module.exports = {
    * @param {object} business Business data
    * @param {object[]} contacts Array of contact data
    * @param {object} ipcPlan IPC Plan data
-   * @returns {object} Business Data
+   * @returns {object} IPC Plan
    */
   async save(business, contacts, ipcPlan) {
     let businessId;
@@ -86,6 +83,6 @@ module.exports = {
         {transaction: t});
     });
 
-    return await this.getBusiness(businessId);
+    return await this.getIPCPlan(businessId);
   }
 };
