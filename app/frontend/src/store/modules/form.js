@@ -5,6 +5,7 @@ export default {
   state: {
     submitting: false,
     step: 1,
+    submissionComplete: false,
     submissionDetails: null,
     submissionError: '',
 
@@ -70,6 +71,7 @@ export default {
   getters: {
     step: state => state.step,
     submitting: state => state.submitting,
+    submissionComplete: state => state.submissionComplete,
     submissionDetails: state => state.submissionDetails,
     submissionError: state => state.submissionError,
 
@@ -85,6 +87,10 @@ export default {
     setStep: (state, step) => {
       window.scrollTo(0, 0);
       state.step = step;
+    },
+    setSubmissionComplete(state) {
+      state.submissionComplete = true;
+      window.scrollTo(0, 0);
     },
     setSubmissionDetails(state, responseData) {
       state.submissionDetails = responseData;
@@ -111,15 +117,16 @@ export default {
       try {
         const body = {
           business: state.business,
-          contact: state.contact,
+          contacts: state.contacts,
           ipcPlan: state.ipcPlan
         };
-        await new Promise(r => setTimeout(r, 2000));
+        await new Promise(r => setTimeout(r, 1000));
         const response = await ipcService.sendIPCContent(body);
         if (!response.data) {
           throw new Error('No response data from API while submitting form');
         }
         commit('setSubmissionDetails', response.data);
+        commit('setSubmissionComplete');
       } catch (error) {
         console.error(`Error submitting form: ${error}`); // eslint-disable-line no-console
         commit('setSubmissionError', 'An error occurred while attempting to submit the form. Please try again, or contact ?????? if you have any questions');

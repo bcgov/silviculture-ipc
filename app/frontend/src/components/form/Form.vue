@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-stepper v-model="step" alt-labels class="silv-stepper elevation-0" @change="setStep">
-      <v-container fluid class="pa-0">
+      <v-container v-if="!submissionComplete" fluid class="pa-0">
         <v-row class="header-row" no-gutters>
           <v-col cols="12" xl="10" offset-xl="1">
             <v-stepper-header class="elevation-0">
@@ -116,7 +116,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('form', ['step']),
+    ...mapGetters('form', ['step', 'submissionComplete']),
   },
   methods: {
     ...mapMutations('form', ['setStep']),
