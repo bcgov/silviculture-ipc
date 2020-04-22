@@ -91,7 +91,7 @@ export default {
             return {
               name: submission.business.name,
               created: this.formatDate(submission.business.createdAt),
-              confirmationId: submission.ipcPlan.ipcPlanId.split('-')[0].toUpperCase(),
+              confirmationId: submission.confirmationId,
               data: submission
             };
           });

@@ -3,6 +3,7 @@ const request = require('supertest');
 const helper = require('../../../common/helper');
 
 const dataService = require('../../../../src/services/dataService');
+const transformService = require('../../../../src/services/transformService');
 const router = require('../../../../src/routes/v1/ipc');
 const validIPCPost = require('../../../fixtures/validIPCPost.json');
 
@@ -30,15 +31,18 @@ describe(`GET ${basePath}`, () => {
 
 describe(`POST ${basePath}`, () => {
   const saveSpy = jest.spyOn(dataService, 'save');
+  const xformSpy = jest.spyOn(transformService, 'transformIPCPlan');
   let body;
 
   beforeEach(() => {
     saveSpy.mockReset();
+    xformSpy.mockReset();
     body = JSON.parse(JSON.stringify(validIPCPost));
   });
 
   it('should yield a created response', async () => {
     saveSpy.mockResolvedValue({});
+    xformSpy.mockResolvedValue({});
     const response = await request(app).post(`${basePath}`).send(body);
 
     expect(response.statusCode).toBe(201);
