@@ -68,24 +68,24 @@ module.exports = {
    * @returns {object} IPC Plan
    */
   async save(business, contacts, ipcPlan) {
-    let businessId;
+    let ipcPlanId;
     await db.sequelize.transaction(async t => {
       const businessObj = await db.Business.create(business, {transaction: t});
-      businessId = businessObj.businessId;
 
       await db.Contact.bulkCreate(contacts.map(c => {
-        return {...c, businessId: businessId};
+        return {...c, businessId: businessObj.businessId};
       }), {transaction: t});
 
       if (ipcPlan.sleepingAreaType === constants.SLEEPING_AREA_TYPE_SINGLE) {
         ipcPlan.sharedSleepingPerRoom = 0;
         ipcPlan.sharedSleepingDistancing = false;
       }
-      await db.IPCPlan.create(
-        {...ipcPlan, businessId: businessId},
+      const ipcPlanObj = await db.IPCPlan.create(
+        {...ipcPlan, businessId: businessObj.businessId},
         {transaction: t});
+      ipcPlanId = ipcPlanObj.ipcPlanId;
     });
 
-    return await this.getIPCPlan(businessId);
+    return await this.getIPCPlan(ipcPlanId);
   }
 };
