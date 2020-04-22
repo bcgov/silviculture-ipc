@@ -132,8 +132,14 @@ export default {
     margin-bottom: 1em;
   }
   background-color: #efefef;
-  &::v-deep .hide-on-review {
-    display: none;
+  &::v-deep {
+    h3,
+    .v-input--checkbox {
+      margin-top: 0.2em !important;
+    }
+    .hide-on-review {
+      display: none;
+    }
   }
 }
 </style>

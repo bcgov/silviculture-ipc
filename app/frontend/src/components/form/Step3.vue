@@ -1,6 +1,7 @@
 <template>
   <v-container>
     <h2 class="pb-8 hide-on-review">Before workers arrive at your farm</h2>
+    <hr class="orange" />
 
     <h3>Please certify:</h3>
 
