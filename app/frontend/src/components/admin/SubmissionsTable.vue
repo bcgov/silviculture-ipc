@@ -63,9 +63,9 @@ export default {
       search: '',
       headers: [
         { text: '', value: 'data-table-expand' },
-        { text: 'Confirmation ID', align: 'start', value: 'confId' },
-        { text: 'Business Name', align: 'start', value: 'name' },
         { text: 'Created', value: 'created' },
+        { text: 'Business Name', align: 'start', value: 'name' },
+        { text: 'Confirmation ID', align: 'start', value: 'confirmationId' },
       ],
       submissions: [],
       loading: true,
@@ -91,7 +91,7 @@ export default {
             return {
               name: submission.business.name,
               created: this.formatDate(submission.business.createdAt),
-              confId: submission.ipcPlan.ipcPlanId.split('-')[0].toUpperCase(),
+              confirmationId: submission.ipcPlan.ipcPlanId.split('-')[0].toUpperCase(),
               data: submission
             };
           });
