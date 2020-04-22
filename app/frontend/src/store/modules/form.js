@@ -1,6 +1,15 @@
+import ipcService from '../../services/ipcService';
+
 export default {
   namespaced: true,
   state: {
+    submitting: false,
+    step: 1,
+    submissionComplete: false,
+    submissionDetails: null,
+    submissionError: '',
+
+    // Form schema
     business: {
       name: ''
     },
@@ -57,16 +66,40 @@ export default {
       infectedWaste: false,
       certifyAccurateInformation: false,
       agreeToInspection: false
-    },
-    step: 1
+    }
   },
   getters: {
+    step: state => state.step,
+    submitting: state => state.submitting,
+    submissionComplete: state => state.submissionComplete,
+    submissionDetails: state => state.submissionDetails,
+    submissionError: state => state.submissionError,
+
+    // Form objects
     contacts: state => state.contacts[0],
     business: state => state.business,
     ipcPlan: state => state.ipcPlan,
-    step: state => state.step
   },
   mutations: {
+    setSubmitting(state, isSubmitting) {
+      state.submitting = isSubmitting;
+    },
+    setStep: (state, step) => {
+      window.scrollTo(0, 0);
+      state.step = step;
+    },
+    setSubmissionComplete(state) {
+      state.submissionComplete = true;
+      window.scrollTo(0, 0);
+    },
+    setSubmissionDetails(state, responseData) {
+      state.submissionDetails = responseData;
+    },
+    setSubmissionError(state, errorMessage) {
+      state.submissionError = errorMessage;
+    },
+
+    // Form updates
     updateBusiness: (state, obj) => {
       Object.assign(state.business, obj);
     },
@@ -76,11 +109,29 @@ export default {
     updateIpcPlan: (state, obj) => {
       Object.assign(state.ipcPlan, obj);
     },
-    setStep: (state, step) => {
-      window.scrollTo(0, 0);
-      state.step = step;
-    }
   },
   actions: {
+    async submitForm({ commit, state }) {
+      commit('setSubmitting', true);
+      commit('setSubmissionError', '');
+      try {
+        const body = {
+          business: state.business,
+          contacts: state.contacts,
+          ipcPlan: state.ipcPlan
+        };
+        const response = await ipcService.sendIPCContent(body);
+        if (!response.data) {
+          throw new Error('No response data from API while submitting form');
+        }
+        commit('setSubmissionDetails', response.data);
+        commit('setSubmissionComplete');
+      } catch (error) {
+        console.error(`Error submitting form: ${error}`); // eslint-disable-line no-console
+        commit('setSubmissionError', 'An error occurred while attempting to submit the form. Please try again, or contact ?????? if you have any questions');
+      } finally {
+        commit('setSubmitting', false);
+      }
+    }
   }
 };

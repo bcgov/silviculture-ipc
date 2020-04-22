@@ -8,7 +8,7 @@
     <v-container>
       <v-form v-model="step2Valid">
         <v-row>
-          <v-col cols="12" lg="8">
+          <v-col cols="12" lg="10">
             <h4 class="mb-1">Registered Business Name</h4>
             <v-text-field
               dense
@@ -23,18 +23,18 @@
 
         <h4>Primary Contact</h4>
         <v-row>
-          <v-col cols="12" sm="6" lg="4">
+          <v-col cols="12" sm="6" lg="5">
             <label>First Name</label>
             <v-text-field dense flat outlined solo v-model="firstName" :rules="firstNameRules" />
           </v-col>
-          <v-col cols="12" sm="6" lg="4">
+          <v-col cols="12" sm="6" lg="5">
             <label>Last Name</label>
             <v-text-field dense flat outlined solo v-model="lastName" :rules="lastNameRules" />
           </v-col>
         </v-row>
 
         <v-row>
-          <v-col cols="12" sm="6" lg="4">
+          <v-col cols="12" sm="6" lg="5">
             <label>Phone Number</label>
             <v-text-field
               dense
@@ -49,7 +49,7 @@
         </v-row>
 
         <v-row>
-          <v-col cols="12" sm="6" lg="4">
+          <v-col cols="12" sm="6" lg="5">
             <label>
               Phone Number (Secondary Contact)
               <small>- optional</small>
@@ -59,7 +59,7 @@
         </v-row>
 
         <v-row>
-          <v-col cols="12" sm="6" lg="4">
+          <v-col cols="12" sm="6" lg="5">
             <label>e-mail Address (Primary Contact)</label>
             <v-text-field
               dense
@@ -117,10 +117,14 @@ export default {
   },
   computed: {
     ...mapGetters('form', ['business', 'contacts']),
+
+    // Business
     businessName: {
       get() { return this.business.name; },
       set(value) { this.updateBusiness({['name']: value}); }
     },
+
+    // Contact
     firstName: {
       get() { return this.contacts.firstName; },
       set(value) { this.updateContacts({['firstName']: value}); }
