@@ -56,14 +56,7 @@
               Phone Number (Secondary Contact)
               <small>- optional</small>
             </label>
-            <v-text-field
-              dense
-              flat
-              outlined
-              solo
-              prepend-inner-icon="phone"
-              v-model="phone2"
-            />
+            <v-text-field dense flat outlined solo prepend-inner-icon="phone" v-model="phone2" />
           </v-col>
         </v-row>
 
@@ -202,7 +195,9 @@ import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   name: 'Step2',
-  props: ['reviewMode'],
+  props: {
+    reviewMode: Boolean
+  },
   data() {
     return {
       step2Valid: false,
