@@ -1,18 +1,19 @@
-# Common Service Get Token
+# An Interface for Submitting IPC Form Data
 
 To learn more about the **Common Services** available visit the [Common Services Showcase](https://bcgov.github.io/common-service-showcase/) page.
 
-GETOK is a web-based tool for development teams to manage their application's secure access to Common Services. Users can create and deploy Keycloak or WebADE service client application configuration instantly to gain access to common service APIs like email notifications, document management, or document generation.
+The IPC Form application is a web-based tool for businesses to attest to having completed various safety precautions required for managing the threats and effects of the recent COVID-19 epedemic so that their workers can be kept safe.
 
 ## Frontend
 
-The frontend of the application is built on the [Vue.js](https://vuejs.org/) framework as a static UI layer. The web application calls to the GETOK API (see [app](../app)) for authentication and application funtionality.
+The frontend and of the application is built on the [Vue.js](https://vuejs.org/) framework as a static UI layer.
 
-The frontend of the application allows users to fill in the appropriate info required to create a service client, and then test token aquisition. The backend API handles communication with the authorization systems to create the application configuration. The backend API also creates the password required for the service client and securely returns it to the UI (see [Password Generation](https://github.com/bcgov/nr-get-token/wiki/Password-Generation) for these details).
+The frontend of the application allows users to complete a multi-page form, review their answers before submitting the data securely in return for a confirmation ID.
+There is also a keycloak protected (IDIR users) administrative interface to review and manage form submisions and perform functions such as exporting to excel, emailing as well as see metrics via Metabase
 
 ### Vue Archetecture
 
-The frontend was built up from scratch using the official [Vue CLI](https://cli.vuejs.org/) distribution. See the [Vue CLI docs](https://cli.vuejs.org/) for more information.
+The frontend was built using a boilerplate 'starter app' image developed by the Common Services team.
 
 #### Vuetify
 
@@ -34,8 +35,7 @@ Other imported libraries used in the application include:
 
 * [axios](https://www.npmjs.com/package/axios) for REST calls
 * [core-js](https://www.npmjs.com/package/core-js) standard JS library
-* [cryptico-js](https://www.npmjs.com/package/cryptico-js) for password decryption
-* [nprogress](https://www.npmjs.com/package/nprogress) AJAX progress bars
+* [validator](https://www.npmjs.com/package/validator) library of string validators and sanitizers
 
 See `./package.json` for more.
 

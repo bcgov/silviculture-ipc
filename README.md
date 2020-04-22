@@ -22,7 +22,6 @@ Silviculture and Planting Operator Infection Prevention and Control (SilvIPC)
 
 ## Documentation
 
-* [Overview](docs/overview.md)
 * [Application Readme](app/README.md)
 * [Frontend Readme](app/frontend/README.md)
 * [Openshift Readme](openshift/README.md)

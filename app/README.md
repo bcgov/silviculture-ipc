@@ -1,17 +1,17 @@
-# Common Service Get Token
+# Form Data Management
 
 To learn more about the **Common Services** available visit the [Common Services Showcase](https://bcgov.github.io/common-service-showcase/) page.
 
-GETOK is a web-based tool for development teams to manage their application's secure access to Common Services. Users can create and deploy Keycloak or WebADE service client application configuration instantly to gain access to common service APIs like email notifications, document management, or document generation.
+The IPC Form application is a web-based tool for businesses to attest to having completed various safety precautions required for managing the threats and effects of the recent COVID-19 epedemic so that their workers can be kept safe.
+
+The backend of the application consists
 
 ## Application
 
-This application is a node server which serves two roles. Anything under the HTTP `/app` path (or whatever is configured) will contain resources needed for the frontend to render on the browser, while anything under HTTP `/api` responds to keycloak authenticated requests. It uses the following dependencies from NPM:
+This application uses the following dependencies from NPM:
 
 Authentication & Password Management
 
-* `cryptico-js` - Asymmetric key encryption
-* `generate-password` - Password generator
 * `jsonwebtoken` - JWT parsing library
 * `keycloak-connect` - Keycloak authentication middleware
 
@@ -96,15 +96,7 @@ For more details, please consult the config library [documentation](https://gith
 The following variables are not re-implemented yet
 
 | Environment Variable | Description |
-| `SC_GETOKINT_ENDPOINT` | Base API endpoint for WebADE OAuth (INT env) |
-| `SC_GETOKINT_USERNAME` | Service client username (INT env) |
-| `SC_GETOKINT_PASSWORD` | Service client password (INT env) |
-| `SC_GETOKTEST_ENDPOINT` | Base API endpoint for WebADE OAuth (TEST env) |
-| `SC_GETOKTEST_USERNAME` | Service client username (TEST env) |
-| `SC_GETOKTEST_PASSWORD` | Service client password (TEST env) |
-| `SC_GETOKPROD_ENDPOINT` | Base API endpoint for WebADE OAuth (PROD env) |
-| `SC_GETOKPROD_USERNAME` | Service client username (PROD env) |
-| `SC_GETOKPROD_PASSWORD` | Service client password (PROD env) |
+
 | `CHES_TOKEN_ENDPOINT` | Keycloak token endpoint (YAMS Realm) for common service token fetching |
 | `CHES_EMAIL_ENDPOINT` | CHES endpoint for sending email |
 | `CHES_HEALTH_ENDPOINT` | CHES health check endpoint |
@@ -117,12 +109,12 @@ The backend requires a valid Postgres database to connect to in order to functio
 
 #### Database Initialization
 
-You will need to ensure that your Postgres database has an empty database initialized that the backend can utilize. We suggest naming the database `getok` to minimize naming impact on other potentially existing databases. There are many ways of ensuring that a viable user can access the postgres server depending on which type of operating system being used. Below is an example of what needs to be executed in SQL to achieve the equivalent of making a new user and database.
+You will need to ensure that your Postgres database has an empty database initialized that the backend can utilize. We suggest naming the database `silvipc` to minimize naming impact on other potentially existing databases. There are many ways of ensuring that a viable user can access the postgres server depending on which type of operating system being used. Below is an example of what needs to be executed in SQL to achieve the equivalent of making a new user and database.
 
 ``` sql
 CREATE USER username WITH ENCRYPTED PASSWORD 'password';
-CREATE DATABASE getok;
-GRANT ALL PRIVILEGES ON DATABASE getok TO username;
+CREATE DATABASE silvipc;
+GRANT ALL PRIVILEGES ON DATABASE silvipc TO username;
 ```
 
 #### Initial Migration
