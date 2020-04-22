@@ -1,27 +1,52 @@
 <template>
   <div>
     <v-stepper v-model="step" alt-labels class="silv-stepper elevation-0" @change="setStep">
-      <v-container fluid class="pa-0">
+      <v-container v-if="!submissionComplete" fluid class="pa-0">
         <v-row class="header-row" no-gutters>
           <v-col cols="12" xl="10" offset-xl="1">
             <v-stepper-header class="elevation-0">
-              <v-stepper-step :complete="step > 1" edit-icon="check" :editable="step > 1" step="1">Before You Begin</v-stepper-step>
+              <v-stepper-step
+                :complete="step > 1"
+                edit-icon="check"
+                :editable="step > 1"
+                step="1"
+              >Before You Begin</v-stepper-step>
 
               <v-divider></v-divider>
 
-              <v-stepper-step :complete="step > 2" edit-icon="check" :editable="step > 2" step="2">Contact Information</v-stepper-step>
+              <v-stepper-step
+                :complete="step > 2"
+                edit-icon="check"
+                :editable="step > 2"
+                step="2"
+              >Contact Information</v-stepper-step>
 
               <v-divider></v-divider>
 
-              <v-stepper-step :complete="step > 3" edit-icon="check" :editable="step > 3" step="3">Before Workers Arive</v-stepper-step>
+              <v-stepper-step
+                :complete="step > 3"
+                edit-icon="check"
+                :editable="step > 3"
+                step="3"
+              >Before Workers Arive</v-stepper-step>
 
               <v-divider></v-divider>
 
-              <v-stepper-step :complete="step > 4" edit-icon="check" :editable="step > 4" step="4">After Workers Arrive</v-stepper-step>
+              <v-stepper-step
+                :complete="step > 4"
+                edit-icon="check"
+                :editable="step > 4"
+                step="4"
+              >After Workers Arrive</v-stepper-step>
 
               <v-divider></v-divider>
 
-              <v-stepper-step :complete="step > 5" edit-icon="check" :editable="step > 5" step="5">If Workers Become Ill</v-stepper-step>
+              <v-stepper-step
+                :complete="step > 5"
+                edit-icon="check"
+                :editable="step > 5"
+                step="5"
+              >If Workers Become Ill</v-stepper-step>
 
               <v-divider></v-divider>
 
@@ -33,7 +58,7 @@
 
       <v-container>
         <v-row no-gutters>
-          <v-col cols="12" xl="10" offset-xl="1">
+          <v-col cols="12" xl="8" offset-xl="2">
             <v-stepper-items>
               <v-stepper-content step="1">
                 <Step1 />
@@ -91,7 +116,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('form', ['step']),
+    ...mapGetters('form', ['step', 'submissionComplete']),
   },
   methods: {
     ...mapMutations('form', ['setStep']),
