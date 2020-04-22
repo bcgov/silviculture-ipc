@@ -71,13 +71,33 @@
       <br />Telephone: xxx-xxx-xxxx
     </p>
 
-    <v-btn color="primary" :disabled="!step6Valid" @click="submitForm">Submit</v-btn>
+    <v-btn color="primary" :disabled="!step6Valid" @click="submit">Submit</v-btn>
     <v-btn text @click="setStep(5)">Back</v-btn>
+
+    <v-dialog v-model="submitting" hide-overlay persistent width="300">
+      <v-card color="primary" dark>
+        <v-card-text>
+          Submitting Form
+          <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="submissionError" persistent max-width="400">
+      <v-card>
+        <v-card-title class="headline"><v-icon color="red">error</v-icon> Error</v-card-title>
+        <v-card-text>{{ submissionError }}</v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="red" text @click="setSubmissionError('')">OK</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
 
 import Step2 from '@/components/form/Step2.vue';
 import Step3 from '@/components/form/Step3.vue';
@@ -98,7 +118,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('form', ['ipcPlan']),
+    ...mapGetters('form', ['ipcPlan', 'submissionError', 'submitting']),
     certifyAccurateInformation: {
       get() { return this.ipcPlan.certifyAccurateInformation; },
       set(value) { this.updateIpcPlan({['certifyAccurateInformation']: value}); }
@@ -109,9 +129,10 @@ export default {
     },
   },
   methods: {
-    ...mapMutations('form', ['setStep', 'updateIpcPlan']),
-    submitForm() {
-      alert('TBD');
+    ...mapMutations('form', ['setStep', 'setSubmissionError', 'updateIpcPlan']),
+    ...mapActions('form', ['submitForm']),
+    async submit() {
+      await this.submitForm();
     }
   },
   mounted() {

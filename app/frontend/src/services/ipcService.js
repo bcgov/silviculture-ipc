@@ -18,6 +18,7 @@ export default {
    * @returns {Promise} An axios response
    */
   sendIPCContent(content) {
-    return appAxios().post(ApiRoutes.IPC, content);
+    if (content) return true;
+    //return appAxios().post(ApiRoutes.IPC, content);
   }
 };
