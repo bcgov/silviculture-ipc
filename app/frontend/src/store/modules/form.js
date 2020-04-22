@@ -120,7 +120,6 @@ export default {
           contacts: state.contacts,
           ipcPlan: state.ipcPlan
         };
-        await new Promise(r => setTimeout(r, 1000));
         const response = await ipcService.sendIPCContent(body);
         if (!response.data) {
           throw new Error('No response data from API while submitting form');

@@ -9,7 +9,7 @@
         <em>confirmation id</em> in your records:
       </p>
       <h2 class="mb-10">
-        <blockquote>6A664F1B</blockquote>
+        <blockquote>{{ confirmationId }}</blockquote>
       </h2>
 
       <p>If you wish to keep a copy of your submission you can download a PDF here:</p>
@@ -20,7 +20,10 @@
 
       <p>
         To start again and submit another form you can refresh this page (or
-        <a href="#" @click="refresh">click here</a>)
+        <a
+          href="#"
+          @click="refresh"
+        >click here</a>)
       </p>
     </div>
     <div v-else>
@@ -82,19 +85,20 @@
       </v-col>
     </v-row>
 
-    <v-form v-model="step6Valid">
-      <v-checkbox
-        :rules="[v => !!v || 'You must certify to continue']"
-        v-model="certifyAccurateInformation"
-        label="I certify this information to be accurate"
-      ></v-checkbox>
-
-      <v-checkbox
-        :rules="[v => !!v || 'You must agree to continue']"
-        v-model="agreeToInspection"
-        label="I agree that my farm will be subject to a site inspection"
-      ></v-checkbox>
-    </v-form>
+    <div v-if="!submissionComplete">
+      <v-form v-model="step6Valid">
+        <v-checkbox
+          :rules="[v => !!v || 'You must certify to continue']"
+          v-model="certifyAccurateInformation"
+          label="I certify this information to be accurate"
+        ></v-checkbox>
+        <v-checkbox
+          :rules="[v => !!v || 'You must agree to continue']"
+          v-model="agreeToInspection"
+          label="I agree that my farm will be subject to a site inspection"
+        ></v-checkbox>
+      </v-form>
+    </div>
 
     <h2 class="mt-8 pb-2">Collection Notice</h2>
     <p>
@@ -106,8 +110,10 @@
       <br />Telephone: xxx-xxx-xxxx
     </p>
 
-    <v-btn color="primary" :disabled="!step6Valid" @click="submit">Submit</v-btn>
-    <v-btn text @click="setStep(5)">Back</v-btn>
+    <div v-if="!submissionComplete">
+      <v-btn color="primary" :disabled="!step6Valid" @click="submit">Submit</v-btn>
+      <v-btn text @click="setStep(5)">Back</v-btn>
+    </div>
 
     <v-dialog v-model="submitting" hide-overlay persistent width="300">
       <v-card color="#38598a" dark>
@@ -158,7 +164,15 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('form', ['ipcPlan', 'submissionComplete', 'submissionError', 'submitting']),
+    ...mapGetters('form', ['ipcPlan', 'submissionComplete', 'submissionDetails', 'submissionError', 'submitting']),
+    confirmationId() {
+      if(this.submissionDetails && this.submissionDetails.ipcPlan) {
+        return this.submissionDetails.ipcPlan.ipcPlanId.split('-')[0].toUpperCase();
+      } else {
+        return '';
+      }
+    },
+    // Certify checkboxes
     certifyAccurateInformation: {
       get() { return this.ipcPlan.certifyAccurateInformation; },
       set(value) { this.updateIpcPlan({['certifyAccurateInformation']: value}); }
