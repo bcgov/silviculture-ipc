@@ -16,7 +16,7 @@
     <v-container>
       <v-row no-gutters>
         <v-col cols="12" sm="2" lg="1" class="hide-on-review">
-          <v-avatar color="#003366" size="62">
+          <v-avatar color="#003366" size="50">
             <span class="white--text headline">1</span>
           </v-avatar>
         </v-col>
@@ -37,7 +37,7 @@
       <v-container>
         <v-row no-gutters>
           <v-col cols="12" sm="2" lg="1" class="hide-on-review">
-            <v-avatar color="#003366" size="62">
+            <v-avatar color="#003366" size="50">
               <span class="white--text headline">2</span>
             </v-avatar>
           </v-col>
@@ -72,7 +72,7 @@
       <v-container>
         <v-row no-gutters>
           <v-col cols="12" sm="2" lg="1" class="hide-on-review">
-            <v-avatar color="#003366" size="62">
+            <v-avatar color="#003366" size="50">
               <span class="white--text headline">3</span>
             </v-avatar>
           </v-col>

@@ -21,6 +21,8 @@
           </v-col>
         </v-row>
 
+        <hr />
+
         <h4>Primary Contact</h4>
         <v-row>
           <v-col cols="12" sm="6" lg="5">
@@ -54,7 +56,15 @@
               Phone Number (Secondary Contact)
               <small>- optional</small>
             </label>
-            <v-text-field dense flat outlined solo prepend-inner-icon="phone" v-model="phone2" />
+            <v-text-field
+              dense
+              flat
+              outlined
+              solo
+              :rules="phone2Rules"
+              prepend-inner-icon="phone"
+              v-model="phone2"
+            />
           </v-col>
         </v-row>
 
@@ -72,6 +82,44 @@
             />
           </v-col>
         </v-row>
+
+        <hr />
+
+        <h4>Business Address</h4>
+        <v-row>
+          <v-col cols="12" sm="6" lg="5">
+            <label>Address line 1</label>
+            <v-text-field dense flat outlined solo />
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col cols="12" sm="6" lg="5">
+            <label>Address line 2</label>
+            <v-text-field dense flat outlined solo />
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col cols="12" sm="6" lg="5">
+            <label>City</label>
+            <v-text-field dense flat outlined solo />
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col cols="12" sm="6" lg="5">
+            <label>Province</label>
+            <v-select :items="provinces" dense flat outlined solo />
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col cols="12" sm="3" lg="2">
+            <label>Postal Code</label>
+            <v-text-field dense flat outlined solo />
+          </v-col>
+        </v-row>
       </v-form>
     </v-container>
 
@@ -85,6 +133,7 @@
 </template>
 
 <script>
+import validator from 'validator';
 import { mapGetters, mapMutations } from 'vuex';
 
 export default {
@@ -93,6 +142,8 @@ export default {
   data() {
     return {
       step2Valid: false,
+      // Todo: constants file
+      provinces: ['AB','BC','MB','NB','NL','NS','NT','NU','ON','PE','QC','SK','YT'],
       businessNameRules: [
         v => !!v || 'Business name is required',
         v => (v && v.length <= 100) || 'Business name must be less than 100? characters',
@@ -106,11 +157,15 @@ export default {
         v => (v && v.length <= 100) || 'Last name must be less than 100? characters',
       ],
       phone1Rules: [
-        v => !!v || 'Phone number is required'
+        v => !!v || 'Phone number is required',
+        v => validator.isMobilePhone(v)  || 'invalid phone number format',
+      ],
+      phone2Rules: [
+        v => validator.isMobilePhone(v)  || 'invalid phone number format',
       ],
       emailRules: [
         v => !!v || 'e-mail is required',
-        v => /.+@.+\..+/.test(v) || 'e-mail must be valid',
+        v=> validator.isEmail(v, { allow_display_name: true }) || 'invalid e-mail format',
         v => (v && v.length <= 100) || 'e-mail must be less than 100? characters',
       ],
     };
