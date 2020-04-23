@@ -368,7 +368,7 @@ export default {
     },
     accMotelAddressLine2: {
       get() { return this.campLocations[this.index].motelAddress.addressLine2; },
-      set(value) { this.updateMotelAddress({index: this.index, obj: {['addressLine1']: value}}); }
+      set(value) { this.updateMotelAddress({index: this.index, obj: {['addressLine2']: value}}); }
     },
     accMotelCity: {
       get() { return this.campLocations[this.index].motelAddress.city; },
