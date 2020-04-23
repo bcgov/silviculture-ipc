@@ -25,21 +25,14 @@
         :search="search"
         :loading="loading"
         loading-text="Loading... Please wait"
-        item-key="id"
+        item-key="confirmationId"
         class="ipc-table"
-        :expanded.sync="expanded"
-        show-expand
       >
-        <!-- expanded row -->
-        <template v-slot:expanded-item="{ headers, item }">
-          <td :class="[responsiveCell]"></td>
-          <td :colspan="headers.length - 1" :class="[responsiveCell]">
-            <div class="ipc-expanded">
-              <!-- form data -->
-              <strong>Form Data:</strong>
-              <span><pre>{{ JSON.stringify(item.data, null, 2) }}</pre></span>
-            </div>
-          </td>
+        <!-- view individual form submission -->
+        <template v-slot:item.ipcPlanId="{ item }">
+          <router-link :to="{ name: 'Submission', params: { ipcPlanId: item.ipcPlanId } }">
+            <v-icon>remove_red_eye</v-icon>
+          </router-link>
         </template>
       </v-data-table>
     </v-container>
@@ -62,10 +55,10 @@ export default {
       // vuetify data table
       search: '',
       headers: [
-        { text: '', value: 'data-table-expand' },
-        { text: 'Created', value: 'created' },
+        { text: 'Submitted', value: 'created' },
         { text: 'Business Name', align: 'start', value: 'name' },
         { text: 'Confirmation ID', align: 'start', value: 'confirmationId' },
+        { text: 'View', value: 'ipcPlanId'}
       ],
       submissions: [],
       loading: true,
@@ -82,29 +75,24 @@ export default {
     // get table data from frontend service layer
     getData() {
       ipcService
-        .getAllIPCData()
+        .getAllIPCMetaData()
         .then(response => {
           const data = response.data;
-
           const submissions = Object.keys(data).map(k => {
             let submission = data[k];
             return {
+              ipcPlanId: submission.ipcPlan.ipcPlanId,
               name: submission.business.name,
-              created: this.formatDate(submission.business.createdAt),
+              created: this.formatDate(submission.ipcPlan.createdAt),
               confirmationId: submission.confirmationId,
-              data: submission
             };
           });
-
-          // TODO: format data here for use in data table
           if (!submissions.length) {
-            // TODO: use a base alert component if one has been added to the project
             this.showTableAlert('info', 'No Submissions found');
           }
           this.submissions = submissions;
         })
         .catch(() => {
-          // TODO: use a base alert component if one has been added to the project
           this.showTableAlert('error', 'No response from server');
         });
     },
