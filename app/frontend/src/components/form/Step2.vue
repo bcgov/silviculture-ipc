@@ -10,13 +10,9 @@
         <v-row>
           <v-col cols="12" lg="10">
             <h4 class="mb-1">Registered Business Name</h4>
-            <v-text-field
-              dense
-              outlined
-              flat
-              solo
-              v-model="businessName"
-              :rules="businessNameRules"
+            <OrgBookSearch
+              :field-model="businessName"
+              :field-rules="businessNameRules"
             />
           </v-col>
         </v-row>
@@ -193,10 +189,15 @@
 import validator from 'validator';
 import { mapGetters, mapMutations } from 'vuex';
 
+import OrgBookSearch from '@/components/form/OrgBookSearch.vue';
+
 export default {
   name: 'Step2',
   props: {
     reviewMode: Boolean
+  },
+  components: {
+    OrgBookSearch
   },
   data() {
     return {

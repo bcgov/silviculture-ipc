@@ -70,6 +70,10 @@ async function loadConfig() {
     }
     await loadKeycloak(config);
     kcSuccess = true;
+
+    if (!config || !config.orgbook || !config.orgbook.endpoint) {
+      throw new Error('OrgBook API is misconfigured');
+    }
   } catch (err) {
     sessionStorage.removeItem(storageKey);
     throw new Error(`Failed to acquire configuration: ${err.message}`);
