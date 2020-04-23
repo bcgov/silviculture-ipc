@@ -1,5 +1,5 @@
 <template>
-  <v-autocomplete
+  <v-combobox
     dense
     outlined
     flat
@@ -10,13 +10,14 @@
     :loading="isLoading"
     :search-input.sync="search"
     v-on:change="change"
+    clearable
     hide-no-data
     hide-selected
     label="OrgBook Lookup"
     placeholder="Start typing to search the OrgBook database"
     prepend-icon="mdi-database-search"
-    append-icon=""
-  ></v-autocomplete>
+    append-icon
+  ></v-combobox>
 </template>
 
 <script>
@@ -58,7 +59,10 @@ export default {
   },
   methods: {
     change: function (value) {
-      this.$emit('update:field-model', value);
+      this.$emit('update:field-model',
+        // For this use, want to emit just the text
+        typeof value === 'object' && value !== null ? value.text : value
+      );
     },
   },
   watch: {
