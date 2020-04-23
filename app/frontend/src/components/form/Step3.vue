@@ -1,28 +1,11 @@
 <template>
   <v-container>
     <div class="hide-on-review">
-      <h2 class="pb-8">Before workers arrive at your farm</h2>
+      <h2 class="pb-8">Before you begin planting, please certify</h2>
       <hr class="orange" />
     </div>
 
-    <h3>Please certify:</h3>
-
-    <v-checkbox
-      v-model="guidelinesRead"
-      :readonly="reviewMode"
-      label="I have downloaded and read Guidelines for Silviculture Worker Camps during the COVID-19 pandemic"
-    ></v-checkbox>
-    <v-checkbox
-      v-model="assessmentCompleted"
-      :readonly="reviewMode"
-      label="I have completed a COVID-19 workplace risk assessment"
-    ></v-checkbox>
-    <v-checkbox
-      v-model="developedPlan"
-      :readonly="reviewMode"
-      label="I have developed and will follow the Infection Prevention and Control (IPC) plan for COVID-19 exposure control plan"
-    ></v-checkbox>
-
+   
     <h3 class="mb-1 mt-4">COVID-19 Information</h3>
 
     <p
@@ -46,12 +29,12 @@
           <a
             target="_blank"
             href="https://www2.gov.bc.ca/gov/content/health/about-bc-s-health-care-system/office-of-the-provincial-health-officer/medical-health-officers"
-          >Medical Health Officer</a> to alert them to the arrival of TFWs to the region
+          >Medical Health Officer</a> to alert them to the arrival of planters to the region
         </div>
       </template>
     </v-checkbox>
 
-    <h3 class="mb-1 mt-4">Provide safe lodging and accommodation: General Worker</h3>
+    <h3 class="mb-1 mt-4">Provide safe lodging and accommodation: General Worker [section 12 of <em>the guidance</em>]</h3>
 
     <p
       class="hide-on-review"
@@ -63,7 +46,7 @@
       label="Common areas allow physical distancing of 2m / 6ft at all times"
     ></v-checkbox>
 
-    <p>Do you have shared sleeping areas or single beds?</p>
+    <p>Do you have individual/single beds or shared sleeping areas?</p>
     <div class="pl-4">
       <v-radio-group :readonly="reviewMode" v-model="sleepingAreaType" :mandatory="true">
         <v-radio label="Individual Beds or Single beds" value="1"></v-radio>
@@ -84,7 +67,7 @@
         <v-checkbox
           v-model="sharedSleepingDistancing"
           :readonly="reviewMode"
-          label="Beds in the right configuration with the right distance apart"
+          label="Beds in the head-to-toe configuration with the 2m distance apart"
         ></v-checkbox>
       </div>
     </div>
@@ -104,7 +87,7 @@
     <h3 class="mb-1 mt-4">Make sure laundry services are available and handled safely</h3>
     <p
       class="hide-on-review"
-    >Laundry must be performed properly to ensure the spread and transmission of COVID-19, including using hot water for laundry machines and having adequate supply of detergent.</p>
+    >Laundry must be performed properly to reduce the risk of disease transmission of COVID-19, including using hot water for laundry machines and having adequate supply of detergent.</p>
     <v-checkbox
       v-model="laundryServices"
       :readonly="reviewMode"
@@ -134,7 +117,7 @@
     <h3 class="mb-1 mt-4">Have proper hand-washing facilities: At work-site and accommodation</h3>
     <p
       class="hide-on-review"
-    >Helping workers to engage in hand hygiene prevents or reduces the spread of COVID-19 and other illnesses. Siliculture/Planting operators should ensure easy access to hand hygiene facilities either through hand hygiene stations or the provisions of hand sanitizer at the work site and at the accommodation site.</p>
+    >Helping workers to engage in hand hygiene prevents or reduces the spread of COVID-19 and other illnesses. Silviculture/Planting operators should ensure easy access to hand hygiene facilities either through hand hygiene stations or the provisions of hand sanitizer at the work site and at the accommodation site.</p>
     <v-checkbox
       v-model="handWashingStations"
       :readonly="reviewMode"
@@ -165,7 +148,6 @@
 
     <h3 class="mb-1 mt-4">Physical Distancing Practices</h3>
     <div class="hide-on-review">
-      <p>Keeping a 2 meter distance between people is one of the most important ways to break the chain of transmission of COVID-19. Silviculture/planting operators can take practical steps to ensure physical distancing is maintained while workers are transported to or from the work site, while working indoors or outdoors, during break times.</p>
       <p>Keeping a 2 meter distance between people is one of the most important ways to break the chain of transmission of COVID-19. Silviculture/planting operators can take practical steps to ensure physical distancing is maintained while workers are transported to or from the work site, while working indoors or outdoors, during break times.</p>
       <p>Physical barriers such as the use of plexi-glass, face shields, masks, and other techniques can be used where physical distancing is not possible.</p>
     </div>
@@ -212,20 +194,6 @@ export default {
   },
   computed: {
     ...mapGetters('form', ['ipcPlan']),
-
-    // Certify
-    guidelinesRead: {
-      get() { return this.ipcPlan.guidelinesRead; },
-      set(value) { this.updateIpcPlan({['guidelinesRead']: value}); }
-    },
-    assessmentCompleted: {
-      get() { return this.ipcPlan.assessmentCompleted; },
-      set(value) { this.updateIpcPlan({['assessmentCompleted']: value}); }
-    },
-    developedPlan: {
-      get() { return this.ipcPlan.developedPlan; },
-      set(value) { this.updateIpcPlan({['developedPlan']: value}); }
-    },
 
     // COVID 19 info
     protectionSignage: {
