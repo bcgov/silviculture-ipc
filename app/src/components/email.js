@@ -1,5 +1,6 @@
 const axios = require('axios');
 const config = require('config');
+const fs = require('fs');
 const log = require('npmlog');
 
 const utils = require('./utils');
@@ -8,6 +9,8 @@ const apiEndpoint = config.get('serviceClient.commonServices.ches.endpoint');
 const tokenEndpoint = config.get('serviceClient.commonServices.tokenEndpoint');
 const username = config.get('serviceClient.commonServices.username');
 const password = config.get('serviceClient.commonServices.password');
+
+const emailBody = fs.readFileSync('src/assets/silvIPC_emailTemplate.html', 'utf8');
 
 const email = {
   /**
@@ -19,7 +22,7 @@ const email = {
     try {
       const token = await utils.getKeyCloakToken(username, password, tokenEndpoint);
       const response = await axios.post(apiEndpoint + '/v1/emailMerge', {
-        body: '<p>Message from Silviculture IPC</p><p>Business Name: {{ businessName }}</p><p>Confirmation ID: {{ confirmationId }}</p><p>Admin URL: {{ adminUrl }}</p>',
+        body: emailBody,
         bodyType: 'html',
         contexts: [
           {

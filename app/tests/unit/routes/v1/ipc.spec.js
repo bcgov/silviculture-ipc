@@ -46,12 +46,7 @@ describe(`POST ${basePath}`, () => {
   it('should yield a created response', async () => {
     saveSpy.mockResolvedValue({});
     sendReceiptSpy.mockResolvedValue({});
-    xformSpy.mockReturnValue({
-      business: {
-        name: 'name'
-      },
-      confirmationId: '00000000'
-    });
+    xformSpy.mockReturnValue({ confirmationId: '00000000' });
     const response = await request(app).post(`${basePath}`).send(body);
 
     expect(response.statusCode).toBe(201);
