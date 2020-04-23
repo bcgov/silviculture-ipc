@@ -1,0 +1,342 @@
+<template>
+  <v-container>
+    <BaseSecure admin>
+      <div class="elevation-5 pa-10 mx-auto ipc-wrapper">
+        <h2 class="mt-5">Silviculture Workplace Safety for COVID-19</h2>
+
+        <h4 class="mt-5">{{ ipcPlanData.business.name }}</h4>
+        <ul>
+          <li>Submitted:{{ new Date(ipcPlanData.ipcPlan.createdAt).toLocaleString() }}</li>
+          <li>
+            Confirmation ID:
+            {{ ipcPlanData.confirmationId }}
+          </li>
+        </ul>
+
+        <h4 class="mt-5">Contact Details</h4>
+
+        <ul class="mt-2">
+          <li>Name: {{ ipcPlanData.contacts[0].firstName + ' ' + ipcPlanData.contacts[0].lastName }}</li>
+          <li>Phone: {{ ipcPlanData.contacts[0].phone1 }}</li>
+          <li>Email: {{ ipcPlanData.contacts[0].email }}</li>
+        </ul>
+
+        <v-simple-table dense class="mt-2">
+          <template>
+            <tbody>
+              <tr>
+                <td>Downloaded and read Guidelines for Silviculture Worker Camps during the COVID-19 pandemic</td>
+                <td>{{ ipcPlanData.ipcPlan.guidelinesRead }}</td>
+              </tr>
+              <tr>
+                <td>Completed a COVID-19 workplace risk assessment</td>
+                <td>{{ ipcPlanData.ipcPlan.assessmentCompleted }}</td>
+              </tr>
+              <tr>
+                <td>Has Infection Prevention and Control (IPC) plan for COVID-19 exposure control</td>
+                <td>{{ ipcPlanData.ipcPlan.developedPlan }}</td>
+              </tr>
+            </tbody>
+          </template>
+        </v-simple-table>
+
+        <h4 class="mt-5 mb-2">COVID-19 Information</h4>
+        <v-simple-table dense>
+          <template>
+            <tbody>
+              <tr>
+                <td>Signage in place in the appropriate language on how employees can protect themselves from COVID-19</td>
+                <td>{{ ipcPlanData.ipcPlan.protectionSignage }}</td>
+              </tr>
+              <tr>
+                <td>Someone identified that workers can go to if they have questions on COVID-19</td>
+                <td>{{ ipcPlanData.ipcPlan.workerContactPersonnel }}</td>
+              </tr>
+              <tr>
+                <td>Medical Health Officer contacted</td>
+                <td>{{ ipcPlanData.ipcPlan.mhoContacted }}</td>
+              </tr>
+            </tbody>
+          </template>
+        </v-simple-table>
+
+        <h4 class="mt-5 mb-2">Provide safe lodging and accommodation: General Worker</h4>
+        <v-simple-table dense>
+          <template>
+            <tbody>
+              <tr>
+                <td>Common areas allow physical distancing of 2m / 6ft at all times</td>
+                <td>{{ ipcPlanData.ipcPlan.commonAreaDistancing }}</td>
+              </tr>
+              <tr>
+                <td>Shared sleeping area or single beds</td>
+                <td>{{ ipcPlanData.ipcPlan.sleepingAreaType }}</td>
+              </tr>
+              <tr>
+                <td>Number of people in a room</td>
+                <td>{{ ipcPlanData.ipcPlan.sharedSleepingPerRoom }}</td>
+              </tr>
+              <tr>
+                <td>Beds in the right configuration with the right distance apart</td>
+                <td>{{ ipcPlanData.ipcPlan.sharedSleepingDistancing }}</td>
+              </tr>
+              <tr>
+                <td>Understands what is needed for a person to self-isolate.</td>
+                <td>{{ ipcPlanData.ipcPlan.selfIsolateUnderstood }}</td>
+              </tr>
+              <tr>
+                <td>Worker can self-isolate</td>
+                <td>{{ ipcPlanData.ipcPlan.selfIsolateAccommodation }}</td>
+              </tr>
+              <tr>
+                <td>Laundry services available for regular use</td>
+                <td>{{ ipcPlanData.ipcPlan.laundryServices }}</td>
+              </tr>
+              <tr>
+                <td>Disposable gloves for the handling of garbage</td>
+                <td>{{ ipcPlanData.ipcPlan.wasteManagementGloves }}</td>
+              </tr>
+              <tr>
+                <td>Waste removal schedule</td>
+                <td>{{ ipcPlanData.ipcPlan.wasteManagementSchedule }}</td>
+              </tr>
+              <tr>
+                <td>wasteManagementGloves</td>
+                <td>{{ ipcPlanData.ipcPlan.wasteManagementGloves }}</td>
+              </tr>
+              <tr>
+                <td>Adequate number of hand washing stations (either permanent or portable) available to workers</td>
+                <td>{{ ipcPlanData.ipcPlan.handWashingStations }}</td>
+              </tr>
+              <tr>
+                <td>Appropriate supply of soap and water</td>
+                <td>{{ ipcPlanData.ipcPlan.handWashingSoapWater }}</td>
+              </tr>
+              <tr>
+                <td>Supplemented with waterless hand sanitizers with a min of 60% alcohol where appropriate</td>
+                <td>{{ ipcPlanData.ipcPlan.handWashingWaterless }}</td>
+              </tr>
+              <tr>
+                <td>Has provided disposable paper towels</td>
+                <td>{{ ipcPlanData.ipcPlan.handWashingPaperTowels }}</td>
+              </tr>
+              <tr>
+                <td>Has put up signs to promote regular hand washing</td>
+                <td>{{ ipcPlanData.ipcPlan.handWashingSignage }}</td>
+              </tr>
+            </tbody>
+          </template>
+        </v-simple-table>
+
+        <h4 class="mt-5 mb-2">Provide safe lodging and accommodation: General Worker</h4>
+        <v-simple-table dense>
+          <template>
+            <tbody>
+              <tr>
+                <td>Has sleeping arrangements that maintains physical distancing or uses physical barriers</td>
+                <td>{{ ipcPlanData.ipcPlan.distancingSleepingBarriers }}</td>
+              </tr>
+              <tr>
+                <td>Has physical barriers like face shields or masks for situations where physical distancing is not possible</td>
+                <td>{{ ipcPlanData.ipcPlan.distancingFaceShields }}</td>
+              </tr>
+              <tr>
+                <td>Has a schedule to ensure common and high touch areas are cleaned or disinfected at the start and end of each day</td>
+                <td>{{ ipcPlanData.ipcPlan.disinfectingSchedule }}</td>
+              </tr>
+            </tbody>
+          </template>
+        </v-simple-table>
+
+        <h4 class="mt-5 mb-2">Implement COVID-19 Employee Education</h4>
+        <v-simple-table dense>
+          <template>
+            <tbody>
+
+              <tr>
+                <td>Has signage in place in the appropriate language on how employees can protect themselves from COVID-19</td>
+                <td>{{ ipcPlanData.ipcPlan.educationSignage }}</td>
+              </tr>
+              <tr>
+                <td>Has someone identified that workers can go to if they have questions on COVID-19</td>
+                <td>{{ ipcPlanData.ipcPlan.educationContactPersonnel }}</td>
+              </tr>
+            </tbody>
+          </template>
+        </v-simple-table>
+
+        <h4 class="mt-5 mb-2">Train Workers on COVID-19 infection control</h4>
+        <v-simple-table dense>
+          <template>
+            <tbody>
+              <tr>
+                <td>Has materials ready on the risk of exposure of COVID-19 and the signs and symptoms of the disease</td>
+                <td>{{ ipcPlanData.ipcPlan.trainingCovid19 }}</td>
+              </tr>
+              <tr>
+                <td>Has materials ready on hand washing, physical distancing, and cough/sneeze etiquette</td>
+                <td>{{ ipcPlanData.ipcPlan.trainingEtiquette }}</td>
+              </tr>
+              <tr>
+                <td>Can provide locations of washing facilities, including dispensing stations for alcohol-based hand rubs</td>
+                <td>{{ ipcPlanData.ipcPlan.trainingLocations }}</td>
+              </tr>
+              <tr>
+                <td>Has materials ready on how to seek first aid</td>
+                <td>{{ ipcPlanData.ipcPlan.trainingFirstAid }}</td>
+              </tr>
+              <tr>
+                <td>Has materials ready on how to report an exposure to or symptoms of COVID-19</td>
+                <td>{{ ipcPlanData.ipcPlan.trainingReporting }}</td>
+              </tr>
+            </tbody>
+          </template>
+        </v-simple-table>
+
+        <h4 class="mt-5 mb-2">Meals Preparation: Practice safe food handling</h4>
+        <v-simple-table dense>
+          <template>
+            <tbody>
+              <tr>
+                <td>Has schedules in place for kitchen/eating areas to limit contact and maintain 2 metre physical distancing</td>
+                <td>{{ ipcPlanData.ipcPlan.mealsDistancing }}</td>
+              </tr>
+              <tr>
+                <td>Each employee has their own dishware, utensils and drinking cup</td>
+                <td>{{ ipcPlanData.ipcPlan.mealsDishware }}</td>
+              </tr>
+              <tr>
+                <td>Used dishware will be washed immediately</td>
+                <td>{{ ipcPlanData.ipcPlan.mealsDishwashing }}</td>
+              </tr>
+            </tbody>
+          </template>
+        </v-simple-table>
+
+        <h4 class="mt-5 mb-2">Plan to manage individuals with suspected COVID-19 Infection</h4>
+        <v-simple-table dense>
+          <template>
+            <tbody>
+              <tr>
+                <td>Is prepared to promptly separate the individual from others in their own accommodation</td>
+                <td>{{ ipcPlanData.ipcPlan.infectionSeparation }}</td>
+              </tr>
+              <tr>
+                <td>Is prepared to provide individuals exhibiting symptoms of COVID-19 with a surgical/procedural mask or tissues to cover their mouth and nose</td>
+                <td>{{ ipcPlanData.ipcPlan.infectionSymptoms }}</td>
+              </tr>
+              <tr>
+                <td>Is prepared to direct the person to call HealthLinkBC (8-1-1)</td>
+                <td>{{ ipcPlanData.ipcPlan.infectionHeathLinkBC }}</td>
+              </tr>
+              <tr>
+                <td>Is prepared to clean and disinfect any rooms that the person has been in while symptomatic</td>
+                <td>{{ ipcPlanData.ipcPlan.infectionSanitization }}</td>
+              </tr>
+            </tbody>
+          </template>
+        </v-simple-table>
+
+        <h4 class="mt-5 mb-2">Providing Food for Ill Workers</h4>
+        <v-simple-table dense>
+          <template>
+            <tbody>
+              <tr>
+                <td>Is able to provide food in a safe manner to a self-isolated worker</td>
+                <td>{{ ipcPlanData.ipcPlan.infectedFeeding }}</td>
+              </tr>
+              <tr>
+                <td>Is able to perform adequate housekeeping for a self isolated worker</td>
+                <td>{{ ipcPlanData.ipcPlan.infectedHousekeeping }}</td>
+              </tr>
+              <tr>
+                <td>Is able to perform waste management for supporting a self-isolated worker</td>
+                <td>{{ ipcPlanData.ipcPlan.infectedWaste }}</td>
+              </tr>
+            </tbody>
+          </template>
+        </v-simple-table>
+
+        <h4 class="mt-5 mb-2">Certification</h4>
+        <v-simple-table dense>
+          <template>
+            <tbody>
+
+              <tr>
+                <td>Certified this information to be accurate</td>
+                <td>{{ ipcPlanData.ipcPlan.certifyAccurateInformation }}</td>
+              </tr>
+
+              <tr>
+                <td>Agreed that farm will be subject to a site inspection</td>
+                <td>{{ ipcPlanData.ipcPlan.agreeToInspection }}</td>
+              </tr>
+            </tbody>
+          </template>
+        </v-simple-table>
+
+        <router-link :to="{ name: 'Admin'}">
+          <v-btn color="primary" class="mt-5">Back</v-btn>
+        </router-link>
+      </div>
+    </BaseSecure>
+  </v-container>
+</template>
+
+<script>
+import ipcService from '@/services/ipcService';
+
+export default {
+  name: 'Submission',
+  components: {
+  },
+  data() {
+    return {
+      ipcPlanId: '' ,
+      ipcPlanData: ''
+    };
+  },
+  methods: {
+    // get form data from frontend service layer
+    getData() {
+      ipcService
+        .getIPCContent(this.$route.params.ipcPlanId)
+        .then(response => {
+          const data = response.data;
+
+          // replace true answers with checkboxes
+          // i think i'm doing this the wrong way
+          // Object.keys(data.ipcPlan).map(field => {
+          //   if(data.ipcPlan[field] == true){
+          //     data.ipcPlan[field] = '<v-icon color="green">check</v-icon>';
+          //   }
+          // });
+
+          // add to component's data
+          this.ipcPlanData = data;
+        })
+        .catch(() => {
+          this.showTableAlert('error', 'No response from server');
+        });
+    },
+
+  },
+  mounted() {
+    this.getData();
+    // TODO: add data to the vuex store
+  }
+};
+</script>
+<style lang="scss" scoped>
+.ipc-wrapper {
+  ul,
+  ul li {
+    padding: 0;
+    list-style-type: none;
+  }
+
+  table tr > td {
+    padding-left: 0;
+  }
+}
+</style>

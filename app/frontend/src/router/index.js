@@ -24,6 +24,15 @@ const router = new VueRouter({
       }
     },
     {
+      path: '/submission/:ipcPlanId',
+      name: 'Submission',
+      component: () => import(/* webpackChunkName: "submission" */ '@/views/Submission.vue'),
+      meta: {
+        requiresAuth: true
+      },
+      props: true
+    },
+    {
       path: '/404',
       alias: '*',
       name: 'NotFound',
