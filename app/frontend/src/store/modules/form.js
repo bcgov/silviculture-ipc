@@ -1,5 +1,40 @@
 import ipcService from '../../services/ipcService';
 
+const campLocationDefault = {
+  startDate: '',
+  endDate: '',
+  addressLine1: '',
+  addressLine2: '',
+  city: '',
+  province: '',
+  postalCode: '',
+  accTents: false,
+  tentAddress: {
+    addressLine1: '',
+    addressLine2: '',
+    city: '',
+    province: '',
+    postalCode: '',
+  },
+  accMotel: false,
+  motelAddress: {
+    addressLine1: '',
+    addressLine2: '',
+    city: '',
+    province: '',
+    postalCode: '',
+  },
+  accWh: false,
+  whAddress: {
+    addressLine1: '',
+    addressLine2: '',
+    city: '',
+    province: '',
+    postalCode: '',
+
+  }
+};
+
 export default {
   namespaced: true,
   state: {
@@ -25,40 +60,14 @@ export default {
       phone2: '',
       email: ''
     }],
-    campLocations: [{
-      startDate: '',
-      endDate: '',
-      addressLine1: '',
-      addressLine2: '',
-      city: '',
-      province: '',
-      postalCode: '',
-      accTents: false,
-      tentAddress: {
-        addressLine1: '',
-        addressLine2: '',
-        city: '',
-        province: '',
-        postalCode: '',
-      },
-      accMotel: false,
-      motelAddress: {
-        addressLine1: '',
-        addressLine2: '',
-        city: '',
-        province: '',
-        postalCode: '',
-      },
-      accWh: false,
-      whAddress: {
-        addressLine1: '',
-        addressLine2: '',
-        city: '',
-        province: '',
-        postalCode: '',
-
-      }
-    }],
+    covidContact: {
+      firstName: '',
+      lastName: '',
+      phone1: '',
+      phone2: '',
+      email: ''
+    },
+    campLocations: [JSON.parse(JSON.stringify(campLocationDefault))],
     ipcPlan: {
       sleepingAreaType: 1,
       sharedSleepingPerRoom: 1,
@@ -116,6 +125,7 @@ export default {
     // Form objects
     business: state => state.business,
     contacts: state => state.contacts[0],
+    covidContact: state => state.covidContact,
     ipcPlan: state => state.ipcPlan,
     campLocations: state => state.campLocations,
   },
@@ -145,6 +155,9 @@ export default {
     updateContacts: (state, obj) => {
       Object.assign(state.contacts[0], obj);
     },
+    updateCovidContact: (state, obj) => {
+      Object.assign(state.covidContact, obj);
+    },
     updateIpcPlan: (state, obj) => {
       Object.assign(state.ipcPlan, obj);
     },
@@ -154,42 +167,10 @@ export default {
       if (num < state.campLocations.length) {
         state.campLocations = state.campLocations.slice(0, num);
       } else {
-        //TODO: shouldn'd have this object definition here AND above, figure out later
         state.campLocations =
-          [...state.campLocations, ...Array(Math.max(num - state.campLocations.length, 0)).fill({
-            startDate: '',
-            endDate: '',
-            addressLine1: '',
-            addressLine2: '',
-            city: '',
-            province: '',
-            postalCode: '',
-            accTents: false,
-            tentAddress: {
-              addressLine1: '',
-              addressLine2: '',
-              city: '',
-              province: '',
-              postalCode: '',
-            },
-            accMotel: false,
-            motelAddress: {
-              addressLine1: '',
-              addressLine2: '',
-              city: '',
-              province: '',
-              postalCode: '',
-            },
-            accWh: false,
-            whAddress: {
-              addressLine1: '',
-              addressLine2: '',
-              city: '',
-              province: '',
-              postalCode: '',
-
-            }
-          })];
+          [...state.campLocations, ...Array(Math.max(num - state.campLocations.length, 0)).fill(
+            JSON.parse(JSON.stringify(campLocationDefault))
+          )];
       }
     },
     updateCampLocations: (state, payload) => {
