@@ -94,7 +94,10 @@
               <v-text-field dense flat outlined solo />
             </v-col>
             <v-col cols="12" sm="6" lg="5">
-              <label>Address line 2</label>
+              <label>
+                Address line 2 -
+                <small>optional</small>
+              </label>
               <v-text-field dense flat outlined solo />
             </v-col>
           </v-row>
@@ -119,64 +122,80 @@
 
           <hr />
 
-          <h4>Temporary Foreign Worker facility address(es)</h4>
+          <h4>COVID-19 Coordinator</h4>
+          <span
+            class="red--text"
+          >Note: business requirements TBD. Will not save to submitted form yet</span>
+          <v-row>
+            <v-col cols="12" sm="6" lg="5">
+              <label>First Name</label>
+              <v-text-field dense flat outlined solo />
+            </v-col>
+            <v-col cols="12" sm="6" lg="5">
+              <label>Last Name</label>
+              <v-text-field dense flat outlined solo />
+            </v-col>
+          </v-row>
+
+          <v-row>
+            <v-col cols="12" sm="6" lg="5">
+              <label>Phone Number</label>
+              <v-text-field dense flat outlined solo prepend-inner-icon="phone" />
+            </v-col>
+          </v-row>
+
+          <v-row>
+            <v-col cols="12" sm="6" lg="5">
+              <label>
+                Phone Number (Secondary Contact)
+                <small>- optional</small>
+              </label>
+              <v-text-field dense flat outlined solo prepend-inner-icon="phone" />
+            </v-col>
+          </v-row>
+
+          <v-row>
+            <v-col cols="12" sm="6" lg="5">
+              <label>e-mail Address (Primary Contact)</label>
+              <v-text-field dense flat outlined solo prepend-inner-icon="email" />
+            </v-col>
+          </v-row>
+
+          <hr />
+
+          <div class="hide-on-review">
+            <h2 class="pb-8">Provide your planting camp locations</h2>
+            <hr class="orange" />
+          </div>
+          <h4>Planting Camp Sites During the Season</h4>
           <span
             class="red--text"
           >Note: pending business requirements TBD. Will not save to submitted form yet</span>
+          <br />
+          <br />
 
-          <v-checkbox v-model="tfwSameAddress" label="Same as business address"></v-checkbox>
+          <v-row no-gutters>
+            <v-col cols="12" lg="2">
+              <label>Total number of locations</label>
+              <v-select
+                class="pt-0 mt-0"
+                v-model="locationCount"
+                @change="numLocationsChanged"
+                :readonly="reviewMode"
+                :items="numbers"
+                dense
+                flat
+                outlined
+                solo
+              ></v-select>
+            </v-col>
+          </v-row>
 
-          <div v-if="!tfwSameAddress">
-            <v-card class="mb-5" v-for="(address, index) in tfwAddresses" :key="index">
-              <v-card-text>
-                <h4>Facility address {{ index + 1 }}</h4>
-
-                <v-row>
-                  <v-col cols="12" sm="6" lg="5">
-                    <label>Facility type</label>
-                    <v-select :items="facilityTypes" dense flat outlined solo />
-                  </v-col>
-                </v-row>
-
-                <v-row>
-                  <v-col cols="12" sm="6" lg="5">
-                    <label>Address line 1</label>
-                    <v-text-field dense flat outlined solo />
-                  </v-col>
-
-                  <v-col cols="12" sm="6" lg="5">
-                    <label>Address line 2</label>
-                    <v-text-field dense flat outlined solo />
-                  </v-col>
-                </v-row>
-
-                <v-row>
-                  <v-col cols="12" sm="6" lg="5">
-                    <label>City</label>
-                    <v-text-field dense flat outlined solo />
-                  </v-col>
-                  <v-col cols="12" sm="3" lg="2">
-                    <label>Province</label>
-                    <v-select :items="provinces" dense flat outlined solo />
-                  </v-col>
-                </v-row>
-
-                <v-row>
-                  <v-col cols="12" sm="3" lg="2">
-                    <label>Postal Code</label>
-                    <v-text-field dense flat outlined solo />
-                  </v-col>
-                </v-row>
-              </v-card-text>
-            </v-card>
-
-            <a class="buttonLink" href="#" @click.prevent="addTfwFacility()">
-              <strong>Add another facility</strong>
-              <v-btn color="primary" icon large>
-                <v-icon>add</v-icon>
-              </v-btn>
-            </a>
-          </div>
+          <v-card class="my-3" v-for="(loc, index) in campLocations" :key="index">
+            <v-card-text>
+              <CampLocation :index="index" :reviewMode="reviewMode" />
+            </v-card-text>
+          </v-card>
         </div>
       </v-form>
     </v-container>
@@ -195,6 +214,7 @@ import validator from 'validator';
 import { mapGetters, mapMutations } from 'vuex';
 
 import OrgBookSearch from '@/components/form/OrgBookSearch.vue';
+import CampLocation from '@/components/form/CampLocation.vue';
 
 export default {
   name: 'Step2',
@@ -202,18 +222,23 @@ export default {
     reviewMode: Boolean
   },
   components: {
-    OrgBookSearch
+    OrgBookSearch,
+    CampLocation
   },
   data() {
     return {
       step2Valid: false,
+      menu2: false,
+
+      dateFormatted: '',
 
       // temp: temp
       addressPOC: true,
+      locationCount: 1,
 
       // Todo: constants file
       provinces: ['AB','BC','MB','NB','NL','NS','NT','NU','ON','PE','QC','SK','YT'],
-      facilityTypes: ['Tent', 'Cabin', 'RV', 'etc etc'],
+      numbers: [1,2,3,4,5,6,7,8,9,10], //??
 
       businessNameRules: [
         v => !!v || 'Business name is required',
@@ -238,7 +263,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('form', ['business', 'contacts', 'ipcPlan', 'tfwAddresses']),
+    ...mapGetters('form', ['business', 'contacts', 'ipcPlan', 'campLocations']),
 
     // Business
     businessName: {
@@ -267,20 +292,15 @@ export default {
       get() { return this.contacts.email; },
       set(value) { this.updateContacts({['email']: value}); }
     },
-
-    // Temporary Foreign Worker facility
-    tfwSameAddress: {
-      get() { return this.ipcPlan.tfwSameAddress; },
-      set(value) { this.updateIpcPlan({['tfwSameAddress']: value}); }
-    },
   },
   methods: {
-    ...mapMutations('form', ['addTfWAddress', 'setStep', 'updateBusiness', 'updateContacts', 'updateIpcPlan']),
-    addTfwFacility() {
-      this.addTfWAddress();
-    },
+    ...mapMutations('form', ['setStep', 'updateBusiness', 'updateContacts', 'updateIpcPlan', 'setCampLocationNumber']),
+
     updateBusinessName: function (org) {
       this.businessName = org;
+    },
+    numLocationsChanged(e) {
+      this.setCampLocationNumber(e);
     }
   }
 };

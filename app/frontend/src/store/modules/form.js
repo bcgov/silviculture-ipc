@@ -25,18 +25,41 @@ export default {
       phone2: '',
       email: ''
     }],
-    tfwSameAddress: true,
-    tfwAddresses: [{
-      facilityType: '',
+    campLocations: [{
+      startDate: '',
+      endDate: '',
       addressLine1: '',
       addressLine2: '',
       city: '',
       province: '',
-      postalCode: ''
+      postalCode: '',
+      accTents: false,
+      tentAddress: {
+        addressLine1: '',
+        addressLine2: '',
+        city: '',
+        province: '',
+        postalCode: '',
+      },
+      accMotel: false,
+      motelAddress: {
+        addressLine1: '',
+        addressLine2: '',
+        city: '',
+        province: '',
+        postalCode: '',
+      },
+      accWh: false,
+      whAddress: {
+        addressLine1: '',
+        addressLine2: '',
+        city: '',
+        province: '',
+        postalCode: '',
+
+      }
     }],
     ipcPlan: {
-      tfwSameAddress: true,
-
       sleepingAreaType: 1,
       sharedSleepingPerRoom: 1,
       sharedSleepingDistancing: false,
@@ -94,7 +117,7 @@ export default {
     business: state => state.business,
     contacts: state => state.contacts[0],
     ipcPlan: state => state.ipcPlan,
-    tfwAddresses: state => state.tfwAddresses,
+    campLocations: state => state.campLocations,
   },
   mutations: {
     setSubmitting(state, isSubmitting) {
@@ -125,16 +148,62 @@ export default {
     updateIpcPlan: (state, obj) => {
       Object.assign(state.ipcPlan, obj);
     },
-    addTfWAddress: (state) => {
-      state.tfwAddresses.push({
-        facilityType: '',
-        addressLine1: '',
-        addressLine2: '',
-        city: '',
-        province: '',
-        postalCode: ''
-      });
+
+    // Camp locations
+    setCampLocationNumber: (state, num) => {
+      if (num < state.campLocations.length) {
+        state.campLocations = state.campLocations.slice(0, num);
+      } else {
+        //TODO: shouldn'd have this object definition here AND above, figure out later
+        state.campLocations =
+          [...state.campLocations, ...Array(Math.max(num - state.campLocations.length, 0)).fill({
+            startDate: '',
+            endDate: '',
+            addressLine1: '',
+            addressLine2: '',
+            city: '',
+            province: '',
+            postalCode: '',
+            accTents: false,
+            tentAddress: {
+              addressLine1: '',
+              addressLine2: '',
+              city: '',
+              province: '',
+              postalCode: '',
+            },
+            accMotel: false,
+            motelAddress: {
+              addressLine1: '',
+              addressLine2: '',
+              city: '',
+              province: '',
+              postalCode: '',
+            },
+            accWh: false,
+            whAddress: {
+              addressLine1: '',
+              addressLine2: '',
+              city: '',
+              province: '',
+              postalCode: '',
+
+            }
+          })];
+      }
     },
+    updateCampLocations: (state, payload) => {
+      Object.assign(state.campLocations[payload.index], payload.obj);
+    },
+    updateTentAddress: (state, payload) => {
+      Object.assign(state.campLocations[payload.index].tentAddress, payload.obj);
+    },
+    updateMotelAddress: (state, payload) => {
+      Object.assign(state.campLocations[payload.index].motelAddress, payload.obj);
+    },
+    updateWhAddress: (state, payload) => {
+      Object.assign(state.campLocations[payload.index].whAddress, payload.obj);
+    }
   },
   actions: {
     async submitForm({ commit, state }) {
