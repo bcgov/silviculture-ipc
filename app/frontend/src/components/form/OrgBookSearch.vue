@@ -4,12 +4,12 @@
     outlined
     flat
     solo
+    v-model="model"
     :rules="rules"
     :items="items"
     :loading="isLoading"
     :search-input.sync="search"
-    v-bind:value="value"
-    v-on:change="$emit('change', $event.target.value)"
+    v-on:change="change"
     hide-no-data
     hide-selected
     label="OrgBook Lookup"
@@ -25,7 +25,7 @@ import Vue from 'vue';
 export default {
   name: 'OrgBookSearch',
   props: {
-    value: String,
+    fieldModel: String,
     fieldRules: Array,
   },
   data() {
@@ -33,6 +33,7 @@ export default {
       isLoading: false,
       entries: [],
       search: null,
+      model: this.fieldModel,
       rules: this.fieldRules,
     };
   },
@@ -56,14 +57,14 @@ export default {
     },
   },
   methods: {
-    emitChange: function () {
-      this.$emit('field-model', this.fieldModel);
+    change: function (value) {
+      this.$emit('update:field-model', value);
     },
   },
   watch: {
     search(val) {
-      // Minimum search length is 3 characters
-      if (!val || val.length < 3) return;
+      // Minimum search length is 1 character
+      if (!val || val.length < 1) return;
 
       // A search has already been started
       if (this.isLoading) return;
