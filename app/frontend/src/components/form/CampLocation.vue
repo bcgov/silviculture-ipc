@@ -101,12 +101,26 @@
       <v-row>
         <v-col cols="12" sm="6" lg="5">
           <label>Address line 1</label>
-          <v-text-field v-model="accTentsAddressLine1" :readonly="reviewMode" dense flat outlined solo />
+          <v-text-field
+            v-model="accTentsAddressLine1"
+            :readonly="reviewMode"
+            dense
+            flat
+            outlined
+            solo
+          />
         </v-col>
 
         <v-col cols="12" sm="6" lg="5">
           <label>Address line 2</label>
-          <v-text-field v-model="accTentsAddressLine2" :readonly="reviewMode" dense flat outlined solo />
+          <v-text-field
+            v-model="accTentsAddressLine2"
+            :readonly="reviewMode"
+            dense
+            flat
+            outlined
+            solo
+          />
         </v-col>
       </v-row>
 
@@ -117,14 +131,29 @@
         </v-col>
         <v-col cols="12" sm="3" lg="2">
           <label>Province</label>
-          <v-select v-model="accTentsProvince" :items="provinces" :readonly="reviewMode" dense flat outlined solo />
+          <v-select
+            v-model="accTentsProvince"
+            :items="provinces"
+            :readonly="reviewMode"
+            dense
+            flat
+            outlined
+            solo
+          />
         </v-col>
       </v-row>
 
       <v-row>
         <v-col cols="12" sm="3" lg="2">
           <label>Postal Code</label>
-          <v-text-field v-model="accTentsPostalCode" :readonly="reviewMode" dense flat outlined solo />
+          <v-text-field
+            v-model="accTentsPostalCode"
+            :readonly="reviewMode"
+            dense
+            flat
+            outlined
+            solo
+          />
         </v-col>
       </v-row>
     </div>
@@ -134,13 +163,26 @@
       <v-row>
         <v-col cols="12" sm="6" lg="5">
           <label>Address line 1</label>
-          <v-text-field v-model="accMotelAddressLine1" :readonly="reviewMode" dense flat outlined solo />
+          <v-text-field
+            v-model="accMotelAddressLine1"
+            :readonly="reviewMode"
+            dense
+            flat
+            outlined
+            solo
+          />
         </v-col>
-      </v-row>
-      <!--
+
         <v-col cols="12" sm="6" lg="5">
           <label>Address line 2</label>
-          <v-text-field v-model="accMotelAddressLine2" :readonly="reviewMode" dense flat outlined solo />
+          <v-text-field
+            v-model="accMotelAddressLine2"
+            :readonly="reviewMode"
+            dense
+            flat
+            outlined
+            solo
+          />
         </v-col>
       </v-row>
 
@@ -151,16 +193,31 @@
         </v-col>
         <v-col cols="12" sm="3" lg="2">
           <label>Province</label>
-          <v-select v-model="accMotelProvince" :items="provinces" :readonly="reviewMode" dense flat outlined solo />
+          <v-select
+            v-model="accMotelProvince"
+            :items="provinces"
+            :readonly="reviewMode"
+            dense
+            flat
+            outlined
+            solo
+          />
         </v-col>
       </v-row>
 
       <v-row>
         <v-col cols="12" sm="3" lg="2">
           <label>Postal Code</label>
-          <v-text-field v-model="accMotelPostalCode" :readonly="reviewMode" dense flat outlined solo />
+          <v-text-field
+            v-model="accMotelPostalCode"
+            :readonly="reviewMode"
+            dense
+            flat
+            outlined
+            solo
+          />
         </v-col>
-      </v-row>-->
+      </v-row>
     </div>
 
     <v-checkbox v-model="accWh" :readonly="reviewMode" label="Worker's home in community"></v-checkbox>
@@ -168,13 +225,26 @@
       <v-row>
         <v-col cols="12" sm="6" lg="5">
           <label>Address line 1</label>
-          <v-text-field v-model="accWhAddressLine1" :readonly="reviewMode" dense flat outlined solo />
+          <v-text-field
+            v-model="accWhAddressLine1"
+            :readonly="reviewMode"
+            dense
+            flat
+            outlined
+            solo
+          />
         </v-col>
-      </v-row>
 
-      <!-- <v-col cols="12" sm="6" lg="5">
+        <v-col cols="12" sm="6" lg="5">
           <label>Address line 2</label>
-          <v-text-field v-model="accWhAddressLine2" :readonly="reviewMode" dense flat outlined solo />
+          <v-text-field
+            v-model="accWhAddressLine2"
+            :readonly="reviewMode"
+            dense
+            flat
+            outlined
+            solo
+          />
         </v-col>
       </v-row>
 
@@ -185,7 +255,15 @@
         </v-col>
         <v-col cols="12" sm="3" lg="2">
           <label>Province</label>
-          <v-select v-model="accWhProvince" :items="provinces" :readonly="reviewMode" dense flat outlined solo />
+          <v-select
+            v-model="accWhProvince"
+            :items="provinces"
+            :readonly="reviewMode"
+            dense
+            flat
+            outlined
+            solo
+          />
         </v-col>
       </v-row>
 
@@ -194,7 +272,7 @@
           <label>Postal Code</label>
           <v-text-field v-model="accWhPostalCode" :readonly="reviewMode" dense flat outlined solo />
         </v-col>
-      </v-row>-->
+      </v-row>
     </div>
   </v-container>
 </template>
@@ -285,51 +363,51 @@ export default {
       set(value) { this.updateCampLocations({index: this.index, obj: {['accMotel']: value}}); }
     },
     accMotelAddressLine1: {
-      get() { return this.campLocations[this.index].accMotelAddressLine1; },
-      set(value) { this.updateCampLocations({index: this.index, obj: {['accMotelAddressLine1']: value}}); }
+      get() { return this.campLocations[this.index].motelAddress.addressLine1; },
+      set(value) { this.updateMotelAddress({index: this.index, obj: {['addressLine1']: value}}); }
     },
-    // accMotelAddressLine2: {
-    //   get() { return this.campLocations[this.index].accMotelAddressLine2; },
-    //   set(value) { this.updateCampLocations({index: this.index, obj: {['accMotelAddressLine2']: value}}); }
-    // },
-    // accMotelCity: {
-    //   get() { return this.campLocations[this.index].accMotelCity; },
-    //   set(value) { this.updateCampLocations({index: this.index, obj: {['accMotelCity']: value}}); }
-    // },
-    // accMotelProvince: {
-    //   get() { return this.campLocations[this.index].accMotelProvince; },
-    //   set(value) { this.updateCampLocations({index: this.index, obj: {['accMotelProvince']: value}}); }
-    // },
-    // accMotelPostalCode: {
-    //   get() { return this.campLocations[this.index].accMotelPostalCode; },
-    //   set(value) { this.updateCampLocations({index: this.index, obj: {['accMotelPostalCode']: value}}); }
-    // },
+    accMotelAddressLine2: {
+      get() { return this.campLocations[this.index].motelAddress.addressLine2; },
+      set(value) { this.updateMotelAddress({index: this.index, obj: {['addressLine1']: value}}); }
+    },
+    accMotelCity: {
+      get() { return this.campLocations[this.index].motelAddress.city; },
+      set(value) { this.updateMotelAddress({index: this.index, obj: {['city']: value}}); }
+    },
+    accMotelProvince: {
+      get() { return this.campLocations[this.index].motelAddress.province; },
+      set(value) { this.updateMotelAddress({index: this.index, obj: {['accMotelProvince']: value}}); }
+    },
+    accMotelPostalCode: {
+      get() { return this.campLocations[this.index].motelAddress.postalCode; },
+      set(value) { this.updateMotelAddress({index: this.index, obj: {['postalCode']: value}}); }
+    },
 
     // WorkersHome
     accWh: {
       get() { return this.campLocations[this.index].accWh; },
       set(value) { this.updateCampLocations({index: this.index, obj: {['accWh']: value}}); }
     },
-    // accWhAddressLine1: {
-    //   get() { return this.campLocations[this.index].accWhAddressLine1; },
-    //   set(value) { this.updateCampLocations({index: this.index, obj: {['accWhAddressLine1']: value}}); }
-    // },
-    // accWhAddressLine2: {
-    //   get() { return this.campLocations[this.index].accWhAddressLine2; },
-    //   set(value) { this.updateCampLocations({index: this.index, obj: {['accWhAddressLine2']: value}}); }
-    // },
-    // accWhCity: {
-    //   get() { return this.campLocations[this.index].accWhCity; },
-    //   set(value) { this.updateCampLocations({index: this.index, obj: {['accWhCity']: value}}); }
-    // },
-    // accWhProvince: {
-    //   get() { return this.campLocations[this.index].accWhProvince; },
-    //   set(value) { this.updateCampLocations({index: this.index, obj: {['accWhProvince']: value}}); }
-    // },
-    // accWhPostalCode: {
-    //   get() { return this.campLocations[this.index].accWhPostalCode; },
-    //   set(value) { this.updateCampLocations({index: this.index, obj: {['accWhPostalCode']: value}}); }
-    // },
+    accWhAddressLine1: {
+      get() { return this.campLocations[this.index].whAddress.addressLine1; },
+      set(value) { this.updateWhAddress({index: this.index, obj: {['addressLine1']: value}}); }
+    },
+    accWhAddressLine2: {
+      get() { return this.campLocations[this.index].whAddress.addressLine2; },
+      set(value) { this.updateWhAddress({index: this.index, obj: {['addressLine2']: value}}); }
+    },
+    accWhCity: {
+      get() { return this.campLocations[this.index].whAddress.city; },
+      set(value) { this.updateWhAddress({index: this.index, obj: {['city']: value}}); }
+    },
+    accWhProvince: {
+      get() { return this.campLocations[this.index].whAddress.province; },
+      set(value) { this.updateWhAddress({index: this.index, obj: {['province']: value}}); }
+    },
+    accWhPostalCode: {
+      get() { return this.campLocations[this.index].whAddress.postalCode; },
+      set(value) { this.updateWhAddress({index: this.index, obj: {['postalCode']: value}}); }
+    },
 
   },
   methods: {
