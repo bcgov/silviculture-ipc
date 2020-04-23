@@ -1,18 +1,2 @@
 {
-  "db": {
-    "username": "username",
-    "password": "password"
-  },
-  "server": {
-    "keycloak": {
-      "clientSecret": "password"
-    },
-    "logLevel": "silent"
-  },
-  "serviceClient": {
-    "commonServices": {
-      "username": "username",
-      "password": "password"
-    }
-  }
 }
