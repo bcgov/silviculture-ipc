@@ -5,7 +5,7 @@
       <hr class="orange" />
     </div>
 
-    <p>Once your temporary foreign workers arrive at camp, you are expected to continue your work enacting an infection control plan and minimize the risk of transmission of COVID-19 through the following key activities.</p>
+    <p>Once your workers arrive at camp, you are expected to continue your work enacting an infection control plan and minimize the risk of transmission of COVID-19 through the following key activities.</p>
 
     <h3 class="mb-1 mt-4">Implement COVID-19 Employee Education</h3>
     <p
