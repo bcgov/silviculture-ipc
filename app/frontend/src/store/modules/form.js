@@ -124,16 +124,20 @@ export default {
       Object.assign(state.ipcPlan, obj);
     },
     setCampLocationNumber: (state, num) => {
-      state.campLocations =
-        [...state.campLocations, ...Array(Math.max(num - state.campLocations.length, 0)).fill({
-          startDate: '',
-          endDate: '',
-          addressLine1: '',
-          addressLine2: '',
-          city: '',
-          province: '',
-          postalCode: ''
-        })];
+      if (num < state.campLocations.length) {
+        state.campLocations = state.campLocations.slice(0, num);
+      } else {
+        state.campLocations =
+          [...state.campLocations, ...Array(Math.max(num - state.campLocations.length, 0)).fill({
+            startDate: '',
+            endDate: '',
+            addressLine1: '',
+            addressLine2: '',
+            city: '',
+            province: '',
+            postalCode: ''
+          })];
+      }
     }
   },
   actions: {
