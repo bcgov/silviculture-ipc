@@ -13,8 +13,15 @@
             <!-- <OrgBookSearch
               v-model="businessName"
               :field-rules="businessNameRules"
-            /> -->
-            <v-text-field dense flat outlined solo v-model="businessName" :rules="businessNameRules" />
+            />-->
+            <v-text-field
+              dense
+              flat
+              outlined
+              solo
+              v-model="businessName"
+              :rules="businessNameRules"
+            />
           </v-col>
         </v-row>
 
@@ -118,9 +125,9 @@
           <v-checkbox v-model="tfwSameAddress" label="Same as business address"></v-checkbox>
 
           <div v-if="!tfwSameAddress">
-            <v-card>
+            <v-card class="mb-5" v-for="(address, index) in tfwAddresses" :key="index">
               <v-card-text>
-                <h4>Facility address 1</h4>
+                <h4>Facility address {{ index + 1 }}</h4>
 
                 <v-row>
                   <v-col cols="12" sm="6" lg="5">
@@ -229,12 +236,12 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('form', ['business', 'contacts', 'ipcPlan']),
+    ...mapGetters('form', ['business', 'contacts', 'ipcPlan', 'tfwAddresses']),
 
     // Business
     businessName: {
       get() { return this.business.name; },
-      set(value) {alert(value); this.updateBusiness({['name']: value}); }
+      set(value) { this.updateBusiness({['name']: value}); }
     },
 
     // Contact
@@ -266,12 +273,11 @@ export default {
     },
   },
   methods: {
-    ...mapMutations('form', ['setStep', 'updateBusiness', 'updateContacts', 'updateIpcPlan']),
+    ...mapMutations('form', ['addTfWAddress', 'setStep', 'updateBusiness', 'updateContacts', 'updateIpcPlan']),
     addTfwFacility() {
-      alert('TBD');
+      this.addTfWAddress();
     },
     updateBusinessName: function (org) {
-      alert(org);
       this.businessName = org;
     }
   }
