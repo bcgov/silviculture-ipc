@@ -91,32 +91,61 @@
           <v-row>
             <v-col cols="12" sm="6" lg="5">
               <label>Address line 1</label>
-              <v-text-field dense flat outlined solo />
+              <v-text-field
+                dense
+                flat
+                outlined
+                solo
+                v-model="businessAddressLine1"
+                :rules="businessAddressLine1Rules"
+              />
             </v-col>
             <v-col cols="12" sm="6" lg="5">
               <label>
                 Address line 2 -
                 <small>optional</small>
               </label>
-              <v-text-field dense flat outlined solo />
+              <v-text-field dense flat outlined solo v-model="businessAddressLine2" />
             </v-col>
           </v-row>
 
           <v-row>
             <v-col cols="12" sm="6" lg="5">
               <label>City</label>
-              <v-text-field dense flat outlined solo />
+              <v-text-field
+                dense
+                flat
+                outlined
+                solo
+                v-model="businessAddressCity"
+                :rules="businessAddressCityRules"
+              />
             </v-col>
             <v-col cols="12" sm="3" lg="2">
               <label>Province</label>
-              <v-select :items="provinces" dense flat outlined solo />
+              <v-select
+                :items="provinces"
+                dense
+                flat
+                outlined
+                solo
+                v-model="businessAddressProvince"
+                :rules="businessAddressProvinceRules"
+              />
             </v-col>
           </v-row>
 
           <v-row>
             <v-col cols="12" sm="3" lg="2">
               <label>Postal Code</label>
-              <v-text-field dense flat outlined solo />
+              <v-text-field
+                dense
+                flat
+                outlined
+                solo
+                v-model="businessAddressPostalCode"
+                :rules="businessAddressPostalCodeRules"
+              />
             </v-col>
           </v-row>
 
@@ -277,9 +306,24 @@ export default {
       provinces: ['AB','BC','MB','NB','NL','NS','NT','NU','ON','PE','QC','SK','YT'],
       numbers: [1,2,3,4,5,6,7,8,9,10], //??
 
+      // Business
       businessNameRules: [
         v => !!v || 'Business name is required',
       ],
+      businessAddressLine1Rules: [
+        v => !!v || 'Business address is required',
+      ],
+      businessAddressCityRules: [
+        v => !!v || 'City is required',
+      ],
+      businessAddressProvinceRules: [
+        v => !!v || 'Province is required',
+      ],
+      businessAddressPostalCodeRules: [
+        v => !!v || 'Postal Code is required',
+      ],
+
+      // Contact
       firstNameRules: [
         v => !!v || 'First name is required',
         v => (v && v.length <= 100) || 'First name must be less than 100? characters',
@@ -297,6 +341,8 @@ export default {
         v=> validator.isEmail(v, { allow_display_name: true }) || 'invalid e-mail format',
         v => (v && v.length <= 100) || 'e-mail must be less than 100? characters',
       ],
+
+      // Covid Contact
       covidFirstNameRules: [
         v => !!v || 'First name is required',
         v => (v && v.length <= 100) || 'First name must be less than 100? characters',
