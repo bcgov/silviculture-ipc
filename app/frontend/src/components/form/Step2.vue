@@ -129,18 +129,40 @@
           <v-row>
             <v-col cols="12" sm="6" lg="5">
               <label>First Name</label>
-              <v-text-field dense flat outlined solo />
+              <v-text-field
+                dense
+                flat
+                outlined
+                solo
+                v-model="covidFirstName"
+                :rules="covidFirstNameRules"
+              />
             </v-col>
             <v-col cols="12" sm="6" lg="5">
               <label>Last Name</label>
-              <v-text-field dense flat outlined solo />
+              <v-text-field
+                dense
+                flat
+                outlined
+                solo
+                v-model="covidLastName"
+                :rules="covidLastNameRules"
+              />
             </v-col>
           </v-row>
 
           <v-row>
             <v-col cols="12" sm="6" lg="5">
               <label>Phone Number</label>
-              <v-text-field dense flat outlined solo prepend-inner-icon="phone" />
+              <v-text-field
+                dense
+                flat
+                outlined
+                solo
+                prepend-inner-icon="phone"
+                v-model="covidPhone1"
+                :rules="covidPhone1Rules"
+              />
             </v-col>
           </v-row>
 
@@ -150,14 +172,29 @@
                 Phone Number (Secondary Contact)
                 <small>- optional</small>
               </label>
-              <v-text-field dense flat outlined solo prepend-inner-icon="phone" />
+              <v-text-field
+                dense
+                flat
+                outlined
+                solo
+                prepend-inner-icon="phone"
+                v-model="covidPhone2"
+              />
             </v-col>
           </v-row>
 
           <v-row>
             <v-col cols="12" sm="6" lg="5">
               <label>e-mail Address (Primary Contact)</label>
-              <v-text-field dense flat outlined solo prepend-inner-icon="email" />
+              <v-text-field
+                dense
+                flat
+                outlined
+                solo
+                prepend-inner-icon="email"
+                v-model="covidEmail"
+                :rules="covidEmailRules"
+              />
             </v-col>
           </v-row>
 
@@ -260,10 +297,27 @@ export default {
         v=> validator.isEmail(v, { allow_display_name: true }) || 'invalid e-mail format',
         v => (v && v.length <= 100) || 'e-mail must be less than 100? characters',
       ],
+      covidFirstNameRules: [
+        v => !!v || 'First name is required',
+        v => (v && v.length <= 100) || 'First name must be less than 100? characters',
+      ],
+      covidLastNameRules: [
+        v => !!v || 'Last name is required',
+        v => (v && v.length <= 100) || 'Last name must be less than 100? characters',
+      ],
+      covidPhone1Rules: [
+        v => !!v || 'Phone number is required',
+        v => validator.isMobilePhone(v) || 'invalid phone number format',
+      ],
+      covidEmailRules: [
+        v => !!v || 'e-mail is required',
+        v=> validator.isEmail(v, { allow_display_name: true }) || 'invalid e-mail format',
+        v => (v && v.length <= 100) || 'e-mail must be less than 100? characters',
+      ],
     };
   },
   computed: {
-    ...mapGetters('form', ['business', 'contacts', 'ipcPlan', 'campLocations']),
+    ...mapGetters('form', ['business', 'contacts', 'covidContact', 'ipcPlan', 'campLocations']),
 
     // Business
     businessName: {
@@ -292,9 +346,31 @@ export default {
       get() { return this.contacts.email; },
       set(value) { this.updateContacts({['email']: value}); }
     },
+
+    // COVID Coordinator
+    covidFirstName: {
+      get() { return this.covidContact.firstName; },
+      set(value) { this.updateCovidContact({['firstName']: value}); }
+    },
+    covidLastName: {
+      get() { return this.covidContact.lastName; },
+      set(value) { this.updateCovidContact({['lastName']: value}); }
+    },
+    covidPhone1: {
+      get() { return this.covidContact.phone1; },
+      set(value) { this.updateCovidContact({['phone1']: value}); }
+    },
+    covidPhone2: {
+      get() { return this.covidContact.phone2; },
+      set(value) { this.updateCovidContact({['phone2']: value}); }
+    },
+    covidEmail: {
+      get() { return this.covidContact.email; },
+      set(value) { this.updateCovidContact({['email']: value}); }
+    },
   },
   methods: {
-    ...mapMutations('form', ['setStep', 'updateBusiness', 'updateContacts', 'updateIpcPlan', 'setCampLocationNumber']),
+    ...mapMutations('form', ['setStep', 'updateBusiness', 'updateContacts', 'updateCovidContact', 'updateIpcPlan', 'setCampLocationNumber']),
 
     updateBusinessName: function (org) {
       this.businessName = org;
