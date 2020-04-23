@@ -41,4 +41,14 @@ export default {
     return appAxios().get('/ipc/' + ipcPlanId);
   },
 
+  /**
+   * @function getIPCContentasPDF
+   * Fetch the contents of a single IPC form submission as PDF
+   * @param {string} the guid of a submitted ipcplan from the database
+   * @returns {Promise} An axios response
+   */
+  getIPCContentasPDF(ipcPlanId) {
+    return appAxios().get('/ipc/pdf/' + ipcPlanId);
+  },
+
 };

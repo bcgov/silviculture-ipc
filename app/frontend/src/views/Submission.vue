@@ -477,9 +477,9 @@ export default {
     padding: 0;
     list-style-type: none;
   }
-
   table tr > td {
     padding-left: 0;
+    width: 95%;
   }
 }
 </style>

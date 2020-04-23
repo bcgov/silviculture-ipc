@@ -1,13 +1,13 @@
 <template>
   <v-container>
     <BaseSecure admin>
-      <h1 class="my-8 text-center">Admin</h1>
+      <h1 class="mt-6 text-center">Admin</h1>
       <v-container>
         <v-row>
         </v-row>
       </v-container>
-      <SubmissionsTable class="my-4" />
-      <ApiTester class="my-4" />
+      <SubmissionsTable class="my-8" />
+      <ApiTester class="my-8" />
     </BaseSecure>
   </v-container>
 </template>
