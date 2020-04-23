@@ -62,7 +62,10 @@
       </v-col>
 
       <v-col cols="12" sm="6" lg="5">
-        <label>Address line 2</label>
+        <label>
+          Address line 2 -
+          <small>optional</small>
+        </label>
         <v-text-field v-model="addressLine2" dense flat outlined solo />
       </v-col>
     </v-row>
@@ -112,7 +115,10 @@
         </v-col>
 
         <v-col cols="12" sm="6" lg="5">
-          <label>Address line 2</label>
+          <label>
+            Address line 2 -
+            <small>optional</small>
+          </label>
           <v-text-field
             v-model="accTentsAddressLine2"
             :readonly="reviewMode"
@@ -174,7 +180,10 @@
         </v-col>
 
         <v-col cols="12" sm="6" lg="5">
-          <label>Address line 2</label>
+          <label>
+            Address line 2 -
+            <small>optional</small>
+          </label>
           <v-text-field
             v-model="accMotelAddressLine2"
             :readonly="reviewMode"

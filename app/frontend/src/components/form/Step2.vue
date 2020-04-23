@@ -94,7 +94,10 @@
               <v-text-field dense flat outlined solo />
             </v-col>
             <v-col cols="12" sm="6" lg="5">
-              <label>Address line 2</label>
+              <label>
+                Address line 2 -
+                <small>optional</small>
+              </label>
               <v-text-field dense flat outlined solo />
             </v-col>
           </v-row>
@@ -190,7 +193,7 @@
 
           <v-card class="my-3" v-for="(loc, index) in campLocations" :key="index">
             <v-card-text>
-              <CampLocation :index="index" :reviewMode="reviewMode"/>
+              <CampLocation :index="index" :reviewMode="reviewMode" />
             </v-card-text>
           </v-card>
         </div>
