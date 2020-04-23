@@ -5,7 +5,7 @@
     </v-btn>
     <v-btn v-else dark outlined @click="login">
       <span class="hidden-sm-and-down">Login (Staff IDIR)</span>
-      <span class="display-sm-and-down"><v-icon>person</v-icon></span>
+      <span class="hidden-md-and-up"><v-icon>person</v-icon></span>
     </v-btn>
   </div>
 </template>

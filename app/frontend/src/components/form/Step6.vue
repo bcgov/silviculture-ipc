@@ -36,7 +36,7 @@
         <v-card outlined class="review-form">
           <h2 class="review-heading">
             1. Before You Begin
-            <v-btn color="primary" class="mx-5" fab x-small @click="setStep(1)">
+            <v-btn v-if="!submissionComplete" color="primary" class="mx-5" fab x-small @click="setStep(1)">
               <v-icon>mdi-pencil</v-icon>
             </v-btn>
           </h2>
@@ -46,7 +46,7 @@
         <v-card outlined class="review-form">
           <h2 class="review-heading">
             2. Contact Information
-            <v-btn color="primary" class="mx-5" fab x-small @click="setStep(2)">
+            <v-btn v-if="!submissionComplete" color="primary" class="mx-5" fab x-small @click="setStep(2)">
               <v-icon>mdi-pencil</v-icon>
             </v-btn>
           </h2>
@@ -56,7 +56,7 @@
         <v-card outlined class="review-form">
           <h2 class="review-heading">
             3. Before Workers Arrive
-            <v-btn color="primary" class="mx-5" fab x-small @click="setStep(3)">
+            <v-btn v-if="!submissionComplete" color="primary" class="mx-5" fab x-small @click="setStep(3)">
               <v-icon>mdi-pencil</v-icon>
             </v-btn>
           </h2>
@@ -66,7 +66,7 @@
         <v-card outlined class="review-form">
           <h2 class="review-heading">
             4. After Workers Arrive
-            <v-btn color="primary" class="mx-5" fab x-small @click="setStep(4)">
+            <v-btn v-if="!submissionComplete" color="primary" class="mx-5" fab x-small @click="setStep(4)">
               <v-icon>mdi-pencil</v-icon>
             </v-btn>
           </h2>
@@ -76,7 +76,7 @@
         <v-card outlined class="review-form">
           <h2 class="review-heading">
             5. If Workers Become Ill
-            <v-btn color="primary" class="mx-5" fab x-small @click="setStep(5)">
+            <v-btn v-if="!submissionComplete" color="primary" class="mx-5" fab x-small @click="setStep(5)">
               <v-icon>mdi-pencil</v-icon>
             </v-btn>
           </h2>
