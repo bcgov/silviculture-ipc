@@ -161,6 +161,10 @@ export default {
       get() { return this.ipcPlan.infectionSanitization; },
       set(value) { this.updateIpcPlan({['infectionSanitization']: value}); }
     },
+    infectionAccommodation: {
+      get() { return this.ipcPlan.infectionAccommodation; },
+      set(value) { this.updateIpcPlan({['infectionAccommodation']: value}); }
+    },
 
     // Food
     infectedFeeding: {
