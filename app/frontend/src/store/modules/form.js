@@ -11,7 +11,7 @@ export default {
 
     // Form schema
     business: {
-      name: 'TEST',
+      name: '',
       addressLine1: '',
       addressLine2: '',
       city: '',
@@ -94,6 +94,7 @@ export default {
     business: state => state.business,
     contacts: state => state.contacts[0],
     ipcPlan: state => state.ipcPlan,
+    tfwAddresses: state => state.tfwAddresses,
   },
   mutations: {
     setSubmitting(state, isSubmitting) {
@@ -123,6 +124,16 @@ export default {
     },
     updateIpcPlan: (state, obj) => {
       Object.assign(state.ipcPlan, obj);
+    },
+    addTfWAddress: (state) => {
+      state.tfwAddresses.push({
+        facilityType: '',
+        addressLine1: '',
+        addressLine2: '',
+        city: '',
+        province: '',
+        postalCode: ''
+      });
     },
   },
   actions: {
