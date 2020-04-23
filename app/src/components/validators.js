@@ -107,6 +107,7 @@ const models = {
       'infectionSymptoms',
       'infectionHeathLinkBC',
       'infectionSanitization',
+      'infectionAccommodation',
       'infectedFeeding',
       'infectedHousekeeping',
       'infectedWaste',

@@ -52,6 +52,7 @@
     "infectionSymptoms": true,
     "infectionHeathLinkBC": true,
     "infectionSanitization": true,
+    "infectionAccommodation": true,
     "infectedFeeding": true,
     "infectedHousekeeping": true,
     "infectedWaste": true,
