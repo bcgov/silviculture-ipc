@@ -238,7 +238,7 @@ module.exports = (sequelize, DataTypes) => {
       unique: false
     },
     infectionAccommodation: {
-      allowNull: false,
+      allowNull: true,
       comment: '',
       type: DataTypes.BOOLEAN,
       unique: false

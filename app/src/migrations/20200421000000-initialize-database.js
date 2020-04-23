@@ -353,7 +353,7 @@ module.exports = {
             unique: false
           },
           infectionAccommodation: {
-            allowNull: false,
+            allowNull: true,
             comment: '',
             type: Sequelize.BOOLEAN,
             unique: false
