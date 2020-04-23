@@ -1,10 +1,10 @@
 <template>
   <v-container>
     <div class="hide-on-review">
-      <h2 class="mb-8">Apply for permission to protect workers during the COVID-19 pandemic</h2>
+      <h2 class="mb-8">Protect silviculture employees, contractors, and employers, during the COVID-19 pandemic</h2>
       <p
         class="mb-8"
-      >The Government of Canada and Province of British Columbia have initiated emergency measures to slow the spread of COVID-19. Silviculture and Planting operators must ensure a safe workplace for their workers and demonstrate proof of an Infection Prevention Control Plan.</p>
+      >The Province of British Columbia has initiated emergency measures to slow the spread of COVID-19. Silviculture and Planting operators must ensure a safe workplace for their workers and demonstrate proof of an Infection Prevention Control protocol (IPCP).</p>
 
       <p class="mb-8">
         <strong>Before you complete this form:</strong>
@@ -23,7 +23,7 @@
         <v-col cols="12" sm="10" lg="11">
           <p>
             Read
-            <em>Protecting planters and silviculture workers during the COVID-19 pandemic.</em>
+            <em>Employees, Contractors, and Employers Working in the Silviculture Sector During the COVID-19 Pandemic.</em>
           </p>
           <p>
             <a href="https://www.google.com" target="_blank">Download PDF</a>
@@ -42,15 +42,14 @@
             </v-avatar>
           </v-col>
           <v-col cols="12" sm="10" lg="11">
-            <p>Based on the guidance document, copmplete a silviculture camp risk assessment.</p>
-            <p>Complete a COVID-19 risk assessment silviculture or planting operation. This is mandatory.</p>
+            <p>Complete a COVID-19 risk assessment of your silviculture camps by following the directions in the guidance document.</p>
 
             <p>
               Assessing each section in the
               <em>Guidelines for Silviculture Worker Camps during the COVID-19 Pandemic</em> will help you identify areas that do not sufficiently prevent or reduce the risk of COVID-19 transmission.
             </p>
             <p>For example, if workers need to be transported to the work site in vehicles where a 2m distance cannot be maintained, this should be identified as a risk. Silviculture and Planting operators can take practical actions to reduce the risk of disease transmission (see section 7).</p>
-            <p>Have you worked through all the sections in Guidelines for Silviculture Worker Camps during the COVID-19 pandemic to identify the risks at your farm?</p>
+            <p>Have you worked through all the sections in <em>Guidelines for Silviculture Worker Camps during the COVID-19 pandemic</em> to identify the risks at your camps?</p>
 
             <v-card outlined class="silv-info-card hide-on-review">
               <v-card-title>
@@ -78,13 +77,14 @@
           </v-col>
           <v-col cols="12" sm="10" lg="11">
             <p>
-              Infection Prevention and Control Plan. By following the guidance in
-              <em>Guidelines for Silviculture Worker Camps during the COVID-19 pandemic</em>, you will be developing an Infection Prevention and Control (IPC) Plan.
+              Create your Infection Prevention and Control protocol. 
+            </p>
+            <p>By following the guidance in <em>Guidelines for Silviculture Worker Camps during the COVID-19 pandemic</em>, you will be developing an Infection Prevention and Control (IPC) Protocol.
             </p>
             <p>For each section of the guide you identified a risk, the risk needs to be controlled. For example, if your workers ride together in a vehicle to the work site, and you follow the instructions to increase cleaning and hygiene, and increase physical distancing, this will form your IPC plan for transportation (see section 7).</p>
             <p>
               Have you decided what guidance in
-              <em>Guidelines for Silviculture Worker Camps during the COVID-19 pandemic</em> is needed on your farm to prevent or control the risk of the transmission of COVID-19?
+              <em>Guidelines for Silviculture Worker Camps during the COVID-19 pandemic</em> is needed in your camps to prevent or control the risk of the transmission of COVID-19?
             </p>
           </v-col>
         </v-row>
@@ -102,18 +102,17 @@
               </h1>
             </v-col>
             <v-col cols="12" sm="11">
-              <h3>If you need assistance completing these tasks, please contact the Ministry of Forests, Lands, Natural Resource Operations & Rural Development (toll free 1-888-xxx-xxxx) for help.</h3>
+              <h3>If you need assistance completing these risk assessment or infection prevention tasks, please contact the FLNRO Contact (toll free 1-888-xxx-xxxx) for help.</h3>
             </v-col>
           </v-row>
         </v-card-text>
       </v-card>
 
-      <p>Your IPC plan must be submitted to XXXX. A follow up inspection of your operation will be evaluated based on your IPC plan.</p>
-
-      <h3 class="mb-2">After submitting this form, farm operators can expect:</h3>
+      
+      <h3 class="mb-2">After submitting this form, you will be subject to a site inspection:</h3>
       <ul class="pl-12">
-        <li>You will be subject to a site inspection of the farm prior to the release of temporary foreign workers after their 14 day self isolation period.</li>
-        <li>The Province of BC will use the IPC plan you provide through this online form for the site inspection that determines your compliance and readiness to receive workers.</li>
+        <li>You <b>will be subject to a site inspection</b> of the camp prior to planting beginning.</li>
+        <li>The Province of BC will use the information you provide through this online form for the site inspection that determines your compliance and readiness to start planting.</li>
       </ul>
 
       <v-card outlined class="my-6 silv-warning-card">
@@ -126,7 +125,7 @@
                 </h1>
               </v-col>
               <v-col cols="12" sm="11">
-                <h3>If you fail to comply with these requirements, the arrival of silviculture workers or planters at your work site will be delayed and/or denied / prohibited.</h3>(source: BC Ministry of Health, Provincial Health Officer Order, PHO supplemental / Apr 13, date)
+                <h3>If you fail to comply with these requirements, the arrival of silviculture workers or planters at your work site will be delayed or denied.</h3>(source: BC Ministry of Health, Provincial Health Officer Order, PHO supplemental / Apr 13, date)
               </v-col>
             </v-row>
           </v-container>
