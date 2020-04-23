@@ -156,7 +156,6 @@ export default {
       Object.assign(state.contacts[0], obj);
     },
     updateCovidContact: (state, obj) => {
-      console.log(obj);
       Object.assign(state.covidContact, obj);
     },
     updateIpcPlan: (state, obj) => {
@@ -175,11 +174,7 @@ export default {
       }
     },
     updateCampLocations: (state, payload) => {
-      console.log(payload.index);
-      console.log(state.campLocations[1]);
-      console.log(state.campLocations[2]);
       Object.assign(state.campLocations[payload.index], payload.obj);
-      console.log(state.campLocations[payload.index]);
     },
     updateTentAddress: (state, payload) => {
       Object.assign(state.campLocations[payload.index].tentAddress, payload.obj);
