@@ -167,10 +167,10 @@ export default {
       if (num < state.campLocations.length) {
         state.campLocations = state.campLocations.slice(0, num);
       } else {
-        state.campLocations =
-          [...state.campLocations, ...Array(Math.max(num - state.campLocations.length, 0)).fill(
-            JSON.parse(JSON.stringify(campLocationDefault))
-          )];
+        // Probably a better es6 way but be careful of filling by reference (would be bad)
+        for (let i = state.campLocations.length; i < num; i++) {
+          state.campLocations.push(JSON.parse(JSON.stringify(campLocationDefault)));
+        }
       }
     },
     updateCampLocations: (state, payload) => {
