@@ -50,7 +50,7 @@
               <v-icon>mdi-pencil</v-icon>
             </v-btn>
           </h2>
-          <Step2 reviewMode="true" />
+          <Step2 :reviewMode="true" />
         </v-card>
 
         <v-card outlined class="review-form">
@@ -60,7 +60,7 @@
               <v-icon>mdi-pencil</v-icon>
             </v-btn>
           </h2>
-          <Step3 reviewMode="true" />
+          <Step3 :reviewMode="true" />
         </v-card>
 
         <v-card outlined class="review-form">
@@ -70,7 +70,7 @@
               <v-icon>mdi-pencil</v-icon>
             </v-btn>
           </h2>
-          <Step4 reviewMode="true" />
+          <Step4 :reviewMode="true" />
         </v-card>
 
         <v-card outlined class="review-form">
@@ -80,7 +80,7 @@
               <v-icon>mdi-pencil</v-icon>
             </v-btn>
           </h2>
-          <Step5 reviewMode="true" />
+          <Step5 :reviewMode="true" />
         </v-card>
       </v-col>
     </v-row>

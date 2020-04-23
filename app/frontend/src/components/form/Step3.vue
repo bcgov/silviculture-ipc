@@ -202,7 +202,9 @@ import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   name: 'Step3',
-  props: ['reviewMode'],
+  props: {
+    reviewMode: Boolean
+  },
   data() {
     return {
       numbers: [1,2,3,4,5,6,7,8,9,10]

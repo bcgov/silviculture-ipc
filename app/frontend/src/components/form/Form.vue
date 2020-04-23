@@ -4,7 +4,7 @@
       <v-container v-if="!submissionComplete" fluid class="pa-0">
         <v-row class="header-row" no-gutters>
           <v-col cols="12" xl="10" offset-xl="1">
-            <v-stepper-header class="elevation-0">
+            <v-stepper-header class="elevation-0 hidden-xs-only">
               <v-stepper-step
                 :complete="step > 1"
                 edit-icon="check"

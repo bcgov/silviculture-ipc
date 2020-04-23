@@ -87,7 +87,9 @@ import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   name: 'Step4',
-  props: ['reviewMode'],
+  props: {
+    reviewMode: Boolean
+  },
   computed: {
     ...mapGetters('form', ['ipcPlan']),
 
