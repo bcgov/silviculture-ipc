@@ -190,7 +190,7 @@
 
           <v-card class="my-3" v-for="(loc, index) in campLocations" :key="index">
             <v-card-text>
-              <CampLocation :index="index" />
+              <CampLocation :index="index" :reviewMode="reviewMode"/>
             </v-card-text>
           </v-card>
         </div>

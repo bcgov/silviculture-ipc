@@ -32,7 +32,32 @@ export default {
       addressLine2: '',
       city: '',
       province: '',
-      postalCode: ''
+      postalCode: '',
+      accTents: false,
+      tentAddress: {
+        addressLine1: '',
+        addressLine2: '',
+        city: '',
+        province: '',
+        postalCode: '',
+      },
+      accMotel: false,
+      motelAddress: {
+        addressLine1: '',
+        addressLine2: '',
+        city: '',
+        province: '',
+        postalCode: '',
+      },
+      accWh: false,
+      whAddress: {
+        addressLine1: '',
+        addressLine2: '',
+        city: '',
+        province: '',
+        postalCode: '',
+
+      }
     }],
     ipcPlan: {
       sleepingAreaType: 1,
@@ -123,10 +148,13 @@ export default {
     updateIpcPlan: (state, obj) => {
       Object.assign(state.ipcPlan, obj);
     },
+
+    // Camp locations
     setCampLocationNumber: (state, num) => {
       if (num < state.campLocations.length) {
         state.campLocations = state.campLocations.slice(0, num);
       } else {
+        //TODO: shouldn'd have this object definition here AND above, figure out later
         state.campLocations =
           [...state.campLocations, ...Array(Math.max(num - state.campLocations.length, 0)).fill({
             startDate: '',
@@ -135,9 +163,46 @@ export default {
             addressLine2: '',
             city: '',
             province: '',
-            postalCode: ''
+            postalCode: '',
+            accTents: false,
+            tentAddress: {
+              addressLine1: '',
+              addressLine2: '',
+              city: '',
+              province: '',
+              postalCode: '',
+            },
+            accMotel: false,
+            motelAddress: {
+              addressLine1: '',
+              addressLine2: '',
+              city: '',
+              province: '',
+              postalCode: '',
+            },
+            accWh: false,
+            whAddress: {
+              addressLine1: '',
+              addressLine2: '',
+              city: '',
+              province: '',
+              postalCode: '',
+
+            }
           })];
       }
+    },
+    updateCampLocations: (state, payload) => {
+      Object.assign(state.campLocations[payload.index], payload.obj);
+    },
+    updateTentAddress: (state, payload) => {
+      Object.assign(state.campLocations[payload.index].tentAddress, payload.obj);
+    },
+    updateMotelAddress: (state, payload) => {
+      Object.assign(state.campLocations[payload.index].motelAddress, payload.obj);
+    },
+    updateWhAddress: (state, payload) => {
+      Object.assign(state.campLocations[payload.index].whAddress, payload.obj);
     }
   },
   actions: {
