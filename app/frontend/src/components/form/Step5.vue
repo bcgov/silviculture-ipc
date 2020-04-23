@@ -1,14 +1,16 @@
 <template>
   <v-container>
     <div class="hide-on-review">
-      <h2 class="pb-8">If workers become ill at the farm</h2>
+      <h2 class="pb-8">If workers become ill at the camp</h2>
       <hr class="orange" />
     </div>
 
-    <h3>Provide safe lodging and accommodation: Self-Isolation</h3>Questions here TBD?? Not on word doc
     <h3 class="mb-1 mt-4">Plan to manage individuals with suspected COVID-19 Infection</h3>
     <p class="hide-on-review">
-      Silviculture/planting operators must have a plan and protocol to deal with workers demonstrating symptoms of COVID-19, including immediate self isolation of the worker and notifying the local health authority. If two or more workers become sick, you must notify the local
+      Silviculture/planting operators must have a plan and protocol to deal with workers demonstrating symptoms of COVID-19, including immediate self isolation of the worker and notifying the local health authority. 
+   </p>
+   <p>
+      If two or more workers become sick, you must notify the local
       <a
         target="_blank"
         href="https://www2.gov.bc.ca/gov/content/health/about-bc-s-health-care-system/office-of-the-provincial-health-officer/medical-health-officers"
@@ -33,6 +35,11 @@
       v-model="infectionSanitization"
       :readonly="reviewMode"
       label="I am prepared to clean and disinfect any rooms that the person has been in while symptomatic."
+    ></v-checkbox>
+    <v-checkbox
+      v-model="infectionAccommodation"
+      :readonly="reviewMode"
+      label="If commercial accommodation is being used to self-isolate, then I will inform management of the situation and necessary requirements."
     ></v-checkbox>
 
     <v-card outlined class="my-6 silv-warning-card hide-on-review">
