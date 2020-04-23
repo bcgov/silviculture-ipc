@@ -25,9 +25,9 @@ export default {
       phone2: '',
       email: ''
     }],
-    tfwSameAddress: true,
-    tfwAddresses: [{
-      facilityType: '',
+    campLocations: [{
+      startDate: '',
+      endDate: '',
       addressLine1: '',
       addressLine2: '',
       city: '',
@@ -35,8 +35,6 @@ export default {
       postalCode: ''
     }],
     ipcPlan: {
-      tfwSameAddress: true,
-
       sleepingAreaType: 1,
       sharedSleepingPerRoom: 1,
       sharedSleepingDistancing: false,
@@ -94,7 +92,7 @@ export default {
     business: state => state.business,
     contacts: state => state.contacts[0],
     ipcPlan: state => state.ipcPlan,
-    tfwAddresses: state => state.tfwAddresses,
+    campLocations: state => state.campLocations,
   },
   mutations: {
     setSubmitting(state, isSubmitting) {
@@ -125,16 +123,18 @@ export default {
     updateIpcPlan: (state, obj) => {
       Object.assign(state.ipcPlan, obj);
     },
-    addTfWAddress: (state) => {
-      state.tfwAddresses.push({
-        facilityType: '',
-        addressLine1: '',
-        addressLine2: '',
-        city: '',
-        province: '',
-        postalCode: ''
-      });
-    },
+    setCampLocationNumber: (state, num) => {
+      state.campLocations =
+        [...state.campLocations, ...Array(Math.max(num - state.campLocations.length, 0)).fill({
+          startDate: '',
+          endDate: '',
+          addressLine1: '',
+          addressLine2: '',
+          city: '',
+          province: '',
+          postalCode: ''
+        })];
+    }
   },
   actions: {
     async submitForm({ commit, state }) {
