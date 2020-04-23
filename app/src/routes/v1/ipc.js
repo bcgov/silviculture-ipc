@@ -22,11 +22,7 @@ router.post('/', ipcRateLimiter, validation.validateIPC, async (req, res) => {
   try {
     const result = await dataService.save(req.body.business, req.body.contacts, req.body.ipcPlan);
     const data = transformService.transformIPCPlan(result);
-    email.sendReceipt({
-      adminUrl: 'https://silviculture-ipc-dev.pathfinder.gov.bc.ca/app/#/admin',
-      businessName: data.business.name,
-      confirmationId: data.confirmationId,
-    });
+    email.sendReceipt({ confirmationNumber: data.confirmationId });
     return res.status(201).json(data);
   } catch (error) {
     log.error(error);
