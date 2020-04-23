@@ -96,8 +96,8 @@ The template can be manually invoked and deployed via Openshift CLI. For example
 ```sh
 export NAMESPACE=<yournamespace>
 
-oc process -n $NAMESPACE -f openshift/app.bc.yaml -p REPO_NAME=nr-get-token
- -p JOB_NAME=master -p SOURCE_REPO_URL=https://github.com/bcgov/nr-get-token.git -p SOURCE_REPO_REF=master -o yaml | oc apply -n k8vopl-<env> -f -
+oc process -n $NAMESPACE -f openshift/app.bc.yaml -p REPO_NAME=silviculture-ipc
+ -p JOB_NAME=master -p SOURCE_REPO_URL=https://github.com/bcgov/silviculture-ipc.git -p SOURCE_REPO_REF=master -o yaml | oc apply -n k8vopl-<env> -f -
 ```
 
 Note that these build configurations do not have any triggers defined. They will be invoked by the Jenkins pipeline, started manually in the console, or by an equivalent oc command for example:
@@ -134,7 +134,7 @@ The Jenkins pipeline will handle deployment invocation automatically. However sh
 ```sh
 export NAMESPACE=<yournamespace>
 
-oc process -n $NAMESPACE -f openshift/app.dc.yaml -p REPO_NAME=nr-get-token -p JOB_NAME=master -p NAMESPACE=k8vopl-<env> -p APP_NAME=getok -p ROUTE_HOST=silviculture-ipc-dev.pathfinder.gov.bc.ca -p ROUTE_PATH=master -o yaml | oc apply -n $NAMESPACE -f -
+oc process -n $NAMESPACE -f openshift/app.dc.yaml -p REPO_NAME=silviculture-ipc -p JOB_NAME=master -p NAMESPACE=wxpbtr-<env> -p APP_NAME=silvipc -p ROUTE_HOST=silviculture-ipc-dev.pathfinder.gov.bc.ca -p ROUTE_PATH=master -o yaml | oc apply -n $NAMESPACE -f -
 ```
 
 Due to the triggers that are set in the deploymentconfig, the deployment will begin automatically. However, you can deploy manually by use the following command for example:
@@ -165,7 +165,7 @@ You will likely not need to run the new template generation sections as that the
 *If you are creating a new build configuration template, you will likely use the following commands:*
 
 ```sh
-oc new-build -n k8vopl-tools registry.access.redhat.com/rhscl/nodejs-8-rhel7:latest~https://github.com/bcgov/nr-get-token.git#master --context-dir=frontend --name=get-token-frontend --dry-run -o yaml > openshift/frontend.bc.yaml
+oc new-build -n k8vopl-tools registry.access.redhat.com/rhscl/nodejs-8-rhel7:latest~https://github.com/bcgov/silviculture-ipc.git#master --context-dir=frontend --name=silviculture-ipc-frontend --dry-run -o yaml > openshift/frontend.bc.yaml
 sed -i '' -e 's/kind: List/kind: Template/g' openshift/frontend.bc.yaml
 sed -i '' -e 's/items:/objects:/g' openshift/frontend.bc.yaml
 ```
@@ -183,7 +183,7 @@ oc process -n k8vopl-tools -f openshift/frontend.bc.yaml -o yaml | oc create -n 
 *If you are creating a new build configuration template, you will likely use the following commands:*
 
 ```sh
-oc new-build -n k8vopl-tools --docker-image=docker-registry.default.svc:5000/bcgov/s2i-caddy:v1-stable --source-image=frontend:latest --source-image-path=/opt/app-root/src/dist:tmp -D $'FROM docker-registry.default.svc:5000/bcgov/s2i-caddy:v1-stable\nCOPY tmp/dist/ /var/www/html/\nCMD /tmp/scripts/run' --dry-run --name=get-token-frontend-static -o yaml > openshift/frontend-static.bc.yaml
+oc new-build -n k8vopl-tools --docker-image=docker-registry.default.svc:5000/bcgov/s2i-caddy:v1-stable --source-image=frontend:latest --source-image-path=/opt/app-root/src/dist:tmp -D $'FROM docker-registry.default.svc:5000/bcgov/s2i-caddy:v1-stable\nCOPY tmp/dist/ /var/www/html/\nCMD /tmp/scripts/run' --dry-run --name=silviculture-ipc-frontend-static -o yaml > openshift/frontend-static.bc.yaml
 sed -i '' -e 's/kind: List/kind: Template/g' openshift/frontend-static.bc.yaml
 sed -i '' -e 's/items:/objects:/g' openshift/frontend-static.bc.yaml
 ```
@@ -207,7 +207,7 @@ oc tag -n k8vopl-dev k8vopl-tools/frontend-static:latest frontend-static:dev --r
 *If you are creating a new application deployment template, you will likely use the following commands:*
 
 ```sh
-oc new-app -n k8vopl-dev --image-stream=frontend-static:dev --name=get-token-frontend --dry-run -o yaml > openshift/frontend-static.dc.yaml
+oc new-app -n k8vopl-dev --image-stream=frontend-static:dev --name=silviculture-ipc-frontend --dry-run -o yaml > openshift/frontend-static.dc.yaml
 ```
 
 ### Process and Apply the Application Deployment

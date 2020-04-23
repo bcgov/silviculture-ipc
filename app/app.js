@@ -54,7 +54,7 @@ apiRouter.use('/config', (_req, res, next) => {
   }
 });
 
-// GetOK Base API Directory
+// backend API Directory
 apiRouter.get('/api', (_req, res) => {
   if (state.shutdown) {
     throw new Error('Server shutting down');
