@@ -4,11 +4,14 @@ const Problem = require('api-problem');
 const rateLimit = require('express-rate-limit');
 const router = require('express').Router();
 
-const dataService = require('../../services/dataService');
+const email = require('../../components/email');
 const ipcPlanPdf = require('../../components/ipcPlanPdf');
 const keycloak = require('../../components/keycloak');
-const transformService = require('../../services/transformService');
+
 const validation = require('../../middleware/validation');
+
+const dataService = require('../../services/dataService');
+const transformService = require('../../services/transformService');
 
 const ipcRateLimiter = rateLimit({
   windowMs: config.get('server.rateLimit.ipc.windowMs'),
@@ -18,7 +21,13 @@ const ipcRateLimiter = rateLimit({
 router.post('/', ipcRateLimiter, validation.validateIPC, async (req, res) => {
   try {
     const result = await dataService.save(req.body.business, req.body.contacts, req.body.ipcPlan);
-    return res.status(201).json(transformService.transformIPCPlan(result));
+    const data = transformService.transformIPCPlan(result);
+    email.sendReceipt({
+      adminUrl: 'https://silviculture-ipc-dev.pathfinder.gov.bc.ca/app/#/admin',
+      businessName: data.business.name,
+      confirmationId: data.confirmationId,
+    });
+    return res.status(201).json(data);
   } catch (error) {
     log.error(error);
     return new Problem(500, { detail: error.message }).send(res);
