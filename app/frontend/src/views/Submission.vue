@@ -26,15 +26,24 @@
             <tbody>
               <tr>
                 <td>Downloaded and read Guidelines for Silviculture Worker Camps during the COVID-19 pandemic</td>
-                <td>{{ ipcPlanData.ipcPlan.guidelinesRead }}</td>
+                <td>
+                  <v-icon color="green" v-if="ipcPlanData.ipcPlan.guidelinesRead">check</v-icon>
+                  <v-icon color="red" v-else>close</v-icon>
+                </td>
               </tr>
               <tr>
                 <td>Completed a COVID-19 workplace risk assessment</td>
-                <td>{{ ipcPlanData.ipcPlan.assessmentCompleted }}</td>
+                <td>
+                  <v-icon color="green" v-if="ipcPlanData.ipcPlan.assessmentCompleted">check</v-icon>
+                  <v-icon color="red" v-else>close</v-icon>
+                </td>
               </tr>
               <tr>
                 <td>Has Infection Prevention and Control (IPC) plan for COVID-19 exposure control</td>
-                <td>{{ ipcPlanData.ipcPlan.developedPlan }}</td>
+                <td>
+                  <v-icon color="green" v-if="ipcPlanData.ipcPlan.developedPlan">check</v-icon>
+                  <v-icon color="red" v-else>close</v-icon>
+                </td>
               </tr>
             </tbody>
           </template>
@@ -46,15 +55,24 @@
             <tbody>
               <tr>
                 <td>Signage in place in the appropriate language on how employees can protect themselves from COVID-19</td>
-                <td>{{ ipcPlanData.ipcPlan.protectionSignage }}</td>
+                <td>
+                  <v-icon color="green" v-if="ipcPlanData.ipcPlan.protectionSignage">check</v-icon>
+                  <v-icon color="red" v-else>close</v-icon>
+                </td>
               </tr>
               <tr>
                 <td>Someone identified that workers can go to if they have questions on COVID-19</td>
-                <td>{{ ipcPlanData.ipcPlan.workerContactPersonnel }}</td>
+                <td>
+                  <v-icon color="green" v-if="ipcPlanData.ipcPlan.workerContactPersonnel">check</v-icon>
+                  <v-icon color="red" v-else>close</v-icon>
+                </td>
               </tr>
               <tr>
                 <td>Medical Health Officer contacted</td>
-                <td>{{ ipcPlanData.ipcPlan.mhoContacted }}</td>
+                <td>
+                  <v-icon color="green" v-if="ipcPlanData.ipcPlan.mhoContacted">check</v-icon>
+                  <v-icon color="red" v-else>close</v-icon>
+                </td>
               </tr>
             </tbody>
           </template>
@@ -66,63 +84,108 @@
             <tbody>
               <tr>
                 <td>Common areas allow physical distancing of 2m / 6ft at all times</td>
-                <td>{{ ipcPlanData.ipcPlan.commonAreaDistancing }}</td>
+                <td>
+                  <v-icon color="green" v-if="ipcPlanData.ipcPlan.commonAreaDistancing">check</v-icon>
+                  <v-icon color="red" v-else>close</v-icon>
+                </td>
               </tr>
               <tr>
-                <td>Shared sleeping area or single beds</td>
-                <td>{{ ipcPlanData.ipcPlan.sleepingAreaType }}</td>
+                <td colspan="2">
+                  <div class="float-left">Shared sleeping area or single beds</div>
+                  <div
+                    class="float-right"
+                  >{{ (ipcPlanData.ipcPlan.sleepingAreaType == 1) ? 'Individual beds or single beds' : 'Shared sleeping areas' }}</div>
+                </td>
               </tr>
-              <tr>
-                <td>Number of people in a room</td>
-                <td>{{ ipcPlanData.ipcPlan.sharedSleepingPerRoom }}</td>
-              </tr>
-              <tr>
-                <td>Beds in the right configuration with the right distance apart</td>
-                <td>{{ ipcPlanData.ipcPlan.sharedSleepingDistancing }}</td>
-              </tr>
+              <template v-if="ipcPlanData.ipcPlan.sleepingAreaType == 2">
+                <tr>
+                  <td>Number of people in a room</td>
+                  <td>{{ ipcPlanData.ipcPlan.sharedSleepingPerRoom }}</td>
+                </tr>
+                <tr>
+                  <td>Beds in the right configuration with the right distance apart</td>
+                  <td>
+                    <v-icon color="green" v-if="ipcPlanData.ipcPlan.sharedSleepingDistancing">check</v-icon>
+                    <v-icon color="red" v-else>close</v-icon>
+                  </td>
+                </tr>
+              </template>
               <tr>
                 <td>Understands what is needed for a person to self-isolate.</td>
-                <td>{{ ipcPlanData.ipcPlan.selfIsolateUnderstood }}</td>
+                <td>
+                  <v-icon color="green" v-if="ipcPlanData.ipcPlan.selfIsolateUnderstood">check</v-icon>
+                  <v-icon color="red" v-else>close</v-icon>
+                </td>
               </tr>
               <tr>
                 <td>Worker can self-isolate</td>
-                <td>{{ ipcPlanData.ipcPlan.selfIsolateAccommodation }}</td>
+                <td>
+                  <v-icon color="green" v-if="ipcPlanData.ipcPlan.selfIsolateAccommodation">check</v-icon>
+                  <v-icon color="red" v-else>close</v-icon>
+                </td>
               </tr>
               <tr>
                 <td>Laundry services available for regular use</td>
-                <td>{{ ipcPlanData.ipcPlan.laundryServices }}</td>
+                <td>
+                  <v-icon color="green" v-if="ipcPlanData.ipcPlan.laundryServices">check</v-icon>
+                  <v-icon color="red" v-else>close</v-icon>
+                </td>
               </tr>
               <tr>
                 <td>Disposable gloves for the handling of garbage</td>
-                <td>{{ ipcPlanData.ipcPlan.wasteManagementGloves }}</td>
+                <td>
+                  <v-icon color="green" v-if="ipcPlanData.ipcPlan.wasteManagementGloves">check</v-icon>
+                  <v-icon color="red" v-else>close</v-icon>
+                </td>
               </tr>
               <tr>
                 <td>Waste removal schedule</td>
-                <td>{{ ipcPlanData.ipcPlan.wasteManagementSchedule }}</td>
+                <td>
+                  <v-icon color="green" v-if="ipcPlanData.ipcPlan.wasteManagementSchedule">check</v-icon>
+                  <v-icon color="red" v-else>close</v-icon>
+                </td>
               </tr>
               <tr>
                 <td>wasteManagementGloves</td>
-                <td>{{ ipcPlanData.ipcPlan.wasteManagementGloves }}</td>
+                <td>
+                  <v-icon color="green" v-if="ipcPlanData.ipcPlan.wasteManagementGloves">check</v-icon>
+                  <v-icon color="red" v-else>close</v-icon>
+                </td>
               </tr>
               <tr>
                 <td>Adequate number of hand washing stations (either permanent or portable) available to workers</td>
-                <td>{{ ipcPlanData.ipcPlan.handWashingStations }}</td>
+                <td>
+                  <v-icon color="green" v-if="ipcPlanData.ipcPlan.handWashingStations">check</v-icon>
+                  <v-icon color="red" v-else>close</v-icon>
+                </td>
               </tr>
               <tr>
                 <td>Appropriate supply of soap and water</td>
-                <td>{{ ipcPlanData.ipcPlan.handWashingSoapWater }}</td>
+                <td>
+                  <v-icon color="green" v-if="ipcPlanData.ipcPlan.handWashingSoapWater">check</v-icon>
+                  <v-icon color="red" v-else>close</v-icon>
+                </td>
               </tr>
               <tr>
                 <td>Supplemented with waterless hand sanitizers with a min of 60% alcohol where appropriate</td>
-                <td>{{ ipcPlanData.ipcPlan.handWashingWaterless }}</td>
+                <td>
+                  <v-icon color="green" v-if="ipcPlanData.ipcPlan.handWashingWaterless">check</v-icon>
+                  <v-icon color="red" v-else>close</v-icon>
+                </td>
               </tr>
               <tr>
                 <td>Has provided disposable paper towels</td>
-                <td>{{ ipcPlanData.ipcPlan.handWashingPaperTowels }}</td>
+                <td>
+                  <v-icon color="green" v-if="ipcPlanData.ipcPlan.handWashingPaperTowels">check</v-icon>
+                  <v-icon color="red" v-else>close</v-icon>
+                </td>
               </tr>
               <tr>
                 <td>Has put up signs to promote regular hand washing</td>
-                <td>{{ ipcPlanData.ipcPlan.handWashingSignage }}</td>
+                <td>
+                  <v-icon color="green" v-if="ipcPlanData.ipcPlan.handWashingSignage">check</v-icon>
+                  <v-icon color="red" v-else>close</v-icon>
+                </td>
               </tr>
             </tbody>
           </template>
@@ -134,15 +197,24 @@
             <tbody>
               <tr>
                 <td>Has sleeping arrangements that maintains physical distancing or uses physical barriers</td>
-                <td>{{ ipcPlanData.ipcPlan.distancingSleepingBarriers }}</td>
+                <td>
+                  <v-icon color="green" v-if="ipcPlanData.ipcPlan.distancingSleepingBarriers">check</v-icon>
+                  <v-icon color="red" v-else>close</v-icon>
+                </td>
               </tr>
               <tr>
                 <td>Has physical barriers like face shields or masks for situations where physical distancing is not possible</td>
-                <td>{{ ipcPlanData.ipcPlan.distancingFaceShields }}</td>
+                <td>
+                  <v-icon color="green" v-if="ipcPlanData.ipcPlan.distancingFaceShields">check</v-icon>
+                  <v-icon color="red" v-else>close</v-icon>
+                </td>
               </tr>
               <tr>
                 <td>Has a schedule to ensure common and high touch areas are cleaned or disinfected at the start and end of each day</td>
-                <td>{{ ipcPlanData.ipcPlan.disinfectingSchedule }}</td>
+                <td>
+                  <v-icon color="green" v-if="ipcPlanData.ipcPlan.disinfectingSchedule">check</v-icon>
+                  <v-icon color="red" v-else>close</v-icon>
+                </td>
               </tr>
             </tbody>
           </template>
@@ -152,14 +224,19 @@
         <v-simple-table dense>
           <template>
             <tbody>
-
               <tr>
                 <td>Has signage in place in the appropriate language on how employees can protect themselves from COVID-19</td>
-                <td>{{ ipcPlanData.ipcPlan.educationSignage }}</td>
+                <td>
+                  <v-icon color="green" v-if="ipcPlanData.ipcPlan.educationSignage">check</v-icon>
+                  <v-icon color="red" v-else>close</v-icon>
+                </td>
               </tr>
               <tr>
                 <td>Has someone identified that workers can go to if they have questions on COVID-19</td>
-                <td>{{ ipcPlanData.ipcPlan.educationContactPersonnel }}</td>
+                <td>
+                  <v-icon color="green" v-if="ipcPlanData.ipcPlan.educationContactPersonnel">check</v-icon>
+                  <v-icon color="red" v-else>close</v-icon>
+                </td>
               </tr>
             </tbody>
           </template>
@@ -171,23 +248,38 @@
             <tbody>
               <tr>
                 <td>Has materials ready on the risk of exposure of COVID-19 and the signs and symptoms of the disease</td>
-                <td>{{ ipcPlanData.ipcPlan.trainingCovid19 }}</td>
+                <td>
+                  <v-icon color="green" v-if="ipcPlanData.ipcPlan.trainingCovid19">check</v-icon>
+                  <v-icon color="red" v-else>close</v-icon>
+                </td>
               </tr>
               <tr>
                 <td>Has materials ready on hand washing, physical distancing, and cough/sneeze etiquette</td>
-                <td>{{ ipcPlanData.ipcPlan.trainingEtiquette }}</td>
+                <td>
+                  <v-icon color="green" v-if="ipcPlanData.ipcPlan.trainingEtiquette">check</v-icon>
+                  <v-icon color="red" v-else>close</v-icon>
+                </td>
               </tr>
               <tr>
                 <td>Can provide locations of washing facilities, including dispensing stations for alcohol-based hand rubs</td>
-                <td>{{ ipcPlanData.ipcPlan.trainingLocations }}</td>
+                <td>
+                  <v-icon color="green" v-if="ipcPlanData.ipcPlan.trainingLocations">check</v-icon>
+                  <v-icon color="red" v-else>close</v-icon>
+                </td>
               </tr>
               <tr>
                 <td>Has materials ready on how to seek first aid</td>
-                <td>{{ ipcPlanData.ipcPlan.trainingFirstAid }}</td>
+                <td>
+                  <v-icon color="green" v-if="ipcPlanData.ipcPlan.trainingFirstAid">check</v-icon>
+                  <v-icon color="red" v-else>close</v-icon>
+                </td>
               </tr>
               <tr>
                 <td>Has materials ready on how to report an exposure to or symptoms of COVID-19</td>
-                <td>{{ ipcPlanData.ipcPlan.trainingReporting }}</td>
+                <td>
+                  <v-icon color="green" v-if="ipcPlanData.ipcPlan.trainingReporting">check</v-icon>
+                  <v-icon color="red" v-else>close</v-icon>
+                </td>
               </tr>
             </tbody>
           </template>
@@ -199,15 +291,24 @@
             <tbody>
               <tr>
                 <td>Has schedules in place for kitchen/eating areas to limit contact and maintain 2 metre physical distancing</td>
-                <td>{{ ipcPlanData.ipcPlan.mealsDistancing }}</td>
+                <td>
+                  <v-icon color="green" v-if="ipcPlanData.ipcPlan.mealsDistancing">check</v-icon>
+                  <v-icon color="red" v-else>close</v-icon>
+                </td>
               </tr>
               <tr>
                 <td>Each employee has their own dishware, utensils and drinking cup</td>
-                <td>{{ ipcPlanData.ipcPlan.mealsDishware }}</td>
+                <td>
+                  <v-icon color="green" v-if="ipcPlanData.ipcPlan.mealsDishware">check</v-icon>
+                  <v-icon color="red" v-else>close</v-icon>
+                </td>
               </tr>
               <tr>
                 <td>Used dishware will be washed immediately</td>
-                <td>{{ ipcPlanData.ipcPlan.mealsDishwashing }}</td>
+                <td>
+                  <v-icon color="green" v-if="ipcPlanData.ipcPlan.mealsDishwashing">check</v-icon>
+                  <v-icon color="red" v-else>close</v-icon>
+                </td>
               </tr>
             </tbody>
           </template>
@@ -219,19 +320,31 @@
             <tbody>
               <tr>
                 <td>Is prepared to promptly separate the individual from others in their own accommodation</td>
-                <td>{{ ipcPlanData.ipcPlan.infectionSeparation }}</td>
+                <td>
+                  <v-icon color="green" v-if="ipcPlanData.ipcPlan.infectionSeparation">check</v-icon>
+                  <v-icon color="red" v-else>close</v-icon>
+                </td>
               </tr>
               <tr>
                 <td>Is prepared to provide individuals exhibiting symptoms of COVID-19 with a surgical/procedural mask or tissues to cover their mouth and nose</td>
-                <td>{{ ipcPlanData.ipcPlan.infectionSymptoms }}</td>
+                <td>
+                  <v-icon color="green" v-if="ipcPlanData.ipcPlan.infectionSymptoms">check</v-icon>
+                  <v-icon color="red" v-else>close</v-icon>
+                </td>
               </tr>
               <tr>
                 <td>Is prepared to direct the person to call HealthLinkBC (8-1-1)</td>
-                <td>{{ ipcPlanData.ipcPlan.infectionHeathLinkBC }}</td>
+                <td>
+                  <v-icon color="green" v-if="ipcPlanData.ipcPlan.infectionHeathLinkBC">check</v-icon>
+                  <v-icon color="red" v-else>close</v-icon>
+                </td>
               </tr>
               <tr>
                 <td>Is prepared to clean and disinfect any rooms that the person has been in while symptomatic</td>
-                <td>{{ ipcPlanData.ipcPlan.infectionSanitization }}</td>
+                <td>
+                  <v-icon color="green" v-if="ipcPlanData.ipcPlan.infectionSanitization">check</v-icon>
+                  <v-icon color="red" v-else>close</v-icon>
+                </td>
               </tr>
             </tbody>
           </template>
@@ -243,15 +356,24 @@
             <tbody>
               <tr>
                 <td>Is able to provide food in a safe manner to a self-isolated worker</td>
-                <td>{{ ipcPlanData.ipcPlan.infectedFeeding }}</td>
+                <td>
+                  <v-icon color="green" v-if="ipcPlanData.ipcPlan.infectedFeeding">check</v-icon>
+                  <v-icon color="red" v-else>close</v-icon>
+                </td>
               </tr>
               <tr>
                 <td>Is able to perform adequate housekeeping for a self isolated worker</td>
-                <td>{{ ipcPlanData.ipcPlan.infectedHousekeeping }}</td>
+                <td>
+                  <v-icon color="green" v-if="ipcPlanData.ipcPlan.infectedHousekeeping">check</v-icon>
+                  <v-icon color="red" v-else>close</v-icon>
+                </td>
               </tr>
               <tr>
                 <td>Is able to perform waste management for supporting a self-isolated worker</td>
-                <td>{{ ipcPlanData.ipcPlan.infectedWaste }}</td>
+                <td>
+                  <v-icon color="green" v-if="ipcPlanData.ipcPlan.infectedWaste">check</v-icon>
+                  <v-icon color="red" v-else>close</v-icon>
+                </td>
               </tr>
             </tbody>
           </template>
@@ -261,15 +383,20 @@
         <v-simple-table dense>
           <template>
             <tbody>
-
               <tr>
                 <td>Certified this information to be accurate</td>
-                <td>{{ ipcPlanData.ipcPlan.certifyAccurateInformation }}</td>
+                <td>
+                  <v-icon color="green" v-if="ipcPlanData.ipcPlan.certifyAccurateInformation">check</v-icon>
+                  <v-icon color="red" v-else>close</v-icon>
+                </td>
               </tr>
 
               <tr>
                 <td>Agreed that farm will be subject to a site inspection</td>
-                <td>{{ ipcPlanData.ipcPlan.agreeToInspection }}</td>
+                <td>
+                  <v-icon color="green" v-if="ipcPlanData.ipcPlan.agreeToInspection">check</v-icon>
+                  <v-icon color="red" v-else>close</v-icon>
+                </td>
               </tr>
             </tbody>
           </template>
