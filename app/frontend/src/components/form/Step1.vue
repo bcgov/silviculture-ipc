@@ -51,18 +51,6 @@
             <p>For example, if workers need to be transported to the work site in vehicles where a 2m distance cannot be maintained, this should be identified as a risk. Silviculture and Planting operators can take practical actions to reduce the risk of disease transmission (see section 7).</p>
             <p>Have you worked through all the sections in <em>Guidelines for Silviculture Worker Camps during the COVID-19 pandemic</em> to identify the risks at your camps?</p>
 
-            <v-card outlined class="silv-info-card hide-on-review">
-              <v-card-title>
-                <v-icon>play_circle_filled</v-icon>What is workplace risk assessment?
-              </v-card-title>
-              <v-card-text>
-                If you need help doing a COVID-19 workplace risk assessment, read the
-                <a
-                  href="https://www.google.com"
-                  target="_blank"
-                >Government of Canada’s resource guide on how to make risk-informed decisions during the COVID-19 pandemic.</a>
-              </v-card-text>
-            </v-card>
           </v-col>
         </v-row>
       </v-container>
@@ -77,7 +65,7 @@
           </v-col>
           <v-col cols="12" sm="10" lg="11">
             <p>
-              Create your Infection Prevention and Control protocol. 
+              Create your Infection Prevention and Control protocol.
             </p>
             <p>By following the guidance in <em>Guidelines for Silviculture Worker Camps during the COVID-19 pandemic</em>, you will be developing an Infection Prevention and Control (IPC) Protocol.
             </p>
@@ -108,7 +96,7 @@
         </v-card-text>
       </v-card>
 
-      
+
       <h3 class="mb-2">After submitting this form, you will be subject to a site inspection:</h3>
       <ul class="pl-12">
         <li>You <b>will be subject to a site inspection</b> of the camp prior to planting beginning.</li>

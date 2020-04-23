@@ -1,5 +1,40 @@
 import ipcService from '../../services/ipcService';
 
+const campLocationDefault = {
+  startDate: '',
+  endDate: '',
+  addressLine1: '',
+  addressLine2: '',
+  city: '',
+  province: '',
+  postalCode: '',
+  accTents: false,
+  tentAddress: {
+    addressLine1: '',
+    addressLine2: '',
+    city: '',
+    province: '',
+    postalCode: '',
+  },
+  accMotel: false,
+  motelAddress: {
+    addressLine1: '',
+    addressLine2: '',
+    city: '',
+    province: '',
+    postalCode: '',
+  },
+  accWh: false,
+  whAddress: {
+    addressLine1: '',
+    addressLine2: '',
+    city: '',
+    province: '',
+    postalCode: '',
+
+  }
+};
+
 export default {
   namespaced: true,
   state: {
@@ -25,40 +60,7 @@ export default {
       phone2: '',
       email: ''
     }],
-    campLocations: [{
-      startDate: '',
-      endDate: '',
-      addressLine1: '',
-      addressLine2: '',
-      city: '',
-      province: '',
-      postalCode: '',
-      accTents: false,
-      tentAddress: {
-        addressLine1: '',
-        addressLine2: '',
-        city: '',
-        province: '',
-        postalCode: '',
-      },
-      accMotel: false,
-      motelAddress: {
-        addressLine1: '',
-        addressLine2: '',
-        city: '',
-        province: '',
-        postalCode: '',
-      },
-      accWh: false,
-      whAddress: {
-        addressLine1: '',
-        addressLine2: '',
-        city: '',
-        province: '',
-        postalCode: '',
-
-      }
-    }],
+    campLocations: [JSON.parse(JSON.stringify(campLocationDefault))],
     ipcPlan: {
       sleepingAreaType: 1,
       sharedSleepingPerRoom: 1,
@@ -154,46 +156,18 @@ export default {
       if (num < state.campLocations.length) {
         state.campLocations = state.campLocations.slice(0, num);
       } else {
-        //TODO: shouldn'd have this object definition here AND above, figure out later
         state.campLocations =
-          [...state.campLocations, ...Array(Math.max(num - state.campLocations.length, 0)).fill({
-            startDate: '',
-            endDate: '',
-            addressLine1: '',
-            addressLine2: '',
-            city: '',
-            province: '',
-            postalCode: '',
-            accTents: false,
-            tentAddress: {
-              addressLine1: '',
-              addressLine2: '',
-              city: '',
-              province: '',
-              postalCode: '',
-            },
-            accMotel: false,
-            motelAddress: {
-              addressLine1: '',
-              addressLine2: '',
-              city: '',
-              province: '',
-              postalCode: '',
-            },
-            accWh: false,
-            whAddress: {
-              addressLine1: '',
-              addressLine2: '',
-              city: '',
-              province: '',
-              postalCode: '',
-
-            }
-          })];
+          [...state.campLocations, ...Array(Math.max(num - state.campLocations.length, 0)).fill(
+            JSON.parse(JSON.stringify(campLocationDefault))
+          )];
       }
     },
     updateCampLocations: (state, payload) => {
+      console.log(payload.index);
+      console.log(state.campLocations[1]);
+      console.log(state.campLocations[2]);
       Object.assign(state.campLocations[payload.index], payload.obj);
+      console.log(state.campLocations[payload.index]);
     },
     updateTentAddress: (state, payload) => {
       Object.assign(state.campLocations[payload.index].tentAddress, payload.obj);
