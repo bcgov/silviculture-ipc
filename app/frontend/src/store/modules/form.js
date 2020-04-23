@@ -11,7 +11,11 @@ export default {
 
     // Form schema
     business: {
-      name: ''
+      name: 'TEST',
+      addressLine1: '',
+      addressLine2: '',
+      city: '',
+      province: '',
     },
     contacts: [{
       primary: true,
@@ -21,7 +25,18 @@ export default {
       phone2: '',
       email: ''
     }],
+    tfwSameAddress: true,
+    tfwAddresses: [{
+      facilityType: '',
+      addressLine1: '',
+      addressLine2: '',
+      city: '',
+      province: '',
+      postalCode: ''
+    }],
     ipcPlan: {
+      tfwSameAddress: true,
+
       sleepingAreaType: 1,
       sharedSleepingPerRoom: 1,
       sharedSleepingDistancing: false,
@@ -76,8 +91,8 @@ export default {
     submissionError: state => state.submissionError,
 
     // Form objects
-    contacts: state => state.contacts[0],
     business: state => state.business,
+    contacts: state => state.contacts[0],
     ipcPlan: state => state.ipcPlan,
   },
   mutations: {

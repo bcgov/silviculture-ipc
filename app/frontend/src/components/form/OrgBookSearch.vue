@@ -4,12 +4,12 @@
     outlined
     flat
     solo
-    v-model="model"
     :rules="rules"
     :items="items"
     :loading="isLoading"
     :search-input.sync="search"
-    :change="emitChange"
+    v-bind:value="value"
+    v-on:change="$emit('change', $event.target.value)"
     hide-no-data
     hide-selected
     label="OrgBook Lookup"
@@ -25,7 +25,7 @@ import Vue from 'vue';
 export default {
   name: 'OrgBookSearch',
   props: {
-    fieldModel: String,
+    value: String,
     fieldRules: Array,
   },
   data() {
@@ -33,7 +33,6 @@ export default {
       isLoading: false,
       entries: [],
       search: null,
-      model: this.fieldModel,
       rules: this.fieldRules,
     };
   },
