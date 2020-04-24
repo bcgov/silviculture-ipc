@@ -12,7 +12,7 @@
         <blockquote>{{ confirmationId }}</blockquote>
       </h2>
 
-      <p>If you wish to keep a copy of your submission you can download a PDF here:</p>
+      <p>Download a copy of this form to send to your local health authority contact below:</p>
 
       <v-btn color="primary" class="mx-5 mb-10" fab large @click="generatePdf">
         <v-icon>picture_as_pdf</v-icon>
