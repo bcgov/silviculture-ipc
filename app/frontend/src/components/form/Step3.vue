@@ -5,7 +5,7 @@
       <hr class="orange" />
     </div>
 
-   
+
     <h3 class="mb-1 mt-4">COVID-19 Information</h3>
 
     <p
@@ -34,7 +34,7 @@
       </template>
     </v-checkbox>
 
-    <h3 class="mb-1 mt-4">Provide safe lodging and accommodation: General Worker [section 12 of <em>the guidance</em>]</h3>
+    <h3 class="mb-1 mt-4">Provide safe lodging and accommodation: General Worker</h3>
 
     <p
       class="hide-on-review"
