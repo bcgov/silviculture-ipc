@@ -606,23 +606,23 @@ export default {
       set(value) { this.updateLocation({['endDate']: value}); }
     },
     locationAddressLine1: {
-      get() { return this.location.locationAddressLine1; },
+      get() { return this.location.addressLine1; },
       set(value) { this.updateLocation({['addressLine1']: value}); }
     },
     locationAddressLine2: {
-      get() { return this.location.locationAddressLine2; },
+      get() { return this.location.addressLine2; },
       set(value) { this.updateLocation({['addressLine2']: value}); }
     },
     locationCity: {
-      get() { return this.location.locationCity; },
+      get() { return this.location.city; },
       set(value) { this.updateLocation({['city']: value}); }
     },
     locationProvince: {
-      get() { return this.location.locationProvince; },
+      get() { return this.location.province; },
       set(value) { this.updateLocation({['province']: value}); }
     },
     locationPostalCode: {
-      get() { return this.location.locationPostalCode; },
+      get() { return this.location.postalCode; },
       set(value) { this.updateLocation({['postalCode']: value}); }
     },
     accTents: {
