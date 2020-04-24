@@ -30,11 +30,9 @@
       >
         <!-- view individual form submission -->
         <template v-slot:item.pdf="{ item }">
-          <!-- <router-link :to="{ path: '/pdf/' + item.ipcPlanId }" target="_blank"> -->
           <a v-on:click="generatePdf(item.ipcPlanId)" target="_blank">
             <v-icon color="red">picture_as_pdf</v-icon>
           </a>
-          <!-- </router-link> -->
         </template>
 
         <!-- view individual form submission -->
@@ -111,8 +109,10 @@ export default {
       ipcService
         .getIPCContentasPDF(ipcPlanId)
         .then(response => {
-          const pdf = response.data;
-          this.createDownload(pdf, 'xyz.pdf');
+          const blob = new Blob([response.data], {
+            type: 'attachment'
+          });
+          this.createDownload(blob, ipcPlanId);
         })
         .catch(() => {
           this.showTableAlert('error', 'Currently unable to complete this request.');
@@ -129,7 +129,6 @@ export default {
       window.URL.revokeObjectURL(url);
       a.remove();
     },
-
     showTableAlert(typ, msg) {
       this.showAlert = true;
       this.alertType = typ;
