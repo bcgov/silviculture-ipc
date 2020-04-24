@@ -21,6 +21,7 @@
     "apiPath": "SERVER_APIPATH",
     "basePath" : "SERVER_BASEPATH",
     "bodyLimit": "SERVER_BODYLIMIT",
+    "emailRecipients": "SERVER_EMAIL_RECIPIENTS",
     "keycloak": {
       "clientId": "SERVER_KC_CLIENTID",
       "clientSecret": "SERVER_KC_CLIENTSECRET",

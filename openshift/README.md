@@ -44,6 +44,12 @@ oc create -n $NAMESPACE configmap silvipc-server-config \
   --from-literal=SERVER_RATELIMIT_IPC_MAX=10
 ```
 
+_Note: If you need emails to be sent when a form is submitted, add the following argument to the above command. If there are multiple recipients, separate email entries with a comma.
+
+```sh
+--from-literal=SERVER_EMAIL_RECIPIENTS=foo@bar.com,baz@boo.com
+```
+
 ### Secrets
 
 Replace anything in angle brackets with the appropriate value!
