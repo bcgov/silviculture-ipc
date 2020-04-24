@@ -126,10 +126,9 @@
                 <tr>
                   <td colspan="2">
                     <div class="float-left">Shared sleeping area or single beds</div>
-                    <div class="float-right">
-                      {{ (ipcPlanData.ipcPlan.sleepingAreaType == 1) ? 'Individual beds or single beds' : 'Shared sleeping
-                      areas' }}
-                    </div>
+                    <div
+                      class="float-right"
+                    >{{ (ipcPlanData.ipcPlan.sleepingAreaType == 1) ? 'Individual beds or single beds' : 'Shared sleeping areas' }}</div>
                   </td>
                 </tr>
                 <template v-if="ipcPlanData.ipcPlan.sleepingAreaType == 2">
