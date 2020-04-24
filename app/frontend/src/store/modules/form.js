@@ -51,6 +51,7 @@ export default {
       addressLine2: '',
       city: '',
       province: '',
+      postalCode: ''
     },
     contacts: [{
       primary: true,
