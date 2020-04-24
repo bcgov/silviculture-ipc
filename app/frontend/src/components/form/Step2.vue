@@ -238,7 +238,7 @@
                   v-model="startDate"
                   :rules="startDateRules"
                   label="Start Date"
-                  prepend-icon="event"
+                  append-icon="event"
                   readonly
                   v-on="on"
                   dense
@@ -269,7 +269,7 @@
                   v-model="endDate"
                   :rules="endDateRules"
                   label="End Date"
-                  prepend-icon="event"
+                  append-icon="event"
                   readonly
                   v-on="on"
                   dense
