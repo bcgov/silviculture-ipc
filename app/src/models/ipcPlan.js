@@ -39,12 +39,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       unique: false
     },
-    mhoContacted: {
-      allowNull: false,
-      comment: '',
-      type: DataTypes.BOOLEAN,
-      unique: false
-    },
     commonAreaDistancing: {
       allowNull: false,
       comment: '',

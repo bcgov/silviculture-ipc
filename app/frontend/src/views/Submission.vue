@@ -3,7 +3,7 @@
     <BaseSecure admin>
       <v-card class="elevation-2 mx-auto mt-10 ipc-wrapper">
         <v-toolbar flat color="grey lighten-3">
-          <v-card-title>Silviculture Workplace Safety for COVID-19</v-card-title>
+          <v-card-title>Silviculture Operator Screening</v-card-title>
           <!-- <router-link :to="{ name: 'Admin'}" class="pdf-link">
             <v-icon color="red">picture_as_pdf</v-icon>
           </router-link>-->
@@ -41,13 +41,6 @@
                   <td>Someone identified that workers can go to if they have questions on COVID-19</td>
                   <td>
                     <v-icon color="green" v-if="ipcPlanData.ipcPlan.workerContactPersonnel">check</v-icon>
-                    <v-icon color="red" v-else>close</v-icon>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Medical Health Officer contacted</td>
-                  <td>
-                    <v-icon color="green" v-if="ipcPlanData.ipcPlan.mhoContacted">check</v-icon>
                     <v-icon color="red" v-else>close</v-icon>
                   </td>
                 </tr>

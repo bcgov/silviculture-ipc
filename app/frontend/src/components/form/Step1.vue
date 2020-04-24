@@ -1,10 +1,29 @@
 <template>
   <v-container>
     <div class="hide-on-review">
-      <h2 class="mb-8">Protect silviculture employees, contractors, and employers, during the COVID-19 pandemic</h2>
+      <h2
+        class="mb-8"
+      >Protect silviculture employees, contractors, and employers, during the COVID-19 pandemic</h2>
       <p
         class="mb-8"
       >The Province of British Columbia has initiated emergency measures to slow the spread of COVID-19. Silviculture and Planting operators must ensure a safe workplace for their workers and demonstrate proof of an Infection Prevention Control protocol (IPCP).</p>
+
+      <v-card outlined class="my-6 silv-warning-card">
+        <v-card-text>
+          <v-container>
+            <v-row no-gutters>
+              <v-col cols="12" sm="1">
+                <h1>
+                  <v-icon large>warning</v-icon>
+                </h1>
+              </v-col>
+              <v-col cols="12" sm="11">
+                <h3>You are required to demonstrate proof of an IPCP for each worksite. This attestation form must be completed for once for each worksite.</h3>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card-text>
+      </v-card>
 
       <p class="mb-8">
         <strong>Before you complete this form:</strong>
@@ -26,7 +45,10 @@
             <em>Protecting Employees, Contractors, and Employers Working in the Silviculture Sector During the COVID-19 Pandemic.</em>
           </p>
           <p>
-            <a href="https://www2.gov.bc.ca/assets/gov/health/about-bc-s-health-care-system/office-of-the-provincial-health-officer/covid-19/covid-19-pho-guidance-work-camps-silviculture.pdf" target="_blank">Download PDF</a>
+            <a
+              href="https://www2.gov.bc.ca/assets/gov/health/about-bc-s-health-care-system/office-of-the-provincial-health-officer/covid-19/covid-19-pho-guidance-work-camps-silviculture.pdf"
+              target="_blank"
+            >Download PDF</a>
           </p>
         </v-col>
       </v-row>
@@ -49,8 +71,10 @@
               <em>Guidelines for Silviculture Worker Camps during the COVID-19 Pandemic</em> will help you identify areas that do not sufficiently prevent or reduce the risk of COVID-19 transmission.
             </p>
             <p>For example, if workers need to be transported to the work site in vehicles where a 2m distance cannot be maintained, this should be identified as a risk. Silviculture and Planting operators can take practical actions to reduce the risk of disease transmission (see section 7).</p>
-            <p>Have you worked through all the sections in <em>Guidelines for Silviculture Worker Camps during the COVID-19 pandemic</em> to identify the risks at your camps?</p>
-
+            <p>
+              Have you worked through all the sections in
+              <em>Guidelines for Silviculture Worker Camps during the COVID-19 pandemic</em> to identify the risks at your camps?
+            </p>
           </v-col>
         </v-row>
       </v-container>
@@ -64,10 +88,10 @@
             </v-avatar>
           </v-col>
           <v-col cols="12" sm="10" lg="11">
+            <p>Create your Infection Prevention and Control protocol.</p>
             <p>
-              Create your Infection Prevention and Control protocol.
-            </p>
-            <p>By following the guidance in <em>Guidelines for Silviculture Worker Camps during the COVID-19 pandemic</em>, you will be developing an Infection Prevention and Control (IPC) Protocol.
+              By following the guidance in
+              <em>Guidelines for Silviculture Worker Camps during the COVID-19 pandemic</em>, you will be developing an Infection Prevention and Control (IPC) Protocol.
             </p>
             <p>For each section of the guide you identified a risk, the risk needs to be controlled. For example, if your workers ride together in a vehicle to the work site, and you follow the instructions to increase cleaning and hygiene, and increase physical distancing, this will form your IPC plan for transportation (see section 7).</p>
             <p>
@@ -96,10 +120,12 @@
         </v-card-text>
       </v-card>
 
-
       <h3 class="mb-2">After submitting this form, you will be subject to a site inspection:</h3>
       <ul class="pl-12">
-        <li>You <b>will be subject to a site inspection</b> of the camp prior to planting beginning.</li>
+        <li>
+          You
+          <b>will be subject to a site inspection</b> of the camp prior to planting beginning.
+        </li>
         <li>The Province of BC will use the information you provide through this online form for the site inspection that determines your compliance and readiness to start planting.</li>
       </ul>
 
