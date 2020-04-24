@@ -239,6 +239,7 @@
                   :rules="startDateRules"
                   label="Start Date"
                   append-icon="event"
+                  v-on:click:append="startDateMenu=true"
                   readonly
                   v-on="on"
                   dense
@@ -270,6 +271,7 @@
                   :rules="endDateRules"
                   label="End Date"
                   append-icon="event"
+                  v-on:click:append="endDateMenu=true"
                   readonly
                   v-on="on"
                   dense
@@ -286,7 +288,14 @@
         <v-row>
           <v-col cols="12" sm="6" lg="5">
             <label>Address line 1</label>
-            <v-text-field v-model="locationAddressLine1" :rules="locationAddressLine1Rules" dense flat outlined solo />
+            <v-text-field
+              v-model="locationAddressLine1"
+              :rules="locationAddressLine1Rules"
+              dense
+              flat
+              outlined
+              solo
+            />
           </v-col>
 
           <v-col cols="12" sm="6" lg="5">
@@ -301,18 +310,40 @@
         <v-row>
           <v-col cols="12" sm="6" lg="5">
             <label>City</label>
-            <v-text-field v-model="locationCity" :rules="locationCityRules" dense flat outlined solo />
+            <v-text-field
+              v-model="locationCity"
+              :rules="locationCityRules"
+              dense
+              flat
+              outlined
+              solo
+            />
           </v-col>
           <v-col cols="12" sm="3" lg="2">
             <label>Province</label>
-            <v-select v-model="locationProvince" :rules="locationProvinceRules" :items="provinces" dense flat outlined solo />
+            <v-select
+              v-model="locationProvince"
+              :rules="locationProvinceRules"
+              :items="provinces"
+              dense
+              flat
+              outlined
+              solo
+            />
           </v-col>
         </v-row>
 
         <v-row>
           <v-col cols="12" sm="3" lg="2">
             <label>Postal Code</label>
-            <v-text-field v-model="locationPostalCode" :rules="locationPostalCodeRules" dense flat outlined solo />
+            <v-text-field
+              v-model="locationPostalCode"
+              :rules="locationPostalCodeRules"
+              dense
+              flat
+              outlined
+              solo
+            />
           </v-col>
         </v-row>
 
@@ -323,7 +354,10 @@
         <div v-if="accTents">
           <v-row>
             <v-col cols="12" lg="10">
-              <label>Details (eg: <em>"1km from HWY 1 at 100 mile house north on Logging Road"</em>)</label>
+              <label>
+                Details (eg:
+                <em>"1km from HWY 1 at 100 mile house north on Logging Road"</em>)
+              </label>
               <v-text-field v-model="tentDetails" dense flat outlined solo />
             </v-col>
           </v-row>
@@ -372,7 +406,11 @@
           </v-row>
         </div>
 
-        <v-checkbox v-model="accWorkersHome" :readonly="reviewMode" label="Worker's home in community"></v-checkbox>
+        <v-checkbox
+          v-model="accWorkersHome"
+          :readonly="reviewMode"
+          label="Worker's home in community"
+        ></v-checkbox>
       </v-form>
     </v-container>
 
