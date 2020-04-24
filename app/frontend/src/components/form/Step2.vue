@@ -6,7 +6,7 @@
     </div>
 
     <v-container>
-      <v-form v-model="step2Valid">
+      <v-form ref="form" v-model="step2Valid">
         <v-row>
           <v-col cols="12" lg="10">
             <h4 class="mb-1">Registered Business Name</h4>
@@ -85,9 +85,6 @@
           <hr />
 
           <h4>Business Address</h4>
-          <span
-            class="red--text"
-          >Note: business requirements TBD. Will not save to submitted form yet</span>
           <v-row>
             <v-col cols="12" sm="6" lg="5">
               <label>Address line 1</label>
@@ -152,9 +149,6 @@
           <hr />
 
           <h4>COVID-19 Coordinator</h4>
-          <span
-            class="red--text"
-          >Note: business requirements TBD. Will not save to submitted form yet</span>
           <v-row>
             <v-col cols="12" sm="6" lg="5">
               <label>First Name</label>
@@ -234,9 +228,6 @@
             <hr class="orange" />
           </div>
           <h4>Planting Camp Sites During the Season</h4>
-          <span
-            class="red--text"
-          >Note: pending business requirements TBD. Will not save to submitted form yet</span>
           <br />
           <br />
 
@@ -269,7 +260,7 @@
     <div class="hide-on-review">
       <hr />
 
-      <v-btn color="primary" :disabled="!step2Valid" @click="setStep(3)">Go to Step 3</v-btn>
+      <v-btn color="primary" @click="submit">Go to Step 3</v-btn>
       <v-btn text @click="setStep(1)">Back</v-btn>
     </div>
   </v-container>
@@ -294,6 +285,7 @@ export default {
   data() {
     return {
       step2Valid: false,
+      validationFailed: false,
       menu2: false,
 
       dateFormatted: '',
@@ -423,7 +415,18 @@ export default {
     },
     numLocationsChanged(e) {
       this.setCampLocationNumber(e);
+    },
+    async submit() {
+      if(this.$refs.form.validate()) {
+        this.setStep(3);
+      } else {
+        await new Promise(r => setTimeout(r, 200)); //ugh
+        const el = document.querySelector('.v-messages.error--text:first-of-type');
+        el.scrollIntoView(true);
+        window.scrollBy(0, -60); // ugh again
+      }
     }
+
   }
 };
 </script>
