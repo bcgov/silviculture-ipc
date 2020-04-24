@@ -4,7 +4,7 @@ const { validators } = require('../components/validators');
 
 const handleValidationErrors = (res, next, errors) => {
   if (errors && errors.length) {
-    log.verbose('handleValidationErrors', JSON.stringify(errors));
+    log.debug('handleValidationErrors', JSON.stringify(errors));
     return new Problem(422, {
       detail: 'Validation failed',
       errors: errors
