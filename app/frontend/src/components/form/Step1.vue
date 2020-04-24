@@ -18,7 +18,7 @@
                 </h1>
               </v-col>
               <v-col cols="12" sm="11">
-                <h3>You are required to demonstrate proof of an IPCP for each worksite. This attestation form must be completed once for each worksite.</h3>
+                <h3>This attestation form must be completed once for each worksite.</h3>
               </v-col>
             </v-row>
           </v-container>
@@ -41,8 +41,10 @@
         </v-col>
         <v-col cols="12" sm="10" lg="11">
           <p>
-            Read
-            <em>Protecting Employees, Contractors, and Employers Working in the Silviculture Sector During the COVID-19 Pandemic.</em>
+            <strong>
+              Read
+              <em>Protecting Employees, Contractors, and Employers Working in the Silviculture Sector During the COVID-19 Pandemic.</em>
+            </strong>
           </p>
           <p>
             <a
@@ -64,17 +66,24 @@
             </v-avatar>
           </v-col>
           <v-col cols="12" sm="10" lg="11">
-            <p>Complete a COVID-19 risk assessment of your silviculture camps by following the directions in the guidance document.</p>
-
-            <p>
-              Assessing each section in the
-              <em>Guidelines for Silviculture Worker Camps during the COVID-19 Pandemic</em> will help you identify areas that do not sufficiently prevent or reduce the risk of COVID-19 transmission.
-            </p>
-            <p>For example, if workers need to be transported to the work site in vehicles where a 2m distance cannot be maintained, this should be identified as a risk. Silviculture and Planting operators can take practical actions to reduce the risk of disease transmission (see section 7).</p>
-            <p>
-              Have you worked through all the sections in
-              <em>Guidelines for Silviculture Worker Camps during the COVID-19 pandemic</em> to identify the risks at your camps?
-            </p>
+            <v-expansion-panels>
+              <v-expansion-panel>
+                <v-expansion-panel-header>
+                  <strong>Complete a COVID-19 risk assessment of your silviculture camps by following the directions in the guidance document.</strong>
+                </v-expansion-panel-header>
+                <v-expansion-panel-content>
+                  <p>
+                    Assessing each section in the
+                    <em>Guidelines for Silviculture Worker Camps during the COVID-19 Pandemic</em> will help you identify areas that do not sufficiently prevent or reduce the risk of COVID-19 transmission.
+                  </p>
+                  <p>For example, if workers need to be transported to the work site in vehicles where a 2m distance cannot be maintained, this should be identified as a risk. Silviculture and Planting operators can take practical actions to reduce the risk of disease transmission (see section 7).</p>
+                  <p>
+                    Have you worked through all the sections in
+                    <em>Guidelines for Silviculture Worker Camps during the COVID-19 pandemic</em> to identify the risks at your camps?
+                  </p>
+                </v-expansion-panel-content>
+              </v-expansion-panel>
+            </v-expansion-panels>
           </v-col>
         </v-row>
       </v-container>
@@ -88,16 +97,24 @@
             </v-avatar>
           </v-col>
           <v-col cols="12" sm="10" lg="11">
-            <p>Create your Infection Prevention and Control protocol.</p>
-            <p>
-              By following the guidance in
-              <em>Guidelines for Silviculture Worker Camps during the COVID-19 pandemic</em>, you will be developing an Infection Prevention and Control (IPC) Protocol.
-            </p>
-            <p>For each section of the guide you identified a risk, the risk needs to be controlled. For example, if your workers ride together in a vehicle to the work site, and you follow the instructions to increase cleaning and hygiene, and increase physical distancing, this will form your IPC plan for transportation (see section 7).</p>
-            <p>
-              Have you decided what guidance in
-              <em>Guidelines for Silviculture Worker Camps during the COVID-19 pandemic</em> is needed in your camps to prevent or control the risk of the transmission of COVID-19?
-            </p>
+            <v-expansion-panels>
+              <v-expansion-panel>
+                <v-expansion-panel-header>
+                  <strong>Create your Infection Prevention and Control protocol.</strong>
+                </v-expansion-panel-header>
+                <v-expansion-panel-content>
+                  <p>
+                    By following the guidance in
+                    <em>Guidelines for Silviculture Worker Camps during the COVID-19 pandemic</em>, you will be developing an Infection Prevention and Control (IPC) Protocol.
+                  </p>
+                  <p>For each section of the guide you identified a risk, the risk needs to be controlled. For example, if your workers ride together in a vehicle to the work site, and you follow the instructions to increase cleaning and hygiene, and increase physical distancing, this will form your IPC plan for transportation (see section 7).</p>
+                  <p>
+                    Have you decided what guidance in
+                    <em>Guidelines for Silviculture Worker Camps during the COVID-19 pandemic</em> is needed in your camps to prevent or control the risk of the transmission of COVID-19?
+                  </p>
+                </v-expansion-panel-content>
+              </v-expansion-panel>
+            </v-expansion-panels>
           </v-col>
         </v-row>
       </v-container>
