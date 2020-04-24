@@ -107,7 +107,7 @@
       <br />
       <br />Title: Ministry of Health, Chief Privacy Officer
       <br />
-      <br />Telephone: xxx-xxx-xxxx
+      <br />Telephone: 236-478-1666
     </p>
 
     <div v-if="!submissionComplete">
