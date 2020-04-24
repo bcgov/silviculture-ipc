@@ -19,32 +19,37 @@ const email = {
    * @param {object} context A freeform key-value pair object
    */
   sendReceipt: async context => {
-    try {
-      const token = await utils.getKeyCloakToken(username, password, tokenEndpoint);
-      const response = await axios.post(apiEndpoint + '/v1/emailMerge', {
-        body: emailBody,
-        bodyType: 'html',
-        contexts: [
-          {
-            context: context,
-            to: ['NR.CommonServiceShowcase@gov.bc.ca'],
-          }
-        ],
-        from: 'NR.CommonServiceShowcase@gov.bc.ca',
-        priority: 'high',
-        subject: 'Silviculture IPC Form Accepted'
-      }, {
-        headers: { Authorization: `Bearer ${token.access_token}` }
-      });
+    if (config.has('server.emailRecipients')) {
+      log.verbose('email.sendReceipt', 'server.emailRecipients exists - sending email notification');
+      const recipients = config.get('server.emailRecipients');
 
-      if (response.status == 201) {
-        return response.data;
-      } else {
-        throw new Error(`Error from POST to CHES. Response Code: ${response.status}`);
+      try {
+        const token = await utils.getKeyCloakToken(username, password, tokenEndpoint);
+        const response = await axios.post(apiEndpoint + '/v1/emailMerge', {
+          body: emailBody,
+          bodyType: 'html',
+          contexts: [
+            {
+              context: context,
+              to: recipients.split(',').filter(r => r),
+            }
+          ],
+          from: 'NR.CommonServiceShowcase@gov.bc.ca',
+          priority: 'normal',
+          subject: 'Silviculture IPC Form Accepted'
+        }, {
+          headers: { Authorization: `Bearer ${token.access_token}` }
+        });
+
+        if (response.status == 201) {
+          return response.data;
+        } else {
+          throw new Error(`Error from POST to CHES. Response Code: ${response.status}`);
+        }
+      } catch (error) {
+        log.error('email.sendRequest', error.message);
+        throw new Error(`Error calling email endpoint. Error: ${error.message}`);
       }
-    } catch (error) {
-      log.error('email.sendRequest', error.message);
-      throw new Error(`Error calling email endpoint. Error: ${error.message}`);
     }
   },
 
