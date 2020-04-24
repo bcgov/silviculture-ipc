@@ -3,11 +3,11 @@ const cdogsService = require('./cdogsService');
 const dataService = require('../services/dataService');
 const transformService = require('../services/transformService');
 
-const templateJson = require('../assets/silviculture-ipc-template-a.json');
+const templateJson = require('../assets/silviculture-ipc-template-b.json');
 
 module.exports = {
   generate: async ipcPlanId => {
-    const docx = path.join(__dirname, '..', 'assets', 'silviculture-ipc-template-a.docx');
+    const docx = path.join(__dirname, '..', 'assets', 'silviculture-ipc-template-b.docx');
 
     let templateId = await cdogsService.getHash(docx);
     const templateResult = await cdogsService.getTemplate(templateId);
@@ -18,7 +18,7 @@ module.exports = {
 
     // ok, have the template... get the data and create the document...
     const ipcPlan = await dataService.getIPCPlan(ipcPlanId);
-    const ipcPlanData = transformService.transformIPCPlan(ipcPlan);
+    const ipcPlanData = transformService.modelToAPI.ipcPlanToPost(ipcPlan);
 
     const body = { ...templateJson };
     body.data = { ...ipcPlanData };

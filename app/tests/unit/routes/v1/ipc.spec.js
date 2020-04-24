@@ -53,19 +53,5 @@ describe(`POST ${basePath}`, () => {
     expect(response.body).toBeTruthy();
     expect(saveSpy).toHaveBeenCalledTimes(1);
   });
-
-  it('should yield a validation failure', async () => {
-    const email = 'badEmail';
-    body.contacts[0].email = email;
-
-    const response = await request(app).post(`${basePath}`).send(body);
-
-    expect(response.statusCode).toBe(422);
-    expect(response.body).toBeTruthy();
-    expect(response.body.detail).toMatch('Validation failed');
-    expect(response.body.errors).toHaveLength(1);
-    expect(response.body.errors[0].value).toMatch(email);
-    expect(response.body.errors[0].message).toMatch(/email/);
-    expect(saveSpy).toHaveBeenCalledTimes(0);
-  });
+  
 });
