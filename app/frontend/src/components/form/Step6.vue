@@ -214,9 +214,6 @@ export default {
     async submit() {
       await this.submitForm();
     },
-    downloadPdf() {
-      alert('coming soon');
-    },
     generatePdf(){
       ipcService
         .getIPCContentAsPDF(this.submissionDetails.ipcPlan.ipcPlanId)
