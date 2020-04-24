@@ -107,12 +107,12 @@ export default {
     },
     generatePdf(ipcPlanId){
       ipcService
-        .getIPCContentasPDF(ipcPlanId)
+        .getIPCContentAsPDF(ipcPlanId)
         .then(response => {
           const blob = new Blob([response.data], {
             type: 'attachment'
           });
-          this.createDownload(blob, ipcPlanId);
+          this.createDownload(blob, `${ipcPlanId}.pdf`);
         })
         .catch(() => {
           this.showTableAlert('error', 'Currently unable to complete this request.');
