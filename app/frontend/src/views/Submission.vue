@@ -12,20 +12,83 @@
         <v-container class="px-8">
           <h4 class="mt-5">{{ ipcPlanData.business.name }}</h4>
           <ul>
-            <li>Submitted:{{ new Date(ipcPlanData.ipcPlan.createdAt).toLocaleString() }}</li>
-            <li>
-              Confirmation ID:
-              {{ ipcPlanData.confirmationId }}
-            </li>
+            <li>Submitted: {{ new Date(ipcPlanData.ipcPlan.createdAt).toLocaleString() }}</li>
+            <li>Confirmation ID: {{ ipcPlanData.confirmationId }}</li>
+          </ul>
+
+          <h4 class="mt-5">Business Address</h4>
+          <ul class="mt-2">
+            <li>{{ ipcPlanData.business.addressLine1 }}</li>
+            <template v-if="ipcPlanData.business.addressLine2 != ''">
+              <li> {{ ipcPlanData.business.addressLine2 }}</li>
+            </template>
+            <li>{{ ipcPlanData.business.city }}</li>
+            <li>{{ ipcPlanData.business.province }}</li>
+            <li>{{ ipcPlanData.business.PostalCode }}</li>
           </ul>
 
           <h4 class="mt-5">Contact Details</h4>
-
           <ul class="mt-2">
             <li>Name: {{ ipcPlanData.contacts[0].firstName + ' ' + ipcPlanData.contacts[0].lastName }}</li>
             <li>Phone: {{ ipcPlanData.contacts[0].phone1 }}</li>
+
+            <template v-if="ipcPlanData.contacts[0].phone2">
+              <li>2<sup>nd</sup> Phone:  {{ ipcPlanData.contacts[0].phone2 }}</li>
+            </template>
             <li>Email: {{ ipcPlanData.contacts[0].email }}</li>
           </ul>
+
+          <h4 class="mt-5">COVID-19 Coordinator Contact Details</h4>
+          <ul class="mt-2">
+            <li>Name: {{ ipcPlanData.covidContact.firstName + ' ' + ipcPlanData.covidContact.lastName }}</li>
+            <li>Phone: {{ ipcPlanData.covidContact.phone1 }}</li>
+            <template v-if="ipcPlanData.covidContact.phone2">
+              <li>2<sup>nd</sup> Phone:  {{ ipcPlanData.covidContact.phone2 }}</li>
+            </template>
+
+            <li>Email: {{ ipcPlanData.covidContact.email }}</li>
+          </ul>
+
+          <h4 class="mt-5">Accomodation for planters</h4>
+
+          <ul class="mt-2">
+            <li><strong>Camp Location</strong></li>
+            <li>{{ ipcPlanData.location.addressLine1 }}</li>
+            <template v-if="ipcPlanData.location.addressLine2 != ''">
+              <li> {{ ipcPlanData.location.addressLine2 }}</li>
+            </template>
+
+            <li>{{ ipcPlanData.location.city }}</li>
+            <li>{{ ipcPlanData.location.province }}</li>
+            <li>{{ ipcPlanData.location.PostalCode }}</li>
+            <li><strong>Duration of stay:</strong></li>
+            <li>{{ ipcPlanData.location.startDate }} - {{ ipcPlanData.location.endDate }}</li>
+          </ul>
+
+          <template v-if="ipcPlanData.accTents">
+            <ul class="mt-2">
+              <li><strong>Tents near worksite</strong></li>
+              {{ (ipcPlanData.location.tentDetails) ? '<li>' + ipcPlanData.location.tentDetails + '</li>' : '' }}
+            </ul>
+          </template>
+
+          <template v-if="ipcPlanData.accMotel">
+            <ul class="mt-2">
+              <li><strong>Tents near worksite</strong></li>
+              <li>{{ ipcPlanData.location.motelAddressLine1 }}</li>
+              {{ (ipcPlanData.location.motelAddressLine2) ? '<li>' + ipcPlanData.motelAddressLine2 + '</li>' : '' }}
+              <li>{{ ipcPlanData.location.motelCity }}</li>
+              <li>{{ ipcPlanData.location.motelProvince }}</li>
+              <li>{{ ipcPlanData.location.motelPostalCode }}</li>
+            </ul>
+          </template>
+
+          <template v-if="ipcPlanData.accWorkersHome">
+            <ul class="mt-2">
+              <li><strong>Worker's home in the community</strong></li>
+            </ul>
+          </template>
+
           <h4 class="mt-5 mb-2">COVID-19 Information</h4>
           <v-simple-table dense>
             <template>
