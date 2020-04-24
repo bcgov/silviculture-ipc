@@ -1,6 +1,10 @@
 <template>
   <v-container>
     <BaseSecure admin>
+      <router-link :to="{ name: 'Admin'}">
+        <v-btn color="primary" class="mt-5">Back</v-btn>
+      </router-link>
+
       <v-card class="elevation-2 mx-auto mt-10">
         <v-toolbar flat color="grey lighten-3">
           <v-card-title>{{ ipcPlanData.business.name }}</v-card-title>
