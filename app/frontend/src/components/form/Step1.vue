@@ -122,11 +122,7 @@
 
       <h3 class="mb-2">After submitting this form, you will be subject to a site inspection:</h3>
       <ul class="pl-12">
-        <li>
-          You
-          <b>will be subject to a site inspection</b> of the camp prior to planting beginning.
-        </li>
-        <li>The Province of BC will use the information you provide through this online form for the site inspection that determines your compliance and readiness to start planting.</li>
+        <li>The Province of BC will use the information you provide through this online form for the site inspection that determines your compliance with the COVID-19 Industrial Camps Provincial Health Order.</li>
       </ul>
 
       <v-card outlined class="my-6 silv-warning-card">
@@ -139,7 +135,7 @@
                 </h1>
               </v-col>
               <v-col cols="12" sm="11">
-                <h3>If you fail to comply with these requirements, the arrival of silviculture workers or planters at your work site will be delayed or denied.</h3>(source: BC Ministry of Health, Provincial Health Officer Order, PHO supplemental / Apr 13, date)
+                <h3>If you fail to comply with these requirements, the Provincial Health Officer has the authority to take enforcement action against you under Part 4, Division 6 of the Public Health Act.</h3>
               </v-col>
             </v-row>
           </v-container>
