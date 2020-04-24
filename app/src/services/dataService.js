@@ -12,10 +12,7 @@ module.exports = {
   async getIPCPlan(id) {
     const ipcObj = await db.IPCPlan.findByPk(id,
       {
-        include: {
-          model: db.Business,
-          include: {model: db.Contact}
-        }
+        include: { all: true, nested: true }
       }
     );
     return ipcObj;
@@ -29,10 +26,7 @@ module.exports = {
   async getIPCPlans() {
     const ipcObjs = await db.IPCPlan.findAll(
       {
-        include: {
-          model: db.Business,
-          include: {model: db.Contact}
-        }
+        include: { all: true, nested: true }
       }
     );
     return ipcObjs;
@@ -59,31 +53,24 @@ module.exports = {
     return ipcObjs;
   },
 
-  /**
-   * @function save
-   * Writes the `business`, `contacts` and `ipcPlan` to database
-   * @param {object} business Business data
-   * @param {object[]} contacts Array of contact data
-   * @param {object} ipcPlan IPC Plan data
-   * @returns {object} IPC Plan
-   */
-  async save(business, contacts, ipcPlan) {
+  async save(business, contacts, ipcPlan, location) {
     let ipcPlanId;
     await db.sequelize.transaction(async t => {
-      const businessObj = await db.Business.create(business, {transaction: t});
-
-      await db.Contact.bulkCreate(contacts.map(c => {
-        return {...c, businessId: businessObj.businessId};
-      }), {transaction: t});
 
       if (ipcPlan.sleepingAreaType === constants.SLEEPING_AREA_TYPE_SINGLE) {
         ipcPlan.sharedSleepingPerRoom = 0;
         ipcPlan.sharedSleepingDistancing = false;
       }
-      const ipcPlanObj = await db.IPCPlan.create(
-        {...ipcPlan, businessId: businessObj.businessId},
-        {transaction: t});
+
+      const ipcPlanObj = await db.IPCPlan.create({...ipcPlan}, {transaction: t});
       ipcPlanId = ipcPlanObj.ipcPlanId;
+
+      await db.Business.create({...business, ipcPlanId: ipcPlanId}, {transaction: t});
+      await db.Location.create({...location, ipcPlanId: ipcPlanId}, {transaction: t});
+
+      await db.Contact.bulkCreate(contacts.map(c => {
+        return {...c, ipcPlanId: ipcPlanId};
+      }), {transaction: t});
     });
 
     return await this.getIPCPlan(ipcPlanId);

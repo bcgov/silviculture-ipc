@@ -2,97 +2,6 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.sequelize.transaction((t) => {
       return Promise.all([
-        queryInterface.createTable('business', {
-          businessId: {
-            allowNull: false,
-            defaultValue: Sequelize.UUIDV4,
-            primaryKey: true,
-            type: Sequelize.UUID
-          },
-          createdAt: {
-            allowNull: false,
-            type: Sequelize.DATE
-          },
-          updatedAt: {
-            allowNull: false,
-            type: Sequelize.DATE
-          },
-          deletedAt: {
-            allowNull: true,
-            type: Sequelize.DATE
-          },
-          name: {
-            allowNull: false,
-            comment: 'The business name',
-            type: Sequelize.STRING(255),
-            unique: false
-          }
-        }, {
-          comment: 'List of all businesses',
-          transaction: t
-        }),
-        queryInterface.createTable('contact', {
-          contactId: {
-            allowNull: false,
-            defaultValue: Sequelize.UUIDV4,
-            primaryKey: true,
-            type: Sequelize.UUID
-          },
-          businessId: {
-            allowNull: false,
-            comment: 'Associated Business id',
-            type: Sequelize.UUID,
-            references: {
-              model: 'business',
-              key: 'businessId'
-            }
-          },
-          createdAt: {
-            allowNull: false,
-            type: Sequelize.DATE
-          },
-          updatedAt: {
-            allowNull: false,
-            type: Sequelize.DATE
-          },
-          deletedAt: {
-            allowNull: true,
-            type: Sequelize.DATE
-          },
-          firstName: {
-            allowNull: false,
-            comment: 'Contact first name',
-            type: Sequelize.STRING(120),
-            unique: false
-          },
-          lastName: {
-            allowNull: false,
-            comment: 'Contact last name',
-            type: Sequelize.STRING(120),
-            unique: false
-          },
-          phone1: {
-            allowNull: false,
-            comment: 'Contact primary phone',
-            type: Sequelize.STRING(30),
-            unique: false
-          },
-          phone2: {
-            allowNull: true,
-            comment: 'Contact secondary phone',
-            type: Sequelize.STRING(30),
-            unique: false
-          },
-          email: {
-            allowNull: false,
-            comment: 'Contact email address',
-            type: Sequelize.STRING(255),
-            unique: false
-          }
-        }, {
-          comment: 'List of all contacts',
-          transaction: t
-        }),
         queryInterface.createTable('ipc_plan', {
           ipcPlanId: {
             allowNull: false,
@@ -103,15 +12,6 @@ module.exports = {
               isUUID: 4
             }
           },
-          businessId: {
-            allowNull: false,
-            comment: 'Associated Business id',
-            type: Sequelize.UUID,
-            references: {
-              model: 'business',
-              key: 'businessId'
-            }
-          },
           createdAt: {
             allowNull: false,
             type: Sequelize.DATE
@@ -123,6 +23,12 @@ module.exports = {
           deletedAt: {
             allowNull: true,
             type: Sequelize.DATE
+          },
+          notes: {
+            allowNull: true,
+            comment: '',
+            type: Sequelize.STRING(4000),
+            unique: false
           },
           guidelinesRead: {
             allowNull: false,
@@ -149,12 +55,6 @@ module.exports = {
             unique: false
           },
           workerContactPersonnel: {
-            allowNull: false,
-            comment: '',
-            type: Sequelize.BOOLEAN,
-            unique: false
-          },
-          mhoContacted: {
             allowNull: false,
             comment: '',
             type: Sequelize.BOOLEAN,
@@ -391,6 +291,261 @@ module.exports = {
         }, {
           comment: 'List of all IPC plan answers',
           transaction: t
+        }),
+        queryInterface.createTable('business', {
+          businessId: {
+            allowNull: false,
+            defaultValue: Sequelize.UUIDV4,
+            primaryKey: true,
+            type: Sequelize.UUID
+          },
+          createdAt: {
+            allowNull: false,
+            type: Sequelize.DATE
+          },
+          updatedAt: {
+            allowNull: false,
+            type: Sequelize.DATE
+          },
+          deletedAt: {
+            allowNull: true,
+            type: Sequelize.DATE
+          },
+          ipcPlanId: {
+            allowNull: false,
+            comment: 'Associated ICP Plan id',
+            type: Sequelize.UUID,
+            references: {
+              model: 'ipc_plan',
+              key: 'ipcPlanId'
+            }
+          },
+          name: {
+            allowNull: false,
+            comment: 'The business name',
+            type: Sequelize.STRING(255),
+            unique: false
+          },
+          addressLine1: {
+            allowNull: false,
+            comment: 'Address line 1',
+            type: Sequelize.STRING(255),
+            unique: false
+          },
+          addressLine2: {
+            allowNull: true,
+            comment: 'Address line 2',
+            type: Sequelize.STRING(255),
+            unique: false
+          },
+          city: {
+            allowNull: false,
+            comment: 'City name',
+            type: Sequelize.STRING(255),
+            unique: false
+          },
+          province: {
+            allowNull: false,
+            comment: 'Province',
+            type: Sequelize.STRING(30),
+            unique: false
+          },
+          postalCode: {
+            allowNull: false,
+            comment: 'Postal code',
+            type: Sequelize.STRING(30),
+            unique: false
+          }
+        },{
+          comment: 'List of all businesses',
+          transaction: t
+        }),
+        queryInterface.createTable('contact', {
+          contactId: {
+            allowNull: false,
+            defaultValue: Sequelize.UUIDV4,
+            primaryKey: true,
+            type: Sequelize.UUID
+          },
+          ipcPlanId: {
+            allowNull: false,
+            comment: 'Associated ICP Plan id',
+            type: Sequelize.UUID,
+            references: {
+              model: 'ipc_plan',
+              key: 'ipcPlanId'
+            }
+          },
+          createdAt: {
+            allowNull: false,
+            type: Sequelize.DATE
+          },
+          updatedAt: {
+            allowNull: false,
+            type: Sequelize.DATE
+          },
+          deletedAt: {
+            allowNull: true,
+            type: Sequelize.DATE
+          },
+          contactType: {
+            allowNull: false,
+            comment: 'Contact type',
+            type: Sequelize.STRING(30),
+            unique: false
+          },
+          firstName: {
+            allowNull: false,
+            comment: 'Contact first name',
+            type: Sequelize.STRING(120),
+            unique: false
+          },
+          lastName: {
+            allowNull: false,
+            comment: 'Contact last name',
+            type: Sequelize.STRING(120),
+            unique: false
+          },
+          phone1: {
+            allowNull: false,
+            comment: 'Contact primary phone',
+            type: Sequelize.STRING(30),
+            unique: false
+          },
+          phone2: {
+            allowNull: true,
+            comment: 'Contact secondary phone',
+            type: Sequelize.STRING(30),
+            unique: false
+          },
+          email: {
+            allowNull: false,
+            comment: 'Contact email address',
+            type: Sequelize.STRING(255),
+            unique: false
+          }
+        }, {
+          comment: 'List of all contacts',
+          transaction: t
+        }),
+        queryInterface.createTable('location', {
+          locationId: {
+            allowNull: false,
+            defaultValue: Sequelize.UUIDV4,
+            primaryKey: true,
+            type: Sequelize.UUID
+          },
+          createdAt: {
+            allowNull: false,
+            type: Sequelize.DATE
+          },
+          updatedAt: {
+            allowNull: false,
+            type: Sequelize.DATE
+          },
+          deletedAt: {
+            allowNull: true,
+            type: Sequelize.DATE
+          },
+          ipcPlanId: {
+            allowNull: false,
+            comment: 'Associated ICP Plan id',
+            type: Sequelize.UUID,
+            references: {
+              model: 'ipc_plan',
+              key: 'ipcPlanId'
+            }
+          },
+          startDate: {
+            allowNull: false,
+            type: Sequelize.DATE
+          },
+          endDate: {
+            allowNull: false,
+            type: Sequelize.DATE
+          },
+          addressLine1: {
+            allowNull: false,
+            type: Sequelize.STRING(255),
+            unique: false
+          },
+          addressLine2: {
+            allowNull: false,
+            type: Sequelize.STRING(255),
+            unique: false
+          },
+          city: {
+            allowNull: false,
+            type: Sequelize.STRING(255),
+            unique: false
+          },
+          province: {
+            allowNull: false,
+            type: Sequelize.STRING(30),
+            unique: false
+          },
+          postalCode: {
+            allowNull: false,
+            type: Sequelize.STRING(30),
+            unique: false
+          },
+          accTents: {
+            allowNull: false,
+            comment: 'Tent Accommodations',
+            type: Sequelize.BOOLEAN,
+            unique: false
+          },
+          tentDetails: {
+            allowNull: true,
+            comment: 'Tent Details',
+            type: Sequelize.STRING(255),
+            unique: false
+          },
+          accMotel: {
+            allowNull: false,
+            comment: 'Motel Accommodations',
+            type: Sequelize.BOOLEAN,
+            unique: false
+          },
+          motelName: {
+            allowNull: true,
+            type: Sequelize.STRING(255),
+            unique: false
+          },
+          motelAddressLine1: {
+            allowNull: true,
+            type: Sequelize.STRING(255),
+            unique: false
+          },
+          motelAddressLine2: {
+            allowNull: true,
+            type: Sequelize.STRING(255),
+            unique: false
+          },
+          motelCity: {
+            allowNull: true,
+            type: Sequelize.STRING(255),
+            unique: false
+          },
+          motelProvince: {
+            allowNull: true,
+            type: Sequelize.STRING(30),
+            unique: false
+          },
+          motelPostalCode: {
+            allowNull: true,
+            type: Sequelize.STRING(30),
+            unique: false
+          },
+          accWorkersHome: {
+            allowNull: false,
+            comment: 'Worker/Home Accommodations',
+            type: Sequelize.BOOLEAN,
+            unique: false
+          }
+        },{
+          comment: 'List of all locations',
+          transaction: t
         })
       ]);
     });
@@ -399,13 +554,16 @@ module.exports = {
   down: queryInterface => {
     return queryInterface.sequelize.transaction((t) => {
       return Promise.all([
-        queryInterface.dropTable('ipc_plan', {
+        queryInterface.dropTable('location', {
           transaction: t
         }),
         queryInterface.dropTable('contact', {
           transaction: t
         }),
         queryInterface.dropTable('business', {
+          transaction: t
+        }),
+        queryInterface.dropTable('ipc_plan', {
           transaction: t
         })
       ]);

@@ -33,7 +33,7 @@ describe(`GET ${basePath}`, () => {
 describe(`POST ${basePath}`, () => {
   const saveSpy = jest.spyOn(dataService, 'save');
   const sendReceiptSpy = jest.spyOn(email, 'sendReceipt');
-  const xformSpy = jest.spyOn(transformService, 'transformIPCPlan');
+  const xformSpy = jest.spyOn(transformService.modelToAPI, 'ipcPlanToPost');
   let body;
 
   beforeEach(() => {
@@ -52,7 +52,6 @@ describe(`POST ${basePath}`, () => {
     expect(response.statusCode).toBe(201);
     expect(response.body).toBeTruthy();
     expect(saveSpy).toHaveBeenCalledTimes(1);
-    expect(saveSpy).toHaveBeenCalledWith(body.business, body.contacts, body.ipcPlan);
   });
 
   it('should yield a validation failure', async () => {

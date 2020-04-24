@@ -9,6 +9,12 @@ module.exports = (sequelize, DataTypes) => {
         isUUID: 4
       }
     },
+    notes: {
+      allowNull: true,
+      comment: '',
+      type: DataTypes.STRING(4000),
+      unique: false
+    },
     guidelinesRead: {
       allowNull: false,
       comment: '',
@@ -34,12 +40,6 @@ module.exports = (sequelize, DataTypes) => {
       unique: false
     },
     workerContactPersonnel: {
-      allowNull: false,
-      comment: '',
-      type: DataTypes.BOOLEAN,
-      unique: false
-    },
-    mhoContacted: {
       allowNull: false,
       comment: '',
       type: DataTypes.BOOLEAN,
@@ -278,8 +278,14 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'ipc_plan'
   });
   IPCPlan.associate = models => {
-    IPCPlan.belongsTo(models.Business, {
-      foreignKey: 'businessId'
+    IPCPlan.hasOne(models.Business, {
+      foreignKey: 'ipcPlanId'
+    });
+    IPCPlan.hasMany(models.Contact, {
+      foreignKey: 'ipcPlanId'
+    });
+    IPCPlan.hasOne(models.Location, {
+      foreignKey: 'ipcPlanId'
     });
   };
   return IPCPlan;

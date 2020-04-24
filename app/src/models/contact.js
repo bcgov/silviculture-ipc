@@ -9,6 +9,12 @@ module.exports = (sequelize, DataTypes) => {
         isUUID: 4
       }
     },
+    contactType: {
+      allowNull: false,
+      comment: 'Contact type',
+      type: DataTypes.STRING(30),
+      unique: false
+    },
     firstName: {
       allowNull: false,
       comment: 'Contact first name',
@@ -44,8 +50,8 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'contact'
   });
   Contact.associate = models => {
-    Contact.belongsTo(models.Business, {
-      foreignKey: 'businessId'
+    Contact.belongsTo(models.IPCPlan, {
+      foreignKey: 'ipcPlanId'
     });
   };
   return Contact;
