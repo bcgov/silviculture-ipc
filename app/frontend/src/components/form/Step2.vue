@@ -362,6 +362,26 @@ export default {
       get() { return this.business.name; },
       set(value) { this.updateBusiness({['name']: value}); }
     },
+    businessAddressLine1: {
+      get() { return this.business.addressLine1; },
+      set(value) { this.updateBusiness({['addressLine1']: value}); }
+    },
+    businessAddressLine2: {
+      get() { return this.business.addressLine2; },
+      set(value) { this.updateBusiness({['addressLine2']: value}); }
+    },
+    businessAddressCity: {
+      get() { return this.business.city; },
+      set(value) { this.updateBusiness({['city']: value}); }
+    },
+    businessAddressProvince: {
+      get() { return this.business.province; },
+      set(value) { this.updateBusiness({['province']: value}); }
+    },
+    businessAddressPostalCode: {
+      get() { return this.business.postalCode; },
+      set(value) { this.updateBusiness({['postalCode']: value}); }
+    },
 
     // Contact
     firstName: {

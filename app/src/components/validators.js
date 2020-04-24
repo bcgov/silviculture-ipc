@@ -61,7 +61,8 @@ const models = {
     },
     phone2: value => {
       if (value) {
-        return validator.isMobilePhone(value);
+        return true;
+        // return validator.isMobilePhone(value);
       }
       return true;
     },
