@@ -3,7 +3,7 @@
     <BaseSecure admin>
       <v-card class="elevation-2 mx-auto mt-10 ipc-wrapper">
         <v-toolbar flat color="grey lighten-3">
-          <v-card-title>Silviculture Workplace Safety for COVID-19</v-card-title>
+          <v-card-title>Silviculture Operator Screening</v-card-title>
           <!-- <router-link :to="{ name: 'Admin'}" class="pdf-link">
             <v-icon color="red">picture_as_pdf</v-icon>
           </router-link>-->
