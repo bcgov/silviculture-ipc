@@ -470,7 +470,7 @@ module.exports = {
             unique: false
           },
           addressLine2: {
-            allowNull: false,
+            allowNull: true,
             type: Sequelize.STRING(255),
             unique: false
           },

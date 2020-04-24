@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       unique: false
     },
     addressLine2: {
-      allowNull: false,
+      allowNull: true,
       comment: 'Address line 2',
       type: DataTypes.STRING(255),
       unique: false
