@@ -1,40 +1,5 @@
 import ipcService from '../../services/ipcService';
 
-const campLocationDefault = {
-  startDate: '',
-  endDate: '',
-  addressLine1: '',
-  addressLine2: '',
-  city: '',
-  province: '',
-  postalCode: '',
-  accTents: false,
-  tentAddress: {
-    addressLine1: '',
-    addressLine2: '',
-    city: '',
-    province: '',
-    postalCode: '',
-  },
-  accMotel: false,
-  motelAddress: {
-    addressLine1: '',
-    addressLine2: '',
-    city: '',
-    province: '',
-    postalCode: '',
-  },
-  accWh: false,
-  whAddress: {
-    addressLine1: '',
-    addressLine2: '',
-    city: '',
-    province: '',
-    postalCode: '',
-
-  }
-};
-
 export default {
   namespaced: true,
   state: {
@@ -68,7 +33,25 @@ export default {
       phone2: '',
       email: ''
     },
-    campLocations: [JSON.parse(JSON.stringify(campLocationDefault))],
+    location: {
+      startDate: '',
+      endDate: '',
+      addressLine1: '',
+      addressLine2: '',
+      city: '',
+      province: '',
+      postalCode: '',
+      accTents: false,
+      tentDetails: '',
+      accMotel: false,
+      motelName: '',
+      motelAddressLine1: '',
+      motelAddressLine2: '',
+      motelCity: '',
+      motelProvince: '',
+      motelPostalCode: '',
+      accWorkersHome: false
+    },
     ipcPlan: {
       sleepingAreaType: 1,
       sharedSleepingPerRoom: 1,
@@ -128,7 +111,7 @@ export default {
     contacts: state => state.contacts[0],
     covidContact: state => state.covidContact,
     ipcPlan: state => state.ipcPlan,
-    campLocations: state => state.campLocations,
+    location: state => state.location,
   },
   mutations: {
     setSubmitting(state, isSubmitting) {
@@ -162,30 +145,9 @@ export default {
     updateIpcPlan: (state, obj) => {
       Object.assign(state.ipcPlan, obj);
     },
-
-    // Camp locations
-    setCampLocationNumber: (state, num) => {
-      if (num < state.campLocations.length) {
-        state.campLocations = state.campLocations.slice(0, num);
-      } else {
-        // Probably a better es6 way but be careful of filling by reference (would be bad)
-        for (let i = state.campLocations.length; i < num; i++) {
-          state.campLocations.push(JSON.parse(JSON.stringify(campLocationDefault)));
-        }
-      }
+    updateLocation: (state, obj) => {
+      Object.assign(state.location, obj);
     },
-    updateCampLocations: (state, payload) => {
-      Object.assign(state.campLocations[payload.index], payload.obj);
-    },
-    updateTentAddress: (state, payload) => {
-      Object.assign(state.campLocations[payload.index].tentAddress, payload.obj);
-    },
-    updateMotelAddress: (state, payload) => {
-      Object.assign(state.campLocations[payload.index].motelAddress, payload.obj);
-    },
-    updateWhAddress: (state, payload) => {
-      Object.assign(state.campLocations[payload.index].whAddress, payload.obj);
-    }
   },
   actions: {
     async submitForm({ commit, state }) {
@@ -195,7 +157,9 @@ export default {
         const body = {
           business: state.business,
           contacts: state.contacts,
-          ipcPlan: state.ipcPlan
+          ipcPlan: state.ipcPlan,
+          covidContact: state.covidContact,
+          location: state.location
         };
         const response = await ipcService.sendIPCContent(body);
         if (!response.data) {
