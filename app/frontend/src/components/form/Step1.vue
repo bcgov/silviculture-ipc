@@ -152,7 +152,7 @@
                 </h1>
               </v-col>
               <v-col cols="12" sm="11">
-                <h3>If you fail to comply with these requirements, the Provincial Health Officer has the authority to take enforcement action against you under Part 4, Division 6 of the Public Health Act.</h3>
+                <h3>If you fail to comply with these requirements, the Provincial Health Officer order enables the authority to take enforcement action against you under Part 4, Division 6 of the Public Health Act.</h3>
               </v-col>
             </v-row>
           </v-container>
