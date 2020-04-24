@@ -1,6 +1,4 @@
 const config = require('config');
-const log = require('npmlog');
-const Problem = require('api-problem');
 const rateLimit = require('express-rate-limit');
 const router = require('express').Router();
 
@@ -18,20 +16,19 @@ const ipcRateLimiter = rateLimit({
   max: config.get('server.rateLimit.ipc.max')
 });
 
-router.post('/', ipcRateLimiter, validation.validateIPC, async (req, res) => {
+router.post('/', ipcRateLimiter, validation.validateIPC, async (req, res, next) => {
   try {
     const xform = transformService.apiToModel.postToIPCPlan(req.body);
     const result = await dataService.save(xform.business, xform.contacts, xform.ipcPlan, xform.location);
     const data = transformService.modelToAPI.ipcPlanToPost(result);
     email.sendReceipt({ confirmationNumber: data.confirmationId });
     return res.status(201).json(data);
-  } catch (error) {
-    log.error(error);
-    return new Problem(500, { detail: error.message }).send(res);
+  } catch (err) {
+    next(err);
   }
 });
 
-router.get('/', keycloak.protect(), async (req, res) => {
+router.get('/', keycloak.protect(), async (req, res, next) => {
   try {
     if (req.query.meta) {
       const result = await dataService.getIPCPlansMeta();
@@ -40,32 +37,29 @@ router.get('/', keycloak.protect(), async (req, res) => {
       const result = await dataService.getIPCPlans();
       return res.status(200).json(transformService.modelToAPI.ipcPlansToPost(result));
     }
-  } catch (error) {
-    log.error(error);
-    return new Problem(500, { detail: error.message }).send(res);
+  } catch (err) {
+    next(err);
   }
 });
 
-router.get('/:ipcPlanId', keycloak.protect(), async (req, res) => {
+router.get('/:ipcPlanId', keycloak.protect(), async (req, res, next) => {
   try {
     const result = await dataService.getIPCPlan(req.params.ipcPlanId);
     return res.status(200).json(transformService.modelToAPI.ipcPlanToPost(result));
-  } catch (error) {
-    log.error(error);
-    return new Problem(500, { detail: error.message }).send(res);
+  } catch (err) {
+    next(err);
   }
 });
 
-router.get('/pdf/:ipcPlanId', keycloak.protect(), async (req, res) => {
+router.get('/pdf/:ipcPlanId', keycloak.protect(), async (req, res, next) => {
   try {
     const result = await ipcPlanPdf.generate(req.params.ipcPlanId);
     ['Content-Disposition','Content-Type','Content-Length','Content-Transfer-Encoding'].forEach(h => {
       res.setHeader(h, result.headers[h.toLowerCase()]);
     });
     return res.send(result.data);
-  } catch (error) {
-    log.error(error);
-    return new Problem(500, { detail: error.message }).send(res);
+  } catch (err) {
+    next(err);
   }
 });
 

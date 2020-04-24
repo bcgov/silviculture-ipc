@@ -74,13 +74,17 @@ app.use(staticFilesPath, express.static(path.join(__dirname, 'frontend/dist')));
 
 // Handle 500
 // eslint-disable-next-line no-unused-vars
-app.use((err, _req, res, _next) => {
+app.use((err, req, res, _next) => {
   if (err.stack) {
     log.error(err.stack);
   }
 
   if (err instanceof Problem) {
     err.send(res, null);
+  } else if (db.isNotFoundError(err)) {
+    new Problem(404, 'Data Not Found', {
+      detail: req.originalUrl
+    }).send(res);
   } else {
     new Problem(500, 'Server Error', {
       detail: (err.message) ? err.message : err

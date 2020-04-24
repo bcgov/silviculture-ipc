@@ -26,4 +26,7 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
+db.isNotFoundError = e => e && e instanceof Sequelize.EmptyResultError;
+db.isSyntaxError = e => e && e instanceof Sequelize.DatabaseError && /syntax/.test(e.message);
+
 module.exports = db;
