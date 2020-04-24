@@ -1,6 +1,10 @@
 <template>
   <v-container>
     <BaseSecure admin>
+      <router-link :to="{ name: 'Admin'}">
+        <v-btn color="primary" class="mt-5">Back</v-btn>
+      </router-link>
+
       <v-card class="elevation-2 mx-auto mt-10">
         <v-toolbar flat color="grey lighten-3">
           <v-card-title>{{ ipcPlanData.business.name }}</v-card-title>
@@ -62,17 +66,18 @@
                 <li>{{ ipcPlanData.location.PostalCode }}</li>
               </ul>
 
-              <ul v-if="ipcPlanData.accTents">
+              <ul v-if="ipcPlanData.location.accTents">
                 <li>
-                  <strong>Tents near worksite</strong>
+                  <strong>Tents near worksite</strong> <v-icon color="green">check</v-icon>
                 </li>
                 <li v-if="ipcPlanData.location.tentDetails">{{ ipcPlanData.location.tentDetails }}</li>
               </ul>
 
               <ul v-if="ipcPlanData.location.accMotel">
                 <li>
-                  <strong>Motel / Hotel in town</strong>
+                  <strong>Motel / Hotel in town</strong> <v-icon color="green">check</v-icon>
                 </li>
+                <li>{{ ipcPlanData.location.motelName }}</li>
                 <li>{{ ipcPlanData.location.motelAddressLine1 }}</li>
                 <li
                   v-if="ipcPlanData.location.motelAddressLine2 != ''"
@@ -82,9 +87,9 @@
                 <li>{{ ipcPlanData.location.motelPostalCode }}</li>
               </ul>
 
-              <ul v-if="ipcPlanData.accWorkersHome">
+              <ul v-if="ipcPlanData.location.accWorkersHome">
                 <li>
-                  <strong>Worker's home in the community</strong>
+                  <strong>Worker's home in the community</strong> <v-icon color="green">check</v-icon>
                 </li>
               </ul>
             </v-col>

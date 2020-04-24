@@ -169,7 +169,7 @@ export default {
         commit('setSubmissionComplete');
       } catch (error) {
         console.error(`Error submitting form: ${error}`); // eslint-disable-line no-console
-        commit('setSubmissionError', 'An error occurred while attempting to submit the form. Please try again, or contact ?????? if you have any questions');
+        commit('setSubmissionError', 'An error occurred while attempting to submit the form. Please try again.');
       } finally {
         commit('setSubmitting', false);
       }
