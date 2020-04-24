@@ -6,7 +6,7 @@
           <v-card-title>Silviculture Workplace Safety for COVID-19</v-card-title>
           <!-- <router-link :to="{ name: 'Admin'}" class="pdf-link">
             <v-icon color="red">picture_as_pdf</v-icon>
-          </router-link> -->
+          </router-link>-->
         </v-toolbar>
 
         <v-container class="px-8">
@@ -26,35 +26,6 @@
             <li>Phone: {{ ipcPlanData.contacts[0].phone1 }}</li>
             <li>Email: {{ ipcPlanData.contacts[0].email }}</li>
           </ul>
-
-          <v-simple-table dense class="mt-2">
-            <template>
-              <tbody>
-                <tr>
-                  <td>Downloaded and read Guidelines for Silviculture Worker Camps during the COVID-19 pandemic</td>
-                  <td>
-                    <v-icon color="green" v-if="ipcPlanData.ipcPlan.guidelinesRead">check</v-icon>
-                    <v-icon color="red" v-else>close</v-icon>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Completed a COVID-19 workplace risk assessment</td>
-                  <td>
-                    <v-icon color="green" v-if="ipcPlanData.ipcPlan.assessmentCompleted">check</v-icon>
-                    <v-icon color="red" v-else>close</v-icon>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Has Infection Prevention and Control (IPC) plan for COVID-19 exposure control</td>
-                  <td>
-                    <v-icon color="green" v-if="ipcPlanData.ipcPlan.developedPlan">check</v-icon>
-                    <v-icon color="red" v-else>close</v-icon>
-                  </td>
-                </tr>
-              </tbody>
-            </template>
-          </v-simple-table>
-
           <h4 class="mt-5 mb-2">COVID-19 Information</h4>
           <v-simple-table dense>
             <template>
@@ -155,9 +126,9 @@
                   </td>
                 </tr>
                 <tr>
-                  <td>wasteManagementGloves</td>
+                  <td>You have sturdy, leak-resistant garbage bags</td>
                   <td>
-                    <v-icon color="green" v-if="ipcPlanData.ipcPlan.wasteManagementGloves">check</v-icon>
+                    <v-icon color="green" v-if="ipcPlanData.ipcPlan.wasteManagementBags">check</v-icon>
                     <v-icon color="red" v-else>close</v-icon>
                   </td>
                 </tr>
@@ -358,6 +329,13 @@
                     <v-icon color="red" v-else>close</v-icon>
                   </td>
                 </tr>
+                <tr>
+                  <td>If commercial accommodation is being used to self-isolate, then you will inform management of the situation and necessary requirements.</td>
+                  <td>
+                    <v-icon color="green" v-if="ipcPlanData.ipcPlan.infectionAccommodation">check</v-icon>
+                    <v-icon color="red" v-else>close</v-icon>
+                  </td>
+                </tr>
               </tbody>
             </template>
           </v-simple-table>
@@ -373,6 +351,14 @@
                     <v-icon color="red" v-else>close</v-icon>
                   </td>
                 </tr>
+              </tbody>
+            </template>
+          </v-simple-table>
+
+          <h4 class="mt-5 mb-2">Housekeeping for Ill-Workers</h4>
+          <v-simple-table dense>
+            <template>
+              <tbody>
                 <tr>
                   <td>Is able to perform adequate housekeeping for a self isolated worker</td>
                   <td>
@@ -380,6 +366,14 @@
                     <v-icon color="red" v-else>close</v-icon>
                   </td>
                 </tr>
+              </tbody>
+            </template>
+          </v-simple-table>
+
+          <h4 class="mt-5 mb-2">Waste Management for Ill-Workers</h4>
+          <v-simple-table dense>
+            <template>
+              <tbody>
                 <tr>
                   <td>Is able to perform waste management for supporting a self-isolated worker</td>
                   <td>
@@ -446,15 +440,6 @@ export default {
         .getIPCContent(this.$route.params.ipcPlanId)
         .then(response => {
           const data = response.data;
-
-          // replace true answers with checkboxes
-          // i think i'm doing this the wrong way
-          // Object.keys(data.ipcPlan).map(field => {
-          //   if(data.ipcPlan[field] == true){
-          //     data.ipcPlan[field] = '<v-icon color="green">check</v-icon>';
-          //   }
-          // });
-
           // add to component's data
           this.ipcPlanData = data;
         })
@@ -477,9 +462,9 @@ export default {
     padding: 0;
     list-style-type: none;
   }
-
   table tr > td {
     padding-left: 0;
+    width: 95%;
   }
 }
 </style>

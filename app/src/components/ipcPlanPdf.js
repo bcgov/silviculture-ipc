@@ -6,7 +6,7 @@ const transformService = require('../services/transformService');
 const templateJson = require('../assets/silviculture-ipc-template-a.json');
 
 module.exports = {
-  generate: async (ipcPlanId) => {
+  generate: async ipcPlanId => {
     const docx = path.join(__dirname, '..', 'assets', 'silviculture-ipc-template-a.docx');
 
     let templateId = await cdogsService.getHash(docx);
@@ -20,8 +20,8 @@ module.exports = {
     const ipcPlan = await dataService.getIPCPlan(ipcPlanId);
     const ipcPlanData = transformService.transformIPCPlan(ipcPlan);
 
-    const body = {...templateJson};
-    body.data = {...ipcPlanData};
+    const body = { ...templateJson };
+    body.data = { ...ipcPlanData };
 
     return await cdogsService.templateRender(templateId, body);
   }
