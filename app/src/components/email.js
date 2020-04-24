@@ -48,7 +48,7 @@ const email = {
         }
       } catch (error) {
         log.error('email.sendRequest', error.message);
-        throw new Error(`Error calling email endpoint. Error: ${error.message}`);
+        // throw new Error(`Error calling email endpoint. Error: ${error.message}`);
       }
     }
   },
