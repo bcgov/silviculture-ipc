@@ -22,17 +22,6 @@
       :readonly="reviewMode"
       label="I have someone identified that workers can go to if they have questions on COVID-19"
     ></v-checkbox>
-    <v-checkbox v-model="mhoContacted" :readonly="reviewMode">
-      <template v-slot:label>
-        <div>
-          I have contacted my local
-          <a
-            target="_blank"
-            href="https://www2.gov.bc.ca/gov/content/health/about-bc-s-health-care-system/office-of-the-provincial-health-officer/medical-health-officers"
-          >Medical Health Officer</a> to alert them to the arrival of planters to the region
-        </div>
-      </template>
-    </v-checkbox>
 
     <h3 class="mb-1 mt-4">Provide safe lodging and accommodation: General Worker</h3>
 
@@ -203,10 +192,6 @@ export default {
     workerContactPersonnel: {
       get() { return this.ipcPlan.workerContactPersonnel; },
       set(value) { this.updateIpcPlan({['workerContactPersonnel']: value}); }
-    },
-    mhoContacted: {
-      get() { return this.ipcPlan.mhoContacted; },
-      set(value) { this.updateIpcPlan({['mhoContacted']: value}); }
     },
 
     // Lodging

@@ -79,7 +79,6 @@ export default {
       developedPlan: false,
       protectionSignage: false,
       workerContactPersonnel: false,
-      mhoContacted: false,
       commonAreaDistancing: false,
       selfIsolateUnderstood: false,
       selfIsolateAccommodation: false,

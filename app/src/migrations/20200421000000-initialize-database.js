@@ -154,12 +154,6 @@ module.exports = {
             type: Sequelize.BOOLEAN,
             unique: false
           },
-          mhoContacted: {
-            allowNull: false,
-            comment: '',
-            type: Sequelize.BOOLEAN,
-            unique: false
-          },
           commonAreaDistancing: {
             allowNull: false,
             comment: '',

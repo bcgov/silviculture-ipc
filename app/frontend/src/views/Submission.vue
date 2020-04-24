@@ -44,13 +44,6 @@
                     <v-icon color="red" v-else>close</v-icon>
                   </td>
                 </tr>
-                <tr>
-                  <td>Medical Health Officer contacted</td>
-                  <td>
-                    <v-icon color="green" v-if="ipcPlanData.ipcPlan.mhoContacted">check</v-icon>
-                    <v-icon color="red" v-else>close</v-icon>
-                  </td>
-                </tr>
               </tbody>
             </template>
           </v-simple-table>
