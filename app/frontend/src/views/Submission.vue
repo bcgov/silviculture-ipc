@@ -12,17 +12,16 @@
         <v-container class="px-8">
           <h4 class="mt-5">{{ ipcPlanData.business.name }}</h4>
           <ul>
-            <li>Submitted:{{ new Date(ipcPlanData.ipcPlan.createdAt).toLocaleString() }}</li>
-            <li>
-              Confirmation ID:
-              {{ ipcPlanData.confirmationId }}
-            </li>
+            <li>Submitted: {{ new Date(ipcPlanData.ipcPlan.createdAt).toLocaleString() }}</li>
+            <li>Confirmation ID: {{ ipcPlanData.confirmationId }}</li>
           </ul>
 
           <h4 class="mt-5">Business Address</h4>
           <ul class="mt-2">
             <li>{{ ipcPlanData.business.addressLine1 }}</li>
-            {{ (ipcPlanData.business.addressLine2) ? '<li>' + ipcPlanData.business.addressLine2 + '</li>' : '' }}
+            <template v-if="ipcPlanData.business.addressLine2 != ''">
+              <li> {{ ipcPlanData.business.addressLine2 }}</li>
+            </template>
             <li>{{ ipcPlanData.business.city }}</li>
             <li>{{ ipcPlanData.business.province }}</li>
             <li>{{ ipcPlanData.business.PostalCode }}</li>
@@ -32,7 +31,10 @@
           <ul class="mt-2">
             <li>Name: {{ ipcPlanData.contacts[0].firstName + ' ' + ipcPlanData.contacts[0].lastName }}</li>
             <li>Phone: {{ ipcPlanData.contacts[0].phone1 }}</li>
-            {{ (ipcPlanData.contacts[0].phone2) ? '<li>2<sup>nd</sup> Phone: ' + ipcPlanData.contacts[0].phone2 + '</li>' : '' }}
+
+            <template v-if="ipcPlanData.contacts[0].phone2">
+              <li>2<sup>nd</sup> Phone:  {{ ipcPlanData.contacts[0].phone2 }}</li>
+            </template>
             <li>Email: {{ ipcPlanData.contacts[0].email }}</li>
           </ul>
 
@@ -40,7 +42,10 @@
           <ul class="mt-2">
             <li>Name: {{ ipcPlanData.covidContact.firstName + ' ' + ipcPlanData.covidContact.lastName }}</li>
             <li>Phone: {{ ipcPlanData.covidContact.phone1 }}</li>
-            {{ (ipcPlanData.covidContact.phone2) ? '<li>2<sup>nd</sup> Phone: ' + ipcPlanData.covidContact.phone2 + '</li>' : '' }}
+            <template v-if="ipcPlanData.covidContact.phone2">
+              <li>2<sup>nd</sup> Phone:  {{ ipcPlanData.covidContact.phone2 }}</li>
+            </template>
+
             <li>Email: {{ ipcPlanData.covidContact.email }}</li>
           </ul>
 
@@ -48,8 +53,11 @@
 
           <ul class="mt-2">
             <li><strong>Camp Location</strong></li>
-           <li>{{ ipcPlanData.location.addressLine1 }}</li>
-            {{ (ipcPlanData.location.addressLine2) ? '<li>' + ipcPlanData.location.addressLine2 + '</li>' : '' }}
+            <li>{{ ipcPlanData.location.addressLine1 }}</li>
+            <template v-if="ipcPlanData.location.addressLine2 != ''">
+              <li> {{ ipcPlanData.location.addressLine2 }}</li>
+            </template>
+
             <li>{{ ipcPlanData.location.city }}</li>
             <li>{{ ipcPlanData.location.province }}</li>
             <li>{{ ipcPlanData.location.PostalCode }}</li>
@@ -66,8 +74,8 @@
 
           <template v-if="ipcPlanData.accMotel">
             <ul class="mt-2">
-             <li><strong>Tents near worksite</strong></li>
-             <li>{{ ipcPlanData.location.motelAddressLine1 }}</li>
+              <li><strong>Tents near worksite</strong></li>
+              <li>{{ ipcPlanData.location.motelAddressLine1 }}</li>
               {{ (ipcPlanData.location.motelAddressLine2) ? '<li>' + ipcPlanData.motelAddressLine2 + '</li>' : '' }}
               <li>{{ ipcPlanData.location.motelCity }}</li>
               <li>{{ ipcPlanData.location.motelProvince }}</li>
