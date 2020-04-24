@@ -14,7 +14,7 @@
 
       <p>If you wish to keep a copy of your submission you can download a PDF here:</p>
 
-      <v-btn color="primary" class="mx-5 mb-10" fab large @click="downloadPdf">
+      <v-btn color="primary" class="mx-5 mb-10" fab large @click="generatePdf">
         <v-icon>picture_as_pdf</v-icon>
       </v-btn>
 
@@ -167,6 +167,7 @@
 
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex';
+import ipcService from '@/services/ipcService';
 
 import Step1 from '@/components/form/Step1.vue';
 import Step2 from '@/components/form/Step2.vue';
@@ -213,8 +214,29 @@ export default {
     async submit() {
       await this.submitForm();
     },
-    downloadPdf() {
-      alert('coming soon');
+    generatePdf(){
+      ipcService
+        .getIPCContentAsPDF(this.submissionDetails.ipcPlan.ipcPlanId)
+        .then(response => {
+          const blob = new Blob([response.data], {
+            type: 'attachment'
+          });
+          this.createDownload(blob, `${this.submissionDetails.ipcPlan.ipcPlanId}.pdf`);
+        })
+        .catch(() => {
+          console.log('Currently unable to complete this request.'); // eslint-disable-line no-console
+        });
+
+    },
+    createDownload(blob, filename = undefined) {
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.style.display = 'none';
+      a.href = url;
+      a.download = filename;
+      a.click();
+      window.URL.revokeObjectURL(url);
+      a.remove();
     },
     refresh() {
       location.reload();
