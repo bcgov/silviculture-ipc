@@ -18,7 +18,7 @@ module.exports = {
 
     // ok, have the template... get the data and create the document...
     const ipcPlan = await dataService.getIPCPlan(ipcPlanId);
-    const ipcPlanData = transformService.transformIPCPlan(ipcPlan);
+    const ipcPlanData = transformService.modelToAPI.ipcPlanToPost(ipcPlan);
 
     const body = { ...templateJson };
     body.data = { ...ipcPlanData };

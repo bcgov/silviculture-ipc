@@ -28,6 +28,18 @@ router.post('/', ipcRateLimiter, validation.validateIPC, async (req, res, next) 
   }
 });
 
+router.get('/pdf/:ipcPlanId', ipcRateLimiter, async (req, res, next) => {
+  try {
+    const result = await ipcPlanPdf.generate(req.params.ipcPlanId);
+    ['Content-Disposition','Content-Type','Content-Length','Content-Transfer-Encoding'].forEach(h => {
+      res.setHeader(h, result.headers[h.toLowerCase()]);
+    });
+    return res.send(result.data);
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.get('/', keycloak.protect(), async (req, res, next) => {
   try {
     if (req.query.meta) {
@@ -46,18 +58,6 @@ router.get('/:ipcPlanId', keycloak.protect(), async (req, res, next) => {
   try {
     const result = await dataService.getIPCPlan(req.params.ipcPlanId);
     return res.status(200).json(transformService.modelToAPI.ipcPlanToPost(result));
-  } catch (err) {
-    next(err);
-  }
-});
-
-router.get('/pdf/:ipcPlanId', keycloak.protect(), async (req, res, next) => {
-  try {
-    const result = await ipcPlanPdf.generate(req.params.ipcPlanId);
-    ['Content-Disposition','Content-Type','Content-Length','Content-Transfer-Encoding'].forEach(h => {
-      res.setHeader(h, result.headers[h.toLowerCase()]);
-    });
-    return res.send(result.data);
   } catch (err) {
     next(err);
   }

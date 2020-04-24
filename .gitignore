@@ -30,3 +30,6 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+
+# temp office files
+~$*
