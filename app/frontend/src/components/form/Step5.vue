@@ -6,9 +6,9 @@
     </div>
 
     <h3 class="mb-1 mt-4">Plan to manage individuals with suspected COVID-19 Infection</h3>
-    <p class="hide-on-review">
-      Silviculture/planting operators must have a plan and protocol to deal with workers demonstrating symptoms of COVID-19, including immediate self isolation of the worker and notifying the local health authority. 
-    </p>
+    <p
+      class="hide-on-review"
+    >Silviculture/planting operators must have a plan and protocol to deal with workers demonstrating symptoms of COVID-19, including immediate self isolation of the worker and notifying the local health authority.</p>
     <p>
       If two or more workers become sick, you must notify the local
       <a
@@ -52,11 +52,13 @@
               </h1>
             </v-col>
             <v-col cols="12" sm="11">
-              As COVID-19 recommendations are evolving daily, please keep up to date with
-              <a
-                target="_blank"
-                href="http://www.bccdc.ca/health-info/diseases-conditions/covid-19/about-covid-19"
-              >BC Centre for Disease Control</a> guidance.
+              <h3>
+                As COVID-19 recommendations are evolving daily, please keep up to date with
+                <a
+                  target="_blank"
+                  href="http://www.bccdc.ca/health-info/diseases-conditions/covid-19/about-covid-19"
+                >BC Centre for Disease Control</a> guidance.
+              </h3>
             </v-col>
           </v-row>
         </v-container>
@@ -75,7 +77,7 @@
       </v-card-title>
       <v-card-text>
         <ul>
-          <li>Gloves are not required when delivering or picking up food trays.</li>
+          <li>Gloves are required when delivering or picking up food trays.</li>
           <li>Proper hand hygiene must be practiced before delivering and after picking up food trays.</li>
           <li>Do NOT enter a room to deliver or pick up food trays for workers who are ill. Deliver and pick up food trays from outside their accommodation.</li>
         </ul>
