@@ -14,17 +14,44 @@ module.exports = (sequelize, DataTypes) => {
       comment: 'The business name',
       type: DataTypes.STRING(255),
       unique: false
+    },
+    addressLine1: {
+      allowNull: false,
+      comment: 'Address line 1',
+      type: DataTypes.STRING(255),
+      unique: false
+    },
+    addressLine2: {
+      allowNull: true,
+      comment: 'Address line 2',
+      type: DataTypes.STRING(255),
+      unique: false
+    },
+    city: {
+      allowNull: false,
+      comment: 'City name',
+      type: DataTypes.STRING(255),
+      unique: false
+    },
+    province: {
+      allowNull: false,
+      comment: 'Province',
+      type: DataTypes.STRING(30),
+      unique: false
+    },
+    postalCode: {
+      allowNull: false,
+      comment: 'Postal code',
+      type: DataTypes.STRING(30),
+      unique: false
     }
   }, {
     comment: 'List of all businesses',
     tableName: 'business'
   });
   Business.associate = models => {
-    Business.hasMany(models.Contact, {
-      foreignKey: 'businessId'
-    });
-    Business.hasOne(models.IPCPlan, {
-      foreignKey: 'businessId'
+    Business.belongsTo(models.IPCPlan, {
+      foreignKey: 'ipcPlanId'
     });
   };
   return Business;

@@ -20,8 +20,9 @@ const ipcRateLimiter = rateLimit({
 
 router.post('/', ipcRateLimiter, validation.validateIPC, async (req, res) => {
   try {
-    const result = await dataService.save(req.body.business, req.body.contacts, req.body.ipcPlan);
-    const data = transformService.transformIPCPlan(result);
+    const xform = transformService.apiToModel.postToIPCPlan(req.body);
+    const result = await dataService.save(xform.business, xform.contacts, xform.ipcPlan, xform.location);
+    const data = transformService.modelToAPI.ipcPlanToPost(result);
     email.sendReceipt({ confirmationNumber: data.confirmationId });
     return res.status(201).json(data);
   } catch (error) {
@@ -37,7 +38,7 @@ router.get('/', keycloak.protect(), async (req, res) => {
       return res.status(200).json(transformService.transformIPCPlansMeta(result));
     } else {
       const result = await dataService.getIPCPlans();
-      return res.status(200).json(transformService.transformIPCPlans(result));
+      return res.status(200).json(transformService.modelToAPI.ipcPlansToPost(result));
     }
   } catch (error) {
     log.error(error);
@@ -48,7 +49,7 @@ router.get('/', keycloak.protect(), async (req, res) => {
 router.get('/:ipcPlanId', keycloak.protect(), async (req, res) => {
   try {
     const result = await dataService.getIPCPlan(req.params.ipcPlanId);
-    return res.status(200).json(transformService.transformIPCPlan(result));
+    return res.status(200).json(transformService.modelToAPI.ipcPlanToPost(result));
   } catch (error) {
     log.error(error);
     return new Problem(500, { detail: error.message }).send(res);
