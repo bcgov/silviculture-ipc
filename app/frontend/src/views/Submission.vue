@@ -22,8 +22,7 @@
                 <li>Phone: {{ ipcPlanData.contacts[0].phone1 }}</li>
                 <li
                   v-if="ipcPlanData.contacts[0].phone2"
-                >Secondary Phone: {{ ipcPlanData.contacts[0].phone2 }}
-                </li>
+                >Secondary Phone: {{ ipcPlanData.contacts[0].phone2 }}</li>
                 <li>Email: {{ ipcPlanData.contacts[0].email }}</li>
               </ul>
 
@@ -32,8 +31,7 @@
                 <li>{{ ipcPlanData.business.addressLine1 }}</li>
                 <li
                   v-if="ipcPlanData.business.addressLine2 != ''"
-                >{{ ipcPlanData.business.addressLine2 }}
-                </li>
+                >{{ ipcPlanData.business.addressLine2 }}</li>
                 <li>{{ ipcPlanData.business.city }}</li>
                 <li>{{ ipcPlanData.business.province }}</li>
                 <li>{{ ipcPlanData.business.PostalCode }}</li>
@@ -45,8 +43,7 @@
                 <li>Phone: {{ ipcPlanData.covidContact.phone1 }}</li>
                 <li
                   v-if="ipcPlanData.covidContact.phone2"
-                >Secondary Phone: {{ ipcPlanData.covidContact.phone2 }}
-                </li>
+                >Secondary Phone: {{ ipcPlanData.covidContact.phone2 }}</li>
                 <li>Email: {{ ipcPlanData.covidContact.email }}</li>
               </ul>
             </v-col>
@@ -59,8 +56,7 @@
                 <li>{{ ipcPlanData.location.addressLine1 }}</li>
                 <li
                   v-if="ipcPlanData.location.addressLine2 != ''"
-                >{{ ipcPlanData.location.addressLine2 }}
-                </li>
+                >{{ ipcPlanData.location.addressLine2 }}</li>
                 <li>{{ ipcPlanData.location.city }}</li>
                 <li>{{ ipcPlanData.location.province }}</li>
                 <li>{{ ipcPlanData.location.PostalCode }}</li>
@@ -80,8 +76,7 @@
                 <li>{{ ipcPlanData.location.motelAddressLine1 }}</li>
                 <li
                   v-if="ipcPlanData.location.motelAddressLine2 != ''"
-                >{{ ipcPlanData.location.motelAddressLine2 }}
-                </li>
+                >{{ ipcPlanData.location.motelAddressLine2 }}</li>
                 <li>{{ ipcPlanData.location.motelCity }}</li>
                 <li>{{ ipcPlanData.location.motelProvince }}</li>
                 <li>{{ ipcPlanData.location.motelPostalCode }}</li>
@@ -100,8 +95,7 @@
             <template>
               <tbody>
                 <tr>
-                  <td>Signage in place in the appropriate language on how employees can protect themselves from COVID-19
-                  </td>
+                  <td>Signage in place in the appropriate language on how employees can protect themselves from COVID-19</td>
                   <td>
                     <v-icon color="green" v-if="ipcPlanData.ipcPlan.protectionSignage">check</v-icon>
                     <v-icon color="red" v-else>close</v-icon>
@@ -132,10 +126,9 @@
                 <tr>
                   <td colspan="2">
                     <div class="float-left">Shared sleeping area or single beds</div>
-                    <div
-                      class="float-right"
-                    >{{ (ipcPlanData.ipcPlan.sleepingAreaType == 1) ? 'Individual beds or single beds' : 'Shared sleeping
-                    areas' }}
+                    <div class="float-right">
+                      {{ (ipcPlanData.ipcPlan.sleepingAreaType == 1) ? 'Individual beds or single beds' : 'Shared sleeping
+                      areas' }}
                     </div>
                   </td>
                 </tr>
@@ -150,8 +143,7 @@
                       <v-icon
                         color="green"
                         v-if="ipcPlanData.ipcPlan.sharedSleepingDistancing"
-                      >check
-                      </v-icon>
+                      >check</v-icon>
                       <v-icon color="red" v-else>close</v-icon>
                     </td>
                   </tr>
@@ -172,7 +164,8 @@
                   </td>
                 </tr>
                 <tr>
-                  <td>Has separate accommodation to let a worker self-isolate in a separate accommodation than other
+                  <td>
+                    Has separate accommodation to let a worker self-isolate in a separate accommodation than other
                     workers or arrange for separate accommodation
                   </td>
                   <td>
@@ -271,16 +264,13 @@
                 <tr>
                   <td>Have taken steps to ensure physical distancing can be maintained during work and after work</td>
                   <td>
-                    <v-icon
-                      color="green"
-                      v-if="ipcPlanData.ipcPlan.distancingMaintained"
-                    >check
-                    </v-icon>
+                    <v-icon color="green" v-if="ipcPlanData.ipcPlan.distancingMaintained">check</v-icon>
                     <v-icon color="red" v-else>close</v-icon>
                   </td>
                 </tr>
                 <tr>
-                  <td>Has physical barriers like face shields or masks for situations where physical distancing is not
+                  <td>
+                    Has physical barriers like face shields or masks for situations where physical distancing is not
                     possible
                   </td>
                   <td>
@@ -289,7 +279,8 @@
                   </td>
                 </tr>
                 <tr>
-                  <td>Has a schedule to ensure common and high touch areas are cleaned or disinfected at the start and end
+                  <td>
+                    Has a schedule to ensure common and high touch areas are cleaned or disinfected at the start and end
                     of each day
                   </td>
                   <td>
@@ -306,7 +297,8 @@
             <template>
               <tbody>
                 <tr>
-                  <td>Has signage in place in the appropriate language on how employees can protect themselves from
+                  <td>
+                    Has signage in place in the appropriate language on how employees can protect themselves from
                     COVID-19
                   </td>
                   <td>
@@ -330,8 +322,7 @@
             <template>
               <tbody>
                 <tr>
-                  <td>Has materials ready on the risk of exposure of COVID-19 and the signs and symptoms of the disease
-                  </td>
+                  <td>Has materials ready on the risk of exposure of COVID-19 and the signs and symptoms of the disease</td>
                   <td>
                     <v-icon color="green" v-if="ipcPlanData.ipcPlan.trainingCovid19">check</v-icon>
                     <v-icon color="red" v-else>close</v-icon>
@@ -345,7 +336,8 @@
                   </td>
                 </tr>
                 <tr>
-                  <td>Can provide locations of washing facilities, including dispensing stations for alcohol-based hand
+                  <td>
+                    Can provide locations of washing facilities, including dispensing stations for alcohol-based hand
                     rubs
                   </td>
                   <td>
@@ -376,7 +368,8 @@
             <template>
               <tbody>
                 <tr>
-                  <td>Has schedules in place for kitchen/eating areas to limit contact and maintain 2 metre physical
+                  <td>
+                    Has schedules in place for kitchen/eating areas to limit contact and maintain 2 metre physical
                     distancing
                   </td>
                   <td>
@@ -414,7 +407,8 @@
                   </td>
                 </tr>
                 <tr>
-                  <td>Is prepared to provide individuals exhibiting symptoms of COVID-19 with a surgical/procedural mask
+                  <td>
+                    Is prepared to provide individuals exhibiting symptoms of COVID-19 with a surgical/procedural mask
                     or tissues to cover their mouth and nose
                   </td>
                   <td>
@@ -437,7 +431,8 @@
                   </td>
                 </tr>
                 <tr>
-                  <td>If commercial accommodation is being used to self-isolate, then you will inform management of the
+                  <td>
+                    If commercial accommodation is being used to self-isolate, then you will inform management of the
                     situation and necessary requirements.
                   </td>
                   <td>
@@ -504,8 +499,7 @@
                     <v-icon
                       color="green"
                       v-if="ipcPlanData.ipcPlan.certifyAccurateInformation"
-                    >check
-                    </v-icon>
+                    >check</v-icon>
                     <v-icon color="red" v-else>close</v-icon>
                   </td>
                 </tr>
@@ -565,31 +559,31 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-  .ipc-wrapper {
-    padding: 2em;
+.ipc-wrapper {
+  padding: 2em;
 
-    h2 {
-      color: rgb(0, 51, 102);
-      font-size: 130%;
-    }
-
-    h4 {
-      margin: 1em auto 0.5em auto;
-    }
-
-    ul {
-      margin: 0 0 1em 0;
-      padding: 0;
-    }
-
-    li {
-      padding: 0;
-      list-style-type: none;
-    }
-
-    table tr > td {
-      padding-left: 0;
-      width: 95%;
-    }
+  h2 {
+    color: rgb(0, 51, 102);
+    font-size: 130%;
   }
+
+  h4 {
+    margin: 1em auto 0.5em auto;
+  }
+
+  ul {
+    margin: 0 0 1em 0;
+    padding: 0;
+  }
+
+  li {
+    padding: 0;
+    list-style-type: none;
+  }
+
+  table tr > td {
+    padding-left: 0;
+    width: 95%;
+  }
+}
 </style>
