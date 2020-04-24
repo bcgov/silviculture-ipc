@@ -224,9 +224,7 @@ export default {
           this.createDownload(blob, `${this.submissionDetails.ipcPlan.ipcPlanId}.pdf`);
         })
         .catch(() => {
-          /*eslint-disable */
-          console.log('Currently unable to complete this request.');
-          /*eslint-enable */
+          console.log('Currently unable to complete this request.'); // eslint-disable-line no-console
         });
 
     },
