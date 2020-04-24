@@ -74,7 +74,7 @@ export default {
       handWashingWaterless: false,
       handWashingPaperTowels: false,
       handWashingSignage: false,
-      distancingSleepingBarriers: false,
+      distancingMaintained: false,
       distancingFaceShields: false,
       disinfectingSchedule: false,
       educationSignage: false,

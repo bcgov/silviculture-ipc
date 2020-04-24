@@ -7,6 +7,19 @@ moment.createFromInputFallback = function (config) {
 };
 
 const transformService = {
+  stringToDate: s => {
+    if (s && s.trim().length) {
+      return moment(s).toDate();
+    }
+    return null;
+  },
+
+  dateToString: d => {
+    if (d) {
+      return moment(d).format('YYYY-MM-DD');
+    }
+    return '';
+  },
 
   apiToModel: {
     postToIPCPlan: (obj) => {
@@ -27,8 +40,8 @@ const transformService = {
       const ipcPlan = {...obj.ipcPlan};
 
       const location = {...obj.location};
-      location.startDate = moment(location.startDate).toDate();
-      location.endDate = moment(location.endDate).toDate();
+      location.startDate = transformService.stringToDate(location.startDate);
+      location.endDate = transformService.stringToDate(location.endDate);
 
       return {
         business: business,
@@ -58,8 +71,8 @@ const transformService = {
       result.ipcPlan = xform.ipcPlan;
       result.confirmationId = transformService.confirmationId(xform.ipcPlan);
       result.location = xform.location;
-      result.location.startDate = moment(xform.location.startDate).format('YYYY-MM-DD');
-      result.location.endDate = moment(xform.location.endDate).format('YYYY-MM-DD');
+      result.location.startDate = transformService.dateToString(xform.location.startDate);
+      result.location.endDate = transformService.dateToString(xform.location.endDate);
       return result;
     },
 

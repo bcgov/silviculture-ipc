@@ -96,7 +96,7 @@ const models = {
       'handWashingWaterless',
       'handWashingPaperTowels',
       'handWashingSignage',
-      'distancingSleepingBarriers',
+      'distancingMaintained',
       'distancingFaceShields',
       'disinfectingSchedule',
       'educationSignage',

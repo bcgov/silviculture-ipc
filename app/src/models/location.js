@@ -10,15 +10,15 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     startDate: {
-      allowNull: false,
+      allowNull: true,
       type: DataTypes.DATE
     },
     endDate: {
-      allowNull: false,
+      allowNull: true,
       type: DataTypes.DATE
     },
     addressLine1: {
-      allowNull: false,
+      allowNull: true,
       comment: 'Address line 1',
       type: DataTypes.STRING(255),
       unique: false
@@ -30,19 +30,19 @@ module.exports = (sequelize, DataTypes) => {
       unique: false
     },
     city: {
-      allowNull: false,
+      allowNull: true,
       comment: 'City name',
       type: DataTypes.STRING(255),
       unique: false
     },
     province: {
-      allowNull: false,
+      allowNull: true,
       comment: 'Province',
       type: DataTypes.STRING(30),
       unique: false
     },
     postalCode: {
-      allowNull: false,
+      allowNull: true,
       comment: 'Postal code',
       type: DataTypes.STRING(30),
       unique: false

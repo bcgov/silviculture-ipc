@@ -65,7 +65,7 @@
     "handWashingWaterless": true,
     "handWashingPaperTowels": false,
     "handWashingSignage": true,
-    "distancingSleepingBarriers": false,
+    "distancingMaintained": false,
     "distancingFaceShields": true,
     "disinfectingSchedule": false,
     "educationSignage": true,

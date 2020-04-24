@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
       unique: false
     },
     phone1: {
-      allowNull: false,
+      allowNull: true,
       comment: 'Contact primary phone',
       type: DataTypes.STRING(30),
       unique: false
@@ -40,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
       unique: false
     },
     email: {
-      allowNull: false,
+      allowNull: true,
       comment: 'Contact email address',
       type: DataTypes.STRING(255),
       unique: false

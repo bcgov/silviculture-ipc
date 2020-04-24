@@ -135,7 +135,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       unique: false
     },
-    distancingSleepingBarriers: {
+    distancingMaintained: {
       allowNull: false,
       comment: '',
       type: DataTypes.BOOLEAN,

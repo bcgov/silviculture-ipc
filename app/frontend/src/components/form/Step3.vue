@@ -266,9 +266,9 @@ export default {
 
 
     // Phyisical Distancing
-    distancingSleepingBarriers: {
-      get() { return this.ipcPlan.distancingSleepingBarriers; },
-      set(value) { this.updateIpcPlan({['distancingSleepingBarriers']: value}); }
+    distancingMaintained: {
+      get() { return this.ipcPlan.distancingMaintained; },
+      set(value) { this.updateIpcPlan({['distancingMaintained']: value}); }
     },
     distancingFaceShields: {
       get() { return this.ipcPlan.distancingFaceShields; },

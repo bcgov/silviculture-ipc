@@ -236,7 +236,7 @@
                   <td>
                     <v-icon
                       color="green"
-                      v-if="ipcPlanData.ipcPlan.distancingSleepingBarriers"
+                      v-if="ipcPlanData.ipcPlan.distancingMaintained"
                     >check</v-icon>
                     <v-icon color="red" v-else>close</v-icon>
                   </td>
