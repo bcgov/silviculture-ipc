@@ -23,10 +23,10 @@
         <v-col cols="12" sm="10" lg="11">
           <p>
             Read
-            <em>Employees, Contractors, and Employers Working in the Silviculture Sector During the COVID-19 Pandemic.</em>
+            <em>Protecting Employees, Contractors, and Employers Working in the Silviculture Sector During the COVID-19 Pandemic.</em>
           </p>
           <p>
-            <a href="https://www.google.com" target="_blank">Download PDF</a>
+            <a href="https://www2.gov.bc.ca/assets/gov/health/about-bc-s-health-care-system/office-of-the-provincial-health-officer/covid-19/covid-19-pho-guidance-work-camps-silviculture.pdf" target="_blank">Download PDF</a>
           </p>
         </v-col>
       </v-row>
