@@ -44,7 +44,7 @@
 
       <div v-if="sleepingAreaType == 2">
         <v-row no-gutters>
-          <v-col cols="4" lg="3">
+          <v-col cols="12" md="8" lg="3">
             <v-combobox
               v-model="sharedSleepingPerRoom"
               :readonly="reviewMode"
