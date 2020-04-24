@@ -1,21 +1,21 @@
 <template>
   <v-container>
     <BaseSecure admin>
-      <h1 class="mt-6 text-center">Admin</h1>
+      <h1 class="mt-6 text-center">Development</h1>
       <v-container>
-        <SubmissionsTable class="my-8" />
+        <ApiTester class="my-8" />
       </v-container>
     </BaseSecure>
   </v-container>
 </template>
 
 <script>
-import SubmissionsTable from '@/components/admin/SubmissionsTable.vue';
+import ApiTester from '@/components/admin/ApiTester.vue';
 
 export default {
   name: 'Admin',
   components: {
-    SubmissionsTable
+    ApiTester
   }
 };
 </script>

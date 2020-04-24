@@ -1,18 +1,18 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuetify from 'vuetify';
 
-import Admin from '@/views/Admin.vue';
+import Dev from '@/views/Dev.vue';
 
 const localVue = createLocalVue();
 localVue.use(Vuetify);
 
 describe('Admin.vue', () => {
   it('renders', () => {
-    const wrapper = shallowMount(Admin, {
+    const wrapper = shallowMount(Dev, {
       localVue,
-      stubs: ['BaseSecure', 'SubmissionsTable']
+      stubs: ['ApiTester', 'BaseSecure']
     });
 
-    expect(wrapper.html()).toMatch('Admin');
+    expect(wrapper.html()).toMatch('Development');
   });
 });
