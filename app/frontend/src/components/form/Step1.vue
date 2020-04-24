@@ -18,7 +18,7 @@
                 </h1>
               </v-col>
               <v-col cols="12" sm="11">
-                <h3>You are required to demonstrate proof of an IPCP for each worksite. This attestation form must be completed for once for each worksite.</h3>
+                <h3>You are required to demonstrate proof of an IPCP for each worksite. This attestation form must be completed once for each worksite.</h3>
               </v-col>
             </v-row>
           </v-container>
