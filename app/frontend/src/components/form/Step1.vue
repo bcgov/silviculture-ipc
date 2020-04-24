@@ -131,7 +131,30 @@
               </h1>
             </v-col>
             <v-col cols="12" sm="11">
-              <h3>If you need assistance completing these risk assessment or infection prevention tasks, please contact the FLNRO Contact (toll free 1-888-xxx-xxxx) for help.</h3>
+              <h3>If you need assistance completing these risk assessment or infection prevention tasks, please contact the FLNRO Contact for your region:</h3>
+              <v-row>
+                <v-col cols="12" md="4" class="mb-0">
+                  <h3>Coast:</h3>
+                  <p class="mb-0 mt-1">
+                    Richard LaBoucane
+                    <br />250-739-8706
+                  </p>
+                </v-col>
+                <v-col cols="12" md="4" class="mb-0">
+                  <h3>North:</h3>
+                  <p class="mb-0 mt-1">
+                    John Huybers
+                    <br />250-552-2364
+                  </p>
+                </v-col>
+                <v-col cols="12" md="4" class="mb-0">
+                  <h3>South:</h3>
+                  <p class="mb-0 mt-1">
+                    Nina Sigloch
+                    <br />778-362-2137
+                  </p>
+                </v-col>
+              </v-row>
             </v-col>
           </v-row>
         </v-card-text>
