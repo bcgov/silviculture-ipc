@@ -111,6 +111,7 @@ export default {
       infectedFeeding: false,
       infectedHousekeeping: false,
       infectedWaste: false,
+      infectionAccommodation: false,
       certifyAccurateInformation: false,
       agreeToInspection: false
     }
