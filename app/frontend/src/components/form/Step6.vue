@@ -224,7 +224,9 @@ export default {
           this.createDownload(blob, `${this.submissionDetails.ipcPlan.ipcPlanId}.pdf`);
         })
         .catch(() => {
-          this.showTableAlert('error', 'Currently unable to complete this request.');
+          /*eslint-disable */
+          console.log('Currently unable to complete this request.');
+          /*eslint-enable */
         });
 
     },
