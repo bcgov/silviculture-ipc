@@ -13,7 +13,7 @@ describe('BaseAuthButton.vue', () => {
     store = new Vuex.Store();
   });
 
-  it('renders login when not authenticated', () => {
+  it.skip('renders login when not authenticated', () => {
     store.registerModule('auth', {
       namespaced: true,
       getters: {
