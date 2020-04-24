@@ -184,7 +184,7 @@
 
       <hr />
 
-      <v-btn color="primary" @click="setStep(6)">Go to Step 2</v-btn>
++      <v-btn color="primary" @click="setStep(2)">Go to Step 2</v-btn>
     </div>
   </v-container>
 </template>
