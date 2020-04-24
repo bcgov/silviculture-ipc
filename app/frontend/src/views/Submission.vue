@@ -49,7 +49,7 @@
             <li>Email: {{ ipcPlanData.covidContact.email }}</li>
           </ul>
 
-          <h4 class="mt-5">Accomodation for planters</h4>
+          <h4 class="mt-5">Accommodation for planters</h4>
 
           <ul class="mt-2">
             <li><strong>Camp Location</strong></li>
@@ -232,7 +232,7 @@
             <template>
               <tbody>
                 <tr>
-                  <td>Has sleeping arrangements that maintains physical distancing or uses physical barriers</td>
+                  <td>Have taken steps to ensure physical distancing can be maintained during work and after work</td>
                   <td>
                     <v-icon
                       color="green"
