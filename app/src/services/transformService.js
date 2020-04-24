@@ -44,8 +44,15 @@ const transformService = {
       const xform = transformService.transformIPCPlan(obj);
       const result = {};
       result.business = xform.business;
+
       const primaryContact = xform.contacts.find(x => x.contactType === 'Primary');
+      primaryContact.primary = true; // add this in just in case we cannot read the contactType (ex. carbone filter)
+      primaryContact.covidCoordinator = false;
+
       const covidContact =  xform.contacts.find(x => x.contactType === 'Covid Coordinator');
+      covidContact.covidCoordinator = true;
+      covidContact.primary = false;
+
       result.contacts = [primaryContact];
       result.covidContact = covidContact;
       result.ipcPlan = xform.ipcPlan;
