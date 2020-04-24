@@ -141,9 +141,9 @@
       <p>Physical barriers such as the use of plexi-glass, face shields, masks, and other techniques can be used where physical distancing is not possible.</p>
     </div>
     <v-checkbox
-      v-model="distancingSleepingBarriers"
+      v-model="distancingMaintained"
       :readonly="reviewMode"
-      label="I have sleeping arrangements that maintains physical distancing or uses physical barriers"
+      label="I have taken steps to ensure physical distancing can be maintained during work and after work."
     ></v-checkbox>
     <v-checkbox
       v-model="distancingFaceShields"
@@ -266,9 +266,9 @@ export default {
 
 
     // Phyisical Distancing
-    distancingSleepingBarriers: {
-      get() { return this.ipcPlan.distancingSleepingBarriers; },
-      set(value) { this.updateIpcPlan({['distancingSleepingBarriers']: value}); }
+    distancingMaintained: {
+      get() { return this.ipcPlan.distancingMaintained; },
+      set(value) { this.updateIpcPlan({['distancingMaintained']: value}); }
     },
     distancingFaceShields: {
       get() { return this.ipcPlan.distancingFaceShields; },
