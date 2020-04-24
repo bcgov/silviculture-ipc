@@ -29,9 +29,16 @@
         class="ipc-table"
       >
         <!-- view individual form submission -->
+        <template v-slot:item.pdf="{ item }">
+          <a v-on:click="generatePdf(item.ipcPlanId)" target="_blank">
+            <v-icon color="red">picture_as_pdf</v-icon>
+          </a>
+        </template>
+
+        <!-- view individual form submission -->
         <template v-slot:item.ipcPlanId="{ item }">
           <router-link :to="{ name: 'Submission', params: { ipcPlanId: item.ipcPlanId } }">
-            <v-icon>remove_red_eye</v-icon>
+            <v-icon color="primary">remove_red_eye</v-icon>
           </router-link>
         </template>
       </v-data-table>
@@ -58,6 +65,7 @@ export default {
         { text: 'Submitted', value: 'created' },
         { text: 'Business Name', align: 'start', value: 'name' },
         { text: 'Confirmation ID', align: 'start', value: 'confirmationId' },
+        { text: 'Export', value: 'pdf'},
         { text: 'View', value: 'ipcPlanId'}
       ],
       submissions: [],
@@ -82,6 +90,7 @@ export default {
             let submission = data[k];
             return {
               ipcPlanId: submission.ipcPlan.ipcPlanId,
+              pdf: submission.ipcPlan.ipcPlanId,
               name: submission.business.name,
               created: this.formatDate(submission.ipcPlan.createdAt),
               confirmationId: submission.confirmationId,
@@ -95,6 +104,30 @@ export default {
         .catch(() => {
           this.showTableAlert('error', 'No response from server');
         });
+    },
+    generatePdf(ipcPlanId){
+      ipcService
+        .getIPCContentAsPDF(ipcPlanId)
+        .then(response => {
+          const blob = new Blob([response.data], {
+            type: 'attachment'
+          });
+          this.createDownload(blob, `${ipcPlanId}.pdf`);
+        })
+        .catch(() => {
+          this.showTableAlert('error', 'Currently unable to complete this request.');
+        });
+
+    },
+    createDownload(blob, filename = undefined) {
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.style.display = 'none';
+      a.href = url;
+      a.download = filename;
+      a.click();
+      window.URL.revokeObjectURL(url);
+      a.remove();
     },
     showTableAlert(typ, msg) {
       this.showAlert = true;

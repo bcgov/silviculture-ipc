@@ -84,7 +84,6 @@ const models = {
       'developedPlan',
       'protectionSignage',
       'workerContactPersonnel',
-      'mhoContacted',
       'commonAreaDistancing',
       'selfIsolateUnderstood',
       'selfIsolateAccommodation',
