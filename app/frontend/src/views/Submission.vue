@@ -1,100 +1,107 @@
 <template>
   <v-container>
     <BaseSecure admin>
-      <v-card class="elevation-2 mx-auto mt-10 ipc-wrapper">
+      <v-card class="elevation-2 mx-auto mt-10">
         <v-toolbar flat color="grey lighten-3">
-          <v-card-title>Silviculture Operator Screening</v-card-title>
-          <!-- <router-link :to="{ name: 'Admin'}" class="pdf-link">
-            <v-icon color="red">picture_as_pdf</v-icon>
-          </router-link>-->
+          <v-card-title>{{ ipcPlanData.business.name }}</v-card-title>
         </v-toolbar>
 
-        <v-container class="px-8">
-          <h4 class="mt-5">{{ ipcPlanData.business.name }}</h4>
-          <ul>
+        <v-container class="ipc-wrapper">
+          <ul class="mb-5">
             <li>Submitted: {{ new Date(ipcPlanData.ipcPlan.createdAt).toLocaleString() }}</li>
             <li>Confirmation ID: {{ ipcPlanData.confirmationId }}</li>
           </ul>
 
-          <h4 class="mt-5">Business Address</h4>
-          <ul class="mt-2">
-            <li>{{ ipcPlanData.business.addressLine1 }}</li>
-            <template v-if="ipcPlanData.business.addressLine2 != ''">
-              <li> {{ ipcPlanData.business.addressLine2 }}</li>
-            </template>
-            <li>{{ ipcPlanData.business.city }}</li>
-            <li>{{ ipcPlanData.business.province }}</li>
-            <li>{{ ipcPlanData.business.PostalCode }}</li>
-          </ul>
+          <v-row>
+            <v-col cols="12" sm="6">
+              <h2>Business Contact Information</h2>
 
-          <h4 class="mt-5">Contact Details</h4>
-          <ul class="mt-2">
-            <li>Name: {{ ipcPlanData.contacts[0].firstName + ' ' + ipcPlanData.contacts[0].lastName }}</li>
-            <li>Phone: {{ ipcPlanData.contacts[0].phone1 }}</li>
+              <h4>Primary Contact</h4>
+              <ul>
+                <li>Name: {{ ipcPlanData.contacts[0].firstName + ' ' + ipcPlanData.contacts[0].lastName }}</li>
+                <li>Phone: {{ ipcPlanData.contacts[0].phone1 }}</li>
+                <li
+                  v-if="ipcPlanData.contacts[0].phone2"
+                >Secondary Phone: {{ ipcPlanData.contacts[0].phone2 }}
+                </li>
+                <li>Email: {{ ipcPlanData.contacts[0].email }}</li>
+              </ul>
 
-            <template v-if="ipcPlanData.contacts[0].phone2">
-              <li>2<sup>nd</sup> Phone:  {{ ipcPlanData.contacts[0].phone2 }}</li>
-            </template>
-            <li>Email: {{ ipcPlanData.contacts[0].email }}</li>
-          </ul>
+              <h4>Business Address</h4>
+              <ul>
+                <li>{{ ipcPlanData.business.addressLine1 }}</li>
+                <li
+                  v-if="ipcPlanData.business.addressLine2 != ''"
+                >{{ ipcPlanData.business.addressLine2 }}
+                </li>
+                <li>{{ ipcPlanData.business.city }}</li>
+                <li>{{ ipcPlanData.business.province }}</li>
+                <li>{{ ipcPlanData.business.PostalCode }}</li>
+              </ul>
 
-          <h4 class="mt-5">COVID-19 Coordinator Contact Details</h4>
-          <ul class="mt-2">
-            <li>Name: {{ ipcPlanData.covidContact.firstName + ' ' + ipcPlanData.covidContact.lastName }}</li>
-            <li>Phone: {{ ipcPlanData.covidContact.phone1 }}</li>
-            <template v-if="ipcPlanData.covidContact.phone2">
-              <li>2<sup>nd</sup> Phone:  {{ ipcPlanData.covidContact.phone2 }}</li>
-            </template>
+              <h4>COVID-19 Coordinator</h4>
+              <ul>
+                <li>Name: {{ ipcPlanData.covidContact.firstName + ' ' + ipcPlanData.covidContact.lastName }}</li>
+                <li>Phone: {{ ipcPlanData.covidContact.phone1 }}</li>
+                <li
+                  v-if="ipcPlanData.covidContact.phone2"
+                >Secondary Phone: {{ ipcPlanData.covidContact.phone2 }}
+                </li>
+                <li>Email: {{ ipcPlanData.covidContact.email }}</li>
+              </ul>
+            </v-col>
+            <v-col cols="12" sm="6">
+              <h2>Planting Camp Locations</h2>
 
-            <li>Email: {{ ipcPlanData.covidContact.email }}</li>
-          </ul>
+              <h4>Planting Camp Sites During the Season</h4>
+              <ul>
+                <li>From {{ ipcPlanData.location.startDate }} to {{ ipcPlanData.location.endDate }}</li>
+                <li>{{ ipcPlanData.location.addressLine1 }}</li>
+                <li
+                  v-if="ipcPlanData.location.addressLine2 != ''"
+                >{{ ipcPlanData.location.addressLine2 }}
+                </li>
+                <li>{{ ipcPlanData.location.city }}</li>
+                <li>{{ ipcPlanData.location.province }}</li>
+                <li>{{ ipcPlanData.location.PostalCode }}</li>
+              </ul>
 
-          <h4 class="mt-5">Accommodation for planters</h4>
+              <ul v-if="ipcPlanData.accTents">
+                <li>
+                  <strong>Tents near worksite</strong>
+                </li>
+                <li v-if="ipcPlanData.location.tentDetails">{{ ipcPlanData.location.tentDetails }}</li>
+              </ul>
 
-          <ul class="mt-2">
-            <li><strong>Camp Location</strong></li>
-            <li>{{ ipcPlanData.location.addressLine1 }}</li>
-            <template v-if="ipcPlanData.location.addressLine2 != ''">
-              <li> {{ ipcPlanData.location.addressLine2 }}</li>
-            </template>
+              <ul v-if="ipcPlanData.location.accMotel">
+                <li>
+                  <strong>Motel / Hotel in town</strong>
+                </li>
+                <li>{{ ipcPlanData.location.motelAddressLine1 }}</li>
+                <li
+                  v-if="ipcPlanData.location.motelAddressLine2 != ''"
+                >{{ ipcPlanData.location.motelAddressLine2 }}
+                </li>
+                <li>{{ ipcPlanData.location.motelCity }}</li>
+                <li>{{ ipcPlanData.location.motelProvince }}</li>
+                <li>{{ ipcPlanData.location.motelPostalCode }}</li>
+              </ul>
 
-            <li>{{ ipcPlanData.location.city }}</li>
-            <li>{{ ipcPlanData.location.province }}</li>
-            <li>{{ ipcPlanData.location.PostalCode }}</li>
-            <li><strong>Duration of stay:</strong></li>
-            <li>{{ ipcPlanData.location.startDate }} - {{ ipcPlanData.location.endDate }}</li>
-          </ul>
+              <ul v-if="ipcPlanData.accWorkersHome">
+                <li>
+                  <strong>Worker's home in the community</strong>
+                </li>
+              </ul>
+            </v-col>
+          </v-row>
 
-          <template v-if="ipcPlanData.accTents">
-            <ul class="mt-2">
-              <li><strong>Tents near worksite</strong></li>
-              {{ (ipcPlanData.location.tentDetails) ? '<li>' + ipcPlanData.location.tentDetails + '</li>' : '' }}
-            </ul>
-          </template>
-
-          <template v-if="ipcPlanData.accMotel">
-            <ul class="mt-2">
-              <li><strong>Tents near worksite</strong></li>
-              <li>{{ ipcPlanData.location.motelAddressLine1 }}</li>
-              {{ (ipcPlanData.location.motelAddressLine2) ? '<li>' + ipcPlanData.motelAddressLine2 + '</li>' : '' }}
-              <li>{{ ipcPlanData.location.motelCity }}</li>
-              <li>{{ ipcPlanData.location.motelProvince }}</li>
-              <li>{{ ipcPlanData.location.motelPostalCode }}</li>
-            </ul>
-          </template>
-
-          <template v-if="ipcPlanData.accWorkersHome">
-            <ul class="mt-2">
-              <li><strong>Worker's home in the community</strong></li>
-            </ul>
-          </template>
-
-          <h4 class="mt-5 mb-2">COVID-19 Information</h4>
+          <h4>COVID-19 Information</h4>
           <v-simple-table dense>
             <template>
               <tbody>
                 <tr>
-                  <td>Signage in place in the appropriate language on how employees can protect themselves from COVID-19</td>
+                  <td>Signage in place in the appropriate language on how employees can protect themselves from COVID-19
+                  </td>
                   <td>
                     <v-icon color="green" v-if="ipcPlanData.ipcPlan.protectionSignage">check</v-icon>
                     <v-icon color="red" v-else>close</v-icon>
@@ -111,7 +118,7 @@
             </template>
           </v-simple-table>
 
-          <h4 class="mt-5 mb-2">Provide safe lodging and accommodation: General Worker</h4>
+          <h4>Provide safe lodging and accommodation: General Worker</h4>
           <v-simple-table dense>
             <template>
               <tbody>
@@ -127,7 +134,9 @@
                     <div class="float-left">Shared sleeping area or single beds</div>
                     <div
                       class="float-right"
-                    >{{ (ipcPlanData.ipcPlan.sleepingAreaType == 1) ? 'Individual beds or single beds' : 'Shared sleeping areas' }}</div>
+                    >{{ (ipcPlanData.ipcPlan.sleepingAreaType == 1) ? 'Individual beds or single beds' : 'Shared sleeping
+                    areas' }}
+                    </div>
                   </td>
                 </tr>
                 <template v-if="ipcPlanData.ipcPlan.sleepingAreaType == 2">
@@ -136,16 +145,25 @@
                     <td>{{ ipcPlanData.ipcPlan.sharedSleepingPerRoom }}</td>
                   </tr>
                   <tr>
-                    <td>Beds in the right configuration with the right distance apart</td>
+                    <td>Beds in the head-to-toe configuration with the 2m distance apart</td>
                     <td>
                       <v-icon
                         color="green"
                         v-if="ipcPlanData.ipcPlan.sharedSleepingDistancing"
-                      >check</v-icon>
+                      >check
+                      </v-icon>
                       <v-icon color="red" v-else>close</v-icon>
                     </td>
                   </tr>
                 </template>
+              </tbody>
+            </template>
+          </v-simple-table>
+
+          <h4>Self-isolation space if any worker comes down with COVID-19-like symptoms</h4>
+          <v-simple-table dense>
+            <template>
+              <tbody>
                 <tr>
                   <td>Understands what is needed for a person to self-isolate.</td>
                   <td>
@@ -154,12 +172,22 @@
                   </td>
                 </tr>
                 <tr>
-                  <td>Worker can self-isolate</td>
+                  <td>Has separate accommodation to let a worker self-isolate in a separate accommodation than other
+                    workers or arrange for separate accommodation
+                  </td>
                   <td>
                     <v-icon color="green" v-if="ipcPlanData.ipcPlan.selfIsolateAccommodation">check</v-icon>
                     <v-icon color="red" v-else>close</v-icon>
                   </td>
                 </tr>
+              </tbody>
+            </template>
+          </v-simple-table>
+
+          <h4>Laundry facilities are available and handled safely</h4>
+          <v-simple-table dense>
+            <template>
+              <tbody>
                 <tr>
                   <td>Laundry services available for regular use</td>
                   <td>
@@ -167,27 +195,14 @@
                     <v-icon color="red" v-else>close</v-icon>
                   </td>
                 </tr>
-                <tr>
-                  <td>Disposable gloves for the handling of garbage</td>
-                  <td>
-                    <v-icon color="green" v-if="ipcPlanData.ipcPlan.wasteManagementGloves">check</v-icon>
-                    <v-icon color="red" v-else>close</v-icon>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Waste removal schedule</td>
-                  <td>
-                    <v-icon color="green" v-if="ipcPlanData.ipcPlan.wasteManagementSchedule">check</v-icon>
-                    <v-icon color="red" v-else>close</v-icon>
-                  </td>
-                </tr>
-                <tr>
-                  <td>You have sturdy, leak-resistant garbage bags</td>
-                  <td>
-                    <v-icon color="green" v-if="ipcPlanData.ipcPlan.wasteManagementBags">check</v-icon>
-                    <v-icon color="red" v-else>close</v-icon>
-                  </td>
-                </tr>
+              </tbody>
+            </template>
+          </v-simple-table>
+
+          <h4>Hand-washing facilities: At work-site and accommodation</h4>
+          <v-simple-table dense>
+            <template>
+              <tbody>
                 <tr>
                   <td>Adequate number of hand washing stations (either permanent or portable) available to workers</td>
                   <td>
@@ -216,6 +231,28 @@
                     <v-icon color="red" v-else>close</v-icon>
                   </td>
                 </tr>
+
+                <tr>
+                  <td>Disposable gloves for the handling of garbage</td>
+                  <td>
+                    <v-icon color="green" v-if="ipcPlanData.ipcPlan.wasteManagementGloves">check</v-icon>
+                    <v-icon color="red" v-else>close</v-icon>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Waste removal schedule</td>
+                  <td>
+                    <v-icon color="green" v-if="ipcPlanData.ipcPlan.wasteManagementSchedule">check</v-icon>
+                    <v-icon color="red" v-else>close</v-icon>
+                  </td>
+                </tr>
+                <tr>
+                  <td>You have sturdy, leak-resistant garbage bags</td>
+                  <td>
+                    <v-icon color="green" v-if="ipcPlanData.ipcPlan.wasteManagementBags">check</v-icon>
+                    <v-icon color="red" v-else>close</v-icon>
+                  </td>
+                </tr>
                 <tr>
                   <td>Has put up signs to promote regular hand washing</td>
                   <td>
@@ -227,7 +264,7 @@
             </template>
           </v-simple-table>
 
-          <h4 class="mt-5 mb-2">Provide safe lodging and accommodation: General Worker</h4>
+          <h4>Physical distancing practices</h4>
           <v-simple-table dense>
             <template>
               <tbody>
@@ -237,19 +274,24 @@
                     <v-icon
                       color="green"
                       v-if="ipcPlanData.ipcPlan.distancingMaintained"
-                    >check</v-icon>
+                    >check
+                    </v-icon>
                     <v-icon color="red" v-else>close</v-icon>
                   </td>
                 </tr>
                 <tr>
-                  <td>Has physical barriers like face shields or masks for situations where physical distancing is not possible</td>
+                  <td>Has physical barriers like face shields or masks for situations where physical distancing is not
+                    possible
+                  </td>
                   <td>
                     <v-icon color="green" v-if="ipcPlanData.ipcPlan.distancingFaceShields">check</v-icon>
                     <v-icon color="red" v-else>close</v-icon>
                   </td>
                 </tr>
                 <tr>
-                  <td>Has a schedule to ensure common and high touch areas are cleaned or disinfected at the start and end of each day</td>
+                  <td>Has a schedule to ensure common and high touch areas are cleaned or disinfected at the start and end
+                    of each day
+                  </td>
                   <td>
                     <v-icon color="green" v-if="ipcPlanData.ipcPlan.disinfectingSchedule">check</v-icon>
                     <v-icon color="red" v-else>close</v-icon>
@@ -259,12 +301,14 @@
             </template>
           </v-simple-table>
 
-          <h4 class="mt-5 mb-2">Implement COVID-19 Employee Education</h4>
+          <h4>Implement COVID-19 Employee Education</h4>
           <v-simple-table dense>
             <template>
               <tbody>
                 <tr>
-                  <td>Has signage in place in the appropriate language on how employees can protect themselves from COVID-19</td>
+                  <td>Has signage in place in the appropriate language on how employees can protect themselves from
+                    COVID-19
+                  </td>
                   <td>
                     <v-icon color="green" v-if="ipcPlanData.ipcPlan.educationSignage">check</v-icon>
                     <v-icon color="red" v-else>close</v-icon>
@@ -281,12 +325,13 @@
             </template>
           </v-simple-table>
 
-          <h4 class="mt-5 mb-2">Train Workers on COVID-19 infection control</h4>
+          <h4>Train Workers on COVID-19 infection control</h4>
           <v-simple-table dense>
             <template>
               <tbody>
                 <tr>
-                  <td>Has materials ready on the risk of exposure of COVID-19 and the signs and symptoms of the disease</td>
+                  <td>Has materials ready on the risk of exposure of COVID-19 and the signs and symptoms of the disease
+                  </td>
                   <td>
                     <v-icon color="green" v-if="ipcPlanData.ipcPlan.trainingCovid19">check</v-icon>
                     <v-icon color="red" v-else>close</v-icon>
@@ -300,7 +345,9 @@
                   </td>
                 </tr>
                 <tr>
-                  <td>Can provide locations of washing facilities, including dispensing stations for alcohol-based hand rubs</td>
+                  <td>Can provide locations of washing facilities, including dispensing stations for alcohol-based hand
+                    rubs
+                  </td>
                   <td>
                     <v-icon color="green" v-if="ipcPlanData.ipcPlan.trainingLocations">check</v-icon>
                     <v-icon color="red" v-else>close</v-icon>
@@ -324,12 +371,14 @@
             </template>
           </v-simple-table>
 
-          <h4 class="mt-5 mb-2">Meals Preparation: Practice safe food handling</h4>
+          <h4>Meals Preparation: Practice safe food handling</h4>
           <v-simple-table dense>
             <template>
               <tbody>
                 <tr>
-                  <td>Has schedules in place for kitchen/eating areas to limit contact and maintain 2 metre physical distancing</td>
+                  <td>Has schedules in place for kitchen/eating areas to limit contact and maintain 2 metre physical
+                    distancing
+                  </td>
                   <td>
                     <v-icon color="green" v-if="ipcPlanData.ipcPlan.mealsDistancing">check</v-icon>
                     <v-icon color="red" v-else>close</v-icon>
@@ -353,7 +402,7 @@
             </template>
           </v-simple-table>
 
-          <h4 class="mt-5 mb-2">Plan to manage individuals with suspected COVID-19 Infection</h4>
+          <h4>Plan to manage individuals with suspected COVID-19 Infection</h4>
           <v-simple-table dense>
             <template>
               <tbody>
@@ -365,7 +414,9 @@
                   </td>
                 </tr>
                 <tr>
-                  <td>Is prepared to provide individuals exhibiting symptoms of COVID-19 with a surgical/procedural mask or tissues to cover their mouth and nose</td>
+                  <td>Is prepared to provide individuals exhibiting symptoms of COVID-19 with a surgical/procedural mask
+                    or tissues to cover their mouth and nose
+                  </td>
                   <td>
                     <v-icon color="green" v-if="ipcPlanData.ipcPlan.infectionSymptoms">check</v-icon>
                     <v-icon color="red" v-else>close</v-icon>
@@ -386,7 +437,9 @@
                   </td>
                 </tr>
                 <tr>
-                  <td>If commercial accommodation is being used to self-isolate, then you will inform management of the situation and necessary requirements.</td>
+                  <td>If commercial accommodation is being used to self-isolate, then you will inform management of the
+                    situation and necessary requirements.
+                  </td>
                   <td>
                     <v-icon color="green" v-if="ipcPlanData.ipcPlan.infectionAccommodation">check</v-icon>
                     <v-icon color="red" v-else>close</v-icon>
@@ -396,7 +449,7 @@
             </template>
           </v-simple-table>
 
-          <h4 class="mt-5 mb-2">Providing Food for Ill Workers</h4>
+          <h4>Providing Food for Ill Workers</h4>
           <v-simple-table dense>
             <template>
               <tbody>
@@ -411,7 +464,7 @@
             </template>
           </v-simple-table>
 
-          <h4 class="mt-5 mb-2">Housekeeping for Ill-Workers</h4>
+          <h4>Housekeeping for Ill-Workers</h4>
           <v-simple-table dense>
             <template>
               <tbody>
@@ -426,7 +479,7 @@
             </template>
           </v-simple-table>
 
-          <h4 class="mt-5 mb-2">Waste Management for Ill-Workers</h4>
+          <h4>Waste Management for Ill-Workers</h4>
           <v-simple-table dense>
             <template>
               <tbody>
@@ -441,7 +494,7 @@
             </template>
           </v-simple-table>
 
-          <h4 class="mt-5 mb-2">Certification</h4>
+          <h4>Certification</h4>
           <v-simple-table dense>
             <template>
               <tbody>
@@ -451,7 +504,8 @@
                     <v-icon
                       color="green"
                       v-if="ipcPlanData.ipcPlan.certifyAccurateInformation"
-                    >check</v-icon>
+                    >check
+                    </v-icon>
                     <v-icon color="red" v-else>close</v-icon>
                   </td>
                 </tr>
@@ -481,11 +535,10 @@ import ipcService from '@/services/ipcService';
 
 export default {
   name: 'Submission',
-  components: {
-  },
+  components: {},
   data() {
     return {
-      ipcPlanId: '' ,
+      ipcPlanId: '',
       ipcPlanData: ''
     };
   },
@@ -512,15 +565,31 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.ipc-wrapper {
-  ul,
-  ul li {
-    padding: 0;
-    list-style-type: none;
+  .ipc-wrapper {
+    padding: 2em;
+
+    h2 {
+      color: rgb(0, 51, 102);
+      font-size: 130%;
+    }
+
+    h4 {
+      margin: 1em auto 0.5em auto;
+    }
+
+    ul {
+      margin: 0 0 1em 0;
+      padding: 0;
+    }
+
+    li {
+      padding: 0;
+      list-style-type: none;
+    }
+
+    table tr > td {
+      padding-left: 0;
+      width: 95%;
+    }
   }
-  table tr > td {
-    padding-left: 0;
-    width: 95%;
-  }
-}
 </style>
