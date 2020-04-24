@@ -157,7 +157,9 @@ export default {
         const body = {
           business: state.business,
           contacts: state.contacts,
-          ipcPlan: state.ipcPlan
+          ipcPlan: state.ipcPlan,
+          covidContact: state.covidContact,
+          location: state.location
         };
         const response = await ipcService.sendIPCContent(body);
         if (!response.data) {
