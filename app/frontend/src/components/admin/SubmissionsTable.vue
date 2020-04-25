@@ -49,6 +49,7 @@
 <script>
 
 import ipcService from '@/services/ipcService';
+import Vue from "vue";
 
 export default {
   name: 'SubmissionsTable',
@@ -106,28 +107,8 @@ export default {
         });
     },
     generatePdf(ipcPlanId){
-      ipcService
-        .getIPCContentAsPDF(ipcPlanId)
-        .then(response => {
-          const blob = new Blob([response.data], {
-            type: 'attachment'
-          });
-          this.createDownload(blob, `${ipcPlanId}.pdf`);
-        })
-        .catch(() => {
-          this.showTableAlert('error', 'Currently unable to complete this request.');
-        });
-
-    },
-    createDownload(blob, filename = undefined) {
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.style.display = 'none';
-      a.href = url;
-      a.download = filename;
-      a.click();
-      window.URL.revokeObjectURL(url);
-      a.remove();
+      const pdf = `${Vue.prototype.$config.basePath}/${Vue.prototype.$config.apiPath}/ipc/pdf/${ipcPlanId}`;
+      window.open(pdf, '_blank');
     },
     showTableAlert(typ, msg) {
       this.showAlert = true;

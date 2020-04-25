@@ -267,16 +267,6 @@ export default {
       const pdf = `${Vue.prototype.$config.basePath}/${Vue.prototype.$config.apiPath}/ipc/pdf/${this.submissionDetails.ipcPlan.ipcPlanId}`;
       window.open(pdf, '_blank');
     },
-    createDownload(blob, filename = undefined) {
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.style.display = 'none';
-      a.href = url;
-      a.download = filename;
-      a.click();
-      window.URL.revokeObjectURL(url);
-      a.remove();
-    },
     refresh() {
       location.reload();
     }
