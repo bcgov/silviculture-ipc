@@ -49,7 +49,7 @@
 <script>
 
 import ipcService from '@/services/ipcService';
-import Vue from "vue";
+import Vue from 'vue';
 
 export default {
   name: 'SubmissionsTable',
