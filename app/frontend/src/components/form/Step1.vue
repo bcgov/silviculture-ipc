@@ -136,7 +136,7 @@
                 <v-col cols="12" md="4" class="mb-0">
                   <h3>Coast:</h3>
                   <p class="mb-0 mt-1">
-                    Richard LaBoucane
+                    Ritchard LaBoucane
                     <br />250-739-8706
                   </p>
                 </v-col>
