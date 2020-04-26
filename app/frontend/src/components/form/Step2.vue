@@ -679,7 +679,11 @@ export default {
         window.scrollBy(0, -60); // ugh again
       }
     }
-
+  },
+  mounted() {
+    // Once they've gotten to the form start (step 2) enable the typical "leave site" native browser warning
+    // This gets disabled after form submit in step 6
+    window.onbeforeunload = () => {return true;};
   }
 };
 </script>

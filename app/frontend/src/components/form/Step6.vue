@@ -262,6 +262,10 @@ export default {
     ...mapActions('form', ['submitForm']),
     async submit() {
       await this.submitForm();
+      if(this.submissionComplete) {
+        // Once the form is done disable the native browser "leave site" message so they can quit without getting whined at
+        window.onbeforeunload = null;
+      }
     },
     generatePdf(){
       const pdf = `${Vue.prototype.$config.basePath}/${Vue.prototype.$config.apiPath}/ipc/pdf/${this.submissionDetails.ipcPlan.ipcPlanId}`;
