@@ -59,7 +59,8 @@ export default {
   },
   methods: {
     change: function (value) {
-      this.$emit('update:field-model',
+      this.$emit(
+        'update:field-model',
         // For this use, want to emit just the text
         typeof value === 'object' && value !== null ? value.text : value
       );
@@ -77,7 +78,9 @@ export default {
 
       // Lazily load results
       fetch(
-        `${this.apiURL}/search/autocomplete?q=${val}&inactive=false&latest=true&revoked=false`
+        `${this.apiURL}/search/autocomplete?q=${encodeURIComponent(
+          val
+        )}&inactive=false&latest=true&revoked=false`
       )
         .then((res) => res.json())
         .then((res) => {
