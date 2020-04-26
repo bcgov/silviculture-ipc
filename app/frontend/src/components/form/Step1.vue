@@ -25,9 +25,9 @@
         </v-card-text>
       </v-card>
 
-      <p class="mb-8">
+      <h3 class="mb-4 mt-12">
         <strong>Before you complete this form:</strong>
-      </p>
+      </h3>
 
       <hr class="orange" />
     </div>
@@ -121,8 +121,7 @@
     </div>
 
     <div class="hide-on-review">
-      <hr class="orange" />
-      <v-card outlined class="my-6 silv-contact-card">
+      <v-card outlined class="my-12 silv-contact-card">
         <v-card-text>
           <v-row no-gutters>
             <v-col cols="12" sm="1">
