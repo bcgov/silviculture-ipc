@@ -17,8 +17,20 @@ const router = new VueRouter({
     },
     {
       path: '/admin',
-      name: 'Admin',
       component: () => import(/* webpackChunkName: "admin" */ '@/views/Admin.vue'),
+      children: [
+        {
+          path: '',
+          name: 'Admin',
+          component: () => import(/* webpackChunkName: "submission-table" */ '@/views/admin/Root.vue')
+        },
+        {
+          path: 'submission/:ipcPlanId',
+          name: 'Submission',
+          component: () => import(/* webpackChunkName: "submission" */ '@/views/admin/Submission.vue'),
+          props: true
+        }
+      ],
       meta: {
         requiresAuth: true
       }
@@ -30,15 +42,6 @@ const router = new VueRouter({
       meta: {
         requiresAuth: true
       }
-    },
-    {
-      path: '/admin/submissions/:ipcPlanId',
-      name: 'Submission',
-      component: () => import(/* webpackChunkName: "submission" */ '@/views/Submission.vue'),
-      meta: {
-        requiresAuth: true
-      },
-      props: true
     },
     {
       path: '/404',
@@ -56,7 +59,10 @@ router.beforeEach((to, _from, next) => {
     && router.app.$keycloak.ready
     && !router.app.$keycloak.authenticated) {
     const redirect = location.origin + location.pathname + '#' + to.path;
-    const loginUrl = router.app.$keycloak.createLoginUrl({ redirectUri: redirect });
+    const loginUrl = router.app.$keycloak.createLoginUrl({
+      idpHint: 'idir',
+      redirectUri: redirect
+    });
     window.location.replace(loginUrl);
   } else {
     next();

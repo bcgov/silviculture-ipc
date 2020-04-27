@@ -13,7 +13,7 @@ describe('BaseAuthButton.vue', () => {
     store = new Vuex.Store();
   });
 
-  it.skip('renders login when not authenticated', () => {
+  it('renders nothing when not authenticated', () => {
     store.registerModule('auth', {
       namespaced: true,
       getters: {
@@ -26,7 +26,7 @@ describe('BaseAuthButton.vue', () => {
 
     const wrapper = shallowMount(BaseAuthButton, { localVue, store });
 
-    expect(wrapper.text()).toMatch('Login');
+    expect(wrapper.text()).toBeFalsy();
   });
 
   it('renders logout when authenticated', () => {
