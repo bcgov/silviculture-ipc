@@ -422,7 +422,7 @@
         <v-row>
           <v-col cols="12" lg="10">
             <h4 class="mb-3">Name of Licencee(s)</h4>
-            <label>Provide the name or names of the licensee(s) that you are conducting the work for</label>
+            <label>Provide the name or names of the licencee(s) that you are conducting the work for</label>
             <v-text-field dense flat outlined solo v-model="licencees" :rules="licenceesRules" />
           </v-col>
         </v-row>
