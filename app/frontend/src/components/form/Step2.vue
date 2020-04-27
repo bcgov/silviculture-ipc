@@ -32,19 +32,8 @@
         <v-row>
           <v-col cols="12" lg="10">
             <h4 class="mb-3">Name of Licencee(s)</h4>
-            <p>
-              Please enter the licencee or licencees that apply to the location this attestation is being completed for.
-              <br />If more than one licencee applies please separate the list with commas.
-            </p>
-            <label>Licencee(s)</label>
-            <v-text-field
-              dense
-              flat
-              outlined
-              solo
-              v-model="licencees"
-              :rules="licenceesRules"
-            />
+            <label>Provide the name or names of the licensee(s) that you are conducting the work for.</label>
+            <v-text-field dense flat outlined solo v-model="licencees" :rules="licenceesRules" />
           </v-col>
         </v-row>
 
