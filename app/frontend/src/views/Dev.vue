@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <BaseSecure admin>
+    <BaseSecure>
       <h1 class="mt-6 text-center">Development</h1>
       <v-container>
         <ApiTester class="my-8" />

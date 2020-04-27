@@ -1,6 +1,6 @@
 <template>
   <div v-if="authenticated">
-    <div v-if="authorized">
+    <div v-if="authorized()">
       <slot />
     </div>
     <div v-else class="text-center">
@@ -23,6 +23,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import { SilvipcRoles } from '@/utils/constants';
 
 export default {
   name: 'BaseSecure',
@@ -30,14 +31,17 @@ export default {
     ...mapGetters('auth', [
       'authenticated',
       'createLoginUrl',
-      'isAdmin',
+      'hasSilvipcRoles',
       'keycloakReady'
-    ]),
-    authorized() {
-      return this.admin ? this.isAdmin : true;
-    }
+    ])
   },
   methods: {
+    authorized() {
+      const roles = [];
+      if (this.developer) roles.push(SilvipcRoles.DEVELOPER);
+      if (this.inspector) roles.push(SilvipcRoles.INSPECTOR);
+      return this.hasSilvipcRoles(roles);
+    },
     login() {
       if (this.keycloakReady) {
         window.location.replace(this.createLoginUrl({ idpHint: 'idir' }));
@@ -45,7 +49,11 @@ export default {
     }
   },
   props: {
-    admin: {
+    developer: {
+      default: false,
+      type: Boolean
+    },
+    inspector: {
       default: false,
       type: Boolean
     }
