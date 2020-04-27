@@ -25,7 +25,7 @@ const router = new VueRouter({
           component: () => import(/* webpackChunkName: "submission-table" */ '@/views/admin/Root.vue')
         },
         {
-          path: '/submission/:ipcPlanId',
+          path: 'submission/:ipcPlanId',
           name: 'Submission',
           component: () => import(/* webpackChunkName: "submission" */ '@/views/admin/Submission.vue'),
           props: true
