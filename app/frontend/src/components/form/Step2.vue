@@ -29,6 +29,27 @@
 
         <hr />
 
+        <v-row>
+          <v-col cols="12" lg="10">
+            <h4 class="mb-3">Name of Licencee(s)</h4>
+            <p>
+              Please enter the licencee or licencees that apply to the location this attestation is being completed for.
+              <br />If more than one licencee applies please separate the list with commas.
+            </p>
+            <label>Licencee(s)</label>
+            <v-text-field
+              dense
+              flat
+              outlined
+              solo
+              v-model="licencees"
+              :rules="licenceesRules"
+            />
+          </v-col>
+        </v-row>
+
+        <hr />
+
         <h4>Primary Contact</h4>
         <v-row>
           <v-col cols="12" sm="6" lg="5">
@@ -503,6 +524,9 @@ export default {
       ],
 
       // Location
+      licenceesRules: [
+        v => !!v || 'name of licencee(s) required'
+      ],
       startDateRules: [
         v => !!v || 'start date is required'
       ],
@@ -597,6 +621,10 @@ export default {
     },
 
     // Location
+    licencees: {
+      get() { return this.location.licencees; },
+      set(value) { this.updateLocation({['licencees']: value}); }
+    },
     startDate: {
       get() { return this.location.startDate; },
       set(value) { this.updateLocation({['startDate']: value}); }
