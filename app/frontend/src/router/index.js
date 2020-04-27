@@ -56,7 +56,10 @@ router.beforeEach((to, _from, next) => {
     && router.app.$keycloak.ready
     && !router.app.$keycloak.authenticated) {
     const redirect = location.origin + location.pathname + '#' + to.path;
-    const loginUrl = router.app.$keycloak.createLoginUrl({ redirectUri: redirect });
+    const loginUrl = router.app.$keycloak.createLoginUrl({
+      idpHint: 'idir',
+      redirectUri: redirect
+    });
     window.location.replace(loginUrl);
   } else {
     next();

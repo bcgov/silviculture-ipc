@@ -24,6 +24,7 @@ export default {
       if (this.keycloakReady) {
         window.location.replace(
           this.createLoginUrl({
+            idpHint: 'idir',
             redirectUri: location.origin + location.pathname + '/#/admin'
           })
         );
@@ -33,6 +34,7 @@ export default {
       if (this.keycloakReady) {
         window.location.replace(
           this.createLogoutUrl({
+            idpHint: 'idir',
             redirectUri: location.origin + location.pathname
           })
         );
