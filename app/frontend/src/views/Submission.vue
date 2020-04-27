@@ -1,9 +1,9 @@
 <template>
   <v-container>
     <BaseSecure admin>
-      <v-alert v-if="error" type="error" tile dense>An erorr occurred fetching this submission.</v-alert>
+      <v-alert v-if="error" type="error" tile dense>An error occurred fetching this submission.</v-alert>
       <div v-else>
-        <router-link :to="{ name: 'Admin'}">
+        <router-link :to="{ name: 'Admin' }">
           <v-btn color="primary" class="mt-5">Back</v-btn>
         </router-link>
         <v-card class="elevation-2 mx-auto mt-10">
@@ -532,7 +532,7 @@
         </v-card>
       </div>
 
-      <router-link :to="{ name: 'Admin'}">
+      <router-link :to="{ name: 'Admin' }">
         <v-btn color="primary" class="mt-5">Back</v-btn>
       </router-link>
     </BaseSecure>
