@@ -106,6 +106,12 @@ module.exports = (sequelize, DataTypes) => {
       comment: 'Worker/Home Accommodations',
       type: DataTypes.BOOLEAN,
       unique: false
+    },
+    licencees: {
+      allowNull: true,
+      comment: 'Name of licencee(s) (free text)',
+      type: DataTypes.STRING(1000),
+      unique: false
     }
   },
   {
