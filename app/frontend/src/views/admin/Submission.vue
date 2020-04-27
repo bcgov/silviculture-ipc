@@ -68,14 +68,16 @@
 
               <ul v-if="ipcPlanData.location.accTents">
                 <li>
-                  <strong>Tents near worksite</strong> <v-icon color="green">check</v-icon>
+                  <strong>Tents near worksite</strong>
+                  <v-icon color="green">check</v-icon>
                 </li>
                 <li v-if="ipcPlanData.location.tentDetails">{{ ipcPlanData.location.tentDetails }}</li>
               </ul>
 
               <ul v-if="ipcPlanData.location.accMotel">
                 <li>
-                  <strong>Motel / Hotel in town</strong> <v-icon color="green">check</v-icon>
+                  <strong>Motel / Hotel in town</strong>
+                  <v-icon color="green">check</v-icon>
                 </li>
                 <li>{{ ipcPlanData.location.motelName }}</li>
                 <li>{{ ipcPlanData.location.motelAddressLine1 }}</li>
@@ -89,12 +91,18 @@
 
               <ul v-if="ipcPlanData.location.accWorkersHome">
                 <li>
-                  <strong>Worker's home in the community</strong> <v-icon color="green">check</v-icon>
+                  <strong>Worker's home in the community</strong>
+                  <v-icon color="green">check</v-icon>
                 </li>
               </ul>
             </v-col>
           </v-row>
 
+          <h2>Licencee</h2>
+          <h4>Name of licencee(s)</h4>
+          <p>{{ ipcPlanData.location.licencees }}</p>
+
+          <h2 class="mt-8">Before planting</h2>
           <h4>COVID-19 Information</h4>
           <v-simple-table dense>
             <template>
@@ -296,6 +304,7 @@
             </template>
           </v-simple-table>
 
+          <h2 class="mt-8">After workers arrive</h2>
           <h4>Implement COVID-19 Employee Education</h4>
           <v-simple-table dense>
             <template>
@@ -399,6 +408,7 @@
             </template>
           </v-simple-table>
 
+          <h2 class="mt-8">If workers become ill</h2>
           <h4>Plan to manage individuals with suspected COVID-19 Infection</h4>
           <v-simple-table dense>
             <template>
@@ -493,7 +503,7 @@
             </template>
           </v-simple-table>
 
-          <h4>Certification</h4>
+          <h2 class="mt-8">Certification</h2>
           <v-simple-table dense>
             <template>
               <tbody>

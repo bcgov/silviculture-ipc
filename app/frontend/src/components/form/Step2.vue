@@ -5,8 +5,8 @@
       <hr class="orange" />
     </div>
 
-    <v-container>
-      <v-form ref="form" v-model="step2Valid">
+    <v-form ref="form" v-model="step2Valid">
+      <v-container>
         <v-row>
           <v-col cols="12" lg="10">
             <h4 class="mb-1">Registered Business Name</h4>
@@ -220,7 +220,7 @@
           </v-col>
         </v-row>
 
-        <hr class="orange" />
+        <hr />
         <h4>Provide your planting camp location</h4>
 
         <v-row>
@@ -411,8 +411,23 @@
           :readonly="reviewMode"
           label="Worker's home in community"
         ></v-checkbox>
-      </v-form>
-    </v-container>
+      </v-container>
+
+      <div class="hide-on-review">
+        <h2 class="pb-8 mt-8">Provide licencee(s)</h2>
+        <hr class="orange" />
+      </div>
+
+      <v-container>
+        <v-row>
+          <v-col cols="12" lg="10">
+            <h4 class="mb-3">Name of Licencee(s)</h4>
+            <label>Provide the name or names of the licencee(s) that you are conducting the work for</label>
+            <v-text-field dense flat outlined solo v-model="licencees" :rules="licenceesRules" />
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-form>
 
     <div class="hide-on-review">
       <hr />
@@ -503,6 +518,9 @@ export default {
       ],
 
       // Location
+      licenceesRules: [
+        v => !!v || 'name of licencee(s) required'
+      ],
       startDateRules: [
         v => !!v || 'start date is required'
       ],
@@ -597,6 +615,10 @@ export default {
     },
 
     // Location
+    licencees: {
+      get() { return this.location.licencees; },
+      set(value) { this.updateLocation({['licencees']: value}); }
+    },
     startDate: {
       get() { return this.location.startDate; },
       set(value) { this.updateLocation({['startDate']: value}); }
