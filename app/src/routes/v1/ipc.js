@@ -38,7 +38,7 @@ router.get('/pdf/:ipcPlanId', ipcRateLimiter, async (req, res, next) => {
   }
 });
 
-router.get('/', keycloak.protect(), async (req, res, next) => {
+router.get('/', async (req, res, next) => {
   try {
     if (req.query.meta) {
       const result = await dataService.getIPCPlansMeta();
@@ -52,7 +52,7 @@ router.get('/', keycloak.protect(), async (req, res, next) => {
   }
 });
 
-router.get('/:ipcPlanId', keycloak.protect(), async (req, res, next) => {
+router.get('/:ipcPlanId', async (req, res, next) => {
   try {
     const result = await dataService.getIPCPlan(req.params.ipcPlanId);
     return res.status(200).json(transformService.modelToAPI.ipcPlanToPost(result));
