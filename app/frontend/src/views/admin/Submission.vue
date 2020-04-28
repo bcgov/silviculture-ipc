@@ -66,6 +66,11 @@
                 <li>{{ ipcPlanData.location.postalCode }}</li>
               </ul>
 
+
+              <h4>Number of workers at this location</h4>
+              {{ ipcPlanData.location.numberOfWorkers }}
+
+              <h4>Types of accommodation</h4>
               <ul v-if="ipcPlanData.location.accTents">
                 <li>
                   <strong>Tents near worksite</strong>
