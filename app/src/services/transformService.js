@@ -73,6 +73,8 @@ const transformService = {
       result.location = xform.location;
       result.location.startDate = transformService.dateToString(xform.location.startDate);
       result.location.endDate = transformService.dateToString(xform.location.endDate);
+
+      result.inspectionStatuses = xform.inspectionStatuses;
       return result;
     },
 
@@ -84,13 +86,15 @@ const transformService = {
 
   confirmationId: ipcPlan => ipcPlan ? ipcPlan.ipcPlanId.split('-')[0].toUpperCase() : undefined,
 
-  ipcResult: (business, contacts, ipcPlan, location) => {
+  ipcResult: (business, contacts, ipcPlan, location, inspectionStatuses) => {
+    const sortedStatuses = inspectionStatuses.sort((a,b) => b.createdAt.getTime() - a.createdAt.getTime());
     return {
       confirmationId: transformService.confirmationId(ipcPlan),
       business: business,
       contacts: contacts,
       ipcPlan: ipcPlan,
-      location: location
+      location: location,
+      inspectionStatuses: sortedStatuses
     };
   },
 
@@ -105,11 +109,15 @@ const transformService = {
     const contacts = ipcPlan.Contacts.map(c => {
       return {...c.dataValues};
     });
+    const inspectionStatuses = ipcPlan.InspectionStatuses.map(s => {
+      return {...s.dataValues};
+    });
+    delete ipcPlan.InspectionStatuses;
     delete ipcPlan.Contacts;
     delete ipcPlan.Business;
     delete ipcPlan.Location;
 
-    return transformService.ipcResult(biz, contacts, ipcPlan, location);
+    return transformService.ipcResult(biz, contacts, ipcPlan, location, inspectionStatuses);
   },
 
   transformIPCPlanMeta: obj => {
@@ -120,8 +128,12 @@ const transformService = {
 
     const biz = {...ipcPlan.Business.dataValues};
     delete ipcPlan.Business;
+    const inspectionStatuses = ipcPlan.InspectionStatuses.map(s => {
+      return {...s.dataValues};
+    });
+    delete ipcPlan.InspectionStatuses;
 
-    return transformService.ipcResult(biz, undefined, ipcPlan);
+    return transformService.ipcResult(biz, undefined, ipcPlan, undefined, inspectionStatuses);
   },
 
   transformIPCPlansMeta: obj => {
