@@ -84,7 +84,8 @@ module.exports = {
         }).then(() => {
           return queryInterface.sequelize.query('SELECT * FROM ipc_plan');
         }).then(data => {
-          if (data && Array.isArray(data) && Array.isArray(data[0])) {
+          if (data && Array.isArray(data) && Array.isArray(data[0]) && data[0].length) {
+            // ok, there are ipc_plan records... create a default inspection status of submitted...
             const ipcPlans = data[0];
             const recs = ipcPlans.map(p => { return {inspectionStatusId: uuidv4(), createdAt: new Date(), updatedAt: new Date(), createdBy: 'migration', ipcPlanId: p.ipcPlanId}; });
             return queryInterface.bulkInsert('inspection_status', recs, {transaction: t});
