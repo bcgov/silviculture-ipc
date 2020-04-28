@@ -112,6 +112,12 @@ module.exports = (sequelize, DataTypes) => {
       comment: 'Name of licencee(s) (free text)',
       type: DataTypes.STRING(1000),
       unique: false
+    },
+    numberOfWorkers: {
+      allowNull: true,
+      comment: 'Number (integer) of workers working at the location',
+      type: DataTypes.INTEGER,
+      unique: false
     }
   },
   {

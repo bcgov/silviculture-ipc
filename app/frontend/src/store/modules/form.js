@@ -42,6 +42,7 @@ export default {
       city: '',
       province: '',
       postalCode: '',
+      numberOfWorkers: 1,
       accTents: false,
       tentDetails: '',
       accMotel: false,

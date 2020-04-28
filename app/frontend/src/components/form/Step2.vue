@@ -347,6 +347,22 @@
           </v-col>
         </v-row>
 
+        <h4>Number of workers at this location</h4>
+        <v-row>
+          <v-col cols="12" sm="3" lg="2">
+            <v-text-field
+              v-model="numberOfWorkers"
+              :rules="numberOfWorkersRules"
+              type="number"
+              min="1"
+              dense
+              flat
+              outlined
+              solo
+            />
+          </v-col>
+        </v-row>
+
         <h4>Type of accommodation for planters at this location (check all that apply)</h4>
 
         <v-checkbox v-model="accTents" :readonly="reviewMode" label="Tents near worksite"></v-checkbox>
@@ -539,6 +555,12 @@ export default {
       locationPostalCodeRules: [
         v => !!v || 'postal code is required'
       ],
+      // Todo, put in some utility fxn somewhere if needed again
+      numberOfWorkersRules: [
+        v => (new RegExp('^[-+]?\\d+$')).test(v) || 'invalid # of workers',
+        v => v > 0 || '# of workers must be greater than 0',
+        v => v < 9999 || '# of workers must 9999 or less'
+      ],
     };
   },
   computed: {
@@ -646,6 +668,12 @@ export default {
     locationPostalCode: {
       get() { return this.location.postalCode; },
       set(value) { this.updateLocation({['postalCode']: value}); }
+    },
+    numberOfWorkers: {
+      get() { return this.location.numberOfWorkers.toString(); },
+      set(value) { this.updateLocation({['numberOfWorkers']:
+        Number.isNaN(value) ? 0 : Number.parseInt(value)});
+      }
     },
     accTents: {
       get() { return this.location.accTents; },
