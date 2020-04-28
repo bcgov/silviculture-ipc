@@ -1,9 +1,11 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuetify from 'vuetify';
 
-import Dev from '@/views/Dev.vue';
+import router from '@/router';
+import Dev from '@/views/admin/Dev.vue';
 
 const localVue = createLocalVue();
+localVue.use(router);
 localVue.use(Vuetify);
 
 describe('Admin.vue', () => {
@@ -13,6 +15,6 @@ describe('Admin.vue', () => {
       stubs: ['ApiTester', 'BaseSecure']
     });
 
-    expect(wrapper.html()).toMatch('Development');
+    expect(wrapper.html()).toMatch('apitester');
   });
 });

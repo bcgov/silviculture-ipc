@@ -1,10 +1,11 @@
 <template>
   <v-container>
-    <BaseSecure>
-      <h1 class="mt-6 text-center">Development</h1>
-      <v-container>
-        <ApiTester class="my-8" />
-      </v-container>
+    <BaseSecure developer>
+      <router-link :to="{ name: 'Admin'}">
+        <v-btn color="primary" class="mt-5">Back</v-btn>
+      </router-link>
+
+      <ApiTester class="my-8" />
     </BaseSecure>
   </v-container>
 </template>
