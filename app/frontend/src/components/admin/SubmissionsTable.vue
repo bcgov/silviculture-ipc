@@ -30,9 +30,9 @@
       >
         <!-- view individual form submission -->
         <template v-slot:item.pdf="{ item }">
-          <a v-on:click="generatePdf(item.ipcPlanId)" target="_blank">
+          <GeneratePdfButton :ipcPlanId="item.ipcPlanId">
             <v-icon color="red">picture_as_pdf</v-icon>
-          </a>
+          </GeneratePdfButton>
         </template>
 
         <!-- view individual form submission -->
@@ -47,12 +47,15 @@
 </template>
 
 <script>
-
+import GeneratePdfButton from '@/components/common/GeneratePdfButton.vue';
 import ipcService from '@/services/ipcService';
 import Vue from 'vue';
 
 export default {
   name: 'SubmissionsTable',
+  components: {
+    GeneratePdfButton
+  },
   computed: {
     responsiveCell () {
       return (this.$vuetify.breakpoint.name == 'xs') ? 'v-data-table__mobile-table-row' : '';

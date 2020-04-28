@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <BaseSecure>
+    <BaseSecure admin>
       <router-link :to="{ name: 'Admin'}">
         <v-btn color="primary" class="mt-5">Back</v-btn>
       </router-link>
@@ -8,6 +8,10 @@
       <v-card class="elevation-2 mx-auto mt-10">
         <v-toolbar flat color="grey lighten-3">
           <v-card-title>{{ ipcPlanData.business.name }}</v-card-title>
+          <v-spacer />
+          <GeneratePdfButton :ipcPlanId="this.ipcPlanId">
+            <v-icon color="primary" large>picture_as_pdf</v-icon>
+          </GeneratePdfButton>
         </v-toolbar>
 
         <v-container class="ipc-wrapper">
@@ -66,10 +70,8 @@
                 <li>{{ ipcPlanData.location.postalCode }}</li>
               </ul>
 
-
               <h4>Number of workers at this location</h4>
               {{ ipcPlanData.location.numberOfWorkers }}
-
               <h4>Types of accommodation</h4>
               <ul v-if="ipcPlanData.location.accTents">
                 <li>
@@ -544,32 +546,32 @@
 </template>
 
 <script>
+import GeneratePdfButton from '@/components/common/GeneratePdfButton.vue';
 import ipcService from '@/services/ipcService';
 
 export default {
   name: 'Submission',
-  components: {},
+  components: {
+    GeneratePdfButton
+  },
+  props: ['ipcPlanId'],
   data() {
     return {
-      ipcPlanId: '',
-      ipcPlanData: ''
+      error: false,
+      ipcPlanData: {}
     };
   },
   methods: {
     // get form data from frontend service layer
-    getData() {
-      ipcService
-        .getIPCContent(this.$route.params.ipcPlanId)
-        .then(response => {
-          const data = response.data;
-          // add to component's data
-          this.ipcPlanData = data;
-        })
-        .catch(() => {
-          this.showTableAlert('error', 'No response from server');
-        });
-    },
-
+    async getData() {
+      try {
+        const response = await ipcService.getIPCContent(this.ipcPlanId);
+        this.ipcPlanData = response.data;
+      } catch (error) {
+        console.log(error); // eslint-disable-line no-console
+        this.error = true;
+      }
+    }
   },
   mounted() {
     this.getData();
