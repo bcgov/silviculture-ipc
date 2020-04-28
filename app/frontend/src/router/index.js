@@ -34,6 +34,12 @@ const router = new VueRouter({
           name: 'Submission',
           component: () => import(/* webpackChunkName: "submission" */ '@/views/admin/Submission.vue'),
           props: true
+        },
+        {
+          path: 'submission/:ipcPlanId/status',
+          name: 'Status',
+          component: () => import(/* webpackChunkName: "status" */ '@/views/admin/Status.vue'),
+          props: true
         }
       ],
       meta: {
