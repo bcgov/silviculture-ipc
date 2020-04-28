@@ -13,12 +13,12 @@ export default {
   },
 
   /**
- * @function getAllIPCMetaData
- * Fetch only the basic meta data of all IPC form submissions
- * @returns {Promise} An axios response
- */
+   * @function getAllIPCMetaData
+   * Fetch only the basic meta data of all IPC form submissions
+   * @returns {Promise} An axios response
+   */
   getAllIPCMetaData() {
-    return appAxios().get('/ipc?meta=true');
+    return appAxios().get(ApiRoutes.IPC, { params: { meta: true } });
   },
 
   /**
@@ -38,7 +38,7 @@ export default {
    * @returns {Promise} An axios response
    */
   getIPCContent(ipcPlanId) {
-    return appAxios().get('/ipc/' + ipcPlanId);
+    return appAxios().get(`${ApiRoutes.IPC}/${ipcPlanId}`);
   },
 
   /**
@@ -48,7 +48,7 @@ export default {
    * @returns {Promise} An axios response
    */
   getIPCContentAsPDF(ipcPlanId) {
-    return appAxios().get('/ipc/pdf/' + ipcPlanId, {
+    return appAxios().get(`${ApiRoutes.IPC}/pdf/${ipcPlanId}`, {
       responseType: 'arraybuffer', // Needed for binaries unless you want pain
     });
   }
