@@ -10,7 +10,19 @@ module.exports = {
     try {
       const ipcObj = await db.IPCPlan.findByPk(id,
         {
-          include: { all: true, nested: true },
+          include: [
+            {
+              model: db.Business,
+            },
+            {
+              model: db.Contact,
+            },
+            {
+              model: db.Location,
+            },
+            {
+              model: db.InspectionStatus
+            }],
           rejectOnEmpty: true
         }
       );
@@ -28,7 +40,19 @@ module.exports = {
   async getIPCPlans() {
     const ipcObjs = await db.IPCPlan.findAll(
       {
-        include: { all: true, nested: true }
+        include: [
+          {
+            model: db.Business,
+          },
+          {
+            model: db.Contact,
+          },
+          {
+            model: db.Location,
+          },
+          {
+            model: db.InspectionStatus
+          }]
       }
     );
     return ipcObjs;
@@ -38,10 +62,15 @@ module.exports = {
     const ipcObjs = await db.IPCPlan.findAll(
       {
         attributes:['ipcPlanId', 'createdAt'],
-        include: {
-          model: db.Business,
-          attributes: ['name']
-        },
+        include: [
+          {
+            model: db.Business,
+            attributes: ['name']
+          },
+          {
+            model: db.InspectionStatus,
+            attributes: ['status', 'grade', 'createdAt', 'inspectorName', 'inspectorEmail']
+          }],
         order: [
           ['createdAt', 'DESC']
         ]
