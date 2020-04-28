@@ -19,7 +19,7 @@ describe('BaseSecure.vue', () => {
       getters: {
         authenticated: () => true,
         createLoginUrl: () => 'test',
-        isAdmin: () => true,
+        hasSilvipcRoles: () => () => true,
         keycloakReady: () => true
       }
     });
@@ -35,7 +35,7 @@ describe('BaseSecure.vue', () => {
       getters: {
         authenticated: () => true,
         createLoginUrl: () => 'test',
-        isAdmin: () => false,
+        hasSilvipcRoles: () => () => false,
         keycloakReady: () => true
       }
     });
@@ -58,7 +58,7 @@ describe('BaseSecure.vue', () => {
       getters: {
         authenticated: () => false,
         createLoginUrl: () => 'test',
-        isAdmin: () => false,
+        hasSilvipcRoles: () => () => false,
         keycloakReady: () => true
       }
     });
@@ -74,7 +74,7 @@ describe('BaseSecure.vue', () => {
       getters: {
         authenticated: () => false,
         createLoginUrl: () => 'test',
-        isAdmin: () => false,
+        hasSilvipcRoles: () => () => false,
         keycloakReady: () => false
       }
     });

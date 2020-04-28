@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <BaseSecure admin>
+    <BaseSecure>
       <SubmissionsTable class="my-8" />
     </BaseSecure>
   </v-container>

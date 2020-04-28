@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <BaseSecure admin>
+    <BaseSecure>
       <h1 class="mt-6 text-center">Admin</h1>
       <transition name="component-fade" mode="out-in">
         <router-view />

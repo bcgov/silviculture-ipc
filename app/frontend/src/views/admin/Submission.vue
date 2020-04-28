@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <BaseSecure admin>
+    <BaseSecure>
       <router-link :to="{ name: 'Admin'}">
         <v-btn color="primary" class="mt-5">Back</v-btn>
       </router-link>
