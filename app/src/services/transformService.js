@@ -53,6 +53,20 @@ const transformService = {
   },
 
   modelToAPI: {
+    inspectionStatus: (obj) => {
+      if (obj && !Array.isArray(obj)) {
+        return {...obj.dataValues};
+      }
+      return {};
+    },
+
+    inspectionStatuses: (obj) => {
+      if (obj && Array.isArray(obj)) {
+        return obj.map(x => { return {...x.dataValues}; });
+      }
+      return [];
+    },
+
     ipcPlanToPost: (obj) => {
       const xform = transformService.transformIPCPlan(obj);
       const result = {};
@@ -87,14 +101,13 @@ const transformService = {
   confirmationId: ipcPlan => ipcPlan ? ipcPlan.ipcPlanId.split('-')[0].toUpperCase() : undefined,
 
   ipcResult: (business, contacts, ipcPlan, location, inspectionStatuses) => {
-    const sortedStatuses = inspectionStatuses.sort((a,b) => b.createdAt.getTime() - a.createdAt.getTime());
     return {
       confirmationId: transformService.confirmationId(ipcPlan),
       business: business,
       contacts: contacts,
       ipcPlan: ipcPlan,
       location: location,
-      inspectionStatuses: sortedStatuses
+      inspectionStatuses: inspectionStatuses
     };
   },
 
