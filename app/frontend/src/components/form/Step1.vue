@@ -18,7 +18,7 @@
                 </h1>
               </v-col>
               <v-col cols="12" sm="11">
-                <h3>This attestation form must be completed once for each planting operation.</h3>
+                <h3>This attestation form must be completed once for each accommodation location.</h3>
               </v-col>
             </v-row>
           </v-container>
