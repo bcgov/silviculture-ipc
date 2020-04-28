@@ -354,7 +354,7 @@
               v-model="numberOfWorkers"
               :rules="numberOfWorkersRules"
               type="number"
-              min="0"
+              min="1"
               dense
               flat
               outlined
@@ -555,17 +555,11 @@ export default {
       locationPostalCodeRules: [
         v => !!v || 'postal code is required'
       ],
+      // Todo, put in some utility fxn somewhere if needed again
       numberOfWorkersRules: [
-        v => !!v || '# of workers is required',
-        v => {
-          if(isNaN(parseInt(v))) {
-            return 'invalid number of workers';
-          } else if(v < 0 || v > 9990) {
-            return 'number of workers must be between 0 and 9999';
-          } else {
-            return true;
-          }
-        }
+        v => (new RegExp('^[-+]?\\d+$')).test(v) || 'invalid # of workers',
+        v => v > 0 || '# of workers must be greater than 0',
+        v => v < 9999 || '# of workers must 9999 or less'
       ],
     };
   },
