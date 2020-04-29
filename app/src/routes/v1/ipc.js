@@ -9,6 +9,8 @@ const keycloak = require('../../components/keycloak');
 const dataService = require('../../services/dataService');
 const transformService = require('../../services/transformService');
 
+const clientId = config.get('server.keycloak.clientId');
+
 const ipcRateLimiter = rateLimit({
   windowMs: config.get('server.rateLimit.ipc.windowMs'),
   max: config.get('server.rateLimit.ipc.max')
@@ -60,6 +62,26 @@ router.get('/:ipcPlanId', keycloak.protect(), async (req, res, next) => {
     next(err);
   }
 });
+
+router.get('/:ipcPlanId/status', keycloak.protect(`${clientId}:inspector`), async (req, res, next) => {
+  try {
+    const result = await dataService.getInspectionStatuses(req.params.ipcPlanId);
+    return res.status(200).json(transformService.modelToAPI.inspectionStatuses(result));
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post('/:ipcPlanId/status', keycloak.protect(`${clientId}:inspector`), async (req, res, next) => {
+  try {
+    const createdBy = req.kauth.grant.access_token.content.preferred_username;
+    const result = await dataService.saveInspectionStatus(req.params.ipcPlanId, createdBy, req.body);
+    return res.status(201).json(transformService.modelToAPI.inspectionStatus(result));
+  } catch (err) {
+    next(err);
+  }
+});
+
 
 
 module.exports = router;

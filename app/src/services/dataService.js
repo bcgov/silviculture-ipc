@@ -6,10 +6,50 @@ const db = require('../models');
 
 module.exports = {
 
+  async getInspectionStatuses(ipcPlanId) {
+    try {
+      const ipcObj = await db.InspectionStatus.findAll(
+        {
+          where: { ipcPlanId: ipcPlanId},
+          order: [
+            ['createdAt', 'DESC']
+          ]
+        },
+        {
+          rejectOnEmpty: true
+        }
+      );
+      return ipcObj;
+    } catch (err) {
+      // api problems should be handled in a layer above, but we have no controller... coming direct to data layer.
+      if (db.isNotFoundError(err)) {
+        throw new Problem(404, {detail: `Inspection Statuses not found for IPC Plan ID ${ipcPlanId}`});
+      } else if (db.isSyntaxError(err)) {
+        throw new Problem(422, {detail: `Inspection Statuses fetch for IPC Plan ID ${ipcPlanId} `});
+      }
+    }
+  },
+
+  async saveInspectionStatus(ipcPlanId, createdBy, obj) {
+    try {
+      let inspectionStatusObj;
+      await db.sequelize.transaction(async t => {
+        inspectionStatusObj = await db.InspectionStatus.create({...obj, createdBy: createdBy, ipcPlanId: ipcPlanId}, {transaction: t});
+      });
+
+      return inspectionStatusObj;
+    } catch (e) {
+      log.error('dataService.saveInspectionStatus', e.message);
+    }
+  },
+
   async getIPCPlan(id) {
     try {
       const ipcObj = await db.IPCPlan.findByPk(id,
         {
+          order: [
+            [db.InspectionStatus, 'createdAt', 'DESC']
+          ],
           include: [
             {
               model: db.Business,
@@ -23,6 +63,7 @@ module.exports = {
             {
               model: db.InspectionStatus
             }],
+
           rejectOnEmpty: true
         }
       );
@@ -40,6 +81,10 @@ module.exports = {
   async getIPCPlans() {
     const ipcObjs = await db.IPCPlan.findAll(
       {
+        order: [
+          ['createdAt', 'ASC'],
+          [db.InspectionStatus, 'createdAt', 'DESC']
+        ],
         include: [
           {
             model: db.Business,
@@ -61,6 +106,10 @@ module.exports = {
   async getIPCPlansMeta() {
     const ipcObjs = await db.IPCPlan.findAll(
       {
+        order: [
+          ['createdAt', 'ASC'],
+          [db.InspectionStatus, 'createdAt', 'DESC']
+        ],
         attributes:['ipcPlanId', 'createdAt'],
         include: [
           {
@@ -70,10 +119,7 @@ module.exports = {
           {
             model: db.InspectionStatus,
             attributes: ['status', 'grade', 'createdAt', 'inspectorName', 'inspectorEmail']
-          }],
-        order: [
-          ['createdAt', 'DESC']
-        ]
+          }]
       }
     );
     return ipcObjs;
