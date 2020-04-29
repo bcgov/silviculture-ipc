@@ -49,20 +49,26 @@
               flat
               outlined
               solo
+              placeholder="000-000-0000"
               :rules="phone1Rules"
               prepend-inner-icon="phone"
               v-model="phone1"
             />
           </v-col>
-        </v-row>
-
-        <v-row>
           <v-col cols="12" sm="6" lg="5">
             <label>
               Phone Number (Secondary Contact)
               <small>- optional</small>
             </label>
-            <v-text-field dense flat outlined solo prepend-inner-icon="phone" v-model="phone2" />
+            <v-text-field
+              dense
+              flat
+              outlined
+              solo
+              placeholder="000-000-0000"
+              prepend-inner-icon="phone"
+              v-model="phone2"
+            />
           </v-col>
         </v-row>
 
@@ -74,6 +80,7 @@
               flat
               outlined
               solo
+              placeholder="xxx@xxx.com"
               :rules="emailRules"
               prepend-inner-icon="email"
               v-model="email"
@@ -125,6 +132,7 @@
               flat
               outlined
               solo
+              placeholder="select"
               v-model="businessAddressProvince"
               :rules="businessAddressProvinceRules"
             />
@@ -181,14 +189,12 @@
               flat
               outlined
               solo
+              placeholder="000-000-0000"
               prepend-inner-icon="phone"
               v-model="covidPhone1"
               :rules="covidPhone1Rules"
             />
           </v-col>
-        </v-row>
-
-        <v-row>
           <v-col cols="12" sm="6" lg="5">
             <label>
               Phone Number (Secondary Contact)
@@ -199,6 +205,7 @@
               flat
               outlined
               solo
+              placeholder="000-000-0000"
               prepend-inner-icon="phone"
               v-model="covidPhone2"
             />
@@ -213,6 +220,7 @@
               flat
               outlined
               solo
+              placeholder="xxx@xxx.com"
               prepend-inner-icon="email"
               v-model="covidEmail"
               :rules="covidEmailRules"
@@ -322,13 +330,14 @@
           <v-col cols="12" sm="3" lg="2">
             <label>Province</label>
             <v-select
-              v-model="locationProvince"
-              :rules="locationProvinceRules"
-              :items="provinces"
               dense
               flat
               outlined
               solo
+              placeholder="select"
+              v-model="locationProvince"
+              :rules="locationProvinceRules"
+              :items="provinces"
             />
           </v-col>
         </v-row>
@@ -410,7 +419,15 @@
             </v-col>
             <v-col cols="12" sm="3" lg="2">
               <label>Province</label>
-              <v-select v-model="motelProvince" :items="provinces" dense flat outlined solo />
+              <v-select
+                dense
+                flat
+                outlined
+                solo
+                placeholder="select"
+                v-model="motelProvince"
+                :items="provinces"
+              />
             </v-col>
           </v-row>
 

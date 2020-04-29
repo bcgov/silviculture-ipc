@@ -25,9 +25,9 @@
         </v-card-text>
       </v-card>
 
-      <h3 class="mb-4 mt-12">
+      <h2 class="mb-8 mt-12">
         <strong>Before you complete this form:</strong>
-      </h3>
+      </h2>
 
       <hr class="orange" />
     </div>
@@ -40,12 +40,12 @@
           </v-avatar>
         </v-col>
         <v-col cols="12" sm="10" lg="11">
-          <p>
+          <h4 class="mb-4">
             <strong>
               Read
-              <em>Protecting Employees, Contractors, and Employers Working in the Silviculture Sector During the COVID-19 Pandemic.</em>
+              <em>{{ docTitle }}</em>
             </strong>
-          </p>
+          </h4>
           <p>
             <a
               href="https://www2.gov.bc.ca/assets/gov/health/about-bc-s-health-care-system/office-of-the-provincial-health-officer/covid-19/covid-19-pho-guidance-work-camps-silviculture.pdf"
@@ -58,7 +58,7 @@
 
     <div class="hide-on-review">
       <hr />
-      <v-container>
+      <v-container class="mb-4">
         <v-row no-gutters>
           <v-col cols="12" sm="2" lg="1" class="hide-on-review">
             <v-avatar color="#003366" size="50">
@@ -74,12 +74,23 @@
                 <v-expansion-panel-content>
                   <p>
                     Assessing each section in the
-                    <em>Guidelines for Silviculture Worker Camps during the COVID-19 Pandemic</em> will help you identify areas that do not sufficiently prevent or reduce the risk of COVID-19 transmission.
+                    <em>{{ docTitle }}</em> will help you identify areas that do not sufficiently prevent or reduce the risk of COVID-19 transmission.
                   </p>
-                  <p>For example, if workers need to be transported to the work site in vehicles where a 2m distance cannot be maintained, this should be identified as a risk. Silviculture and Planting operators can take practical actions to reduce the risk of disease transmission (see section 7).</p>
+
+                  <v-card outlined class="silv-info-card mb-5">
+                    <v-card-text>
+                      <p>
+                        <strong>For example,</strong> if workers need to be transported to the work site in vehicles where a 2m distance cannot be maintained, this should be identified as a risk.
+                      </p>
+                      <p
+                        class="mb-0"
+                      >Silviculture and Planting operators can take practical actions to reduce the risk of disease transmission (see section 7).</p>
+                    </v-card-text>
+                  </v-card>
+
                   <p>
                     Have you worked through all the sections in
-                    <em>Guidelines for Silviculture Worker Camps during the COVID-19 pandemic</em> to identify the risks at your camps?
+                    <em>{{ docTitle }}</em> to identify the risks at your camps?
                   </p>
                 </v-expansion-panel-content>
               </v-expansion-panel>
@@ -105,12 +116,12 @@
                 <v-expansion-panel-content>
                   <p>
                     By following the guidance in
-                    <em>Guidelines for Silviculture Worker Camps during the COVID-19 pandemic</em>, you will be developing an Infection Prevention and Control (IPC) Protocol.
+                    <em>{{ docTitle }}</em>, you will be developing an Infection Prevention and Control (IPC) Protocol.
                   </p>
                   <p>For each section of the guide you identified a risk, the risk needs to be controlled. For example, if your workers ride together in a vehicle to the work site, and you follow the instructions to increase cleaning and hygiene, and increase physical distancing, this will form your IPC plan for transportation (see section 7).</p>
                   <p>
                     Have you decided what guidance in
-                    <em>Guidelines for Silviculture Worker Camps during the COVID-19 pandemic</em> is needed in your camps to prevent or control the risk of the transmission of COVID-19?
+                    <em>{{ docTitle }}</em> is needed in your camps to prevent or control the risk of the transmission of COVID-19?
                   </p>
                 </v-expansion-panel-content>
               </v-expansion-panel>
@@ -182,7 +193,7 @@
       </v-card>
 
       <hr />
-      <v-btn color="primary" @click="setStep(2)">Go to Step 2</v-btn>
+      <v-btn color="primary" @click="setStep(3)">Go to Step 2</v-btn>
     </div>
   </v-container>
 </template>
@@ -192,7 +203,10 @@ import { mapMutations } from 'vuex';
 
 export default {
   name: 'Step1',
-  computed: {
+  data() {
+    return {
+      docTitle: 'Protecting Employees, Contractors, and Employers Working in the Silviculture Sector During the COVID-19 Pandemic.'
+    };
   },
   methods: {
     ...mapMutations('form', ['setStep']),

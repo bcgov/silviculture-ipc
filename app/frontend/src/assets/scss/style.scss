@@ -147,8 +147,10 @@ a, .v-tab {
   }
 }
 
-.silv-required::after {
-  content: "*";
-  color: rgb(216, 41, 47);
-  margin-left: .2em;
+.question-series {
+  .questions {
+    @media (min-width: 600px) {
+      padding-left: 1.5em;
+    }
+  }
 }
