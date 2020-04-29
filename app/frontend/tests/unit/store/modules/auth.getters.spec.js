@@ -80,12 +80,43 @@ describe('auth getters', () => {
     expect(store.getters.hasSilvipcRoles(roles)).toBeFalsy();
   });
 
+  it('hasSilvipcRoles should return true when checking no roles', () => {
+    authenticated = true;
+    roles = [];
+
+    expect(store.getters.authenticated).toBeTruthy();
+    expect(store.getters.hasSilvipcRoles(roles)).toBeTruthy();
+  });
+
   it('hasSilvipcRoles should return true when developer exists', () => {
     authenticated = true;
     roles = [SilvipcRoles.DEVELOPER];
 
     expect(store.getters.authenticated).toBeTruthy();
     expect(store.getters.hasSilvipcRoles(roles)).toBeTruthy();
+  });
+
+  it('hasSilvipcRoles should return false when resource does not exist', () => {
+    authenticated = true;
+    roles = [SilvipcRoles.DEVELOPER];
+
+    // TODO: Find better way to set up keycloak object mock without deleting first
+    delete Vue.prototype.$keycloak;
+    Object.defineProperty(Vue.prototype, '$keycloak', {
+      configurable: true, // Needed to allow deletions later
+      get() {
+        return {
+          authenticated: authenticated,
+          tokenParsed: {
+            realm_access: {},
+            resource_access: {}
+          }
+        };
+      }
+    });
+
+    expect(store.getters.authenticated).toBeTruthy();
+    expect(store.getters.hasSilvipcRoles(roles)).toBeFalsy();
   });
 
   it('keycloakReady should return a boolean', () => {
