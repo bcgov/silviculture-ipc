@@ -20,11 +20,15 @@
         <template v-slot:item.createdAt="{ item }">{{ formatDate(item.createdAt) }}</template>
 
         <template v-slot:item.grade="{ item }">
-          <v-icon v-if="item.grade && item.grade === 'PASS'" color="green">check</v-icon>
-          <v-icon v-else color="red">close</v-icon>
+          <v-icon v-if="item.grade && item.grade.toUpperCase() === 'PASS'" color="green">check</v-icon>
+          <v-icon
+            v-else-if="item.grade && item.grade.toUpperCase() === 'FAIL'"
+            color="secondary"
+          >close</v-icon>
+          <v-icon v-else color="secondary">mdi-help-circle</v-icon>
         </template>
 
-        <template v-slot:item.inspectorName="{ item }">{{ formatInspector(item.inspectorName) }}</template>
+        <template v-slot:item.inspectorName="{ item }">{{ item.inspectorName }}</template>
 
         <template v-slot:item.inspectionDate="{ item }">{{ formatDate(item.inspectionDate) }}</template>
       </v-data-table>
@@ -65,10 +69,7 @@ export default {
   },
   methods: {
     formatDate(date) {
-      return date ? new Date(date).toLocaleString() : 'N/A';
-    },
-    formatInspector(inspectorName) {
-      return inspectorName ? inspectorName : 'N/A';
+      return date ? new Date(date).toLocaleString() : '';
     },
     getData() {
       ipcService
