@@ -2,7 +2,6 @@ import { appAxios } from '@/services/interceptors';
 import { ApiRoutes } from '@/utils/constants';
 
 export default {
-
   /**
    * @function getAllIPCData
    * Fetch the contents of all IPC form submissions
@@ -34,7 +33,7 @@ export default {
   /**
    * @function getIPCContent
    * Fetch the contents of a single IPC form submission
-   * @param {string} the guid of a submitted ipcplan from the database
+   * @param {string} ipcPlanId the guid of a submitted ipcplan from the database
    * @returns {Promise} An axios response
    */
   getIPCContent(ipcPlanId) {
@@ -42,14 +41,23 @@ export default {
   },
 
   /**
-   * @function getIPCContentAsPDF
-   * Fetch the contents of a single IPC form submission as PDF
-   * @param {string} the guid of a submitted ipcplan from the database
+   * @function getIPCInspectionStatuses
+   * Fetch the inspection statuses of a specific IPC form submission
+   * @param {string} ipcPlanId The guid of a submitted ipcplan from the database
    * @returns {Promise} An axios response
    */
-  getIPCContentAsPDF(ipcPlanId) {
-    return appAxios().get(`${ApiRoutes.IPC}/pdf/${ipcPlanId}`, {
-      responseType: 'arraybuffer', // Needed for binaries unless you want pain
-    });
+  getIPCInspectionStatuses(ipcPlanId) {
+    return appAxios().get(`${ApiRoutes.IPC}/${ipcPlanId}/status`);
+  },
+
+  /**
+   * @function getIPCInspectionStatuses
+   * Fetch the inspection statuses of a specific IPC form submission
+   * @param {string} ipcPlanId The guid of a submitted ipcplan from the database
+   * @param {object} content An object representing the updated status for the `ipcPlanId` form
+   * @returns {Promise} An axios response
+   */
+  sendIPCInspectionStatuses(ipcPlanId, content) {
+    return appAxios().post(`${ApiRoutes.IPC}/${ipcPlanId}/status`, content);
   }
 };
