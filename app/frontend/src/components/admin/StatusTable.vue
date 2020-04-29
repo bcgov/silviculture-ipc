@@ -11,9 +11,11 @@
         :headers="headers"
         :items="statuses"
         :items-per-page="10"
-        :search="search"
         :loading="loading"
         loading-text="Loading... Please wait"
+        show-expand
+        :single-expand="true"
+        :expanded.sync="expanded"
         item-key="inspectionStatusId"
         class="status-table"
       >
@@ -31,6 +33,13 @@
         <template v-slot:item.inspectorName="{ item }">{{ item.inspectorName }}</template>
 
         <template v-slot:item.inspectionDate="{ item }">{{ formatDate(item.inspectionDate) }}</template>
+
+        <template v-slot:expanded-item="{ headers, item }">
+          <td :colspan="headers.length">
+            <p><strong>Decision Reason</strong>{{ item.reasonsForDecision }}</p>
+            <p><strong>Guidance Plan</strong>{{ item.guidancePlan }}</p>
+          </td>
+        </template>
       </v-data-table>
     </v-container>
   </v-card>
@@ -40,7 +49,7 @@
 import ipcService from '@/services/ipcService';
 
 export default {
-  name: 'SubmissionsTable',
+  name: 'StatusTable',
   computed: {
     responsiveCell() {
       return this.$vuetify.breakpoint.name == 'xs'
@@ -50,7 +59,6 @@ export default {
   },
   data() {
     return {
-      search: '',
       headers: [
         { text: 'Status', value: 'status' },
         { text: 'Date', align: 'start', value: 'createdAt' },
@@ -58,13 +66,13 @@ export default {
         { text: 'Assigned Inspector', value: 'inspectorName' },
         { text: 'Inspection Date', value: 'inspectionDate' }
       ],
+      expanded: [],
       statuses: [],
       ipcPlanId: this.$route.params.ipcPlanId,
       loading: true,
       showAlert: false,
       alertType: null,
-      alertMessage: '',
-      expanded: []
+      alertMessage: ''
     };
   },
   methods: {
