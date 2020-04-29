@@ -82,7 +82,7 @@ module.exports = {
     const ipcObjs = await db.IPCPlan.findAll(
       {
         order: [
-          ['createdAt', 'ASC'],
+          ['createdAt', 'DESC'],
           [db.InspectionStatus, 'createdAt', 'DESC']
         ],
         include: [
@@ -107,7 +107,7 @@ module.exports = {
     const ipcObjs = await db.IPCPlan.findAll(
       {
         order: [
-          ['createdAt', 'ASC'],
+          ['createdAt', 'DESC'],
           [db.InspectionStatus, 'createdAt', 'DESC']
         ],
         attributes:['ipcPlanId', 'createdAt'],
