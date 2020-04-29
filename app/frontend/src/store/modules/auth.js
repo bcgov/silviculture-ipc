@@ -21,7 +21,12 @@ export default {
     fullName: () => Vue.prototype.$keycloak.fullName,
     hasSilvipcRoles: (_state, getters) => roles => {
       if (!getters.authenticated) return false;
-      return hasRoles(getters.resourceAccess.silvipc.roles, roles);
+      if (!roles.length) return true; // No roles to check against
+
+      if (getters.resourceAccess.silvipc) {
+        return hasRoles(getters.resourceAccess.silvipc.roles, roles);
+      }
+      return false; // There are roles to check, but nothing in token to check against
     },
     keycloakReady: () => Vue.prototype.$keycloak.ready,
     keycloakSubject: () => Vue.prototype.$keycloak.subject,
