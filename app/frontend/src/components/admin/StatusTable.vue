@@ -73,15 +73,15 @@ export default {
     },
     getData() {
       ipcService
-        .getIPCContent(this.ipcPlanId)
+        .getIPCInspectionStatuses(this.ipcPlanId)
         .then(response => {
-          this.statuses = response.data.inspectionStatuses;
+          this.statuses = response.data;
           if (!this.statuses.length) {
-            this.showTableAlert('error', 'Inspection statuses not found');
+            this.showTableAlert('warning', 'No inspection statuses found');
           }
         })
-        .catch(() => {
-          this.showTableAlert('error', 'No response from server');
+        .catch(error => {
+          this.showTableAlert('error', error.message);
         })
         .finally(() => {
           this.loading = false;
