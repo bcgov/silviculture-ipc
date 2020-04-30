@@ -3,10 +3,13 @@
     <div class="container">
       <ul>
         <li>
-          <router-link :to="{ name: 'Home' }">Home</router-link>
+          <router-link :to="{ name: 'Admin' }">Submissions</router-link>
         </li>
-        <li v-if="isAdmin">
-          <router-link :to="{ name: 'Admin' }">Admin</router-link>
+        <li>
+          <router-link :to="{ name: 'Dashboard' }">Dashboard</router-link>
+        </li>
+        <li v-if="hasRole(role.DEVELOPER)">
+          <router-link :to="{ name: 'Dev' }">Dev</router-link>
         </li>
       </ul>
     </div>
@@ -15,11 +18,22 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import { SilvipcRoles } from '@/utils/constants';
 
 export default {
   name: 'BCGovNavBar',
   computed: {
-    ...mapGetters('auth', ['isAdmin'])
+    ...mapGetters('auth', ['hasSilvipcRoles']),
+  },
+  data() {
+    return {
+      role: { ...SilvipcRoles }
+    };
+  },
+  methods: {
+    hasRole(role) {
+      return this.hasSilvipcRoles([role]);
+    }
   }
 };
 </script>
@@ -68,7 +82,7 @@ export default {
         }
       }
 
-      .router-link-active {
+      .router-link-exact-active {
         background-color: #7ba2cc80;
         border-bottom: 2px solid #fcba19;
         font-weight: bold;

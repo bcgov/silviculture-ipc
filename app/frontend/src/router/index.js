@@ -25,6 +25,11 @@ const router = new VueRouter({
           component: () => import(/* webpackChunkName: "submission-table" */ '@/views/admin/Root.vue')
         },
         {
+          path: 'dashboard',
+          name: 'Dashboard',
+          component: () => import(/* webpackChunkName: "dashboard" */ '@/views/admin/Dashboard.vue'),
+        },
+        {
           path: 'dev',
           name: 'Dev',
           component: () => import(/* webpackChunkName: "dev" */ '@/views/admin/Dev.vue'),

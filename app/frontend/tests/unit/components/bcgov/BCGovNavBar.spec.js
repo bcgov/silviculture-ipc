@@ -12,18 +12,20 @@ localVue.use(Vuex);
 
 describe('BCGovNavBar.vue', () => {
   let store;
+  let hasRole;
 
   beforeEach(() => {
     store = new Vuex.Store();
-  });
-
-  it('renders without an admin button', () => {
     store.registerModule('auth', {
       namespaced: true,
       getters: {
-        isAdmin: () => false
+        hasSilvipcRoles: () => () => hasRole
       }
     });
+  });
+
+  it('renders without a dev button', () => {
+    hasRole = false;
 
     const wrapper = shallowMount(BCGovNavBar, {
       localVue,
@@ -31,16 +33,12 @@ describe('BCGovNavBar.vue', () => {
       stubs: ['router-link', 'router-view']
     });
 
-    expect(wrapper.text()).toContain('Home');
+    expect(wrapper.text()).toContain('Submissions');
+    expect(wrapper.text()).toContain('Dashboard');
   });
 
-  it('renders with an admin button', () => {
-    store.registerModule('auth', {
-      namespaced: true,
-      getters: {
-        isAdmin: () => true
-      }
-    });
+  it('renders with a dev button', () => {
+    hasRole = true;
 
     const wrapper = shallowMount(BCGovNavBar, {
       localVue,
@@ -48,7 +46,8 @@ describe('BCGovNavBar.vue', () => {
       stubs: ['router-link', 'router-view']
     });
 
-    expect(wrapper.text()).toContain('Home');
-    expect(wrapper.text()).toContain('Admin');
+    expect(wrapper.text()).toContain('Submissions');
+    expect(wrapper.text()).toContain('Dashboard');
+    expect(wrapper.text()).toContain('Dev');
   });
 });
