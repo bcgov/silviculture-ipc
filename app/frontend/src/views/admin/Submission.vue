@@ -526,6 +526,7 @@
                     <td>Certified this information to be accurate</td>
                     <td>
                       <v-icon
+                        @click="showFv = true;"
                         color="green"
                         v-if="ipcPlanData.ipcPlan.certifyAccurateInformation"
                       >check</v-icon>
@@ -543,6 +544,11 @@
                 </tbody>
               </template>
             </v-simple-table>
+            <div v-if="showFv">
+              <br />
+              <br />
+              Form Version: {{ ipcPlanData.ipcPlan.formVersion }}
+            </div>
           </v-container>
         </v-card>
       </div>
@@ -567,7 +573,8 @@ export default {
   data() {
     return {
       error: false,
-      ipcPlanData: {}
+      ipcPlanData: {},
+      showFv: false
     };
   },
   methods: {
