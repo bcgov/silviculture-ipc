@@ -60,8 +60,8 @@
                 </v-expansion-panel-header>
                 <v-expansion-panel-content>
                   <p>
-                    Assessing each section in the
-                    <em>{{ docTitle }}</em> will help you identify areas that do not sufficiently prevent or reduce the risk of COVID-19 transmission.
+                    Assessing each section in
+                    <em>{{ docShortTitle }}</em> will help you identify areas that do not sufficiently prevent or reduce the risk of COVID-19 transmission.
                   </p>
 
                   <BaseInfoCard>
@@ -75,7 +75,7 @@
 
                   <p class="mt-5">
                     Have you worked through all the sections in
-                    <em>{{ docTitle }}</em> to identify the risks at your camps?
+                    <em>{{ docShortTitle }}</em> to identify the risks at your camps?
                   </p>
                 </v-expansion-panel-content>
               </v-expansion-panel>
@@ -101,12 +101,12 @@
                 <v-expansion-panel-content>
                   <p>
                     By following the guidance in
-                    <em>{{ docTitle }}</em>, you will be developing an Infection Prevention and Control (IPC) Protocol.
+                    <em>{{ docShortTitle }}</em>, you will be developing an Infection Prevention and Control (IPC) Protocol.
                   </p>
                   <p>For each section of the guide you identified a risk, the risk needs to be controlled. For example, if your workers ride together in a vehicle to the work site, and you follow the instructions to increase cleaning and hygiene, and increase physical distancing, this will form your IPC plan for transportation (see section 7).</p>
                   <p>
                     Have you decided what guidance in
-                    <em>{{ docTitle }}</em> is needed in your camps to prevent or control the risk of the transmission of COVID-19?
+                    <em>{{ docShortTitle }}</em> is needed in your camps to prevent or control the risk of the transmission of COVID-19?
                   </p>
                 </v-expansion-panel-content>
               </v-expansion-panel>
@@ -168,7 +168,8 @@ export default {
   name: 'Step1',
   data() {
     return {
-      docTitle: 'Protecting Employees, Contractors, and Employers Working in the Silviculture Sector During the COVID-19 Pandemic.'
+      docTitle: 'Protecting Employees, Contractors, and Employers Working in the Silviculture Sector During the COVID-19 Pandemic.',
+      docShortTitle: 'COVID-19 Guidelines for Silviculture Work Camps.'
     };
   },
   methods: {
