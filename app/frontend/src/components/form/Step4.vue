@@ -1,11 +1,11 @@
 <template>
   <v-container>
     <div class="hide-on-review">
-      <h2 class="pb-8">After workers arrive at the silviculture/planting camp</h2>
+      <h2 class="pb-8">After workers arrive at the silviculture operation</h2>
       <hr class="orange" />
     </div>
 
-    <p>Once your workers arrive at camp, you are expected to continue your work enacting an infection control plan and minimize the risk of transmission of COVID-19 through the following key activities.</p>
+    <p>Once your workers arrive at the location, you are expected to continue your work enacting an infection control plan and minimize the risk of transmission of COVID-19 through the following key activities.</p>
 
     <div class="question-series">
       <h3 class="question-head">1. Implement COVID-19 Employee Education</h3>

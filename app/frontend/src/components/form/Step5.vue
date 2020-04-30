@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <div class="hide-on-review">
-      <h2 class="pb-8">If workers become ill at the camp</h2>
+      <h2 class="pb-8">If workers become ill at the operation</h2>
       <hr class="orange" />
     </div>
 

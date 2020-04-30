@@ -57,8 +57,7 @@
           </v-col>
           <v-col cols="12" sm="6" lg="5">
             <label>
-              Phone Number (Secondary Contact)
-              <small>- optional</small>
+              Alternative Phone Number (Optional)
             </label>
             <v-text-field
               dense
@@ -197,8 +196,7 @@
           </v-col>
           <v-col cols="12" sm="6" lg="5">
             <label>
-              Phone Number (Secondary Contact)
-              <small>- optional</small>
+              Alternative Phone Number (Optional)
             </label>
             <v-text-field
               dense
