@@ -139,10 +139,10 @@
               <template>
                 <tbody>
                   <tr>
-                    <td>Common areas allow physical distancing of 2m / 6ft at all times</td>
+                    <td>Do your Common areas allow physical distancing of 2m / 6ft at all times?</td>
                     <td>
-                      <span v-if="ipcPlanData.ipcPlan.commonAreaDistancing">yes</span>
-                      <span v-else>no</span>
+                      <span v-if="ipcPlanData.ipcPlan.commonAreaDistancing">Yes</span>
+                      <span v-else>No</span>
                     </td>
                   </tr>
                   <tr>
