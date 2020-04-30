@@ -7,7 +7,7 @@ const templateJson = require('../assets/silviculture-ipc-template-b.json');
 
 module.exports = {
   generate: async ipcPlanId => {
-    const docx = path.join(__dirname, '..', 'assets', 'silviculture-ipc-template-h.docx');
+    const docx = path.join(__dirname, '..', 'assets', 'silviculture-ipc-template-i.docx');
 
     let templateId = await cdogsService.getHash(docx);
     const templateResult = await cdogsService.getTemplate(templateId);
