@@ -41,6 +41,8 @@ function initializeApp(kcSuccess = false) {
     vuetify,
     render: h => h(App)
   }).$mount('#app');
+
+  NProgress.done();
 }
 
 /**
@@ -51,7 +53,6 @@ async function loadConfig() {
   // App publicPath is ./ - so use relative path here, will hit the backend server using relative path to root.
   const configUrl = process.env.NODE_ENV === 'production' ? 'config' : 'app/config';
   const storageKey = 'config';
-  let kcSuccess = false;
 
   try {
     // Get configuration if it isn't already in session storage
@@ -68,18 +69,16 @@ async function loadConfig() {
       !config.keycloak.clientId || !config.keycloak.realm || !config.keycloak.serverUrl) {
       throw new Error('Keycloak is misconfigured');
     }
-    await loadKeycloak(config);
-    kcSuccess = true;
 
     if (!config || !config.orgbook || !config.orgbook.endpoint) {
       throw new Error('OrgBook API is misconfigured');
     }
+
+    loadKeycloak(config);
   } catch (err) {
     sessionStorage.removeItem(storageKey);
+    initializeApp(false); // Attempt to gracefully fail
     throw new Error(`Failed to acquire configuration: ${err.message}`);
-  } finally {
-    initializeApp(kcSuccess);
-    NProgress.done();
   }
 }
 
@@ -96,7 +95,9 @@ function loadKeycloak(config) {
       realm: config.keycloak.realm,
       url: config.keycloak.serverUrl
     },
-    onReady: () => {},
+    onReady: () => {
+      initializeApp(true);
+    },
     onInitError: error => {
       console.error('Keycloak failed to initialize'); // eslint-disable-line no-console
       console.error(error); // eslint-disable-line no-console

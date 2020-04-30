@@ -23,7 +23,7 @@ import { SilvipcRoles } from '@/utils/constants';
 export default {
   name: 'BCGovNavBar',
   computed: {
-    ...mapGetters('auth', ['hasSilvipcRoles']),
+    ...mapGetters('auth', ['hasSilvipcRoles'])
   },
   data() {
     return {
