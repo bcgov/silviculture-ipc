@@ -141,8 +141,8 @@
                   <tr>
                     <td>Common areas allow physical distancing of 2m / 6ft at all times</td>
                     <td>
-                      <v-icon color="green" v-if="ipcPlanData.ipcPlan.commonAreaDistancing">check</v-icon>
-                      <v-icon color="red" v-else>close</v-icon>
+                      <span v-if="ipcPlanData.ipcPlan.commonAreaDistancing">yes</span>
+                      <span v-else>no</span>
                     </td>
                   </tr>
                   <tr>
