@@ -20,6 +20,7 @@
   }
   .v-card__text:not(.under-title) {
     color: #494949 !important;
+    font-size: 16px;
   }
   .under-title {
     padding-left: 4em;
