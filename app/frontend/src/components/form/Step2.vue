@@ -756,3 +756,21 @@ export default {
 };
 </script>
 
+<style lang="scss" scoped>
+form {
+  h4 {
+    padding-bottom: 1em;
+  }
+  hr {
+    margin-bottom: 1.75em;
+    margin-top: .5em;
+  }
+  .row {
+    div[class^='col-'],
+    div[class*=' col-'] {
+      padding-bottom: 0;
+      padding-top: 0;
+    }
+  }
+}
+</style>
