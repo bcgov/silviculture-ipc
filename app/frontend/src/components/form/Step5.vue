@@ -46,28 +46,15 @@
       </div>
     </div>
 
-    <v-card outlined class="my-6 silv-warning-card hide-on-review">
-      <v-card-text>
-        <v-container>
-          <v-row no-gutters>
-            <v-col cols="12" sm="1">
-              <h1>
-                <v-icon large>warning</v-icon>
-              </h1>
-            </v-col>
-            <v-col cols="12" sm="11">
-              <h3>
-                As COVID-19 recommendations are evolving daily, please keep up to date with
-                <a
-                  target="_blank"
-                  href="http://www.bccdc.ca/health-info/diseases-conditions/covid-19/about-covid-19"
-                >BC Centre for Disease Control</a> guidance.
-              </h3>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-card-text>
-    </v-card>
+    <BaseWarningCard class="my-6 hide-on-review">
+      <h3>
+        As COVID-19 recommendations are evolving daily, please keep up to date with
+        <a
+          target="_blank"
+          href="http://www.bccdc.ca/health-info/diseases-conditions/covid-19/about-covid-19"
+        >BC Centre for Disease Control</a> guidance.
+      </h3>
+    </BaseWarningCard>
 
     <div class="question-series">
       <h3 class="mb-1 mt-8">2. Providing Food for Ill Workers</h3>
@@ -77,18 +64,14 @@
           :readonly="reviewMode"
           label="I am able to provide food in a safe manner to a self-isolated worker"
         ></v-checkbox>
-        <v-card outlined class="silv-info-card hide-on-review">
-          <v-card-title>
-            <v-icon>play_circle_filled</v-icon>What does this mean?
-          </v-card-title>
-          <v-card-text>
-            <ul>
-              <li>Gloves are required when delivering or picking up food trays.</li>
-              <li>Proper hand hygiene must be practiced before delivering and after picking up food trays.</li>
-              <li>Do NOT enter a room to deliver or pick up food trays for workers who are ill. Deliver and pick up food trays from outside their accommodation.</li>
-            </ul>
-          </v-card-text>
-        </v-card>
+        <BaseInfoCard class="hide-on-review">
+          <template v-slot:title>What does this mean?</template>
+          <ul>
+            <li>Gloves are required when delivering or picking up food trays.</li>
+            <li>Proper hand hygiene must be practiced before delivering and after picking up food trays.</li>
+            <li>Do NOT enter a room to deliver or pick up food trays for workers who are ill. Deliver and pick up food trays from outside their accommodation.</li>
+          </ul>
+        </BaseInfoCard>
       </div>
     </div>
 
@@ -100,21 +83,17 @@
           :readonly="reviewMode"
           label="I am able to perform adequate housekeeping for a self isolated worker"
         ></v-checkbox>
-        <v-card outlined class="silv-info-card hide-on-review">
-          <v-card-title>
-            <v-icon>play_circle_filled</v-icon>What does this mean?
-          </v-card-title>
-          <v-card-text>
-            <ul>
-              <li>Site operators must identify and record the locations of all self-isolating guests.</li>
-              <li>Do NOT provide cleaning service inside rooms or tents where people are in self-isolation.</li>
-              <li>Ensure staff do NOT enter self-isolation rooms or tents until authorized.</li>
-              <li>Use alternate means of assisting workers in isolation, such as leaving fresh linens, toiletries and cleaning supplies outside their accommodation during the period of isolation.</li>
-              <li>Once the individual(s) in self-isolation have left their accommodation, complete a thorough cleaning of all hard surfaces with an approved disinfectant, launder all removable cloth items (sheets, towels).</li>
-              <li>Discard all personal soap and shampoo remnants.</li>
-            </ul>
-          </v-card-text>
-        </v-card>
+        <BaseInfoCard class="hide-on-review">
+          <template v-slot:title>What does this mean?</template>
+          <ul>
+            <li>Site operators must identify and record the locations of all self-isolating guests.</li>
+            <li>Do NOT provide cleaning service inside rooms or tents where people are in self-isolation.</li>
+            <li>Ensure staff do NOT enter self-isolation rooms or tents until authorized.</li>
+            <li>Use alternate means of assisting workers in isolation, such as leaving fresh linens, toiletries and cleaning supplies outside their accommodation during the period of isolation.</li>
+            <li>Once the individual(s) in self-isolation have left their accommodation, complete a thorough cleaning of all hard surfaces with an approved disinfectant, launder all removable cloth items (sheets, towels).</li>
+            <li>Discard all personal soap and shampoo remnants.</li>
+          </ul>
+        </BaseInfoCard>
       </div>
     </div>
 
@@ -126,16 +105,12 @@
           :readonly="reviewMode"
           label="I am able to perform waste management for supporting a self-isolated worker"
         ></v-checkbox>
-        <v-card outlined class="silv-info-card hide-on-review">
-          <v-card-title>
-            <v-icon>play_circle_filled</v-icon>What does this mean?
-          </v-card-title>
-          <v-card-text>
-            <ul>
-              <li>Wherever possible, waste from all self-isolation rooms or tents should be handled by a designated person or small, designated team.</li>
-            </ul>
-          </v-card-text>
-        </v-card>
+        <BaseInfoCard class="hide-on-review">
+          <template v-slot:title>What does this mean?</template>
+          <ul>
+            <li>Wherever possible, waste from all self-isolation rooms or tents should be handled by a designated person or small, designated team.</li>
+          </ul>
+        </BaseInfoCard>
       </div>
     </div>
 

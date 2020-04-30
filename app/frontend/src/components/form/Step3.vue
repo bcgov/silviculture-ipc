@@ -5,9 +5,10 @@
       <hr class="orange" />
     </div>
 
-    <v-card outlined class="silv-info-card hide-on-review">
-      <v-card-text>Please note questions 2, 3, and 4 are not relevant if your accommodation is a private residence.</v-card-text>
-    </v-card>
+    <BaseInfoCard class="hide-on-review">
+      Please note questions
+      <strong>2, 3, and 4</strong> are not relevant if your accommodation is a private residence.
+    </BaseInfoCard>
 
     <div class="question-series">
       <h3 class="mb-1 mt-4">1. COVID-19 Information</h3>

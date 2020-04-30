@@ -8,22 +8,9 @@
         class="mb-8"
       >The Province of British Columbia has initiated emergency measures to slow the spread of COVID-19. Silviculture and Planting operators must ensure a safe workplace for their workers and demonstrate proof of an Infection Prevention Control protocol (IPCP).</p>
 
-      <v-card outlined class="my-6 silv-warning-card">
-        <v-card-text>
-          <v-container>
-            <v-row no-gutters>
-              <v-col cols="12" sm="1">
-                <h1>
-                  <v-icon large>warning</v-icon>
-                </h1>
-              </v-col>
-              <v-col cols="12" sm="11">
-                <h3>This attestation form must be completed once for each accommodation location.</h3>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-card-text>
-      </v-card>
+      <BaseWarningCard class="my-6">
+        <h3>This attestation form must be completed once for each accommodation location.</h3>
+      </BaseWarningCard>
 
       <h2 class="mb-8 mt-12">
         <strong>Before you complete this form:</strong>
@@ -77,18 +64,16 @@
                     <em>{{ docTitle }}</em> will help you identify areas that do not sufficiently prevent or reduce the risk of COVID-19 transmission.
                   </p>
 
-                  <v-card outlined class="silv-info-card mb-5">
-                    <v-card-text>
-                      <p>
-                        <strong>For example,</strong> if workers need to be transported to the work site in vehicles where a 2m distance cannot be maintained, this should be identified as a risk.
-                      </p>
-                      <p
-                        class="mb-0"
-                      >Silviculture and Planting operators can take practical actions to reduce the risk of disease transmission (see section 7).</p>
-                    </v-card-text>
-                  </v-card>
+                  <BaseInfoCard>
+                    <p>
+                      <strong>For example,</strong> if workers need to be transported to the work site in vehicles where a 2m distance cannot be maintained, this should be identified as a risk.
+                    </p>
+                    <p
+                      class="mb-0"
+                    >Silviculture and Planting operators can take practical actions to reduce the risk of disease transmission (see section 7).</p>
+                  </BaseInfoCard>
 
-                  <p>
+                  <p class="mt-5">
                     Have you worked through all the sections in
                     <em>{{ docTitle }}</em> to identify the risks at your camps?
                   </p>
@@ -132,68 +117,46 @@
     </div>
 
     <div class="hide-on-review">
-      <v-card outlined class="my-12 silv-contact-card">
-        <v-card-text>
-          <v-row no-gutters>
-            <v-col cols="12" sm="1">
-              <h1>
-                <v-icon large>phone</v-icon>
-              </h1>
+      <div class="my-12">
+        <BaseContactCard>
+          <h3>If you need assistance completing these risk assessment or infection prevention tasks, please contact the FLNRO Contact for your region:</h3>
+          <v-row>
+            <v-col cols="12" md="4" class="mb-0">
+              <h3>Coast:</h3>
+              <p class="mb-0 mt-1">
+                Ritchard LaBoucane
+                <br />250-739-8706
+              </p>
             </v-col>
-            <v-col cols="12" sm="11">
-              <h3>If you need assistance completing these risk assessment or infection prevention tasks, please contact the FLNRO Contact for your region:</h3>
-              <v-row>
-                <v-col cols="12" md="4" class="mb-0">
-                  <h3>Coast:</h3>
-                  <p class="mb-0 mt-1">
-                    Ritchard LaBoucane
-                    <br />250-739-8706
-                  </p>
-                </v-col>
-                <v-col cols="12" md="4" class="mb-0">
-                  <h3>North:</h3>
-                  <p class="mb-0 mt-1">
-                    John Huybers
-                    <br />250-552-2364
-                  </p>
-                </v-col>
-                <v-col cols="12" md="4" class="mb-0">
-                  <h3>South:</h3>
-                  <p class="mb-0 mt-1">
-                    Nina Sigloch
-                    <br />778-362-2137
-                  </p>
-                </v-col>
-              </v-row>
+            <v-col cols="12" md="4" class="mb-0">
+              <h3>North:</h3>
+              <p class="mb-0 mt-1">
+                John Huybers
+                <br />250-552-2364
+              </p>
+            </v-col>
+            <v-col cols="12" md="4" class="mb-0">
+              <h3>South:</h3>
+              <p class="mb-0 mt-1">
+                Nina Sigloch
+                <br />778-362-2137
+              </p>
             </v-col>
           </v-row>
-        </v-card-text>
-      </v-card>
+        </BaseContactCard>
+      </div>
 
       <h3 class="mb-2">After submitting this form, you will be subject to a site inspection:</h3>
       <ul class="pl-12">
         <li>The Province of BC will use the information you provide through this online form for the site inspection that determines your compliance with the COVID-19 Industrial Camps Provincial Health Order.</li>
       </ul>
 
-      <v-card outlined class="my-6 silv-warning-card">
-        <v-card-text>
-          <v-container>
-            <v-row no-gutters>
-              <v-col cols="12" sm="1">
-                <h1>
-                  <v-icon large>warning</v-icon>
-                </h1>
-              </v-col>
-              <v-col cols="12" sm="11">
-                <h3>If you fail to comply with these requirements, the Provincial Health Officer order enables the authority to take enforcement action against you under Part 4, Division 6 of the Public Health Act.</h3>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-card-text>
-      </v-card>
+      <BaseWarningCard class="my-6">
+        <h3>If you fail to comply with these requirements, the Provincial Health Officer order enables the authority to take enforcement action against you under Part 4, Division 6 of the Public Health Act.</h3>
+      </BaseWarningCard>
 
       <hr />
-      <v-btn color="primary" @click="setStep(3)">Go to Step 2</v-btn>
+      <v-btn color="primary" @click="setStep(2)">Go to Step 2</v-btn>
     </div>
   </v-container>
 </template>
