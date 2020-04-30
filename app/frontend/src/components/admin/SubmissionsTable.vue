@@ -154,6 +154,11 @@ export default {
 tbody tr:nth-of-type(odd) {
   background-color: #f5f5f5;
 }
+.ipc-table >>> thead tr th {
+  font-weight: normal;
+  color: #003366 !important;
+  font-size: 1.1em;
+}
 div.ipc-expanded {
   font-size: 85% !important;
   color: #494949 !important;
