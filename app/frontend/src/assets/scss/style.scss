@@ -114,41 +114,17 @@ a, .v-tab {
   }
 }
 
-// Cards
-.silv-info-card {
-  background-color: $bcgov-grey !important;
-  .v-icon {
-    color: $bcgov-blue-secondary !important;
-    margin-right: .5em;
-  }
-  ul {
-    padding-left: 4em !important;
-  }
-}
-
-.silv-contact-card {
-  background-color: $bcgov-blue-secondary !important;
-  h3 {
-    color: white !important;
-  }
+.question-series {
   p {
-    color: white !important;
+    font-size: 16px;
   }
-  .v-icon {
-    color: white !important;
-    margin-right: .5em;
+  .question-head {
+    margin-bottom: 16px;
+    margin-top: 22px;
   }
-}
-
-.silv-warning-card {
-  background-color: $bcgov-orange !important;
-  .v-icon {
-    color: black !important;
+  .questions {
+    @media (min-width: 600px) {
+      padding-left: 1.5em;
+    }
   }
-}
-
-.silv-required::after {
-  content: "*";
-  color: rgb(216, 41, 47);
-  margin-left: .2em;
 }

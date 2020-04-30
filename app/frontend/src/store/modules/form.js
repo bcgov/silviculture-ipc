@@ -98,7 +98,8 @@ export default {
       infectedWaste: false,
       infectionAccommodation: false,
       certifyAccurateInformation: false,
-      agreeToInspection: false
+      agreeToInspection: false,
+      formVersion: ''
     }
   },
   getters: {
@@ -156,6 +157,8 @@ export default {
       commit('setSubmitting', true);
       commit('setSubmissionError', '');
       try {
+        // TODO: set to FE package version
+        commit('updateIpcPlan', { formVersion: '1.0.0' });
         const body = {
           business: state.business,
           contacts: state.contacts,

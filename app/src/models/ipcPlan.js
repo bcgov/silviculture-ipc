@@ -272,6 +272,13 @@ module.exports = (sequelize, DataTypes) => {
       comment: '',
       type: DataTypes.BOOLEAN,
       unique: false
+    },
+    formVersion: {
+      allowNull: false,
+      comment: 'Version of form used to populate this plan',
+      type: DataTypes.STRING(30),
+      unique: false,
+      defaultValue: '1.0.0'
     }
   }, {
     comment: 'List of all IPC plan answers',

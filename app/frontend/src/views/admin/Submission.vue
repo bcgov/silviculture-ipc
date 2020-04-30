@@ -139,10 +139,10 @@
               <template>
                 <tbody>
                   <tr>
-                    <td>Common areas allow physical distancing of 2m / 6ft at all times</td>
+                    <td>Do your Common areas allow physical distancing of 2m / 6ft at all times?</td>
                     <td>
-                      <v-icon color="green" v-if="ipcPlanData.ipcPlan.commonAreaDistancing">check</v-icon>
-                      <v-icon color="red" v-else>close</v-icon>
+                      <span v-if="ipcPlanData.ipcPlan.commonAreaDistancing">Yes</span>
+                      <span v-else>No</span>
                     </td>
                   </tr>
                   <tr>
@@ -526,6 +526,7 @@
                     <td>Certified this information to be accurate</td>
                     <td>
                       <v-icon
+                        @click="showFv = true;"
                         color="green"
                         v-if="ipcPlanData.ipcPlan.certifyAccurateInformation"
                       >check</v-icon>
@@ -543,6 +544,11 @@
                 </tbody>
               </template>
             </v-simple-table>
+            <div v-if="showFv">
+              <br />
+              <br />
+              Form Version: {{ ipcPlanData.ipcPlan.formVersion }}
+            </div>
           </v-container>
         </v-card>
       </div>
@@ -567,7 +573,8 @@ export default {
   data() {
     return {
       error: false,
-      ipcPlanData: {}
+      ipcPlanData: {},
+      showFv: false
     };
   },
   methods: {

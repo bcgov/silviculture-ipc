@@ -9,7 +9,7 @@
       <v-container>
         <v-row>
           <v-col cols="12" lg="10">
-            <h4 class="mb-1">Registered Business Name</h4>
+            <h4 class="heading-field-label mb-1">Registered Business Name</h4>
             <OrgBookSearch
               v-if="!reviewMode"
               :field-model.sync="businessName"
@@ -49,20 +49,25 @@
               flat
               outlined
               solo
+              placeholder="000-000-0000"
               :rules="phone1Rules"
               prepend-inner-icon="phone"
               v-model="phone1"
             />
           </v-col>
-        </v-row>
-
-        <v-row>
           <v-col cols="12" sm="6" lg="5">
             <label>
-              Phone Number (Secondary Contact)
-              <small>- optional</small>
+              Alternative Phone Number (Optional)
             </label>
-            <v-text-field dense flat outlined solo prepend-inner-icon="phone" v-model="phone2" />
+            <v-text-field
+              dense
+              flat
+              outlined
+              solo
+              placeholder="000-000-0000"
+              prepend-inner-icon="phone"
+              v-model="phone2"
+            />
           </v-col>
         </v-row>
 
@@ -74,6 +79,7 @@
               flat
               outlined
               solo
+              placeholder="xxx@xxx.com"
               :rules="emailRules"
               prepend-inner-icon="email"
               v-model="email"
@@ -125,6 +131,7 @@
               flat
               outlined
               solo
+              placeholder="select"
               v-model="businessAddressProvince"
               :rules="businessAddressProvinceRules"
             />
@@ -181,24 +188,22 @@
               flat
               outlined
               solo
+              placeholder="000-000-0000"
               prepend-inner-icon="phone"
               v-model="covidPhone1"
               :rules="covidPhone1Rules"
             />
           </v-col>
-        </v-row>
-
-        <v-row>
           <v-col cols="12" sm="6" lg="5">
             <label>
-              Phone Number (Secondary Contact)
-              <small>- optional</small>
+              Alternative Phone Number (Optional)
             </label>
             <v-text-field
               dense
               flat
               outlined
               solo
+              placeholder="000-000-0000"
               prepend-inner-icon="phone"
               v-model="covidPhone2"
             />
@@ -213,6 +218,7 @@
               flat
               outlined
               solo
+              placeholder="xxx@xxx.com"
               prepend-inner-icon="email"
               v-model="covidEmail"
               :rules="covidEmailRules"
@@ -322,13 +328,14 @@
           <v-col cols="12" sm="3" lg="2">
             <label>Province</label>
             <v-select
-              v-model="locationProvince"
-              :rules="locationProvinceRules"
-              :items="provinces"
               dense
               flat
               outlined
               solo
+              placeholder="select"
+              v-model="locationProvince"
+              :rules="locationProvinceRules"
+              :items="provinces"
             />
           </v-col>
         </v-row>
@@ -347,7 +354,7 @@
           </v-col>
         </v-row>
 
-        <h4>Number of workers at this location</h4>
+        <h4 class="heading-field-label mb-1">Number of workers at this location</h4>
         <v-row>
           <v-col cols="12" sm="3" lg="2">
             <v-text-field
@@ -410,7 +417,15 @@
             </v-col>
             <v-col cols="12" sm="3" lg="2">
               <label>Province</label>
-              <v-select v-model="motelProvince" :items="provinces" dense flat outlined solo />
+              <v-select
+                dense
+                flat
+                outlined
+                solo
+                placeholder="select"
+                v-model="motelProvince"
+                :items="provinces"
+              />
             </v-col>
           </v-row>
 
@@ -739,3 +754,21 @@ export default {
 };
 </script>
 
+<style lang="scss" scoped>
+form {
+  h4:not(.heading-field-label) {
+    padding-bottom: 1em;
+  }
+  hr {
+    margin-bottom: 1.75em;
+    margin-top: .5em;
+  }
+  .row {
+    div[class^='col-'],
+    div[class*=' col-'] {
+      padding-bottom: 0;
+      padding-top: 0;
+    }
+  }
+}
+</style>
