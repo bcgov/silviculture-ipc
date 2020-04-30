@@ -151,6 +151,9 @@ export default {
 .ipc-table >>> tr.v-data-table__expanded__content td {
   padding-bottom: 1em;
 }
+tbody tr:nth-of-type(odd) {
+  background-color: #f5f5f5;
+}
 div.ipc-expanded {
   font-size: 85% !important;
   color: #494949 !important;
