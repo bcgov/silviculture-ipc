@@ -151,7 +151,7 @@ export default {
 .ipc-table >>> tr.v-data-table__expanded__content td {
   padding-bottom: 1em;
 }
-tbody tr:nth-of-type(odd) {
+.ipc-table >>> tbody tr:nth-of-type(odd) {
   background-color: #f5f5f5;
 }
 .ipc-table >>> thead tr th {
