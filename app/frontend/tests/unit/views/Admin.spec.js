@@ -12,10 +12,10 @@ describe('Admin.vue', () => {
   it('renders', () => {
     const wrapper = shallowMount(Admin, {
       localVue,
-      stubs: ['BaseSecure']
+      stubs: ['BaseSecure', 'BCGovNavBar']
     });
 
-    expect(wrapper.html()).toMatch('Admin');
+    expect(wrapper.html()).toMatch('bcgovnavbar');
     expect(wrapper.html()).toMatch('router-view');
   });
 });

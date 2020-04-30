@@ -2,19 +2,19 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuetify from 'vuetify';
 
 import router from '@/router';
-import Dev from '@/views/admin/Dev.vue';
+import Dashboard from '@/views/admin/Dashboard.vue';
 
 const localVue = createLocalVue();
 localVue.use(router);
 localVue.use(Vuetify);
 
-describe('Dev.vue', () => {
+describe('Dashboard.vue', () => {
   it('renders', () => {
-    const wrapper = shallowMount(Dev, {
+    const wrapper = shallowMount(Dashboard, {
       localVue,
-      stubs: ['ApiTester', 'BaseSecure']
+      stubs: ['BaseSecure']
     });
 
-    expect(wrapper.html()).toMatch('apitester');
+    expect(wrapper.html()).toMatch('Dashboard');
   });
 });

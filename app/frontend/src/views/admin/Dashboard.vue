@@ -1,18 +1,20 @@
 <template>
   <v-container class="dashboard text-center">
-    <h1 class="my-6">Dashboard</h1>
-    <div v-if="dashboardUrl" class="dashboard-container">
-      <iframe :src="dashboardUrl" />
-    </div>
-    <div v-else>
-      <p>No dashboard has been configured.</p>
-      <router-link :to="{ name: 'Admin' }">
-        <v-btn color="primary" class="about-btn" large>
-          <v-icon left>home</v-icon>
-          <span>Submissions</span>
-        </v-btn>
-      </router-link>
-    </div>
+    <BaseSecure>
+      <h1 class="my-6">Dashboard</h1>
+      <div v-if="dashboardUrl" class="dashboard-container">
+        <iframe :src="dashboardUrl" />
+      </div>
+      <div v-else>
+        <p>No dashboard has been configured.</p>
+        <router-link :to="{ name: 'Admin' }">
+          <v-btn color="primary" class="about-btn" large>
+            <v-icon left>home</v-icon>
+            <span>Submissions</span>
+          </v-btn>
+        </router-link>
+      </div>
+    </BaseSecure>
   </v-container>
 </template>
 
