@@ -6,7 +6,7 @@
     </div>
 
     <div class="question-series">
-      <h3 class="mb-1 mt-4">1. Plan to manage individuals with suspected COVID-19 Infection</h3>
+      <h3 class="question-head">1. Plan to manage individuals with suspected COVID-19 Infection</h3>
       <div class="questions">
         <p
           class="hide-on-review"
@@ -46,7 +46,7 @@
       </div>
     </div>
 
-    <BaseWarningCard class="my-6 hide-on-review">
+    <BaseWarningCard class="mt-6 mb-12 hide-on-review">
       <h3>
         As COVID-19 recommendations are evolving daily, please keep up to date with
         <a
@@ -57,14 +57,14 @@
     </BaseWarningCard>
 
     <div class="question-series">
-      <h3 class="mb-1 mt-8">2. Providing Food for Ill Workers</h3>
+      <h3 class="question-head">2. Providing Food for Ill Workers</h3>
       <div class="questions">
         <v-checkbox
           v-model="infectedFeeding"
           :readonly="reviewMode"
           label="I am able to provide food in a safe manner to a self-isolated worker"
         ></v-checkbox>
-        <BaseInfoCard class="hide-on-review">
+        <BaseInfoCard class="mb-10 hide-on-review">
           <template v-slot:title>What does this mean?</template>
           <ul>
             <li>Gloves are required when delivering or picking up food trays.</li>
@@ -76,14 +76,14 @@
     </div>
 
     <div class="question-series">
-      <h3 class="mb-1 mt-8">3. Housekeeping for Ill Workers</h3>
+      <h3 class="question-head">3. Housekeeping for Ill Workers</h3>
       <div class="questions">
         <v-checkbox
           v-model="infectedHousekeeping"
           :readonly="reviewMode"
           label="I am able to perform adequate housekeeping for a self isolated worker"
         ></v-checkbox>
-        <BaseInfoCard class="hide-on-review">
+        <BaseInfoCard class="mb-10 hide-on-review">
           <template v-slot:title>What does this mean?</template>
           <ul>
             <li>Site operators must identify and record the locations of all self-isolating guests.</li>
@@ -98,14 +98,14 @@
     </div>
 
     <div class="question-series">
-      <h3 class="mb-1 mt-8">4. Waste Management for Ill Workers</h3>
+      <h3 class="question-head">4. Waste Management for Ill Workers</h3>
       <div class="questions">
         <v-checkbox
           v-model="infectedWaste"
           :readonly="reviewMode"
           label="I am able to perform waste management for supporting a self-isolated worker"
         ></v-checkbox>
-        <BaseInfoCard class="hide-on-review">
+        <BaseInfoCard class="mb-10 hide-on-review">
           <template v-slot:title>What does this mean?</template>
           <ul>
             <li>Wherever possible, waste from all self-isolation rooms or tents should be handled by a designated person or small, designated team.</li>

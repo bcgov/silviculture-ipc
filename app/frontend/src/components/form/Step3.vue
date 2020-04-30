@@ -1,17 +1,17 @@
 <template>
   <v-container>
     <div class="hide-on-review">
-      <h2 class="pb-8">Before you begin planting, please certify</h2>
+      <h2 class="pb-8">Before you begin planting, please check all that apply</h2>
       <hr class="orange" />
     </div>
 
-    <BaseInfoCard class="hide-on-review">
+    <BaseInfoCard class="hide-on-review mt-5 mb-8">
       Please note questions
       <strong>2, 3, and 4</strong> are not relevant if your accommodation is a private residence.
     </BaseInfoCard>
 
     <div class="question-series">
-      <h3 class="mb-1 mt-4">1. COVID-19 Information</h3>
+      <h3 class="question-head">1. COVID-19 Information</h3>
       <div class="questions">
         <p
           class="hide-on-review"
@@ -31,7 +31,7 @@
     </div>
 
     <div class="question-series">
-      <h3 class="mb-1 mt-4">2. Provide safe lodging and accommodation: General Worker</h3>
+      <h3 class="question-head">2. Provide safe lodging and accommodation: General Worker</h3>
 
       <div class="questions">
         <p
@@ -73,7 +73,7 @@
     </div>
 
     <div class="question-series">
-      <h3 class="mt-4">3. Self-isolation space if a worker comes down with COVID-19-like symptoms</h3>
+      <h3 class="question-head">3. Self-isolation space if a worker comes down with COVID-19-like symptoms</h3>
       <div class="questions">
         <v-checkbox
           v-model="selfIsolateUnderstood"
@@ -89,7 +89,7 @@
     </div>
 
     <div class="question-series">
-      <h3 class="mb-1 mt-4">4. Make sure laundry services are available and handled safely</h3>
+      <h3 class="question-head">4. Make sure laundry services are available and handled safely</h3>
       <div class="questions">
         <p
           class="hide-on-review"
@@ -103,7 +103,7 @@
     </div>
 
     <div class="question-series">
-      <h3 class="mb-1 mt-4">5. Practicing waste management: At work-site and accommodation</h3>
+      <h3 class="question-head">5. Practicing waste management: At work-site and accommodation</h3>
       <div class="questions">
         <p
           class="hide-on-review"
@@ -127,7 +127,7 @@
     </div>
 
     <div class="question-series">
-      <h3 class="mb-1 mt-4">6. Have proper hand-washing facilities: At work-site and accommodation</h3>
+      <h3 class="question-head">6. Have proper hand-washing facilities: At work-site and accommodation</h3>
       <div class="questions">
         <p
           class="hide-on-review"
@@ -161,7 +161,7 @@
     </div>
 
     <div class="question-series">
-      <h3 class="mb-1 mt-4">7. Physical Distancing Practices</h3>
+      <h3 class="question-head">7. Physical Distancing Practices</h3>
       <div class="questions">
         <div class="hide-on-review">
           <p>Keeping a 2 meter distance between people is one of the most important ways to break the chain of transmission of COVID-19. Silviculture/planting operators can take practical steps to ensure physical distancing is maintained while workers are transported to or from the work site, while working indoors or outdoors, during break times.</p>
@@ -181,7 +181,7 @@
     </div>
 
     <div class="question-series">
-      <h3 class="mb-1 mt-4">8. Have a Cleaning and Disinfecting Schedule</h3>
+      <h3 class="question-head">8. Have a Cleaning and Disinfecting Schedule</h3>
       <div class="questions">
         <p>All common areas and surfaces should be cleaned at the start and end of each day. Examples of common areas and surfaces include washrooms, common tables, desks, light switches, and door handles. Regular household cleaners are effective against COVID-19, following the instructions on the label.</p>
         <v-checkbox

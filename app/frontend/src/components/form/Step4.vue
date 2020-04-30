@@ -8,7 +8,7 @@
     <p>Once your workers arrive at camp, you are expected to continue your work enacting an infection control plan and minimize the risk of transmission of COVID-19 through the following key activities.</p>
 
     <div class="question-series">
-      <h3 class="mb-1 mt-4">1. Implement COVID-19 Employee Education</h3>
+      <h3 class="question-head">1. Implement COVID-19 Employee Education</h3>
       <div class="questions">
         <p
           class="hide-on-review"
@@ -27,7 +27,7 @@
     </div>
 
     <div class="question-series">
-      <h3 class="mb-1 mt-4">2. Train workers on COVID-19 infection control</h3>
+      <h3 class="question-head">2. Train workers on COVID-19 infection control</h3>
       <div class="questions">
         <p
           class="hide-on-review"
@@ -61,7 +61,7 @@
     </div>
 
     <div class="question-series">
-      <h3 class="mb-1 mt-4">3. Meals Preparation: Practice safe food handling</h3>
+      <h3 class="question-head">3. Meals Preparation: Practice safe food handling</h3>
       <div class="questions">
         <div class="hide-on-review">
           <p>All employers and employees must practice good food handling and hygiene practices.</p>
