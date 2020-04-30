@@ -9,7 +9,7 @@
       <v-container>
         <v-row>
           <v-col cols="12" lg="10">
-            <h4 class="mb-1">Registered Business Name</h4>
+            <h4 class="heading-field-label mb-1">Registered Business Name</h4>
             <OrgBookSearch
               v-if="!reviewMode"
               :field-model.sync="businessName"
@@ -356,7 +356,7 @@
           </v-col>
         </v-row>
 
-        <h4>Number of workers at this location</h4>
+        <h4 class="heading-field-label mb-1">Number of workers at this location</h4>
         <v-row>
           <v-col cols="12" sm="3" lg="2">
             <v-text-field
@@ -758,7 +758,7 @@ export default {
 
 <style lang="scss" scoped>
 form {
-  h4 {
+  h4:not(.heading-field-label) {
     padding-bottom: 1em;
   }
   hr {
