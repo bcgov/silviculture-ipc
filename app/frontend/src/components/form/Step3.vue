@@ -160,8 +160,6 @@
       </div>
     </div>
 
-    <hr />
-
     <div class="question-series">
       <h3 class="mb-1 mt-4">7. Physical Distancing Practices</h3>
       <div class="questions">
