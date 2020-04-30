@@ -38,13 +38,15 @@
           class="hide-on-review"
         >Silviculture/Planting operators must be able to provide accommodations that minimize crowding, social interactions, and provide sufficient physical distance (individual tents or beds 2m apart and head-to-toe in shared accommodations).</p>
 
-        <v-checkbox
-          v-model="commonAreaDistancing"
-          :readonly="reviewMode"
-          label="Common areas allow physical distancing of 2m / 6ft at all times"
-        ></v-checkbox>
+        <p>1) Do your Common areas allow for physical distancing of 2m / 6ft at all times?</p>
+        <div class="pl-4">
+          <v-radio-group :readonly="reviewMode" v-model="commonAreaDistancing" :mandatory="true">
+            <v-radio label="Yes" value="yes"></v-radio>
+            <v-radio label="No" value="no"></v-radio>
+          </v-radio-group>
+        </div>
 
-        <p>Do you have individual/single beds or shared sleeping areas?</p>
+        <p>2) Do you have individual/single beds or shared sleeping areas?</p>
         <div class="pl-4">
           <v-radio-group :readonly="reviewMode" v-model="sleepingAreaType" :mandatory="true">
             <v-radio label="Individual Beds or Single beds" value="1"></v-radio>
@@ -73,7 +75,9 @@
     </div>
 
     <div class="question-series">
-      <h3 class="question-head">3. Self-isolation space if a worker comes down with COVID-19-like symptoms</h3>
+      <h3
+        class="question-head"
+      >3. Self-isolation space if a worker comes down with COVID-19-like symptoms</h3>
       <div class="questions">
         <v-checkbox
           v-model="selfIsolateUnderstood"
@@ -127,7 +131,9 @@
     </div>
 
     <div class="question-series">
-      <h3 class="question-head">6. Have proper hand-washing facilities: At work-site and accommodation</h3>
+      <h3
+        class="question-head"
+      >6. Have proper hand-washing facilities: At work-site and accommodation</h3>
       <div class="questions">
         <p
           class="hide-on-review"
@@ -229,8 +235,8 @@ export default {
 
     // Lodging
     commonAreaDistancing: {
-      get() { return this.ipcPlan.commonAreaDistancing; },
-      set(value) { this.updateIpcPlan({['commonAreaDistancing']: value}); }
+      get() { return this.ipcPlan.commonAreaDistancing ? 'yes' : 'no'; },
+      set(value) { this.updateIpcPlan({['commonAreaDistancing']: value === 'yes'}); }
     },
     sleepingAreaType: {
       get() { return this.ipcPlan.sleepingAreaType; },
