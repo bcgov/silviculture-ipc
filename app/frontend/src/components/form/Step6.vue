@@ -32,7 +32,7 @@
         <a
           href="https://www2.gov.bc.ca/gov/content/health/keeping-bc-healthy-safe/industrial-camps"
           target="_blank"
-        >Health Authority Contacts for Industrial Camps</a>
+        >Health Authority Contacts for Industrial Camps <v-icon small color="primary">open_in_new</v-icon></a>
         <!--
         <p>
           <strong>Fraser Health Authority</strong>
@@ -74,7 +74,7 @@
         <a
           href="#"
           @click="refresh"
-        >click here</a>)
+        >click here <v-icon small color="primary">refresh</v-icon></a>)
       </p>
     </div>
     <div v-else>
