@@ -22,7 +22,7 @@
       <span>Contact Us</span>
     </v-btn>
     <v-spacer/>
-    <span class="app-version mt-1">v{{ appVersion }}</span>
+    <span class="app-version">v{{ appVersion }}</span>
   </footer>
 </template>
 
@@ -71,6 +71,7 @@ export default {
   .app-version {
     font-size: smaller;
     color: white;
+    margin-top: 12px;
   }
 }
 </style>
