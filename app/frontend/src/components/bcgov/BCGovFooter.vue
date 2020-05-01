@@ -22,7 +22,7 @@
       <span>Contact Us</span>
     </v-btn>
     <v-spacer/>
-    <span class="app-version">v{{ appVersion }}</span>
+    <span class="app-version mt-1">v{{ appVersion }}</span>
   </footer>
 </template>
 
@@ -39,6 +39,7 @@ export default {
 
 <style lang="scss" scoped>
 .gov-footer {
+  display: flex !important;
   a {
     color: #ffffff;
     font-size: 1rem;
