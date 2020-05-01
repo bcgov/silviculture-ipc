@@ -24,17 +24,16 @@
       item-key="confirmationId"
       class="ipc-table"
     >
-      <!-- view individual form submission -->
-      <template v-slot:item.pdf="{ item }">
-        <GeneratePdfButton :ipcPlanId="item.ipcPlanId">
-          <v-icon color="red">picture_as_pdf</v-icon>
+      <template v-slot:item.actions="{ item }" class="action-column">
+        <GeneratePdfButton :ipcPlanId="item.ipcPlanId" class="mr-5">
+          <v-btn outlined small>
+            <v-icon class="mr-2" color="primary">cloud_download</v-icon>PDF
+          </v-btn>
         </GeneratePdfButton>
-      </template>
-
-      <!-- view individual form submission -->
-      <template v-slot:item.ipcPlanId="{ item }">
         <router-link :to="{ name: 'Submission', params: { ipcPlanId: item.ipcPlanId } }">
-          <v-icon color="primary">remove_red_eye</v-icon>
+          <v-btn outlined small>
+            <v-icon class="mr-2" color="primary">folder_open</v-icon>VIEW
+          </v-btn>
         </router-link>
       </template>
     </v-data-table>
@@ -64,8 +63,7 @@ export default {
         { text: 'Submitted', value: 'created' },
         { text: 'Business Name', align: 'start', value: 'name' },
         { text: 'Confirmation ID', align: 'start', value: 'confirmationId' },
-        { text: 'Export', value: 'pdf'},
-        { text: 'View', value: 'ipcPlanId'}
+        { text: '', value: 'actions', sortable: false }
       ],
       submissions: [],
       loading: true,
