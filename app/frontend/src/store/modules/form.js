@@ -158,7 +158,7 @@ export default {
       commit('setSubmissionError', '');
       try {
         // TODO: set to FE package version
-        commit('updateIpcPlan', { formVersion: '1.0.0' });
+        commit('updateIpcPlan', { formVersion: process.env.VUE_APP_VERSION });
         const body = {
           business: state.business,
           contacts: state.contacts,

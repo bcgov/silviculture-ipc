@@ -220,7 +220,7 @@
         </v-row>
 
         <hr />
-        <h4>Provide your planting camp location</h4>
+        <h4>Provide your accomodation details</h4>
 
         <v-row>
           <v-col cols="12" sm="6" lg="5">
@@ -233,7 +233,7 @@
               min-width="290px"
             >
               <template v-slot:activator="{ on }">
-                <label>Start Date</label>
+                <label>Operation Start Date</label>
                 <v-text-field
                   v-model="startDate"
                   :rules="startDateRules"
@@ -266,7 +266,7 @@
               min-width="290px"
             >
               <template v-slot:activator="{ on }">
-                <label>End Date</label>
+                <label>Operation End Date</label>
                 <v-text-field
                   v-model="endDate"
                   :rules="endDateRules"
@@ -288,26 +288,7 @@
 
         <v-row>
           <v-col cols="12" sm="6" lg="5">
-            <label>Address line 1</label>
-            <v-text-field
-              v-model="locationAddressLine1"
-              :rules="locationAddressLine1Rules"
-              dense
-              flat
-              outlined
-              solo
-            />
-          </v-col>
-
-          <v-col cols="12" sm="6" lg="5">
-            <label>Address line 2 (Optional)</label>
-            <v-text-field v-model="locationAddressLine2" dense flat outlined solo />
-          </v-col>
-        </v-row>
-
-        <v-row>
-          <v-col cols="12" sm="6" lg="5">
-            <label>City</label>
+            <label>Closest Community / Town / City</label>
             <v-text-field
               v-model="locationCity"
               :rules="locationCityRules"
@@ -317,38 +298,11 @@
               solo
             />
           </v-col>
-          <v-col cols="12" sm="3" lg="2">
-            <label>Province</label>
-            <v-select
-              dense
-              flat
-              outlined
-              solo
-              placeholder="select"
-              v-model="locationProvince"
-              :rules="locationProvinceRules"
-              :items="provinces"
-            />
-          </v-col>
         </v-row>
 
         <v-row>
-          <v-col cols="12" sm="3" lg="2">
-            <label>Postal Code</label>
-            <v-text-field
-              v-model="locationPostalCode"
-              :rules="locationPostalCodeRules"
-              dense
-              flat
-              outlined
-              solo
-            />
-          </v-col>
-        </v-row>
-
-        <h4 class="heading-field-label mb-1">Number of workers at this location</h4>
-        <v-row>
-          <v-col cols="12" sm="3" lg="2">
+          <v-col cols="12" sm="4" lg="3">
+            <label>Number of workers at this location</label>
             <v-text-field
               v-model="numberOfWorkers"
               :rules="numberOfWorkersRules"
@@ -378,7 +332,7 @@
           </v-row>
         </div>
 
-        <v-checkbox v-model="accMotel" :readonly="reviewMode" label="Motel/Hotel in town"></v-checkbox>
+        <v-checkbox v-model="accMotel" :readonly="reviewMode" label="Motel / Hotel in town"></v-checkbox>
         <div v-if="accMotel">
           <v-row>
             <v-col cols="12" sm="6" lg="5">
@@ -547,17 +501,8 @@ export default {
       endDateRules: [
         v => !!v || 'End date is required'
       ],
-      locationAddressLine1Rules: [
-        v => !!v || 'Line 1 is required'
-      ],
       locationCityRules: [
-        v => !!v || 'City is required'
-      ],
-      locationProvinceRules: [
-        v => !!v || 'Province is required'
-      ],
-      locationPostalCodeRules: [
-        v => !!v || 'Postal code is required'
+        v => !!v || 'Closest Community / Town / City is required'
       ],
       // Todo, put in some utility fxn somewhere if needed again
       numberOfWorkersRules: [
@@ -653,25 +598,9 @@ export default {
       get() { return this.location.endDate; },
       set(value) { this.updateLocation({['endDate']: value}); }
     },
-    locationAddressLine1: {
-      get() { return this.location.addressLine1; },
-      set(value) { this.updateLocation({['addressLine1']: value}); }
-    },
-    locationAddressLine2: {
-      get() { return this.location.addressLine2; },
-      set(value) { this.updateLocation({['addressLine2']: value}); }
-    },
     locationCity: {
       get() { return this.location.city; },
       set(value) { this.updateLocation({['city']: value}); }
-    },
-    locationProvince: {
-      get() { return this.location.province; },
-      set(value) { this.updateLocation({['province']: value}); }
-    },
-    locationPostalCode: {
-      get() { return this.location.postalCode; },
-      set(value) { this.updateLocation({['postalCode']: value}); }
     },
     numberOfWorkers: {
       get() { return this.location.numberOfWorkers.toString(); },
