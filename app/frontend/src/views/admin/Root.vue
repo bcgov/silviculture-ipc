@@ -1,7 +1,8 @@
 <template>
   <v-container>
     <BaseSecure>
-      <SubmissionsTable class="my-8" />
+      <h1>Submissions</h1>
+      <SubmissionsTable />
     </BaseSecure>
   </v-container>
 </template>

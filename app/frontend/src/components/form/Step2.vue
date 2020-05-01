@@ -56,9 +56,7 @@
             />
           </v-col>
           <v-col cols="12" sm="6" lg="5">
-            <label>
-              Alternative Phone Number (Optional)
-            </label>
+            <label>Alternative Phone Number (Optional)</label>
             <v-text-field
               dense
               flat
@@ -73,13 +71,13 @@
 
         <v-row>
           <v-col cols="12" sm="6" lg="5">
-            <label>e-mail Address (Primary Contact)</label>
+            <label>E-mail Address (Primary Contact)</label>
             <v-text-field
               dense
               flat
               outlined
               solo
-              placeholder="xxx@xxx.com"
+              placeholder="john.doe@example.com"
               :rules="emailRules"
               prepend-inner-icon="email"
               v-model="email"
@@ -103,10 +101,7 @@
             />
           </v-col>
           <v-col cols="12" sm="6" lg="5">
-            <label>
-              Address line 2 -
-              <small>optional</small>
-            </label>
+            <label>Address line 2 (Optional)</label>
             <v-text-field dense flat outlined solo v-model="businessAddressLine2" />
           </v-col>
         </v-row>
@@ -195,9 +190,7 @@
             />
           </v-col>
           <v-col cols="12" sm="6" lg="5">
-            <label>
-              Alternative Phone Number (Optional)
-            </label>
+            <label>Alternative Phone Number (Optional)</label>
             <v-text-field
               dense
               flat
@@ -212,13 +205,13 @@
 
         <v-row>
           <v-col cols="12" sm="6" lg="5">
-            <label>e-mail Address (Primary Contact)</label>
+            <label>E-mail Address (Primary Contact)</label>
             <v-text-field
               dense
               flat
               outlined
               solo
-              placeholder="xxx@xxx.com"
+              placeholder="john.doe@example.com"
               prepend-inner-icon="email"
               v-model="covidEmail"
               :rules="covidEmailRules"
@@ -227,7 +220,7 @@
         </v-row>
 
         <hr />
-        <h4>Provide your planting camp location</h4>
+        <h4>Provide your accomodation details</h4>
 
         <v-row>
           <v-col cols="12" sm="6" lg="5">
@@ -240,10 +233,11 @@
               min-width="290px"
             >
               <template v-slot:activator="{ on }">
+                <label>Operation Start Date</label>
                 <v-text-field
                   v-model="startDate"
                   :rules="startDateRules"
-                  label="Start Date"
+                  placeholder="yyyy-mm-dd"
                   append-icon="event"
                   v-on:click:append="startDateMenu=true"
                   readonly
@@ -272,10 +266,11 @@
               min-width="290px"
             >
               <template v-slot:activator="{ on }">
+                <label>Operation End Date</label>
                 <v-text-field
                   v-model="endDate"
                   :rules="endDateRules"
-                  label="End Date"
+                  placeholder="yyyy-mm-dd"
                   append-icon="event"
                   v-on:click:append="endDateMenu=true"
                   readonly
@@ -293,29 +288,7 @@
 
         <v-row>
           <v-col cols="12" sm="6" lg="5">
-            <label>Address line 1</label>
-            <v-text-field
-              v-model="locationAddressLine1"
-              :rules="locationAddressLine1Rules"
-              dense
-              flat
-              outlined
-              solo
-            />
-          </v-col>
-
-          <v-col cols="12" sm="6" lg="5">
-            <label>
-              Address line 2 -
-              <small>optional</small>
-            </label>
-            <v-text-field v-model="locationAddressLine2" dense flat outlined solo />
-          </v-col>
-        </v-row>
-
-        <v-row>
-          <v-col cols="12" sm="6" lg="5">
-            <label>City</label>
+            <label>Closest Community / Town / City</label>
             <v-text-field
               v-model="locationCity"
               :rules="locationCityRules"
@@ -325,38 +298,11 @@
               solo
             />
           </v-col>
-          <v-col cols="12" sm="3" lg="2">
-            <label>Province</label>
-            <v-select
-              dense
-              flat
-              outlined
-              solo
-              placeholder="select"
-              v-model="locationProvince"
-              :rules="locationProvinceRules"
-              :items="provinces"
-            />
-          </v-col>
         </v-row>
 
         <v-row>
-          <v-col cols="12" sm="3" lg="2">
-            <label>Postal Code</label>
-            <v-text-field
-              v-model="locationPostalCode"
-              :rules="locationPostalCodeRules"
-              dense
-              flat
-              outlined
-              solo
-            />
-          </v-col>
-        </v-row>
-
-        <h4 class="heading-field-label mb-1">Number of workers at this location</h4>
-        <v-row>
-          <v-col cols="12" sm="3" lg="2">
+          <v-col cols="12" sm="4" lg="3">
+            <label>Number of workers at this location</label>
             <v-text-field
               v-model="numberOfWorkers"
               :rules="numberOfWorkersRules"
@@ -386,7 +332,7 @@
           </v-row>
         </div>
 
-        <v-checkbox v-model="accMotel" :readonly="reviewMode" label="Motel/Hotel in town"></v-checkbox>
+        <v-checkbox v-model="accMotel" :readonly="reviewMode" label="Motel / Hotel in town"></v-checkbox>
         <div v-if="accMotel">
           <v-row>
             <v-col cols="12" sm="6" lg="5">
@@ -402,10 +348,7 @@
             </v-col>
 
             <v-col cols="12" sm="6" lg="5">
-              <label>
-                Address line 2 -
-                <small>optional</small>
-              </label>
+              <label>Address line 2 (Optional)</label>
               <v-text-field v-model="motelAddressLine2" dense flat outlined solo />
             </v-col>
           </v-row>
@@ -524,9 +467,9 @@ export default {
         v => validator.isMobilePhone(v) || 'invalid phone number format',
       ],
       emailRules: [
-        v => !!v || 'e-mail is required',
+        v => !!v || 'E-mail is required',
         v=> validator.isEmail(v, { allow_display_name: true }) || 'invalid e-mail format',
-        v => (v && v.length <= 100) || 'e-mail must be less than 100? characters',
+        v => (v && v.length <= 100) || 'E-mail must be less than 100? characters',
       ],
 
       // Covid Contact
@@ -543,32 +486,23 @@ export default {
         v => validator.isMobilePhone(v) || 'invalid phone number format',
       ],
       covidEmailRules: [
-        v => !!v || 'e-mail is required',
+        v => !!v || 'E-mail is required',
         v=> validator.isEmail(v, { allow_display_name: true }) || 'invalid e-mail format',
-        v => (v && v.length <= 100) || 'e-mail must be less than 100? characters',
+        v => (v && v.length <= 100) || 'E-mail must be less than 100? characters',
       ],
 
       // Location
       licenceesRules: [
-        v => !!v || 'name of licencee(s) required'
+        v => !!v || 'Name of licencee(s) required'
       ],
       startDateRules: [
-        v => !!v || 'start date is required'
+        v => !!v || 'Start date is required'
       ],
       endDateRules: [
-        v => !!v || 'end date is required'
-      ],
-      locationAddressLine1Rules: [
-        v => !!v || 'line 1 is required'
+        v => !!v || 'End date is required'
       ],
       locationCityRules: [
-        v => !!v || 'city is required'
-      ],
-      locationProvinceRules: [
-        v => !!v || 'province is required'
-      ],
-      locationPostalCodeRules: [
-        v => !!v || 'postal code is required'
+        v => !!v || 'Closest Community / Town / City is required'
       ],
       // Todo, put in some utility fxn somewhere if needed again
       numberOfWorkersRules: [
@@ -664,25 +598,9 @@ export default {
       get() { return this.location.endDate; },
       set(value) { this.updateLocation({['endDate']: value}); }
     },
-    locationAddressLine1: {
-      get() { return this.location.addressLine1; },
-      set(value) { this.updateLocation({['addressLine1']: value}); }
-    },
-    locationAddressLine2: {
-      get() { return this.location.addressLine2; },
-      set(value) { this.updateLocation({['addressLine2']: value}); }
-    },
     locationCity: {
       get() { return this.location.city; },
       set(value) { this.updateLocation({['city']: value}); }
-    },
-    locationProvince: {
-      get() { return this.location.province; },
-      set(value) { this.updateLocation({['province']: value}); }
-    },
-    locationPostalCode: {
-      get() { return this.location.postalCode; },
-      set(value) { this.updateLocation({['postalCode']: value}); }
     },
     numberOfWorkers: {
       get() { return this.location.numberOfWorkers.toString(); },
@@ -761,7 +679,7 @@ form {
   }
   hr {
     margin-bottom: 1.75em;
-    margin-top: .5em;
+    margin-top: 0.5em;
   }
   .row {
     div[class^='col-'],

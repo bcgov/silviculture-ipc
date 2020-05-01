@@ -1,49 +1,42 @@
 <template>
-  <v-card>
-    <v-toolbar flat color="grey lighten-3">
-      <v-card-title>Form Submissions</v-card-title>
-    </v-toolbar>
-    <v-container>
-      <!-- search input -->
-      <div class="ipc-search">
-        <v-text-field
-          v-model="search"
-          append-icon="mdi-magnify"
-          label="Search"
-          single-line
-          hide-details
-          class="pb-5"
-        ></v-text-field>
-      </div>
-      <!-- table alert -->
-      <v-alert v-if="showAlert" :type="alertType" tile dense>{{alertMessage}}</v-alert>
-      <!-- table header -->
-      <v-data-table
-        :headers="headers"
-        :items="submissions"
-        :items-per-page="10"
-        :search="search"
-        :loading="loading"
-        loading-text="Loading... Please wait"
-        item-key="confirmationId"
-        class="ipc-table"
-      >
-        <!-- view individual form submission -->
-        <template v-slot:item.pdf="{ item }">
-          <GeneratePdfButton :ipcPlanId="item.ipcPlanId">
-            <v-icon color="red">picture_as_pdf</v-icon>
-          </GeneratePdfButton>
-        </template>
+  <div>
+    <!-- search input -->
+    <div class="ipc-search mt-6 mt-sm-0">
+      <v-text-field
+        v-model="search"
+        append-icon="mdi-magnify"
+        label="Search"
+        single-line
+        hide-details
+        class="pb-5"
+      ></v-text-field>
+    </div>
+    <!-- table alert -->
+    <v-alert v-if="showAlert" :type="alertType" tile dense>{{alertMessage}}</v-alert>
+    <!-- table header -->
+    <v-data-table
+      :headers="headers"
+      :items="submissions"
+      :items-per-page="10"
+      :search="search"
+      :loading="loading"
+      loading-text="Loading... Please wait"
+      item-key="confirmationId"
+      class="ipc-table"
+    >
+      <template v-slot:item.download="{ item }">
+        <GeneratePdfButton :ipcPlanId="item.ipcPlanId">
+          <v-btn text small color="primary"><v-icon class="mr-1">picture_as_pdf</v-icon> PDF</v-btn>
+        </GeneratePdfButton>
+      </template>
 
-        <!-- view individual form submission -->
-        <template v-slot:item.ipcPlanId="{ item }">
-          <router-link :to="{ name: 'Submission', params: { ipcPlanId: item.ipcPlanId } }">
-            <v-icon color="primary">remove_red_eye</v-icon>
-          </router-link>
-        </template>
-      </v-data-table>
-    </v-container>
-  </v-card>
+      <template v-slot:item.details="{ item }">
+        <router-link :to="{ name: 'Submission', params: { ipcPlanId: item.ipcPlanId } }">
+          <v-btn text small color="primary"><v-icon class="mr-1">remove_red_eye</v-icon> VIEW</v-btn>
+        </router-link>
+      </template>
+    </v-data-table>
+  </div>
 </template>
 
 <script>
@@ -69,15 +62,14 @@ export default {
         { text: 'Submitted', value: 'created' },
         { text: 'Business Name', align: 'start', value: 'name' },
         { text: 'Confirmation ID', align: 'start', value: 'confirmationId' },
-        { text: 'Export', value: 'pdf'},
-        { text: 'View', value: 'ipcPlanId'}
+        { text: 'Download', value: 'download', sortable: false },
+        { text: 'Details', value: 'details', sortable: false }
       ],
       submissions: [],
       loading: true,
       showAlert: false,
       alertType: null,
-      alertMessage: '',
-      expanded: []
+      alertMessage: ''
     };
   },
   methods: {
@@ -135,22 +127,24 @@ export default {
 <style scoped>
 .ipc-search {
   width: 100%;
-  max-width: 20em;
-  float: right;
 }
+@media (min-width: 600px) {
+  .ipc-search {
+    max-width: 20em;
+    float: right;
+  }
+}
+@media (max-width: 599px) {
+  .ipc-search {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
 .ipc-table {
   clear: both;
 }
-.ipc-table >>> tr.v-data-table__expanded__row td {
-  border-bottom: 0 !important;
-}
-.ipc-table >>> tr.v-data-table__expanded__content {
-  -webkit-box-shadow: none !important;
-  box-shadow: none !important;
-}
-.ipc-table >>> tr.v-data-table__expanded__content td {
-  padding-bottom: 1em;
-}
+/* Want to use scss but the world hates me */
 .ipc-table >>> tbody tr:nth-of-type(odd) {
   background-color: #f5f5f5;
 }
@@ -158,22 +152,5 @@ export default {
   font-weight: normal;
   color: #003366 !important;
   font-size: 1.1em;
-}
-div.ipc-expanded {
-  font-size: 85% !important;
-  color: #494949 !important;
-  padding: 1rem 0;
-}
-/* mobile view */
-tr.v-data-table__expanded__content
-  td.v-data-table__mobile-table-row:nth-child(1) {
-  display: none !important;
-}
-tr.v-data-table__expanded__content
-  td.v-data-table__mobile-table-row:not(:nth-child(1)) {
-  padding: 0;
-}
-td.v-data-table__mobile-table-row div.ipc-expanded {
-  padding: 0.2rem 1rem;
 }
 </style>

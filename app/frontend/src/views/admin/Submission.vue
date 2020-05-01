@@ -59,17 +59,14 @@
               </v-col>
               <v-col cols="12" sm="6">
                 <h2>Planting Camp Locations</h2>
-
-                <h4>Planting Camp Sites During the Season</h4>
+                <h4>Operation Dates</h4>
                 <ul>
                   <li>From {{ ipcPlanData.location.startDate }} to {{ ipcPlanData.location.endDate }}</li>
-                  <li>{{ ipcPlanData.location.addressLine1 }}</li>
-                  <li
-                    v-if="ipcPlanData.location.addressLine2 != ''"
-                  >{{ ipcPlanData.location.addressLine2 }}</li>
+                </ul>
+
+                <h4>Closest Community / Town / City</h4>
+                <ul>
                   <li>{{ ipcPlanData.location.city }}</li>
-                  <li>{{ ipcPlanData.location.province }}</li>
-                  <li>{{ ipcPlanData.location.postalCode }}</li>
                 </ul>
 
                 <h4>Number of workers at this location</h4>

@@ -14,9 +14,11 @@
 
       <p>Download a copy of this form to send to your local health authority contact below:</p>
 
-      <v-btn color="primary" class="mx-5 mb-10" fab large @click="generatePdf">
-        <v-icon>picture_as_pdf</v-icon>
-      </v-btn>
+      <GeneratePdfButton :ipcPlanId="this.submissionDetails.ipcPlan.ipcPlanId">
+        <v-btn color="primary" class="mx-5 mb-10" fab large>
+          <v-icon>picture_as_pdf</v-icon>
+        </v-btn>
+      </GeneratePdfButton>
 
       <hr />
 
@@ -30,7 +32,7 @@
         <a
           href="https://www2.gov.bc.ca/gov/content/health/keeping-bc-healthy-safe/industrial-camps"
           target="_blank"
-        >Health Authority Contacts for Industrial Camps</a>
+        >Health Authority Contacts for Industrial Camps <v-icon small color="primary">open_in_new</v-icon></a>
         <!--
         <p>
           <strong>Fraser Health Authority</strong>
@@ -72,7 +74,7 @@
         <a
           href="#"
           @click="refresh"
-        >click here</a>)
+        >click here <v-icon small color="primary">refresh</v-icon></a>)
       </p>
     </div>
     <div v-else>
@@ -216,8 +218,8 @@
 
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex';
-import Vue from 'vue';
 
+import GeneratePdfButton from '@/components/common/GeneratePdfButton.vue';
 import Step1 from '@/components/form/Step1.vue';
 import Step2 from '@/components/form/Step2.vue';
 import Step3 from '@/components/form/Step3.vue';
@@ -227,6 +229,7 @@ import Step5 from '@/components/form/Step5.vue';
 export default {
   name: 'Step6',
   components: {
+    GeneratePdfButton,
     Step1,
     Step2,
     Step3,
@@ -266,10 +269,6 @@ export default {
         // Once the form is done disable the native browser "leave site" message so they can quit without getting whined at
         window.onbeforeunload = null;
       }
-    },
-    generatePdf(){
-      const pdf = `${Vue.prototype.$config.basePath}/${Vue.prototype.$config.apiPath}/ipc/pdf/${this.submissionDetails.ipcPlan.ipcPlanId}`;
-      window.open(pdf, '_blank');
     },
     refresh() {
       location.reload();

@@ -16,7 +16,7 @@
           <a
             target="_blank"
             href="https://www2.gov.bc.ca/gov/content/health/about-bc-s-health-care-system/office-of-the-provincial-health-officer/medical-health-officers"
-          >Medical Health Officer</a> of the outbreak.
+          >Medical Health Officer <v-icon small color="primary">open_in_new</v-icon></a> of the outbreak.
         </p>
         <v-checkbox
           v-model="infectionSeparation"
@@ -52,7 +52,7 @@
         <a
           target="_blank"
           href="http://www.bccdc.ca/health-info/diseases-conditions/covid-19/about-covid-19"
-        >BC Centre for Disease Control</a> guidance.
+        >BC Centre for Disease Control <v-icon small color="primary">open_in_new</v-icon></a> guidance.
       </h3>
     </BaseWarningCard>
 
