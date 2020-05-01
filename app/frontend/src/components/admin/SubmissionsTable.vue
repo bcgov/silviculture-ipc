@@ -71,8 +71,7 @@ export default {
       loading: true,
       showAlert: false,
       alertType: null,
-      alertMessage: '',
-      expanded: []
+      alertMessage: ''
     };
   },
   methods: {
