@@ -56,9 +56,7 @@
             />
           </v-col>
           <v-col cols="12" sm="6" lg="5">
-            <label>
-              Alternative Phone Number (Optional)
-            </label>
+            <label>Alternative Phone Number (Optional)</label>
             <v-text-field
               dense
               flat
@@ -73,13 +71,13 @@
 
         <v-row>
           <v-col cols="12" sm="6" lg="5">
-            <label>e-mail Address (Primary Contact)</label>
+            <label>E-mail Address (Primary Contact)</label>
             <v-text-field
               dense
               flat
               outlined
               solo
-              placeholder="xxx@xxx.com"
+              placeholder="john.doe@example.com"
               :rules="emailRules"
               prepend-inner-icon="email"
               v-model="email"
@@ -103,10 +101,7 @@
             />
           </v-col>
           <v-col cols="12" sm="6" lg="5">
-            <label>
-              Address line 2 -
-              <small>optional</small>
-            </label>
+            <label>Address line 2 (Optional)</label>
             <v-text-field dense flat outlined solo v-model="businessAddressLine2" />
           </v-col>
         </v-row>
@@ -195,9 +190,7 @@
             />
           </v-col>
           <v-col cols="12" sm="6" lg="5">
-            <label>
-              Alternative Phone Number (Optional)
-            </label>
+            <label>Alternative Phone Number (Optional)</label>
             <v-text-field
               dense
               flat
@@ -212,13 +205,13 @@
 
         <v-row>
           <v-col cols="12" sm="6" lg="5">
-            <label>e-mail Address (Primary Contact)</label>
+            <label>E-mail Address (Primary Contact)</label>
             <v-text-field
               dense
               flat
               outlined
               solo
-              placeholder="xxx@xxx.com"
+              placeholder="john.doe@example.com"
               prepend-inner-icon="email"
               v-model="covidEmail"
               :rules="covidEmailRules"
@@ -240,10 +233,11 @@
               min-width="290px"
             >
               <template v-slot:activator="{ on }">
+                <label>Start Date</label>
                 <v-text-field
                   v-model="startDate"
                   :rules="startDateRules"
-                  label="Start Date"
+                  placeholder="yyyy-mm-dd"
                   append-icon="event"
                   v-on:click:append="startDateMenu=true"
                   readonly
@@ -272,10 +266,11 @@
               min-width="290px"
             >
               <template v-slot:activator="{ on }">
+                <label>End Date</label>
                 <v-text-field
                   v-model="endDate"
                   :rules="endDateRules"
-                  label="End Date"
+                  placeholder="yyyy-mm-dd"
                   append-icon="event"
                   v-on:click:append="endDateMenu=true"
                   readonly
@@ -305,10 +300,7 @@
           </v-col>
 
           <v-col cols="12" sm="6" lg="5">
-            <label>
-              Address line 2 -
-              <small>optional</small>
-            </label>
+            <label>Address line 2 (Optional)</label>
             <v-text-field v-model="locationAddressLine2" dense flat outlined solo />
           </v-col>
         </v-row>
@@ -402,10 +394,7 @@
             </v-col>
 
             <v-col cols="12" sm="6" lg="5">
-              <label>
-                Address line 2 -
-                <small>optional</small>
-              </label>
+              <label>Address line 2 (Optional)</label>
               <v-text-field v-model="motelAddressLine2" dense flat outlined solo />
             </v-col>
           </v-row>
@@ -524,9 +513,9 @@ export default {
         v => validator.isMobilePhone(v) || 'invalid phone number format',
       ],
       emailRules: [
-        v => !!v || 'e-mail is required',
+        v => !!v || 'E-mail is required',
         v=> validator.isEmail(v, { allow_display_name: true }) || 'invalid e-mail format',
-        v => (v && v.length <= 100) || 'e-mail must be less than 100? characters',
+        v => (v && v.length <= 100) || 'E-mail must be less than 100? characters',
       ],
 
       // Covid Contact
@@ -543,32 +532,32 @@ export default {
         v => validator.isMobilePhone(v) || 'invalid phone number format',
       ],
       covidEmailRules: [
-        v => !!v || 'e-mail is required',
+        v => !!v || 'E-mail is required',
         v=> validator.isEmail(v, { allow_display_name: true }) || 'invalid e-mail format',
-        v => (v && v.length <= 100) || 'e-mail must be less than 100? characters',
+        v => (v && v.length <= 100) || 'E-mail must be less than 100? characters',
       ],
 
       // Location
       licenceesRules: [
-        v => !!v || 'name of licencee(s) required'
+        v => !!v || 'Name of licencee(s) required'
       ],
       startDateRules: [
-        v => !!v || 'start date is required'
+        v => !!v || 'Start date is required'
       ],
       endDateRules: [
-        v => !!v || 'end date is required'
+        v => !!v || 'End date is required'
       ],
       locationAddressLine1Rules: [
-        v => !!v || 'line 1 is required'
+        v => !!v || 'Line 1 is required'
       ],
       locationCityRules: [
-        v => !!v || 'city is required'
+        v => !!v || 'City is required'
       ],
       locationProvinceRules: [
-        v => !!v || 'province is required'
+        v => !!v || 'Province is required'
       ],
       locationPostalCodeRules: [
-        v => !!v || 'postal code is required'
+        v => !!v || 'Postal code is required'
       ],
       // Todo, put in some utility fxn somewhere if needed again
       numberOfWorkersRules: [
@@ -761,7 +750,7 @@ form {
   }
   hr {
     margin-bottom: 1.75em;
-    margin-top: .5em;
+    margin-top: 0.5em;
   }
   .row {
     div[class^='col-'],
