@@ -24,16 +24,15 @@
       item-key="confirmationId"
       class="ipc-table"
     >
-      <template v-slot:item.actions="{ item }" class="action-column">
-        <GeneratePdfButton :ipcPlanId="item.ipcPlanId" class="mr-5">
-          <v-btn outlined small>
-            <v-icon class="mr-2" color="primary">cloud_download</v-icon>PDF
-          </v-btn>
+      <template v-slot:item.download="{ item }">
+        <GeneratePdfButton :ipcPlanId="item.ipcPlanId">
+          <v-btn text small color="primary">PDF</v-btn>
         </GeneratePdfButton>
+      </template>
+
+      <template v-slot:item.details="{ item }">
         <router-link :to="{ name: 'Submission', params: { ipcPlanId: item.ipcPlanId } }">
-          <v-btn outlined small>
-            <v-icon class="mr-2" color="primary">folder_open</v-icon>VIEW
-          </v-btn>
+          <v-btn text small color="primary">VIEW</v-btn>
         </router-link>
       </template>
     </v-data-table>
@@ -63,7 +62,8 @@ export default {
         { text: 'Submitted', value: 'created' },
         { text: 'Business Name', align: 'start', value: 'name' },
         { text: 'Confirmation ID', align: 'start', value: 'confirmationId' },
-        { text: '', value: 'actions', sortable: false }
+        { text: 'Download', value: 'download', sortable: false },
+        { text: 'Details', value: 'details', sortable: false }
       ],
       submissions: [],
       loading: true,
