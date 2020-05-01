@@ -15,6 +15,6 @@ describe('Dashboard.vue', () => {
       stubs: ['BaseSecure']
     });
 
-    expect(wrapper.html()).toMatch('Dashboard');
+    expect(wrapper.html()).toMatch('');
   });
 });
