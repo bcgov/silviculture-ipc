@@ -1,7 +1,6 @@
 <template>
   <v-container class="dashboard text-center">
     <BaseSecure>
-      <h1 class="my-6">Dashboard</h1>
       <div v-if="dashboardUrl" class="dashboard-container">
         <iframe :src="dashboardUrl" />
       </div>
