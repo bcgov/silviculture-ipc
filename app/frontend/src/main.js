@@ -74,6 +74,10 @@ async function loadConfig() {
       throw new Error('OrgBook API is misconfigured');
     }
 
+    if (!config || !config.geocoder || !config.geocoder.endpoint) {
+      throw new Error('Geocoder API is misconfigured');
+    }
+
     loadKeycloak(config);
   } catch (err) {
     sessionStorage.removeItem(storageKey);

@@ -9,13 +9,16 @@
     "apiPath": "FRONTEND_APIPATH",
     "basePath": "FRONTEND_BASEPATH",
     "dashboardUrl": "FRONTEND_DASHBOARDURL",
+    "geocoder": {
+      "endpoint": "FRONTEND_GEOCODER_ENDPOINT"
+    },
     "keycloak": {
       "clientId": "FRONTEND_KC_CLIENTID",
       "realm": "FRONTEND_KC_REALM",
       "serverUrl": "FRONTEND_KC_SERVERURL"
     },
     "orgbook": {
-      "endpoint": "ORGBOOK_API_ENDPOINT"
+      "endpoint": "FRONTEND_ORGBOOK_ENDPOINT"
     }
   },
   "server": {
