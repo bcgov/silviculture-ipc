@@ -42,7 +42,7 @@ export default {
       city: '',
       province: '',
       postalCode: '',
-      numberOfWorkers: 1,
+      numberOfWorkers: '',
       accTents: false,
       tentDetails: '',
       accMotel: false,
