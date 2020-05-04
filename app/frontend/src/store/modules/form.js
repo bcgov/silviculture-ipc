@@ -185,31 +185,31 @@ export default {
       } finally {
         commit('setGettingForm', false);
       }
-    }
-  },
-  async submitForm({ commit, state }) {
-    commit('setSubmitting', true);
-    commit('setSubmissionError', '');
-    try {
-      commit('updateIpcPlan', { formVersion: process.env.VUE_APP_VERSION });
-      const body = {
-        business: state.business,
-        contacts: state.contacts,
-        ipcPlan: state.ipcPlan,
-        covidContact: state.covidContact,
-        location: state.location
-      };
-      const response = await ipcService.sendIPCContent(body);
-      if (!response.data) {
-        throw new Error('No response data from API while submitting form');
+    },
+    async submitForm({ commit, state }) {
+      commit('setSubmitting', true);
+      commit('setSubmissionError', '');
+      try {
+        commit('updateIpcPlan', { formVersion: process.env.VUE_APP_VERSION });
+        const body = {
+          business: state.business,
+          contacts: state.contacts,
+          ipcPlan: state.ipcPlan,
+          covidContact: state.covidContact,
+          location: state.location
+        };
+        const response = await ipcService.sendIPCContent(body);
+        if (!response.data) {
+          throw new Error('No response data from API while submitting form');
+        }
+        commit('setSubmissionDetails', response.data);
+        commit('setSubmissionComplete');
+      } catch (error) {
+        console.error(`Error submitting form: ${error}`); // eslint-disable-line no-console
+        commit('setSubmissionError', 'An error occurred while attempting to submit the form. Please try again.');
+      } finally {
+        commit('setSubmitting', false);
       }
-      commit('setSubmissionDetails', response.data);
-      commit('setSubmissionComplete');
-    } catch (error) {
-      console.error(`Error submitting form: ${error}`); // eslint-disable-line no-console
-      commit('setSubmissionError', 'An error occurred while attempting to submit the form. Please try again.');
-    } finally {
-      commit('setSubmitting', false);
     }
   }
 };
