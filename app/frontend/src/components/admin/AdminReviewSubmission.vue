@@ -1,43 +1,40 @@
 <template>
   <v-container class="ipc-wrapper">
-    <v-progress-linear v-if="gettingForm" color="primary"></v-progress-linear>
-    <div v-else>
-      <v-card outlined class="review-form">
-        <h2 class="review-heading">Contact Information</h2>
-        <Step2 :reviewMode="true" />
-      </v-card>
+    <v-card outlined class="review-form">
+      <h2 class="review-heading">Contact Information</h2>
+      <Step2 :reviewMode="true" />
+    </v-card>
 
-      <v-card outlined class="review-form">
-        <h2 class="review-heading">Before Workers Arrive</h2>
-        <Step3 :reviewMode="true" />
-      </v-card>
+    <v-card outlined class="review-form">
+      <h2 class="review-heading">Before Workers Arrive</h2>
+      <Step3 :reviewMode="true" />
+    </v-card>
 
-      <v-card outlined class="review-form">
-        <h2 class="review-heading">After Workers Arrive</h2>
-        <Step4 :reviewMode="true" />
-      </v-card>
+    <v-card outlined class="review-form">
+      <h2 class="review-heading">After Workers Arrive</h2>
+      <Step4 :reviewMode="true" />
+    </v-card>
 
-      <v-card outlined class="review-form">
-        <h2 class="review-heading">If Workers Become Ill</h2>
-        <Step5 :reviewMode="true" />
-      </v-card>
+    <v-card outlined class="review-form">
+      <h2 class="review-heading">If Workers Become Ill</h2>
+      <Step5 :reviewMode="true" />
+    </v-card>
 
-      <v-card outlined class="review-form">
-        <h2 class="review-heading mb-5">Certification</h2>
-        <div class="pl-7">
-          <v-checkbox
-            readonly
-            v-model="certifyAccurateInformation"
-            label="I certify this information to be accurate"
-          ></v-checkbox>
-          <v-checkbox
-            readonly
-            v-model="agreeToInspection"
-            label="I agree that my planting camps will be subject to a site inspection"
-          ></v-checkbox>
-        </div>
-      </v-card>
-    </div>
+    <v-card outlined class="review-form">
+      <h2 class="review-heading mb-5">Certification</h2>
+      <div class="pl-7">
+        <v-checkbox
+          readonly
+          v-model="certifyAccurateInformation"
+          label="I certify this information to be accurate"
+        ></v-checkbox>
+        <v-checkbox
+          readonly
+          v-model="agreeToInspection"
+          label="I agree that my planting camps will be subject to a site inspection"
+        ></v-checkbox>
+      </div>
+    </v-card>
   </v-container>
 </template>
 

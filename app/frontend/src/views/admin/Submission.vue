@@ -1,7 +1,8 @@
 <template>
   <v-container>
     <BaseSecure admin>
-      <v-alert v-if="getFormError" type="error" tile dense>{{ getFormError }}</v-alert>
+      <v-progress-linear v-if="gettingForm" color="primary" />
+      <v-alert v-else-if="getFormError" type="error" tile dense>{{ getFormError }}</v-alert>
       <div v-else>
         <h1>{{ business.name }}</h1>
         <h3>Submitted: {{ new Date(ipcPlan.createdAt).toLocaleString() }}</h3>
@@ -22,7 +23,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
 
 import AdminReviewSubmission from '@/components/admin/AdminReviewSubmission.vue';
 import InspectionPanel from '@/components/admin/InspectionPanel.vue';
@@ -45,9 +46,11 @@ export default {
     ...mapGetters('form', ['business', 'getFormError', 'ipcPlan']),
   },
   methods: {
+    ...mapMutations('form', ['setGettingForm']),
     ...mapActions('form', ['getForm'])
   },
   async mounted() {
+    this.setGettingForm(true);
     await this.getForm(this.ipcPlanId);
   }
 };
