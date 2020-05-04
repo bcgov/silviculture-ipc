@@ -1,5 +1,5 @@
 <template>
-  <footer class="gov-footer v-footer">
+  <v-footer class="gov-footer">
     <v-btn text id="footer-home" href="https://www.gov.bc.ca/">
       <span>Home</span>
     </v-btn>
@@ -21,9 +21,9 @@
     <v-btn text id="footer-contact" href="https://www2.gov.bc.ca/gov/content/home/contact-us">
       <span>Contact Us</span>
     </v-btn>
-    <v-spacer/>
+    <v-spacer />
     <span class="app-version">v{{ appVersion }}</span>
-  </footer>
+  </v-footer>
 </template>
 
 <script>
@@ -71,7 +71,6 @@ export default {
   .app-version {
     font-size: smaller;
     color: white;
-    margin-top: 12px;
   }
 }
 </style>

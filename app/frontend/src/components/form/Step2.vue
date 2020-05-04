@@ -126,7 +126,8 @@
               flat
               outlined
               solo
-              placeholder="select"
+              single-line
+              label="Select"
               v-model="businessAddressProvince"
               :rules="businessAddressProvinceRules"
             />
@@ -365,7 +366,8 @@
                 flat
                 outlined
                 solo
-                placeholder="select"
+                single-line
+                label="select"
                 v-model="motelProvince"
                 :items="provinces"
               />

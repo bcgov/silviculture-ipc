@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import Vue from 'vue';
 
 export default {
@@ -77,15 +78,14 @@ export default {
       this.isLoading = true;
 
       // Lazily load results
-      fetch(
+      axios.get(
         `${this.apiURL}/search/autocomplete?q=${encodeURIComponent(
           val
         )}&inactive=false&latest=true&revoked=false`
       )
-        .then((res) => res.json())
         .then((res) => {
-          this.count = res.results.length;
-          this.entries = res.results;
+          this.count = res.data.results.length;
+          this.entries = res.data.results;
         })
         .catch((err) => {
           // eslint-disable-next-line
