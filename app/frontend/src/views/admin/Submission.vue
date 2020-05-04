@@ -11,7 +11,7 @@
             <AdminReviewSubmission />
           </v-col>
           <v-col cols="12" md="4">
-            <v-card class="elevation-2 mx-auto">
+            <v-card outlined class="mx-auto">
               <InspectionPanel />
             </v-card>
           </v-col>

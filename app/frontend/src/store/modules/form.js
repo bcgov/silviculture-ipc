@@ -181,7 +181,7 @@ export default {
         commit('setSubmissionComplete');
       } catch (error) {
         console.error(`Error getting form: ${error}`); // eslint-disable-line no-console
-        commit('setGetFormError', 'An error occurred while attempting to get the IPC details. Please refresh and again.');
+        commit('setGetFormError', 'An error occurred while attempting to fetch details. Please refresh and try again.');
       } finally {
         commit('setGettingForm', false);
       }
