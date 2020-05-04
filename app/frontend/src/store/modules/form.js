@@ -3,6 +3,8 @@ import ipcService from '../../services/ipcService';
 export default {
   namespaced: true,
   state: {
+    getFormError: '',
+    gettingForm: false,
     submitting: false,
     step: 1,
     submissionComplete: false,
@@ -103,6 +105,8 @@ export default {
     }
   },
   getters: {
+    getFormError: state => state.getFormError,
+    gettingForm: state => state.gettingForm,
     step: state => state.step,
     submitting: state => state.submitting,
     submissionComplete: state => state.submissionComplete,
@@ -117,6 +121,12 @@ export default {
     location: state => state.location,
   },
   mutations: {
+    setGetFormError(state, errorMessage) {
+      state.getFormError = errorMessage;
+    },
+    setGettingForm(state, isGetting) {
+      state.gettingForm = isGetting;
+    },
     setSubmitting(state, isSubmitting) {
       state.submitting = isSubmitting;
     },
@@ -153,31 +163,53 @@ export default {
     },
   },
   actions: {
-    async submitForm({ commit, state }) {
-      commit('setSubmitting', true);
-      commit('setSubmissionError', '');
+    async getForm({ commit }, ipcPlanId) {
+      commit('setGettingForm', true);
+      commit('setGetFormError', '');
       try {
-        // TODO: set to FE package version
-        commit('updateIpcPlan', { formVersion: process.env.VUE_APP_VERSION });
-        const body = {
-          business: state.business,
-          contacts: state.contacts,
-          ipcPlan: state.ipcPlan,
-          covidContact: state.covidContact,
-          location: state.location
-        };
-        const response = await ipcService.sendIPCContent(body);
+        const response = await ipcService.getIPCContent(ipcPlanId);
         if (!response.data) {
-          throw new Error('No response data from API while submitting form');
+          throw new Error(`Failed to GET for ${ipcPlanId}`);
         }
-        commit('setSubmissionDetails', response.data);
+        const data = response.data;
+
+        commit('updateIpcPlan', data.ipcPlan);
+        commit('updateBusiness', data.business);
+        commit('updateContacts', data.contacts[0]);
+        commit('updateCovidContact', data.covidContact);
+        commit('updateLocation', data.location);
         commit('setSubmissionComplete');
       } catch (error) {
-        console.error(`Error submitting form: ${error}`); // eslint-disable-line no-console
-        commit('setSubmissionError', 'An error occurred while attempting to submit the form. Please try again.');
+        console.error(`Error getting form: ${error}`); // eslint-disable-line no-console
+        commit('setGetFormError', 'An error occurred while attempting to get the IPC details. Please refresh and again.');
       } finally {
-        commit('setSubmitting', false);
+        commit('setGettingForm', false);
       }
+    }
+  },
+  async submitForm({ commit, state }) {
+    commit('setSubmitting', true);
+    commit('setSubmissionError', '');
+    try {
+      commit('updateIpcPlan', { formVersion: process.env.VUE_APP_VERSION });
+      const body = {
+        business: state.business,
+        contacts: state.contacts,
+        ipcPlan: state.ipcPlan,
+        covidContact: state.covidContact,
+        location: state.location
+      };
+      const response = await ipcService.sendIPCContent(body);
+      if (!response.data) {
+        throw new Error('No response data from API while submitting form');
+      }
+      commit('setSubmissionDetails', response.data);
+      commit('setSubmissionComplete');
+    } catch (error) {
+      console.error(`Error submitting form: ${error}`); // eslint-disable-line no-console
+      commit('setSubmissionError', 'An error occurred while attempting to submit the form. Please try again.');
+    } finally {
+      commit('setSubmitting', false);
     }
   }
 };

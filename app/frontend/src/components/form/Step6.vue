@@ -32,7 +32,10 @@
         <a
           href="https://www2.gov.bc.ca/gov/content/health/keeping-bc-healthy-safe/industrial-camps"
           target="_blank"
-        >Health Authority Contacts for Industrial Camps <v-icon small color="primary">open_in_new</v-icon></a>
+        >
+          Health Authority Contacts for Industrial Camps
+          <v-icon small color="primary">open_in_new</v-icon>
+        </a>
         <!--
         <p>
           <strong>Fraser Health Authority</strong>
@@ -74,7 +77,10 @@
         <a
           href="#"
           @click="refresh"
-        >click here <v-icon small color="primary">refresh</v-icon></a>)
+        >
+          click here
+          <v-icon small color="primary">refresh</v-icon>
+        </a>)
       </p>
     </div>
     <div v-else>
@@ -234,7 +240,7 @@ export default {
     Step2,
     Step3,
     Step4,
-    Step5,
+    Step5
   },
   data() {
     return {
@@ -275,7 +281,7 @@ export default {
     }
   },
   mounted() {
-    document.querySelectorAll('.review-form input').forEach(q => {
+    document.querySelectorAll('.review-form input, .review-form .v-select').forEach(q => {
       q.setAttribute('readonly', 'true');
     });
   }
