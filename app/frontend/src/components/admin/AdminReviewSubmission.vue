@@ -3,71 +3,39 @@
     <v-progress-linear v-if="gettingForm" color="primary"></v-progress-linear>
     <div v-else>
       <v-card outlined class="review-form">
-        <h2 class="review-heading">
-          Contact Information
-          <v-btn
-            v-if="!submissionComplete"
-            color="primary"
-            class="mx-5"
-            fab
-            x-small
-            @click="setStep(2)"
-          >
-            <v-icon>mdi-pencil</v-icon>
-          </v-btn>
-        </h2>
+        <h2 class="review-heading">Contact Information</h2>
         <Step2 :reviewMode="true" />
       </v-card>
 
       <v-card outlined class="review-form">
-        <h2 class="review-heading">
-          Before Workers Arrive
-          <v-btn
-            v-if="!submissionComplete"
-            color="primary"
-            class="mx-5"
-            fab
-            x-small
-            @click="setStep(3)"
-          >
-            <v-icon>mdi-pencil</v-icon>
-          </v-btn>
-        </h2>
+        <h2 class="review-heading">Before Workers Arrive</h2>
         <Step3 :reviewMode="true" />
       </v-card>
 
       <v-card outlined class="review-form">
-        <h2 class="review-heading">
-          After Workers Arrive
-          <v-btn
-            v-if="!submissionComplete"
-            color="primary"
-            class="mx-5"
-            fab
-            x-small
-            @click="setStep(4)"
-          >
-            <v-icon>mdi-pencil</v-icon>
-          </v-btn>
-        </h2>
+        <h2 class="review-heading">After Workers Arrive</h2>
         <Step4 :reviewMode="true" />
       </v-card>
 
       <v-card outlined class="review-form">
-        <h2 class="review-heading">
-          If Workers Become Ill
-          <v-btn
-            v-if="!submissionComplete"
-            color="primary"
-            class="mx-5"
-            fab
-            x-small
-            @click="setStep(5)"
-          >
-            <v-icon>mdi-pencil</v-icon>
-          </v-btn>
-        </h2>
+        <h2 class="review-heading">If Workers Become Ill</h2>
         <Step5 :reviewMode="true" />
+      </v-card>
+
+      <v-card outlined class="review-form">
+        <h2 class="review-heading mb-5">Certification</h2>
+        <div class="pl-7">
+          <v-checkbox
+            readonly
+            v-model="certifyAccurateInformation"
+            label="I certify this information to be accurate"
+          ></v-checkbox>
+          <v-checkbox
+            readonly
+            v-model="agreeToInspection"
+            label="I agree that my planting camps will be subject to a site inspection"
+          ></v-checkbox>
+        </div>
       </v-card>
     </div>
   </v-container>
@@ -91,6 +59,9 @@ export default {
   },
   computed: {
     ...mapGetters('form', ['gettingForm', 'ipcPlan', 'submissionComplete']),
+    // Certify checkboxes
+    certifyAccurateInformation() { return this.ipcPlan.certifyAccurateInformation; },
+    agreeToInspection() { return this.ipcPlan.agreeToInspection; }
   },
   mounted() {
     document.querySelectorAll('.review-form input, .review-form .v-select').forEach(q => {
