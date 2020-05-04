@@ -109,17 +109,25 @@ export default {
   .review-heading {
     margin-left: 0.5em;
     margin-bottom: em;
+    color: #003366;
   }
   &::v-deep {
-    h3,
-    .v-input--checkbox {
-      margin-top: 0.2em !important;
-    }
     .hide-on-review {
       display: none;
     }
+
+    h3 {
+      margin-top: 0.2em !important;
+    }
+    .heading-field-label {
+      font-size: normal;
+    }
+
     .v-input__slot {
       padding-left: 0 !important;
+      input {
+        padding-top: 0;
+      }
     }
     .v-input__icon,
     .v-text-field__details {
@@ -135,6 +143,26 @@ export default {
     input::-moz-placeholder {
       /* Firefox 19+ */
       color: white;
+    }
+
+    .v-input--checkbox,
+    .v-input--radio-group__input {
+      margin-top: 0;
+      padding-top: 0;
+      label {
+        font-size: 14px;
+      }
+    }
+
+    .question-series {
+      p {
+        font-size: 14px;
+      }
+      .questions {
+        .v-input__slot {
+          margin-bottom: 0;
+        }
+      }
     }
   }
 }
