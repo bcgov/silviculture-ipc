@@ -290,13 +290,29 @@
         <v-row>
           <v-col cols="12" sm="6" lg="5">
             <label>Closest Community / Town / City</label>
-            <v-text-field
+            <!-- <v-text-field
               v-model="locationCity"
               :rules="locationCityRules"
               dense
               flat
               outlined
               solo
+            />
+            </v-col>-->
+
+            <CityLookup
+              v-if="!reviewMode"
+              :field-model.sync="locationCity"
+              :field-rules="locationCityRules"
+            />
+            <v-text-field
+              v-if="reviewMode"
+              dense
+              flat
+              outlined
+              solo
+              v-model="locationCity"
+              :rules="locationCityRules"
             />
           </v-col>
         </v-row>
@@ -418,6 +434,7 @@
 import validator from 'validator';
 import { mapGetters, mapMutations } from 'vuex';
 
+import CityLookup from '@/components/form/CityLookup.vue';
 import OrgBookSearch from '@/components/form/OrgBookSearch.vue';
 
 export default {
@@ -426,6 +443,7 @@ export default {
     reviewMode: Boolean
   },
   components: {
+    CityLookup,
     OrgBookSearch
   },
   data() {
