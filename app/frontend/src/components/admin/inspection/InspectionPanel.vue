@@ -12,7 +12,7 @@
         <strong>Assigned To:</strong>
         {{ currentStatus.inspectorName }}
       </span>
-      <span v-if="currentStatus.inspectorName">
+      <span v-if="currentStatus.inspectionDate">
         <br />
         <strong>Inspection Date:</strong>
         {{ new Date(currentStatus.inspectionDate).toLocaleString('en-CA', { dateStyle:'long'}) }}
@@ -22,13 +22,65 @@
     <v-row>
       <v-col cols="12" xl="8" offset-xl="2">
         <div v-if="currentStatus.status === statuses.SUBMITTED">
-          <Assign v-on:status-updated="getInspectionData" :ipcPlanId="ipcPlanId" />
+          <Status
+            label="Assign"
+            :statusToSet="statuses.ASSIGNED"
+            :ipcPlanId="ipcPlanId"
+            v-on:status-updated="getInspectionData"
+          />
         </div>
         <div v-if="currentStatus.status === statuses.ASSIGNED">
-          <Schedule
+          <Status
+            label="Schedule"
+            :statusToSet="statuses.SCHEDULED"
             v-on:status-updated="getInspectionData"
             :existingStatus="currentStatus"
             :ipcPlanId="ipcPlanId"
+          />
+          <br />
+          <Status
+            label="Re-assign"
+            :statusToSet="statuses.ASSIGNED"
+            v-on:status-updated="getInspectionData"
+            :existingStatus="currentStatus"
+            :ipcPlanId="ipcPlanId"
+            :primary="false"
+          />
+        </div>
+        <div v-if="currentStatus.status === statuses.SCHEDULED">
+          <Status
+            label="Complete"
+            :statusToSet="statuses.COMPLETED"
+            v-on:status-updated="getInspectionData"
+            :existingStatus="currentStatus"
+            :ipcPlanId="ipcPlanId"
+          />
+          <br />
+          <Status
+            label="Follow Up"
+            :statusToSet="statuses.FOLLOWUP"
+            v-on:status-updated="getInspectionData"
+            :existingStatus="currentStatus"
+            :ipcPlanId="ipcPlanId"
+            :primary="false"
+          />
+          <br />
+          <Status
+            label="Re-assign"
+            :statusToSet="statuses.CANCELLED"
+            v-on:status-updated="getInspectionData"
+            :existingStatus="currentStatus"
+            :ipcPlanId="ipcPlanId"
+            :primary="false"
+          />
+          <br />
+          <Status
+            label="Cancel Inspection"
+            :statusToSet="statuses.CANCELLED"
+            v-on:status-updated="getInspectionData"
+            :existingStatus="currentStatus"
+            :ipcPlanId="ipcPlanId"
+            :primary="false"
           />
         </div>
       </v-col>
@@ -61,15 +113,13 @@ import { mapGetters } from 'vuex';
 
 import ipcService from '@/services/ipcService';
 import StatusTable from '@/components/admin/StatusTable.vue';
-import Assign from '@/components/admin/inspection/Assign.vue';
-import Schedule from '@/components/admin/inspection/Schedule.vue';
+import Status from '@/components/admin/inspection/Status.vue';
 import { Statuses } from '@/utils/constants';
 
 export default {
   name: 'InspectionPanel',
   components: {
-    Assign,
-    Schedule,
+    Status,
     StatusTable,
   },
   props: {
