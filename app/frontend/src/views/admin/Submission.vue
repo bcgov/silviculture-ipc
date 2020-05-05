@@ -5,16 +5,25 @@
       <v-alert v-else-if="getFormError" type="error" tile dense>{{ getFormError }}</v-alert>
       <div v-else>
         <h1>{{ business.name }}</h1>
-        <h3>Submitted: {{ new Date(ipcPlan.createdAt).toLocaleString() }}</h3>
+        <h4 class="heading-detail">
+          Submitted:
+          <span>{{ new Date(ipcPlan.createdAt).toLocaleString() }}</span>
+        </h4>
+        <h4 class="heading-detail">
+          Confirmation ID:
+          <span>{{ confirmationId }}</span>
+        </h4>
+        <h4 class="heading-detail">
+          Operation Dates:
+          <span>{{ location.startDate }} - {{ location.endDate }}</span>
+        </h4>
 
         <v-row>
           <v-col cols="12" md="8" class="pl-0 pt-0">
             <AdminReviewSubmission />
           </v-col>
           <v-col cols="12" md="4">
-            <v-card outlined class="mx-auto">
-              <InspectionPanel />
-            </v-card>
+            <InspectionPanel />
           </v-col>
         </v-row>
       </div>
@@ -43,7 +52,14 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('form', ['business', 'getFormError', 'ipcPlan']),
+    ...mapGetters('form', ['business', 'location', 'getFormError', 'ipcPlan']),
+    confirmationId() {
+      if(this.ipcPlan && this.ipcPlan.ipcPlanId) {
+        return this.ipcPlan.ipcPlanId.split('-')[0].toUpperCase();
+      } else {
+        return '';
+      }
+    },
   },
   methods: {
     ...mapMutations('form', ['setGettingForm']),
@@ -55,3 +71,12 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.heading-detail {
+  margin-top: 0.5em;
+}
+.heading-detail span {
+  font-weight: lighter;
+}
+</style>

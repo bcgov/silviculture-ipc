@@ -1,5 +1,5 @@
 <template>
-  <v-container class="ipc-wrapper">
+  <v-container>
     <v-card outlined class="review-form">
       <h2 class="review-heading">Contact Information</h2>
       <Step2 :reviewMode="true" />
@@ -70,10 +70,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
+$background: #fafafa;
 .review-form {
   font-size: smaller;
   margin-bottom: 2em;
   padding: 1em;
+  background-color: $background;
   .review-heading {
     margin-left: 0.5em;
     margin-bottom: em;
@@ -92,6 +94,7 @@ export default {
     }
 
     .v-input__slot {
+      background-color: $background !important;
       padding-left: 0 !important;
       input {
         padding-top: 0;
@@ -102,15 +105,16 @@ export default {
       display: none;
     }
     fieldset {
+      background-color: $background;
       border: 0;
     }
     input::-webkit-input-placeholder {
       /* Chrome/Opera/Safari */
-      color: white;
+      color: $background;
     }
     input::-moz-placeholder {
       /* Firefox 19+ */
-      color: white;
+      color: $background;
     }
 
     .v-input--checkbox,
