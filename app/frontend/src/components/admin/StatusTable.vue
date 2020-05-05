@@ -3,7 +3,7 @@
     <v-alert v-if="showAlert" :type="alertType" tile dense>{{alertMessage}}</v-alert>
 
     <v-data-table
-      disable-pagination="true"
+      disable-pagination
       :hide-default-footer="true"
       :headers="headers"
       :items="statuses"

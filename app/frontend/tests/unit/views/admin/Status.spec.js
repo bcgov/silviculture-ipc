@@ -16,6 +16,6 @@ describe('Status.vue', () => {
       stubs: ['BaseSecure', 'StatusTable']
     });
 
-    expect(wrapper.text()).toMatch('Back');
+    expect(wrapper.text()).toMatch('Submission Status History');
   });
 });
