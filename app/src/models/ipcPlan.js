@@ -294,6 +294,9 @@ module.exports = (sequelize, DataTypes) => {
     IPCPlan.hasMany(models.InspectionStatus, {
       foreignKey: 'ipcPlanId'
     });
+    IPCPlan.hasMany(models.Note, {
+      foreignKey: 'ipcPlanId'
+    });
     IPCPlan.hasOne(models.Location, {
       foreignKey: 'ipcPlanId'
     });

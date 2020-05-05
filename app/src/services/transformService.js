@@ -53,6 +53,20 @@ const transformService = {
   },
 
   modelToAPI: {
+    note: (obj) => {
+      if (obj && !Array.isArray(obj)) {
+        return {...obj.dataValues};
+      }
+      return {};
+    },
+
+    notes: (obj) => {
+      if (obj && Array.isArray(obj)) {
+        return obj.map(x => { return {...x.dataValues}; });
+      }
+      return [];
+    },
+
     inspectionStatus: (obj) => {
       if (obj && !Array.isArray(obj)) {
         return {...obj.dataValues};
@@ -89,6 +103,7 @@ const transformService = {
       result.location.endDate = transformService.dateToString(xform.location.endDate);
 
       result.inspectionStatuses = xform.inspectionStatuses;
+      result.notes = xform.notes;
       return result;
     },
 
@@ -100,14 +115,15 @@ const transformService = {
 
   confirmationId: ipcPlan => ipcPlan ? ipcPlan.ipcPlanId.split('-')[0].toUpperCase() : undefined,
 
-  ipcResult: (business, contacts, ipcPlan, location, inspectionStatuses) => {
+  ipcResult: (business, contacts, ipcPlan, location, inspectionStatuses, notes) => {
     return {
       confirmationId: transformService.confirmationId(ipcPlan),
       business: business,
       contacts: contacts,
       ipcPlan: ipcPlan,
       location: location,
-      inspectionStatuses: inspectionStatuses
+      inspectionStatuses: inspectionStatuses,
+      notes: notes
     };
   },
 
@@ -125,12 +141,16 @@ const transformService = {
     const inspectionStatuses = ipcPlan.InspectionStatuses.map(s => {
       return {...s.dataValues};
     });
+    const notes = ipcPlan.Notes.map(s => {
+      return {...s.dataValues};
+    });
+    delete ipcPlan.Notes;
     delete ipcPlan.InspectionStatuses;
     delete ipcPlan.Contacts;
     delete ipcPlan.Business;
     delete ipcPlan.Location;
 
-    return transformService.ipcResult(biz, contacts, ipcPlan, location, inspectionStatuses);
+    return transformService.ipcResult(biz, contacts, ipcPlan, location, inspectionStatuses, notes);
   },
 
   transformIPCPlanMeta: obj => {
