@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <BaseSecure admin>
-      <v-progress-linear v-if="gettingForm" color="primary" />
+      <v-progress-linear indeterminate v-if="gettingForm" color="primary" class="mb-2" />
 
       <v-alert v-if="getFormError" type="error" tile dense>{{ getFormError }}</v-alert>
 
@@ -36,7 +36,7 @@
             <AdminReviewSubmission />
           </v-col>
           <v-col cols="12" md="4" class="pl-0">
-            <InspectionPanel />
+            <InspectionPanel :ipcPlanId="ipcPlan.ipcPlanId" />
           </v-col>
         </v-row>
       </div>
