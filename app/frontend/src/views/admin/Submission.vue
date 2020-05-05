@@ -5,7 +5,7 @@
 
       <v-alert v-if="getFormError" type="error" tile dense>{{ getFormError }}</v-alert>
 
-      <div v-if="!gettingForm">
+      <div v-if="!gettingForm && ipcPlan">
         <v-row>
           <v-col cols="12" sm="8" lg="10">
             <h1>{{ business.name }}</h1>
