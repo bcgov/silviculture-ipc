@@ -49,7 +49,7 @@ import { mapActions, mapGetters, mapMutations } from 'vuex';
 
 import AdminReviewSubmission from '@/components/admin/AdminReviewSubmission.vue';
 import GeneratePdfButton from '@/components/common/GeneratePdfButton.vue';
-import InspectionPanel from '@/components/admin/InspectionPanel.vue';
+import InspectionPanel from '@/components/admin/inspection/InspectionPanel.vue';
 
 export default {
   name: 'Submission',

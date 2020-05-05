@@ -6,49 +6,30 @@
     <h2 class="inspection-heading">Inspection Status</h2>
     <p>
       <strong>Current Status:</strong>
-      {{ currentStatus }}
+      {{ currentStatus.status }}
+      <span v-if="currentStatus.inspectorName">
+        <br />
+        <strong>Assigned To:</strong>
+        {{ currentStatus.inspectorName }}
+      </span>
+      <span v-if="currentStatus.inspectorName">
+        <br />
+        <strong>Inspection Date:</strong>
+        {{ new Date(currentStatus.inspectionDate).toLocaleString('en-CA', { dateStyle:'long'}) }}
+      </span>
     </p>
 
     <v-row>
       <v-col cols="12" xl="8" offset-xl="2">
-        <!-- Assign -->
-        <div>
-          <v-btn
-            v-if="!assignCard"
-            block
-            color="primary"
-            class="pl-0"
-            @click="assignCard = true"
-          >ASSIGN</v-btn>
-
-          <v-card v-show="assignCard" class="elevation-4">
-            <v-card-title>Assign</v-card-title>
-            <v-card-text>
-              <label>Inspector Name</label>
-              <v-text-field v-model="inspectorName" dense flat outlined solo />
-
-              <label>Inspector Email (Optional)</label>
-              <v-text-field v-model="inspectorEmail" dense flat outlined solo />
-
-              <div class="text-right">
-                <v-btn
-                  text
-                  small
-                  color="primary"
-                  class="pl-0 my-0 text-end"
-                  @click="assignToCurrentUser"
-                >
-                  <v-icon class="mr-1">person</v-icon>ASSIGN TO ME
-                </v-btn>
-              </div>
-            </v-card-text>
-
-            <v-card-actions>
-              <v-btn small color="primary" @click="assignCard = false;">SAVE</v-btn>
-
-              <v-btn small color="primary" @click="assignCard = false" text>CANCEL</v-btn>
-            </v-card-actions>
-          </v-card>
+        <div v-if="currentStatus.status === statuses.SUBMITTED">
+          <Assign v-on:status-updated="getInspectionData" :ipcPlanId="ipcPlanId" />
+        </div>
+        <div v-if="currentStatus.status === statuses.ASSIGNED">
+          <Schedule
+            v-on:status-updated="getInspectionData"
+            :existingStatus="currentStatus"
+            :ipcPlanId="ipcPlanId"
+          />
         </div>
       </v-col>
     </v-row>
@@ -80,11 +61,15 @@ import { mapGetters } from 'vuex';
 
 import ipcService from '@/services/ipcService';
 import StatusTable from '@/components/admin/StatusTable.vue';
-//import { Statuses } from '@/utils/constants';
+import Assign from '@/components/admin/inspection/Assign.vue';
+import Schedule from '@/components/admin/inspection/Schedule.vue';
+import { Statuses } from '@/utils/constants';
 
 export default {
   name: 'InspectionPanel',
   components: {
+    Assign,
+    Schedule,
     StatusTable,
   },
   props: {
@@ -95,14 +80,11 @@ export default {
   },
   data() {
     return {
-      assignCard: false,
-
       error: '',
       historyDialog: false,
-      inspectorName: '',
-      inspectorEmail: '',
       loading: true,
-      statusHistory: {}
+      statusHistory: {},
+      statuses: Statuses
     };
   },
   computed: {
@@ -110,18 +92,15 @@ export default {
     currentStatus() {
       if (this.statusHistory && this.statusHistory[0]) {
         // Statuses are returned in date precedence, the 0th item in the array is the current status
-        return this.statusHistory[0].status;
+        return this.statusHistory[0];
       } else {
-        return '';
+        return {};
       }
     }
   },
   methods: {
-    assignToCurrentUser() {
-      this.inspectorName = this.fullName;
-      this.inspectorEmail = this.email;
-    },
     getInspectionData() {
+      this.loading = true;
       ipcService
         .getIPCInspectionStatuses(this.ipcPlanId)
         .then(response => {

@@ -51,8 +51,8 @@ export default {
   },
 
   /**
-   * @function getIPCInspectionStatuses
-   * Fetch the inspection statuses of a specific IPC form submission
+   * @function sendIPCInspectionStatuses
+   * Update the inspection statuses of a specific IPC form submission
    * @param {string} ipcPlanId The guid of a submitted ipcplan from the database
    * @param {object} content An object representing the updated status for the `ipcPlanId` form
    * @returns {Promise} An axios response
