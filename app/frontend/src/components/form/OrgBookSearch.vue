@@ -20,11 +20,10 @@
       prepend-icon="mdi-database-search"
       append-icon
     ></v-combobox>
-    <!-- warning box -->
-    <BaseWarningCard v-if="showOrgBookWarning" class="mb-6">
-      <h3>You have entered a Business Name that is not recognised by BC Registries.</h3>
-      <p>This is no big deal.</p>
-    </BaseWarningCard>
+    <!-- Org Book warning -->
+    <v-alert v-if="showOrgBookWarning" type="info" color="warning" tile dense>
+      You have entered a Business Name that is not recognised by BC Registries
+    </v-alert>
   </div>
 </template>
 
