@@ -57,7 +57,7 @@
           />
           <br />
           <Status
-            label="Follow Up"
+            label="Follow-Up"
             :statusToSet="statuses.FOLLOWUP"
             v-on:status-updated="getInspectionData"
             :existingStatus="currentStatus"
