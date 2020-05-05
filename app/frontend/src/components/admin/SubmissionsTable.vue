@@ -42,7 +42,6 @@
 <script>
 import GeneratePdfButton from '@/components/common/GeneratePdfButton.vue';
 import ipcService from '@/services/ipcService';
-import Vue from 'vue';
 
 export default {
   name: 'SubmissionsTable',
@@ -100,10 +99,6 @@ export default {
         .catch(() => {
           this.showTableAlert('error', 'No response from server');
         });
-    },
-    generatePdf(ipcPlanId){
-      const pdf = `${Vue.prototype.$config.basePath}/${Vue.prototype.$config.apiPath}/ipc/pdf/${ipcPlanId}`;
-      window.open(pdf, '_blank');
     },
     showTableAlert(typ, msg) {
       this.showAlert = true;
