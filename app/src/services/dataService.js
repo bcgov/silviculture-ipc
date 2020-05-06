@@ -4,6 +4,19 @@ const Problem = require('api-problem');
 const constants = require('../components/constants');
 const db = require('../models');
 
+const associateNotesToStatus = ipcPlanData =>{
+  if (ipcPlanData.Notes && ipcPlanData.Notes.length) {
+    const notesForStatus = ipcPlanData.Notes.filter(y => y.dataValues.inspectionStatusId);
+    notesForStatus.forEach(n => {
+      const status = ipcPlanData.InspectionStatuses.find(s => s.dataValues.inspectionStatusId === n.dataValues.inspectionStatusId);
+      if (status) {
+        if (!status.Notes) status.Notes = [];
+        status.Notes.push({...n});
+      }
+    });
+  }
+};
+
 module.exports = {
 
   async getNotes(ipcPlanId, inspectionStatusId) {
@@ -45,9 +58,29 @@ module.exports = {
     }
   },
 
+  async getInspectionStatus(inspectionStatusId) {
+    try {
+      const status = await db.InspectionStatus.findByPk(inspectionStatusId,
+        {},
+        {
+          rejectOnEmpty: true
+        }
+      );
+      status.Notes = await this.getNotes(status.ipcPlanId, status.inspectionStatusId);
+      return status;
+    } catch (err) {
+      // api problems should be handled in a layer above, but we have no controller... coming direct to data layer.
+      if (db.isNotFoundError(err)) {
+        throw new Problem(404, {detail: `Inspection Status not found for Inspection Status ID ${inspectionStatusId}`});
+      } else if (db.isSyntaxError(err)) {
+        throw new Problem(422, {detail: `Inspection Status fetch for Inspection Status ID ${inspectionStatusId} `});
+      }
+    }
+  },
+
   async getInspectionStatuses(ipcPlanId) {
     try {
-      const ipcObj = await db.InspectionStatus.findAll(
+      const statuses = await db.InspectionStatus.findAll(
         {
           where: { ipcPlanId: ipcPlanId},
           order: [
@@ -58,7 +91,10 @@ module.exports = {
           rejectOnEmpty: true
         }
       );
-      return ipcObj;
+      for (const s of statuses) {
+        s.Notes = await this.getNotes(s.ipcPlanId, s.inspectionStatusId);
+      }
+      return statuses;
     } catch (err) {
       // api problems should be handled in a layer above, but we have no controller... coming direct to data layer.
       if (db.isNotFoundError(err)) {
@@ -73,10 +109,14 @@ module.exports = {
     try {
       let inspectionStatusObj;
       await db.sequelize.transaction(async t => {
+        // if there is an extra note field in the status, let's create an actual note record...
         inspectionStatusObj = await db.InspectionStatus.create({...obj, createdBy: createdBy, ipcPlanId: ipcPlanId}, {transaction: t});
+        if (obj.note && obj.note.trim().length) {
+          await db.Note.create({note: obj.note, createdBy: createdBy, ipcPlanId: ipcPlanId, inspectionStatusId: inspectionStatusObj.inspectionStatusId}, {transaction: t});
+        }
       });
 
-      return inspectionStatusObj;
+      return this.getInspectionStatus(inspectionStatusObj.inspectionStatusId);
     } catch (e) {
       log.error('dataService.saveInspectionStatus', e.message);
     }
@@ -109,6 +149,7 @@ module.exports = {
           rejectOnEmpty: true
         }
       );
+      associateNotesToStatus(ipcObj);
       return ipcObj;
     } catch (err) {
       // api problems should be handled in a layer above, but we have no controller... coming direct to data layer.
@@ -139,9 +180,16 @@ module.exports = {
           },
           {
             model: db.InspectionStatus
+          },
+          {
+            model: db.Note
           }]
       }
     );
+    const haveNotes = ipcObjs.filter(x => x.Notes && x.Notes.length);
+    haveNotes.forEach(x => {
+      associateNotesToStatus(x);
+    });
     return ipcObjs;
   },
 

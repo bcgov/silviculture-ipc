@@ -69,14 +69,19 @@ const transformService = {
 
     inspectionStatus: (obj) => {
       if (obj && !Array.isArray(obj)) {
-        return {...obj.dataValues};
+        let notes = [];
+        if (obj.Notes) {
+          notes = obj.Notes.map(c => { return {...c.dataValues}; });
+        }
+        const status = {...obj.dataValues, notes: notes};
+        return status;
       }
       return {};
     },
 
     inspectionStatuses: (obj) => {
       if (obj && Array.isArray(obj)) {
-        return obj.map(x => { return {...x.dataValues}; });
+        return obj.map(x => { return transformService.modelToAPI.inspectionStatus(x); });
       }
       return [];
     },
@@ -138,12 +143,8 @@ const transformService = {
     const contacts = ipcPlan.Contacts.map(c => {
       return {...c.dataValues};
     });
-    const inspectionStatuses = ipcPlan.InspectionStatuses.map(s => {
-      return {...s.dataValues};
-    });
-    const notes = ipcPlan.Notes.map(s => {
-      return {...s.dataValues};
-    });
+    const inspectionStatuses = transformService.modelToAPI.inspectionStatuses(ipcPlan.InspectionStatuses);
+    const notes = transformService.modelToAPI.notes(ipcPlan.Notes);
     delete ipcPlan.Notes;
     delete ipcPlan.InspectionStatuses;
     delete ipcPlan.Contacts;
