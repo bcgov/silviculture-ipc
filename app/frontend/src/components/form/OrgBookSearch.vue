@@ -10,8 +10,8 @@
       :items="items"
       :loading="isLoading"
       :search-input.sync="search"
+      :messages="orgBookWarning"
       v-on:change="change"
-      v-on:blur="blur"
       clearable
       hide-no-data
       hide-selected
@@ -21,9 +21,16 @@
       append-icon
     ></v-combobox>
     <!-- Org Book warning -->
-    <v-alert v-if="showOrgBookWarning" type="info" color="warning" tile dense>
-      You have entered a Business Name that is not recognised by BC Registries
-    </v-alert>
+    <BaseInfoCard v-if="showOrgBookHelp" class="ml-8 mb-5">
+      <p class="mb-0">
+        If you are already registered but can't find your name, you can still complete this form.
+        Information on
+        <a
+          href="https://www2.gov.bc.ca/gov/content/employment-business/business/managing-a-business/permits-licences/businesses-incorporated-companies"
+          target="_blank"
+        >Registering a Business</a>.
+      </p>
+    </BaseInfoCard>
   </div>
 </template>
 
@@ -44,7 +51,8 @@ export default {
       search: null,
       model: this.fieldModel,
       rules: this.fieldRules,
-      showOrgBookWarning: false,
+      orgBookWarning: [],
+      showOrgBookHelp: false,
     };
   },
   computed: {
@@ -73,18 +81,23 @@ export default {
         // For this use, want to emit just the text
         typeof value === 'object' && value !== null ? value.text : value
       );
-      // hide Org Book warning when user chooses from Org Book
-      this.showOrgBookWarning = false;
 
+      // show Org Book warning and help message when user enters a business name not found in the Org Book
+      if(value && !this.foundInOrgBook(value.text)){
+        this.showOrgBookHelp = true;
+        this.orgBookWarning = 'Business Name Not Found. Try searching again?';
+      }
+      else{
+        this.showOrgBookHelp = false;
+        this.orgBookWarning = '';
+      }
     },
-    blur(value) {
-      const inputValue = value.srcElement._value;
-      // get array of the suggestions from OrgBook
+    // Check if user input matched an Org Book suggestion
+    foundInOrgBook(inputValue){
       const arrayOfOrgBookValues = this.entries.map( result => {
         return result.names[0].text;
       });
-      // check if user input matched an Org Book suggestion
-      this.showOrgBookWarning = (arrayOfOrgBookValues.includes(inputValue)) ? false : true;
+      return arrayOfOrgBookValues.includes(inputValue);
     }
   },
   watch: {
