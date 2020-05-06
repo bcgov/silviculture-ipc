@@ -337,9 +337,8 @@ describe('validators', ()=> {
 
     beforeEach(() => {
       emailObj = {
-        comments: 'String is valid comment',
-        from: 'email@valid.ok',
-        idir: 'idir is a string'
+        ipcPlanId: '93d4ec6c-af70-42b8-91f8-30ba5ef82693',
+        to: 'email@valid.ok'
       };
     });
 
@@ -350,39 +349,27 @@ describe('validators', ()=> {
       expect(result).toHaveLength(0);
     });
 
-    it('should return error for email with invalid comments', () => {
-      const badValue = 123;
-      emailObj.comments = badValue;
+    it('should return error for email with invalid ipcPlanId', () => {
+      const badValue = '00000000-0000-0000-0000-000000000000';
+      emailObj.ipcPlanId = badValue;
       const result = validators.email(emailObj);
 
       expect(result).toBeTruthy();
       expect(result).toHaveLength(1);
       expect(result[0].value).toEqual(badValue);
-      expect(result[0].message).toMatch('Invalid value for `comments`.');
+      expect(result[0].message).toMatch('Invalid value for `ipcPlanId`.');
     });
 
-    it('should return error for email with invalid from', () => {
+    it('should return error for email with invalid to', () => {
       const badValue = 'not-an-email';
-      emailObj.from = badValue;
+      emailObj.to = badValue;
       const result = validators.email(emailObj);
 
       expect(result).toBeTruthy();
       expect(result).toHaveLength(1);
       expect(result[0].value).toEqual(badValue);
-      expect(result[0].message).toMatch('Invalid value for `from`.');
+      expect(result[0].message).toMatch('Invalid value for `to`.');
     });
-
-    it('should return error for email with invalid idir', () => {
-      const badValue = (x) => x * 2;
-      emailObj.idir = badValue;
-      const result = validators.email(emailObj);
-
-      expect(result).toBeTruthy();
-      expect(result).toHaveLength(1);
-      expect(result[0].value).toEqual(badValue);
-      expect(result[0].message).toMatch('Invalid value for `idir`.');
-    });
-
   });
 
   describe('validators.ipc',  () => {

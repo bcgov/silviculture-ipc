@@ -6,7 +6,7 @@ const validation = require('../../middleware/validation');
 
 emailRouter.post('/', validation.validateEmail, async (req, res) => {
   try {
-    const result = await email.sendRequest(req.body.comments, req.body.from, req.body.idir);
+    const result = await email.sendReceiptRequest(req.body.ipcPlanId, req.body.to);
     return res.status(201).json(result);
   } catch (error) {
     return new Problem(500, { detail: error.message }).send(res);

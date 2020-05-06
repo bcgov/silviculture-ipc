@@ -93,9 +93,12 @@ describe('sendReceipt', () => {
 });
 
 
-describe('sendRequest', () => {
+describe('sendReceiptRequest', () => {
   const utilSpy = jest.spyOn(utils, 'getKeyCloakToken');
   const axiosSpy = jest.spyOn(axios, 'post');
+
+  const ipcPlanId = '93d4ec6c-af70-42b8-91f8-30ba5ef82693';
+  const to = 'emailhere@someemail.com';
 
   beforeEach(() => {
     utilSpy.mockClear();
@@ -109,15 +112,14 @@ describe('sendRequest', () => {
       messages: [
         {
           msgId: '16b3e0f2-506c-4954-817e-be0969524ea0',
-          to: ['emailhere@someemail.com']
+          to: [to]
         }
       ],
       txId: '9095c9e5-6f8a-4068-96b8-a6dd7178a3e4'
     };
-
     mockAxios.onPost().reply(201, res);
 
-    const result = await email.sendRequest('ABC', 'comment', 'my.email@gov.bc.ca', 'me@idir');
+    const result = await email.sendReceiptRequest(ipcPlanId, to);
 
     expect(result).toBeTruthy();
     expect(result).toEqual(res);
@@ -131,7 +133,7 @@ describe('sendRequest', () => {
     utils.getKeyCloakToken.mockResolvedValue('token1234');
     mockAxios.onPost().reply(200, { test: 123 });
 
-    await expect(email.sendRequest('ABC', 'comment', 'my.email@gov.bc.ca', 'me@idir'))
+    await expect(email.sendReceiptRequest(ipcPlanId, to))
       .rejects
       .toThrow('Error calling email endpoint. Error: Error from POST to CHES. Response Code: 200');
 
@@ -144,7 +146,7 @@ describe('sendRequest', () => {
     utils.getKeyCloakToken.mockResolvedValue('token1234');
     mockAxios.onPost().reply(403, { test: 123 });
 
-    await expect(email.sendRequest('ABC', 'comment', 'my.email@gov.bc.ca', 'me@idir'))
+    await expect(email.sendReceiptRequest(ipcPlanId, to))
       .rejects
       .toThrow('Error calling email endpoint. Error: Request failed with status code 403');
 
@@ -158,7 +160,7 @@ describe('sendRequest', () => {
       throw new Error('TOKENERR');
     });
 
-    await expect(email.sendRequest('ABC', 'comment', 'my.email@gov.bc.ca', 'me@idir'))
+    await expect(email.sendReceiptRequest(ipcPlanId, to))
       .rejects
       .toThrow('Error calling email endpoint. Error: TOKENERR');
 

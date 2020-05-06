@@ -54,22 +54,28 @@ const email = {
   },
 
   /**
-   * @function sendRequest
-   * Sends an email request through CHES
-   * @param {string} comments The sender's unformatted comment text
-   * @param {string} from The sender's registered email
-   * @param {string} idir The sender's IDIR
+   * @function sendReceiptRequest
+   * Sends an email receipt request through CHES to the sender
+   * @param {string} ipcPlanId The sender's ipcPlanId confirmation uuid
+   * @param {string} to The sender's target email address
    */
-  sendRequest: async (comments, from, idir) => {
+  sendReceiptRequest: async (ipcPlanId, to) => {
     try {
+      const confirmationId = ipcPlanId;
+      const downloadUrl = `https://silvicultureoperatorscreening.gov.bc.ca/app/api/v1/ipc/pdf/${ipcPlanId}`;
+
       const token = await utils.getKeyCloakToken(username, password, tokenEndpoint);
       const response = await axios.post(apiEndpoint + '/v1/email', {
-        body: `<p>Message from Silviculture IPC</p> <p><strong>User comments:</strong><br/>${comments}`,
+        body: `
+          <p>Message from Silviculture IPC</p>
+          <p><strong>Confirmation ID:</strong> ${confirmationId}</p>
+          <p><a href="${downloadUrl}">Download PDF Receipt</a></p>
+        `,
         bodyType: 'html',
-        from: from,
-        priority: 'high',
-        to: ['NR.CommonServiceShowcase@gov.bc.ca'],
-        subject: `Silviculture IPC Message from ${idir}`
+        from: 'FP.Engagement@gov.bc.ca',
+        priority: 'normal',
+        to: [to],
+        subject: 'Silviculture IPC Form Receipt'
       }, {
         headers: { Authorization: `Bearer ${token.access_token}` }
       });
