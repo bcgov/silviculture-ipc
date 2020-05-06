@@ -61,7 +61,7 @@ const email = {
    */
   sendReceiptRequest: async (ipcPlanId, to) => {
     try {
-      const confirmationId = ipcPlanId;
+      const confirmationId = ipcPlanId.split('-')[0].toUpperCase();
       const downloadUrl = `https://silvicultureoperatorscreening.gov.bc.ca/app/api/v1/ipc/pdf/${ipcPlanId}`;
 
       const token = await utils.getKeyCloakToken(username, password, tokenEndpoint);
