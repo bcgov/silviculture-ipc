@@ -82,6 +82,42 @@ router.post('/:ipcPlanId/status', keycloak.protect(`${clientId}:inspector`), asy
   }
 });
 
+router.get('/:ipcPlanId/notes', keycloak.protect(`${clientId}:inspector`), async (req, res, next) => {
+  try {
+    const result = await dataService.getNotes(req.params.ipcPlanId);
+    return res.status(200).json(transformService.modelToAPI.notes(result));
+  } catch (err) {
+    next(err);
+  }
+});
 
+router.post('/:ipcPlanId/notes', keycloak.protect(`${clientId}:inspector`), async (req, res, next) => {
+  try {
+    const createdBy = req.kauth.grant.access_token.content.preferred_username;
+    const result = await dataService.saveNote(req.params.ipcPlanId, createdBy, req.body);
+    return res.status(201).json(transformService.modelToAPI.note(result));
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get('/:ipcPlanId/status/:inspectionStatusId/notes', keycloak.protect(`${clientId}:inspector`), async (req, res, next) => {
+  try {
+    const result = await dataService.getNotes(req.params.ipcPlanId, req.params.inspectionStatusId);
+    return res.status(200).json(transformService.modelToAPI.notes(result));
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post('/:ipcPlanId/status/:inspectionStatusId/notes', keycloak.protect(`${clientId}:inspector`), async (req, res, next) => {
+  try {
+    const createdBy = req.kauth.grant.access_token.content.preferred_username;
+    const result = await dataService.saveNote(req.params.ipcPlanId, createdBy, req.body, req.params.inspectionStatusId);
+    return res.status(201).json(transformService.modelToAPI.note(result));
+  } catch (err) {
+    next(err);
+  }
+});
 
 module.exports = router;

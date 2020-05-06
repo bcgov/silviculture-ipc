@@ -6,6 +6,45 @@ const db = require('../models');
 
 module.exports = {
 
+  async getNotes(ipcPlanId, inspectionStatusId) {
+    const whereIds = {ipcPlanId: ipcPlanId};
+    if (inspectionStatusId) {
+      whereIds.inspectionStatusId = inspectionStatusId;
+    }
+    try {
+      const notes = await db.Note.findAll(
+        {
+          where: whereIds,
+          order: [
+            ['createdAt', 'DESC']
+          ]
+        },
+        {
+          rejectOnEmpty: false
+        }
+      );
+      return notes;
+    } catch (e) {
+      log.error('dataService.getNotes', e.message);
+    }
+  },
+
+  async saveNote(ipcPlanId, createdBy, obj, inspectionStatusId) {
+    try {
+      if (inspectionStatusId) {
+        obj.inspectionStatusId = inspectionStatusId;
+      }
+      let noteObj;
+      await db.sequelize.transaction(async t => {
+        noteObj = await db.Note.create({...obj, createdBy: createdBy, ipcPlanId: ipcPlanId}, {transaction: t});
+      });
+
+      return noteObj;
+    } catch (e) {
+      log.error('dataService.saveNote', e.message);
+    }
+  },
+
   async getInspectionStatuses(ipcPlanId) {
     try {
       const ipcObj = await db.InspectionStatus.findAll(
@@ -62,6 +101,9 @@ module.exports = {
             },
             {
               model: db.InspectionStatus
+            },
+            {
+              model: db.Note
             }],
 
           rejectOnEmpty: true
