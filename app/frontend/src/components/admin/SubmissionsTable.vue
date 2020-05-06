@@ -26,13 +26,13 @@
     >
       <template v-slot:item.download="{ item }">
         <GeneratePdfButton :ipcPlanId="item.ipcPlanId">
-          <v-btn text small color="primary"><v-icon class="mr-1">picture_as_pdf</v-icon> PDF</v-btn>
+          <v-btn text small color="textLink"><v-icon class="mr-1">picture_as_pdf</v-icon> PDF</v-btn>
         </GeneratePdfButton>
       </template>
 
       <template v-slot:item.details="{ item }">
         <router-link :to="{ name: 'Submission', params: { ipcPlanId: item.ipcPlanId } }">
-          <v-btn text small color="primary"><v-icon class="mr-1">remove_red_eye</v-icon> VIEW</v-btn>
+          <v-btn text small color="textLink"><v-icon class="mr-1">remove_red_eye</v-icon> VIEW</v-btn>
         </router-link>
       </template>
     </v-data-table>

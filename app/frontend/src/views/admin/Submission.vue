@@ -24,7 +24,7 @@
           </v-col>
           <v-col cols="12" sm="4" lg="2" class="text-sm-right">
             <GeneratePdfButton :ipcPlanId="ipcPlan.ipcPlanId">
-              <v-btn text small color="primary" class="pl-0">
+              <v-btn text small color="textLink" class="pl-0">
                 <v-icon class="mr-1">picture_as_pdf</v-icon>Download PDF
               </v-btn>
             </GeneratePdfButton>
