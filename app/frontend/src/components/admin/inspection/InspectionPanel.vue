@@ -4,107 +4,55 @@
     <v-alert v-if="error" type="error" tile dense>{{ error }}</v-alert>
 
     <h2 class="inspection-heading">Inspection Status</h2>
-    <p>
-      <strong>Current Status:</strong>
-      {{ currentStatus.status }}
-      <span v-if="currentStatus.inspectorName">
+    <div v-if="!loading">
+      <p>
+        <strong>Current Status:</strong>
+        {{ currentStatus.status }}
         <br />
         <strong>Assigned To:</strong>
-        {{ currentStatus.inspectorName }}
-      </span>
-      <span v-if="currentStatus.inspectionDate">
+        {{ currentStatus.inspectorName ? currentStatus.inspectorName : 'N/A' }}
         <br />
         <strong>Inspection Date:</strong>
-        {{ new Date(currentStatus.inspectionDate).toLocaleString('en-CA', { dateStyle:'long'}) }}
-      </span>
-    </p>
+        {{ currentStatus.inspectionDate ? new Date(currentStatus.inspectionDate).toLocaleString('en-CA', { dateStyle:'long'}) : 'N/A'}}
+      </p>
 
-    <v-row>
-      <v-col cols="12" xl="8" offset-xl="2">
-        <div v-if="currentStatus.status === statuses.SUBMITTED">
+      <v-row>
+        <v-col cols="12" xl="8" offset-xl="2">
           <Status
-            label="Assign"
+            :existingStatus="currentStatus"
             :statusToSet="statuses.ASSIGNED"
             :ipcPlanId="ipcPlanId"
             v-on:status-updated="getInspectionData"
           />
-        </div>
-        <div v-if="currentStatus.status === statuses.ASSIGNED">
-          <Status
-            label="Schedule"
-            :statusToSet="statuses.SCHEDULED"
-            v-on:status-updated="getInspectionData"
-            :existingStatus="currentStatus"
-            :ipcPlanId="ipcPlanId"
-          />
-          <br />
-          <Status
-            label="Re-assign"
-            :statusToSet="statuses.ASSIGNED"
-            v-on:status-updated="getInspectionData"
-            :existingStatus="currentStatus"
-            :ipcPlanId="ipcPlanId"
-            :primary="false"
-          />
-        </div>
-        <div v-if="currentStatus.status === statuses.SCHEDULED">
-          <Status
-            label="Complete"
-            :statusToSet="statuses.COMPLETED"
-            v-on:status-updated="getInspectionData"
-            :existingStatus="currentStatus"
-            :ipcPlanId="ipcPlanId"
-          />
-          <br />
-          <Status
-            label="Follow-Up"
-            :statusToSet="statuses.FOLLOWUP"
-            v-on:status-updated="getInspectionData"
-            :existingStatus="currentStatus"
-            :ipcPlanId="ipcPlanId"
-            :primary="false"
-          />
-          <br />
-          <Status
-            label="Re-assign"
-            :statusToSet="statuses.CANCELLED"
-            v-on:status-updated="getInspectionData"
-            :existingStatus="currentStatus"
-            :ipcPlanId="ipcPlanId"
-            :primary="false"
-          />
-          <br />
-          <Status
-            label="Cancel Inspection"
-            :statusToSet="statuses.CANCELLED"
-            v-on:status-updated="getInspectionData"
-            :existingStatus="currentStatus"
-            :ipcPlanId="ipcPlanId"
-            :primary="false"
-          />
-        </div>
-      </v-col>
-    </v-row>
+        </v-col>
+      </v-row>
 
-    <v-dialog v-model="historyDialog" width="1200">
-      <template v-slot:activator="{ on }">
-        <v-btn text small color="primary" class="pl-0 mt-5" v-on="on">
-          <v-icon class="mr-1">history</v-icon>Show Status History
-        </v-btn>
-      </template>
+      <v-row>
+        <v-col cols="12" lg="6" xl="4" offset-xl="2">
+          <v-dialog v-model="historyDialog" width="1200">
+            <template v-slot:activator="{ on }">
+              <v-btn block outlined color="textLink" v-on="on">VIEW HISTORY</v-btn>
+            </template>
 
-      <v-card>
-        <v-card-title class="headline grey lighten-3" primary-title>Status History</v-card-title>
+            <v-card>
+              <v-card-title class="headline grey lighten-3" primary-title>Status History</v-card-title>
 
-        <StatusTable :ipcPlanId="ipcPlanId" class="my-4" />
+              <StatusTable :ipcPlanId="ipcPlanId" class="my-4" />
 
-        <v-divider></v-divider>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="primary" text @click="historyDialog = false">CLOSE</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+              <v-divider></v-divider>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="primary" text @click="historyDialog = false">CLOSE</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+        </v-col>
+
+        <v-col cols="12" lg="6" xl="4">
+          <v-btn block color="primary" disabled v-on="on">UPDATE</v-btn>
+        </v-col>
+      </v-row>
+    </div>
   </v-card>
 </template>
 

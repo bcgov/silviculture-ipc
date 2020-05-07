@@ -1,66 +1,63 @@
 <template>
   <div>
-    <v-btn
-      v-if="!statusCard"
+    <v-alert v-if="error" type="error" tile dense>{{ error }}</v-alert>
+
+    <label>Update Status</label>
+    <v-select
       block
-      color="primary"
+      dense
+      flat
+      outlined
+      solo
+      single-line
+      label="Select status to set"
       class="pl-0"
-      :outlined="!primary"
-      @click="statusCard = true"
-    >{{ label }}</v-btn>
+      :items="items"
+      v-model="statusToSet"
+      @change="statusCard = true"
+    />
 
-    <v-card v-show="statusCard" class="elevation-4">
-      <v-alert v-if="error" type="error" tile dense>{{ error }}</v-alert>
-      <v-card-title>{{ label }}</v-card-title>
+    <div v-show="statusCard">
+      <div v-if="statusToSet === statuses.SCHEDULED">
+        <label>Inspection Date</label>
+        <v-menu
+          v-model="inspectionDateMenu"
+          :close-on-content-click="true"
+          :nudge-right="40"
+          transition="scale-transition"
+          offset-y
+          min-width="290px"
+        >
+          <template v-slot:activator="{ on }">
+            <v-text-field
+              v-model="inspectionDate"
+              placeholder="yyyy-mm-dd"
+              append-icon="event"
+              v-on:click:append="inspectionDateMenu=true"
+              readonly
+              v-on="on"
+              dense
+              flat
+              outlined
+              solo
+            ></v-text-field>
+          </template>
+          <v-date-picker v-model="inspectionDate" @input="inspectionDateMenu = false"></v-date-picker>
+        </v-menu>
+      </div>
 
-      <v-card-text>
-        <div v-if="statusToSet === statuses.SCHEDULED">
-          <label>Inspection Date</label>
-          <v-menu
-            v-model="inspectionDateMenu"
-            :close-on-content-click="true"
-            :nudge-right="40"
-            transition="scale-transition"
-            offset-y
-            min-width="290px"
-          >
-            <template v-slot:activator="{ on }">
-              <v-text-field
-                v-model="inspectionDate"
-                placeholder="yyyy-mm-dd"
-                append-icon="event"
-                v-on:click:append="inspectionDateMenu=true"
-                readonly
-                v-on="on"
-                dense
-                flat
-                outlined
-                solo
-              ></v-text-field>
-            </template>
-            <v-date-picker v-model="inspectionDate" @input="inspectionDateMenu = false"></v-date-picker>
-          </v-menu>
-        </div>
+      <label>Inspector Name</label>
+      <v-text-field v-model="inspectorName" dense flat outlined solo />
 
-        <label>Inspector Name</label>
-        <v-text-field v-model="inspectorName" dense flat outlined solo />
+      <label>Inspector Email (Optional)</label>
+      <v-text-field v-model="inspectorEmail" dense flat outlined solo />
 
-        <label>Inspector Email (Optional)</label>
-        <v-text-field v-model="inspectorEmail" dense flat outlined solo />
-
-        <div v-if="statusToSet === statuses.ASSIGNED" class="text-right">
-          <v-btn text small color="primary" class="pl-0 my-0 text-end" @click="assignToCurrentUser">
-            <v-icon class="mr-1">person</v-icon>ASSIGN TO ME
-          </v-btn>
-        </div>
-      </v-card-text>
-
-      <v-card-actions>
-        <v-btn small color="primary" @click="setStatus">SAVE</v-btn>
-
-        <v-btn small color="primary" @click="statusCard = false" text>CANCEL</v-btn>
-      </v-card-actions>
-    </v-card>
+      <div v-if="statusToSet === statuses.ASSIGNED" class="text-right">
+        <v-btn text small color="primary" class="pl-0 my-0 text-end" @click="assignToCurrentUser">
+          <v-icon class="mr-1">person</v-icon>ASSIGN TO ME
+        </v-btn>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -81,12 +78,8 @@ export default {
       required: false,
       type: String
     },
-    statusToSet: {
-      required: true,
-      type: String
-    },
     existingStatusObj: {
-      required: false,
+      required: true,
       type: Object
     },
     primary: {
@@ -99,8 +92,10 @@ export default {
     return {
       error: '',
       inspectionDateMenu: false,
+      items: [],
       statusCard: false,
       statuses: Statuses,
+      statusToSet: '',
 
       // Fields
       inspectorName: this.existingStatusObj ? this.existingStatusObj.inspectorName : '',
@@ -115,6 +110,9 @@ export default {
     assignToCurrentUser() {
       this.inspectorName = this.fullName;
       this.inspectorEmail = this.email;
+    },
+    setUpOptions() {
+      this.items = ['Assign'];
     },
     async setStatus() {
       try {
@@ -139,6 +137,9 @@ export default {
         this.error = 'An error occured while trying to update the status';
       }
     },
+  },
+  mounted() {
+    this.setUpOptions();
   }
 };
 </script>
