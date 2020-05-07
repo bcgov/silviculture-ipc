@@ -11,7 +11,7 @@
             <h1>{{ business.name }}</h1>
             <h4 class="heading-detail">
               Submitted:
-              <span>{{ new Date(ipcPlan.createdAt).toLocaleString('en-CA', { dateStyle:'long', timeStyle:'short' }) }}</span>
+              <span>{{ createdAtDisplay }}</span>
             </h4>
             <h4 class="heading-detail">
               Confirmation ID:
@@ -45,6 +45,7 @@
 </template>
 
 <script>
+import moment from 'moment';
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 
 import AdminReviewSubmission from '@/components/admin/AdminReviewSubmission.vue';
@@ -67,7 +68,8 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('form', ['business', 'location', 'gettingForm', 'getFormError', 'ipcPlan'])
+    ...mapGetters('form', ['business', 'location', 'gettingForm', 'getFormError', 'ipcPlan']),
+    createdAtDisplay() { return this.ipcPlan && this.ipcPlan.createdAt ? moment(this.ipcPlan.createdAt).format('MMMM D YYYY, h:mm:ss a') : 'N/A'; },
   },
   methods: {
     ...mapMutations('form', ['setGettingForm']),

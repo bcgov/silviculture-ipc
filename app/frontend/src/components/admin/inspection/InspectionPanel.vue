@@ -8,15 +8,25 @@
       <p>
         <strong>Current Status:</strong>
         {{ currentStatus.status }}
+        <span v-if="currentStatus.grade">
+          <v-chip
+            class="ma-2"
+            :color="currentStatus.grade.toUpperCase() === 'PASS' ? 'green' : 'red'"
+            text-color="white"
+          >{{ currentStatus.grade }}</v-chip>
+        </span>
         <br />
         <strong>Assigned To:</strong>
         {{ currentStatus.inspectorName ? currentStatus.inspectorName : 'N/A' }}
+        <span
+          v-if="currentStatus.inspectorEmail"
+        >({{ currentStatus.inspectorEmail }})</span>
         <br />
         <strong>Inspection Date:</strong>
-        {{ currentStatus.inspectionDate ? new Date(currentStatus.inspectionDate).toLocaleString('en-CA', { dateStyle:'long'}) : 'N/A'}}
+        {{ inspectionDateDisplay }}
       </p>
 
-      <v-form ref="form" v-model="valid" lazy-validation>
+      <v-form v-if="!error" ref="form" v-model="valid" lazy-validation>
         <v-row>
           <v-col cols="12" xl="8" offset-xl="2">
             <label>Update Status</label>
@@ -37,7 +47,23 @@
             />
 
             <div v-show="statusFields">
-              <div v-if="statusToSet === statuses.SCHEDULED">
+              <div v-if="showGrade">
+                <label>Grade (Optional)</label>
+                <v-select
+                  block
+                  dense
+                  flat
+                  outlined
+                  solo
+                  single-line
+                  clearable
+                  label="Select grade"
+                  :items="grades"
+                  v-model="grade"
+                />
+              </div>
+
+              <div v-if="showInspectionDate">
                 <label>Inspection Date</label>
                 <v-menu
                   v-model="inspectionDateMenu"
@@ -66,29 +92,31 @@
                 </v-menu>
               </div>
 
-              <label>Inspector Name</label>
-              <v-text-field
-                v-model="inspectorName"
-                :rules="[v => !!v || 'Name is required']"
-                dense
-                flat
-                outlined
-                solo
-              />
+              <div v-if="showInspector">
+                <label>Inspector Name</label>
+                <v-text-field
+                  v-model="inspectorName"
+                  :rules="[v => !!v || 'Name is required']"
+                  dense
+                  flat
+                  outlined
+                  solo
+                />
 
-              <label>Inspector Email (Optional)</label>
-              <v-text-field v-model="inspectorEmail" dense flat outlined solo />
+                <label>Inspector Email (Optional)</label>
+                <v-text-field v-model="inspectorEmail" dense flat outlined solo />
 
-              <div v-if="statusToSet === statuses.ASSIGNED" class="text-right">
-                <v-btn
-                  text
-                  small
-                  color="primary"
-                  class="pl-0 my-0 text-end"
-                  @click="assignToCurrentUser"
-                >
-                  <v-icon class="mr-1">person</v-icon>ASSIGN TO ME
-                </v-btn>
+                <div class="text-right">
+                  <v-btn
+                    text
+                    small
+                    color="primary"
+                    class="pl-0 my-0 text-end"
+                    @click="assignToCurrentUser"
+                  >
+                    <v-icon class="mr-1">person</v-icon>ASSIGN TO ME
+                  </v-btn>
+                </div>
               </div>
             </div>
           </v-col>
@@ -125,6 +153,7 @@
 </template>
 
 <script>
+import moment from 'moment';
 import { mapGetters } from 'vuex';
 
 import ipcService from '@/services/ipcService';
@@ -158,7 +187,9 @@ export default {
       // Fields
       inspectorName: this.currentStatus ? this.currentStatus.inspectorName : '',
       inspectorEmail: this.currentStatus ? this.currentStatus.inspectorEmail : '',
-      inspectionDate: ''
+      inspectionDate: '',
+      grade: '',
+      grades: ['Pass', 'Fail']
     };
   },
   computed: {
@@ -171,6 +202,8 @@ export default {
         return {};
       }
     },
+
+    // State machine
     items() {
       switch(this.currentStatus.status) {
         case this.statuses.SUBMITTED:
@@ -204,10 +237,41 @@ export default {
             label: 'Cancel',
             statusVal: this.statuses.CANCELLED
           }];
+        case this.statuses.COMPLETED:
+          return [{
+            label: 'Re-open',
+            statusVal: this.statuses.ASSIGNED
+          }];
+        case this.statuses.CANCELLED:
+          return [{
+            label: 'Re-open',
+            statusVal: this.statuses.ASSIGNED
+          }];
+        case this.statuses.FOLLOWUP:
+          return [{
+            label: 'Complete',
+            statusVal: this.statuses.COMPLETED
+          },
+          {
+            label: 'Follow-up again',
+            statusVal: this.statuses.FOLLOWUP
+          },
+          {
+            label: 'Re-schedule',
+            statusVal: this.statuses.SCHEDULED
+          },
+          {
+            label: 'Cancel',
+            statusVal: this.statuses.CANCELLED
+          }];
         default:
           return [];
       }
-    }
+    },
+    showInspector() { return [this.statuses.ASSIGNED, this.statuses.SCHEDULED, this.statuses.FOLLOWUP].includes(this.statusToSet); },
+    showInspectionDate() { return [this.statuses.SCHEDULED, this.statuses.FOLLOWUP].includes(this.statusToSet); },
+    inspectionDateDisplay() { return this.currentStatus.inspectionDate ? moment(this.currentStatus.inspectionDate).format('MMMM D YYYY') : 'N/A'; },
+    showGrade() { return [this.statuses.COMPLETED, this.statuses.FOLLOWUP].includes(this.statusToSet); }
   },
   methods: {
     getInspectionData() {
@@ -246,14 +310,21 @@ export default {
           }
 
           const statusBody = {
-            status: this.statusToSet,
-            inspectorName: this.inspectorName
+            status: this.statusToSet
           };
-          if(this.inspectorEmail) {
-            statusBody.inspectorEmail = this.inspectorEmail;
+          if(this.showInspector) {
+            if(this.inspectorName) {
+              statusBody.inspectorName = this.inspectorName;
+            }
+            if(this.inspectorEmail) {
+              statusBody.inspectorEmail = this.inspectorEmail;
+            }
           }
-          if(this.inspectionDate) {
+          if(this.inspectionDate && this.showInspectionDate) {
             statusBody.inspectionDate = this.inspectionDate;
+          }
+          if(this.grade && this.showGrade) {
+            statusBody.grade = this.grade;
           }
           const response = await ipcService.sendIPCInspectionStatuses(this.ipcPlanId, statusBody);
           if (!response.data) {

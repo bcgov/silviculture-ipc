@@ -9,39 +9,24 @@
       :items="statuses"
       :loading="loading"
       loading-text="Loading... Please wait"
-      show-expand
-      :single-expand="true"
-      :expanded.sync="expanded"
       item-key="inspectionStatusId"
       class="status-table"
     >
       <template v-slot:item.createdAt="{ item }">{{ formatDate(item.createdAt) }}</template>
 
       <template v-slot:item.grade="{ item }">
-        <v-icon v-if="item.grade && item.grade.toUpperCase() === 'PASS'" color="green">check</v-icon>
-        <v-icon
-          v-else-if="item.grade && item.grade.toUpperCase() === 'FAIL'"
-          color="secondary"
-        >close</v-icon>
-        <v-icon v-else color="secondary">mdi-help-circle</v-icon>
+        <span v-if="item.grade">
+          <v-chip
+            class="ma-2"
+            :color="item.grade.toUpperCase() === 'PASS' ? 'green' : 'red'"
+            text-color="white"
+          >{{ item.grade }}</v-chip>
+        </span>
       </template>
 
       <template v-slot:item.inspectorName="{ item }">{{ item.inspectorName }}</template>
 
       <template v-slot:item.inspectionDate="{ item }">{{ formatDate(item.inspectionDate) }}</template>
-
-      <template v-slot:expanded-item="{ headers, item }">
-        <td :colspan="headers.length">
-          <p>
-            <strong>Decision Reason</strong>
-            {{ item.reasonsForDecision }}
-          </p>
-          <p>
-            <strong>Guidance Plan</strong>
-            {{ item.guidancePlan }}
-          </p>
-        </td>
-      </template>
     </v-data-table>
   </v-container>
 </template>
@@ -57,13 +42,6 @@ export default {
       type: String
     }
   },
-  computed: {
-    responsiveCell() {
-      return this.$vuetify.breakpoint.name == 'xs'
-        ? 'v-data-table__mobile-table-row'
-        : '';
-    }
-  },
   data() {
     return {
       headers: [
@@ -73,7 +51,6 @@ export default {
         { text: 'Assigned Inspector', value: 'inspectorName' },
         { text: 'Inspection Date', value: 'inspectionDate' }
       ],
-      expanded: [],
       statuses: [],
       loading: true,
       showAlert: false,
@@ -122,35 +99,5 @@ export default {
   font-weight: normal;
   color: #003366 !important;
   font-size: 1.1em;
-}
-
-.status-table >>> tr.v-data-table__expanded__row td {
-  border-bottom: 0 !important;
-}
-.status-table >>> tr.v-data-table__expanded__content {
-  -webkit-box-shadow: none !important;
-  box-shadow: none !important;
-}
-.status-table >>> tr.v-data-table__expanded__content td {
-  padding-bottom: 1em;
-}
-
-div.ipc-expanded {
-  font-size: 85% !important;
-  color: #494949 !important;
-  padding: 1rem 0;
-}
-
-/* mobile view */
-tr.v-data-table__expanded__content
-  td.v-data-table__mobile-table-row:nth-child(1) {
-  display: none !important;
-}
-tr.v-data-table__expanded__content
-  td.v-data-table__mobile-table-row:not(:nth-child(1)) {
-  padding: 0;
-}
-td.v-data-table__mobile-table-row div.ipc-expanded {
-  padding: 0.2rem 1rem;
 }
 </style>
