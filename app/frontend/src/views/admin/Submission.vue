@@ -35,13 +35,10 @@
           <v-col cols="12" md="8" class="pl-0 pt-0">
             <AdminReviewSubmission />
           </v-col>
-          <v-col cols="12" md="4" class="pl-0" order="first" order-md="last">
-            <InspectionPanel
-              :ipcPlanId="ipcPlan.ipcPlanId"
-              v-on:note-updated="refreshNotes"
-            />
+          <v-col v-if="showInspection" cols="12" md="4" class="pl-0" order="first" order-md="last">
+            <InspectionPanel :ipcPlanId="ipcPlan.ipcPlanId" v-on:note-updated="refreshNotes" />
 
-            <NotesPanel :ipcPlanId="ipcPlan.ipcPlanId" ref="notesPanel"/>
+            <NotesPanel :ipcPlanId="ipcPlan.ipcPlanId" ref="notesPanel" />
           </v-col>
         </v-row>
       </div>
@@ -57,6 +54,7 @@ import AdminReviewSubmission from '@/components/admin/AdminReviewSubmission.vue'
 import GeneratePdfButton from '@/components/common/GeneratePdfButton.vue';
 import InspectionPanel from '@/components/admin/inspection/InspectionPanel.vue';
 import NotesPanel from '@/components/admin/inspection/NotesPanel.vue';
+import { SilvipcRoles } from '@/utils/constants';
 
 export default {
   name: 'Submission',
@@ -76,7 +74,11 @@ export default {
   },
   computed: {
     ...mapGetters('form', ['business', 'location', 'gettingForm', 'getFormError', 'ipcPlan']),
+    ...mapGetters('auth', ['hasSilvipcRoles']),
     createdAtDisplay() { return this.ipcPlan && this.ipcPlan.createdAt ? moment(this.ipcPlan.createdAt).format('MMMM D YYYY, h:mm:ss a') : 'N/A'; },
+    showInspection() {
+      return this.hasSilvipcRoles([SilvipcRoles.INSPECTOR]);
+    },
   },
   methods: {
     ...mapMutations('form', ['setGettingForm']),
