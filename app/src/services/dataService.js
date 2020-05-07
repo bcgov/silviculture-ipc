@@ -1,4 +1,5 @@
 const log = require('npmlog');
+const moment = require('moment');
 const Problem = require('api-problem');
 
 const constants = require('../components/constants');
@@ -54,7 +55,15 @@ module.exports = {
 
       return noteObj;
     } catch (e) {
+      // api problems should be handled in a layer above, but we have no controller... coming direct to data layer.
       log.error('dataService.saveNote', e.message);
+      if (db.isRequiredFieldError(e)) {
+        throw new Problem(422, {detail: `Note cannot be saved. Required field is missing or empty: ${db.isRequiredFieldErrorMessage(e)}`});
+      } else if (db.isSyntaxError(e)) {
+        throw new Problem(422, {detail: `Note cannot be saved. Error with save query: ${e.message}`});
+      } else {
+        throw new Problem(500, {detail: `Note cannot be saved. Unexpected error: ${e.message}`});
+      }
     }
   },
 
@@ -106,20 +115,31 @@ module.exports = {
   },
 
   async saveInspectionStatus(ipcPlanId, createdBy, obj) {
+    let inspectionStatusObj;
     try {
-      let inspectionStatusObj;
       await db.sequelize.transaction(async t => {
         // if there is an extra note field in the status, let's create an actual note record...
+        if (obj.inspectionDate) {
+          // date coming in with UTC zone, but we care about the date only
+          // strip to the date, turn to utc time with our zone information
+          obj.inspectionDate = moment(obj.inspectionDate.substring(0,10)).utc().format('YYYY-MM-DD HH:mm:ss Z');
+        }
         inspectionStatusObj = await db.InspectionStatus.create({...obj, createdBy: createdBy, ipcPlanId: ipcPlanId}, {transaction: t});
         if (obj.note && obj.note.trim().length) {
           await db.Note.create({note: obj.note, createdBy: createdBy, ipcPlanId: ipcPlanId, inspectionStatusId: inspectionStatusObj.inspectionStatusId}, {transaction: t});
         }
       });
-
-      return this.getInspectionStatus(inspectionStatusObj.inspectionStatusId);
     } catch (e) {
       log.error('dataService.saveInspectionStatus', e.message);
+      if (db.isRequiredFieldError(e)) {
+        throw new Problem(422, {detail: `Status cannot be saved. Required field is missing or empty: ${db.isRequiredFieldErrorMessage(e)}`});
+      } else if (db.isSyntaxError(e)) {
+        throw new Problem(422, {detail: `Status cannot be saved. Error with save query: ${e.message}`});
+      } else {
+        throw new Problem(500, {detail: `Status cannot be saved. Unexpected error: ${e.message}`});
+      }
     }
+    return this.getInspectionStatus(inspectionStatusObj.inspectionStatusId);
   },
 
   async getIPCPlan(id) {
@@ -216,8 +236,8 @@ module.exports = {
   },
 
   async save(business, contacts, ipcPlan, location) {
+    let ipcPlanId;
     try {
-      let ipcPlanId;
       await db.sequelize.transaction(async t => {
 
         if (ipcPlan.sleepingAreaType === constants.SLEEPING_AREA_TYPE_SINGLE) {
@@ -238,9 +258,16 @@ module.exports = {
         await db.InspectionStatus.create({status: 'Submitted', createdBy: 'system', ipcPlanId: ipcPlanId}, {transaction: t});
       });
 
-      return await this.getIPCPlan(ipcPlanId);
     } catch (e) {
       log.error('dataService.save', e.message);
+      if (db.isRequiredFieldError(e)) {
+        throw new Problem(422, {detail: `Submission cannot be saved. Required field is missing or empty: ${db.isRequiredFieldErrorMessage(e)}`});
+      } else if (db.isSyntaxError(e)) {
+        throw new Problem(422, {detail: `Submission cannot be saved. Error with save query: ${e.message}`});
+      } else {
+        throw new Problem(500, {detail: `Submission cannot be saved. Unexpected error: ${e.message}`});
+      }
     }
+    return await this.getIPCPlan(ipcPlanId);
   }
 };

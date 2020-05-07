@@ -28,5 +28,7 @@ db.Sequelize = Sequelize;
 
 db.isNotFoundError = e => e && e instanceof Sequelize.EmptyResultError;
 db.isSyntaxError = e => e && e instanceof Sequelize.DatabaseError && /syntax/.test(e.message);
+db.isRequiredFieldError = e => e && e instanceof Sequelize.ValidationError && /notNull/.test(e.message);
+db.isRequiredFieldErrorMessage = e => db.isRequiredFieldError(e) ? e.message.split(':')[1] : '';
 
 module.exports = db;

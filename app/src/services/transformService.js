@@ -162,9 +162,8 @@ const transformService = {
 
     const biz = {...ipcPlan.Business.dataValues};
     delete ipcPlan.Business;
-    const inspectionStatuses = ipcPlan.InspectionStatuses.map(s => {
-      return {...s.dataValues};
-    });
+    const currentStatus = ipcPlan.InspectionStatuses[0];
+    const inspectionStatuses = [{...currentStatus.dataValues}];
     delete ipcPlan.InspectionStatuses;
 
     return transformService.ipcResult(biz, undefined, ipcPlan, undefined, inspectionStatuses);
