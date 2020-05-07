@@ -11,8 +11,9 @@
       solo
       single-line
       label="Select status to set"
-      class="pl-0"
       :items="items"
+      item-text="label"
+      item-value="statusVal"
       v-model="statusToSet"
       @change="statusCard = true"
     />
@@ -92,7 +93,6 @@ export default {
     return {
       error: '',
       inspectionDateMenu: false,
-      items: [],
       statusCard: false,
       statuses: Statuses,
       statusToSet: '',
@@ -104,42 +104,12 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('auth', ['email', 'fullName'])
+    ...mapGetters('auth', ['email', 'fullName']),
+
   },
   methods: {
-    assignToCurrentUser() {
-      this.inspectorName = this.fullName;
-      this.inspectorEmail = this.email;
-    },
-    setUpOptions() {
-      this.items = ['Assign'];
-    },
-    async setStatus() {
-      try {
-        const statusBody = {
-          status: this.statusToSet,
-          inspectorName: this.inspectorName
-        };
-        if(this.inspectorEmail) {
-          statusBody.inspectorEmail = this.inspectorEmail;
-        }
-        if(this.inspectionDate) {
-          statusBody.inspectionDate = this.inspectionDate;
-        }
-        const response = await ipcService.sendIPCInspectionStatuses(this.ipcPlanId, statusBody);
-        if (!response.data) {
-          throw new Error('No response data from API while submitting form');
-        }
-        this.statusCard = false;
-        this.$emit('status-updated');
-      } catch (error) {
-        console.error(`Error updating status: ${error}`); // eslint-disable-line no-console
-        this.error = 'An error occured while trying to update the status';
-      }
-    },
   },
   mounted() {
-    this.setUpOptions();
   }
 };
 </script>

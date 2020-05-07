@@ -15,7 +15,7 @@
             </h4>
             <h4 class="heading-detail">
               Confirmation ID:
-              <span>{{ ipcPlan.ipcPlanId.split('-')[0].toUpperCase() }}</span>
+              <span>{{ ipcPlan.ipcPlanId ? ipcPlan.ipcPlanId.split('-')[0].toUpperCase() : '' }}</span>
             </h4>
             <h4 class="heading-detail">
               Operation Dates:
@@ -67,13 +67,13 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('form', ['business', 'location', 'getFormError', 'ipcPlan'])
+    ...mapGetters('form', ['business', 'location', 'gettingForm', 'getFormError', 'ipcPlan'])
   },
   methods: {
     ...mapMutations('form', ['setGettingForm']),
     ...mapActions('form', ['getForm'])
   },
-  async mounted() {
+  async created() {
     this.setGettingForm(true);
     await this.getForm(this.ipcPlanId);
   }

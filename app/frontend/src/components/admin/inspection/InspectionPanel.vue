@@ -16,42 +16,110 @@
         {{ currentStatus.inspectionDate ? new Date(currentStatus.inspectionDate).toLocaleString('en-CA', { dateStyle:'long'}) : 'N/A'}}
       </p>
 
-      <v-row>
-        <v-col cols="12" xl="8" offset-xl="2">
-          <Status
-            :existingStatus="currentStatus"
-            :statusToSet="statuses.ASSIGNED"
-            :ipcPlanId="ipcPlanId"
-            v-on:status-updated="getInspectionData"
-          />
-        </v-col>
-      </v-row>
+      <v-form ref="form" v-model="valid" lazy-validation>
+        <v-row>
+          <v-col cols="12" xl="8" offset-xl="2">
+            <label>Update Status</label>
+            <v-select
+              block
+              dense
+              flat
+              outlined
+              solo
+              single-line
+              label="Select status to set"
+              :items="items"
+              item-text="label"
+              item-value="statusVal"
+              v-model="statusToSet"
+              :rules="[v => !!v || 'Status is required']"
+              @change="statusFields = true"
+            />
 
-      <v-row>
-        <v-col cols="12" lg="6" xl="4" offset-xl="2">
-          <v-dialog v-model="historyDialog" width="1200">
-            <template v-slot:activator="{ on }">
-              <v-btn block outlined color="textLink" v-on="on">VIEW HISTORY</v-btn>
-            </template>
+            <div v-show="statusFields">
+              <div v-if="statusToSet === statuses.SCHEDULED">
+                <label>Inspection Date</label>
+                <v-menu
+                  v-model="inspectionDateMenu"
+                  :close-on-content-click="true"
+                  :nudge-right="40"
+                  transition="scale-transition"
+                  offset-y
+                  min-width="290px"
+                >
+                  <template v-slot:activator="{ on }">
+                    <v-text-field
+                      v-model="inspectionDate"
+                      :rules="[v => !!v || 'Date is required']"
+                      placeholder="yyyy-mm-dd"
+                      append-icon="event"
+                      v-on:click:append="inspectionDateMenu=true"
+                      readonly
+                      v-on="on"
+                      dense
+                      flat
+                      outlined
+                      solo
+                    ></v-text-field>
+                  </template>
+                  <v-date-picker v-model="inspectionDate" @input="inspectionDateMenu = false"></v-date-picker>
+                </v-menu>
+              </div>
 
-            <v-card>
-              <v-card-title class="headline grey lighten-3" primary-title>Status History</v-card-title>
+              <label>Inspector Name</label>
+              <v-text-field
+                v-model="inspectorName"
+                :rules="[v => !!v || 'Name is required']"
+                dense
+                flat
+                outlined
+                solo
+              />
 
-              <StatusTable :ipcPlanId="ipcPlanId" class="my-4" />
+              <label>Inspector Email (Optional)</label>
+              <v-text-field v-model="inspectorEmail" dense flat outlined solo />
 
-              <v-divider></v-divider>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="primary" text @click="historyDialog = false">CLOSE</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
-        </v-col>
+              <div v-if="statusToSet === statuses.ASSIGNED" class="text-right">
+                <v-btn
+                  text
+                  small
+                  color="primary"
+                  class="pl-0 my-0 text-end"
+                  @click="assignToCurrentUser"
+                >
+                  <v-icon class="mr-1">person</v-icon>ASSIGN TO ME
+                </v-btn>
+              </div>
+            </div>
+          </v-col>
+        </v-row>
 
-        <v-col cols="12" lg="6" xl="4">
-          <v-btn block color="primary" disabled v-on="on">UPDATE</v-btn>
-        </v-col>
-      </v-row>
+        <v-row>
+          <v-col cols="12" lg="6" xl="4" offset-xl="2">
+            <v-dialog v-model="historyDialog" width="1200">
+              <template v-slot:activator="{ on }">
+                <v-btn block outlined color="textLink" v-on="on">VIEW HISTORY</v-btn>
+              </template>
+
+              <v-card>
+                <v-card-title class="headline grey lighten-3" primary-title>Status History</v-card-title>
+
+                <StatusTable :ipcPlanId="ipcPlanId" class="my-4" />
+
+                <v-divider></v-divider>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="primary" text @click="historyDialog = false">CLOSE</v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </v-col>
+
+          <v-col cols="12" lg="6" xl="4">
+            <v-btn block color="primary" v-on="on" @click="updateStatus">UPDATE</v-btn>
+          </v-col>
+        </v-row>
+      </v-form>
     </div>
   </v-card>
 </template>
@@ -61,13 +129,11 @@ import { mapGetters } from 'vuex';
 
 import ipcService from '@/services/ipcService';
 import StatusTable from '@/components/admin/StatusTable.vue';
-import Status from '@/components/admin/inspection/Status.vue';
 import { Statuses } from '@/utils/constants';
 
 export default {
   name: 'InspectionPanel',
   components: {
-    Status,
     StatusTable,
   },
   props: {
@@ -78,11 +144,21 @@ export default {
   },
   data() {
     return {
+      on: false,
       error: '',
       historyDialog: false,
+      inspectionDateMenu: false,
       loading: true,
       statusHistory: {},
-      statuses: Statuses
+      statuses: Statuses,
+      statusFields: false,
+      statusToSet: '',
+      valid: false,
+
+      // Fields
+      inspectorName: this.currentStatus ? this.currentStatus.inspectorName : '',
+      inspectorEmail: this.currentStatus ? this.currentStatus.inspectorEmail : '',
+      inspectionDate: ''
     };
   },
   computed: {
@@ -93,6 +169,43 @@ export default {
         return this.statusHistory[0];
       } else {
         return {};
+      }
+    },
+    items() {
+      switch(this.currentStatus.status) {
+        case this.statuses.SUBMITTED:
+          return [{
+            label: 'Assign',
+            statusVal: this.statuses.ASSIGNED
+          }];
+        case this.statuses.ASSIGNED:
+          return [{
+            label: 'Schedule',
+            statusVal: this.statuses.SCHEDULED
+          },
+          {
+            label: 'Re-Assign',
+            statusVal: this.statuses.ASSIGNED
+          }];
+        case this.statuses.SCHEDULED:
+          return [{
+            label: 'Complete',
+            statusVal: this.statuses.COMPLETED
+          },
+          {
+            label: 'Follow-up',
+            statusVal: this.statuses.FOLLOWUP
+          },
+          {
+            label: 'Re-schedule',
+            statusVal: this.statuses.SCHEDULED
+          },
+          {
+            label: 'Cancel',
+            statusVal: this.statuses.CANCELLED
+          }];
+        default:
+          return [];
       }
     }
   },
@@ -113,9 +226,49 @@ export default {
         .finally(() => {
           this.loading = false;
         });
-    }
+    },
+    assignToCurrentUser() {
+      this.inspectorName = this.fullName;
+      this.inspectorEmail = this.email;
+    },
+    resetForm() {
+      this.statusFields = false;
+      this.$refs.form.resetValidation();
+      this.statusToSet = null;
+      this.statusFields = false;
+    },
+    async updateStatus() {
+      try {
+        this.error = '';
+        if(this.$refs.form.validate()) {
+          if(!this.statusToSet) {
+            throw new Error('No Status');
+          }
+
+          const statusBody = {
+            status: this.statusToSet,
+            inspectorName: this.inspectorName
+          };
+          if(this.inspectorEmail) {
+            statusBody.inspectorEmail = this.inspectorEmail;
+          }
+          if(this.inspectionDate) {
+            statusBody.inspectionDate = this.inspectionDate;
+          }
+          const response = await ipcService.sendIPCInspectionStatuses(this.ipcPlanId, statusBody);
+          if (!response.data) {
+            throw new Error('No response data from API while submitting form');
+          }
+          this.resetForm();
+          this.getInspectionData();
+        }
+      } catch (error) {
+        console.error(`Error updating status: ${error}`); // eslint-disable-line no-console
+        this.error = 'An error occured while trying to update the status';
+      }
+    },
   },
-  mounted() {
+  created() {
     this.getInspectionData();
   }
 };
