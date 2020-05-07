@@ -65,7 +65,6 @@
 <script>
 import { mapGetters } from 'vuex';
 
-import ipcService from '@/services/ipcService';
 import { Statuses } from '@/utils/constants';
 
 export default {
