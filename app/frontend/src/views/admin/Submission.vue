@@ -35,8 +35,13 @@
           <v-col cols="12" md="8" class="pl-0 pt-0">
             <AdminReviewSubmission />
           </v-col>
-          <v-col cols="12" md="4" class="pl-0">
-            <InspectionPanel :ipcPlanId="ipcPlan.ipcPlanId" />
+          <v-col cols="12" md="4" class="pl-0" order="first" order-md="last">
+            <InspectionPanel
+              :ipcPlanId="ipcPlan.ipcPlanId"
+              v-on:note-updated="refreshNotes"
+            />
+
+            <NotesPanel :ipcPlanId="ipcPlan.ipcPlanId" ref="notesPanel"/>
           </v-col>
         </v-row>
       </div>
@@ -51,13 +56,15 @@ import { mapActions, mapGetters, mapMutations } from 'vuex';
 import AdminReviewSubmission from '@/components/admin/AdminReviewSubmission.vue';
 import GeneratePdfButton from '@/components/common/GeneratePdfButton.vue';
 import InspectionPanel from '@/components/admin/inspection/InspectionPanel.vue';
+import NotesPanel from '@/components/admin/inspection/NotesPanel.vue';
 
 export default {
   name: 'Submission',
   components: {
     AdminReviewSubmission,
     GeneratePdfButton,
-    InspectionPanel
+    InspectionPanel,
+    NotesPanel
   },
   props: ['ipcPlanId'],
   data() {
@@ -73,7 +80,10 @@ export default {
   },
   methods: {
     ...mapMutations('form', ['setGettingForm']),
-    ...mapActions('form', ['getForm'])
+    ...mapActions('form', ['getForm']),
+    refreshNotes() {
+      this.$refs.notesPanel.getNotes();
+    }
   },
   async created() {
     this.setGettingForm(true);

@@ -59,5 +59,27 @@ export default {
    */
   sendIPCInspectionStatuses(ipcPlanId, content) {
     return appAxios().post(`${ApiRoutes.IPC}/${ipcPlanId}/status`, content);
-  }
+  },
+
+  /**
+   * @function getNotes
+   * Fetch the notes of a specific IPC form submission
+   * @param {string} ipcPlanId The guid of a submitted ipcplan from the database
+   * @returns {Promise} An axios response
+   */
+  getNotes(ipcPlanId) {
+    return appAxios().get(`${ApiRoutes.IPC}/${ipcPlanId}/notes`);
+  },
+
+  /**
+   * @function addNote
+   * Add a note of a specific IPC form submission
+   * @param {string} ipcPlanId The guid of a submitted ipcplan from the database
+   * @param {object} content An object representing the note
+   * @returns {Promise} An axios response
+   */
+  addNote(ipcPlanId, content) {
+    return appAxios().post(`${ApiRoutes.IPC}/${ipcPlanId}/notes`, content);
+  },
+
 };

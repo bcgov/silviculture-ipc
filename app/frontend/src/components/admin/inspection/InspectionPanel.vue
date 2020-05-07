@@ -118,12 +118,25 @@
                   </v-btn>
                 </div>
               </div>
+
+              <label>Note (Optional)</label>
+              <v-textarea
+                v-model="note"
+                :rules="v => v.length <= 4000 || 'Max 4000 characters'"
+                rows="1"
+                counter
+                auto-grow
+                dense
+                flat
+                outlined
+                solo
+              />
             </div>
           </v-col>
         </v-row>
 
         <v-row>
-          <v-col cols="12" lg="6" xl="4" offset-xl="2">
+          <v-col cols="12" sm="6" xl="4" offset-xl="2">
             <v-dialog v-model="historyDialog" width="1200">
               <template v-slot:activator="{ on }">
                 <v-btn block outlined color="textLink" v-on="on">VIEW HISTORY</v-btn>
@@ -143,7 +156,7 @@
             </v-dialog>
           </v-col>
 
-          <v-col cols="12" lg="6" xl="4">
+          <v-col cols="12" sm="6" xl="4" order="first" order-sm="last">
             <v-btn block color="primary" v-on="on" @click="updateStatus">UPDATE</v-btn>
           </v-col>
         </v-row>
@@ -189,7 +202,8 @@ export default {
       inspectorEmail: this.currentStatus ? this.currentStatus.inspectorEmail : '',
       inspectionDate: '',
       grade: '',
-      grades: ['Pass', 'Fail']
+      grades: ['Pass', 'Fail'],
+      note: ''
     };
   },
   computed: {
@@ -270,7 +284,7 @@ export default {
     },
     showInspector() { return [this.statuses.ASSIGNED, this.statuses.SCHEDULED, this.statuses.FOLLOWUP].includes(this.statusToSet); },
     showInspectionDate() { return [this.statuses.SCHEDULED, this.statuses.FOLLOWUP].includes(this.statusToSet); },
-    inspectionDateDisplay() { return this.currentStatus.inspectionDate ? moment(this.currentStatus.inspectionDate).format('MMMM D YYYY') : 'N/A'; },
+    inspectionDateDisplay() { return this.currentStatus.inspectionDate ? moment(this.currentStatus.inspectionDatmomente).format('MMMM D YYYY') : 'N/A'; },
     showGrade() { return [this.statuses.COMPLETED, this.statuses.FOLLOWUP].includes(this.statusToSet); }
   },
   methods: {
@@ -300,6 +314,7 @@ export default {
       this.$refs.form.resetValidation();
       this.statusToSet = null;
       this.statusFields = false;
+      this.note = '';
     },
     async updateStatus() {
       try {
@@ -326,9 +341,16 @@ export default {
           if(this.grade && this.showGrade) {
             statusBody.grade = this.grade;
           }
+          if(this.note) {
+            statusBody.note = this.note;
+          }
           const response = await ipcService.sendIPCInspectionStatuses(this.ipcPlanId, statusBody);
           if (!response.data) {
             throw new Error('No response data from API while submitting form');
+          }
+          if(this.note) {
+            // Update the parent if the note was updated
+            this.$emit('note-updated');
           }
           this.resetForm();
           this.getInspectionData();
