@@ -24,6 +24,9 @@ const email = {
       const recipients = config.get('server.emailRecipients');
 
       try {
+        context.messageLinkText = 'Please login to view the details of this Silviculture and Planting Operator IPC Attestation';
+        context.messageLinkUrl = 'https://silvicultureoperatorscreening.gov.bc.ca/app/#/admin';
+
         const token = await utils.getKeyCloakToken(username, password, tokenEndpoint);
         const response = await axios.post(apiEndpoint + '/v1/emailMerge', {
           body: emailBody,
@@ -61,20 +64,22 @@ const email = {
    */
   sendReceiptRequest: async (ipcPlanId, to) => {
     try {
-      const confirmationId = ipcPlanId.split('-')[0].toUpperCase();
-      const downloadUrl = `https://silvicultureoperatorscreening.gov.bc.ca/app/api/v1/ipc/pdf/${ipcPlanId}`;
-
       const token = await utils.getKeyCloakToken(username, password, tokenEndpoint);
-      const response = await axios.post(apiEndpoint + '/v1/email', {
-        body: `
-          <p>Message from Silviculture IPC</p>
-          <p><strong>Confirmation ID:</strong> ${confirmationId}</p>
-          <p><a href="${downloadUrl}">Download PDF Receipt</a></p>
-        `,
+      const response = await axios.post(apiEndpoint + '/v1/emailMerge', {
+        body: emailBody,
         bodyType: 'html',
+        contexts: [
+          {
+            context: {
+              confirmationNumber: ipcPlanId.split('-')[0].toUpperCase(),
+              messageLinkText: 'Download PDF Receipt',
+              messageLinkUrl: `https://silvicultureoperatorscreening.gov.bc.ca/app/api/v1/ipc/pdf/${ipcPlanId}`
+            },
+            to: [to]
+          }
+        ],
         from: 'FP.Engagement@gov.bc.ca',
         priority: 'normal',
-        to: [to],
         subject: 'Silviculture IPC Form Receipt'
       }, {
         headers: { Authorization: `Bearer ${token.access_token}` }
