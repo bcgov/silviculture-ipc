@@ -1,7 +1,5 @@
 const router = require('express').Router();
 
-const keycloak = require('../components/keycloak');
-
 const emailRouter = require('./v1/email');
 const ipcRouter = require('./v1/ipc');
 
@@ -13,7 +11,7 @@ router.get('/', (_req, res) => {
 });
 
 /** Email Router */
-router.use('/email', keycloak.protect(), emailRouter);
+router.use('/email', emailRouter);
 
 /** IPC Router */
 router.use('/ipc', ipcRouter);
