@@ -12,13 +12,24 @@
         <blockquote>{{ confirmationId }}</blockquote>
       </h2>
 
-      <p>Download a copy of this form to send to your local health authority contact below:</p>
+      <h2>Download and Notify</h2>
+      <ol class="my-4">
+        <li>Download or email yourself a copy of your form submission.</li>
+        <li>Send a copy of your form submission to the relevant health authority</li>
+      </ol>
 
-      <GeneratePdfButton :ipcPlanId="this.submissionDetails.ipcPlan.ipcPlanId">
-        <v-btn color="primary" class="mx-5 mb-10" fab large>
-          <v-icon>picture_as_pdf</v-icon>
-        </v-btn>
-      </GeneratePdfButton>
+      <v-row>
+        <GeneratePdfButton :ipcPlanId="this.submissionDetails.ipcPlan.ipcPlanId">
+          <v-btn color="primary" class="mx-5 mb-10" fab large>
+            <v-icon>picture_as_pdf</v-icon>
+          </v-btn>
+        </GeneratePdfButton>
+
+        <RequestReceipt
+          :email="this.submissionDetails.contacts[0].email"
+          :ipcPlanId="this.submissionDetails.ipcPlan.ipcPlanId"
+        />
+      </v-row>
 
       <hr />
 
@@ -226,6 +237,7 @@
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 
 import GeneratePdfButton from '@/components/common/GeneratePdfButton.vue';
+import RequestReceipt from '@/components/form/RequestReceipt.vue';
 import Step1 from '@/components/form/Step1.vue';
 import Step2 from '@/components/form/Step2.vue';
 import Step3 from '@/components/form/Step3.vue';
@@ -236,6 +248,7 @@ export default {
   name: 'Step6',
   components: {
     GeneratePdfButton,
+    RequestReceipt,
     Step1,
     Step2,
     Step3,
@@ -248,22 +261,38 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('form', ['ipcPlan', 'submissionComplete', 'submissionDetails', 'submissionError', 'submitting']),
+    ...mapGetters('form', [
+      'ipcPlan',
+      'submissionComplete',
+      'submissionDetails',
+      'submissionError',
+      'submitting'
+    ]),
     confirmationId() {
-      if(this.submissionDetails && this.submissionDetails.ipcPlan) {
-        return this.submissionDetails.ipcPlan.ipcPlanId.split('-')[0].toUpperCase();
+      if (this.submissionDetails && this.submissionDetails.ipcPlan) {
+        return this.submissionDetails.ipcPlan.ipcPlanId
+          .split('-')[0]
+          .toUpperCase();
       } else {
         return '';
       }
     },
     // Certify checkboxes
     certifyAccurateInformation: {
-      get() { return this.ipcPlan.certifyAccurateInformation; },
-      set(value) { this.updateIpcPlan({['certifyAccurateInformation']: value}); }
+      get() {
+        return this.ipcPlan.certifyAccurateInformation;
+      },
+      set(value) {
+        this.updateIpcPlan({ ['certifyAccurateInformation']: value });
+      }
     },
     agreeToInspection: {
-      get() { return this.ipcPlan.agreeToInspection; },
-      set(value) { this.updateIpcPlan({['agreeToInspection']: value}); }
+      get() {
+        return this.ipcPlan.agreeToInspection;
+      },
+      set(value) {
+        this.updateIpcPlan({ ['agreeToInspection']: value });
+      }
     }
   },
   methods: {
@@ -271,7 +300,7 @@ export default {
     ...mapActions('form', ['submitForm']),
     async submit() {
       await this.submitForm();
-      if(this.submissionComplete) {
+      if (this.submissionComplete) {
         // Once the form is done disable the native browser "leave site" message so they can quit without getting whined at
         window.onbeforeunload = null;
       }
@@ -281,9 +310,11 @@ export default {
     }
   },
   mounted() {
-    document.querySelectorAll('.review-form input, .review-form .v-select').forEach(q => {
-      q.setAttribute('readonly', 'true');
-    });
+    document
+      .querySelectorAll('.review-form input, .review-form .v-select')
+      .forEach(q => {
+        q.setAttribute('readonly', 'true');
+      });
   }
 };
 </script>

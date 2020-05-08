@@ -72,9 +72,8 @@ const models = {
   },
 
   email: {
-    comments: value => validatorUtils.isString(value),
-    from: value => validatorUtils.isEmail(value),
-    idir: value => validatorUtils.isString(value)
+    ipcPlanId: value => validatorUtils.isNonEmptyString(value) && validator.isUUID(value, 4),
+    to: value => validatorUtils.isEmail(value)
   },
 
   ipcPlan: {
@@ -137,17 +136,13 @@ const models = {
 const validators = {
   email: (obj) => {
     const errors = [];
-    if (!models.email.comments(obj['comments'])) {
-      errors.push({ value: obj['comments'], message: 'Invalid value for `comments`.' });
+    if (!models.email.ipcPlanId(obj['ipcPlanId'])) {
+      errors.push({ value: obj['ipcPlanId'], message: 'Invalid value for `ipcPlanId`.' });
     }
-    if (!models.email.from(obj['from'])) {
-      errors.push({ value: obj['from'], message: 'Invalid value for `from`.' });
-    }
-    if (!models.email.idir(obj['idir'])) {
-      errors.push({ value: obj['idir'], message: 'Invalid value for `idir`.' });
+    if (!models.email.to(obj['to'])) {
+      errors.push({ value: obj['to'], message: 'Invalid value for `to`.' });
     }
     return errors;
-
   },
 
   ipc: (obj) => {

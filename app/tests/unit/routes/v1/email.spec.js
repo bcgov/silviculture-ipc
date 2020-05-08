@@ -11,14 +11,13 @@ const app = helper.expressHelper(basePath, router);
 helper.logHelper();
 
 describe(`POST ${basePath}`, () => {
-  const sendRequestSpy = jest.spyOn(emailComponent, 'sendRequest');
+  const sendRequestSpy = jest.spyOn(emailComponent, 'sendReceiptRequest');
   let body;
 
   beforeEach(() => {
     body = {
-      comments: 'comment',
-      from: 'email@example.com',
-      idir: 'user@idir'
+      ipcPlanId: '93d4ec6c-af70-42b8-91f8-30ba5ef82693',
+      to: 'email@valid.ok'
     };
     sendRequestSpy.mockReset();
   });
@@ -32,12 +31,12 @@ describe(`POST ${basePath}`, () => {
     expect(response.body).toBeTruthy();
     expect(response.body).toMatch('test');
     expect(sendRequestSpy).toHaveBeenCalledTimes(1);
-    expect(sendRequestSpy).toHaveBeenCalledWith(body.comments, body.from, body.idir);
+    expect(sendRequestSpy).toHaveBeenCalledWith(body.ipcPlanId, body.to);
   });
 
   it('should yield a validation failure', async () => {
     const email = 'badEmail';
-    body.from = email;
+    body.to = email;
     sendRequestSpy.mockReturnValue('test');
 
     const response = await request(app).post(`${basePath}`).send(body);
@@ -47,7 +46,7 @@ describe(`POST ${basePath}`, () => {
     expect(response.body.detail).toMatch('Validation failed');
     expect(response.body.errors).toHaveLength(1);
     expect(response.body.errors[0].value).toMatch(email);
-    expect(response.body.errors[0].message).toMatch('Invalid value for `from`.');
+    expect(response.body.errors[0].message).toMatch('Invalid value for `to`.');
     expect(sendRequestSpy).toHaveBeenCalledTimes(0);
   });
 
@@ -63,6 +62,6 @@ describe(`POST ${basePath}`, () => {
     expect(response.body).toBeTruthy();
     expect(response.body.detail).toBe(errMsg);
     expect(sendRequestSpy).toHaveBeenCalledTimes(1);
-    expect(sendRequestSpy).toHaveBeenCalledWith(body.comments, body.from, body.idir);
+    expect(sendRequestSpy).toHaveBeenCalledWith(body.ipcPlanId, body.to);
   });
 });

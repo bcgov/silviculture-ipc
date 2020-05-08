@@ -3,12 +3,12 @@ import { ApiRoutes } from '@/utils/constants';
 
 export default {
   /**
-   * @function sendRegistrationEmail
+   * @function requestReceiptEmail
    * Sends an application registration request email
-   * @param {object} content An object with applicationAcronym, comments, from and idir attributes
+   * @param {object} content An object with ipcPlanId and to attributes
    * @returns {Promise} An axios response
    */
-  sendRegistrationEmail(content) {
+  requestReceiptEmail(content) {
     return appAxios().post(ApiRoutes.EMAIL, content);
   }
 };

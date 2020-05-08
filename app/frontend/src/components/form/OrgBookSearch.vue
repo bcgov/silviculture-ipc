@@ -36,7 +36,6 @@
 
 <script>
 import axios from 'axios';
-import Vue from 'vue';
 
 export default {
   name: 'OrgBookSearch',
@@ -65,9 +64,8 @@ export default {
       });
     },
     apiURL() {
-      if (Vue.prototype.$config) {
-        const config = Vue.prototype.$config;
-        return config.orgbook.endpoint;
+      if (this.$config && this.$config.orgbook) {
+        return this.$config.orgbook.endpoint;
       } else {
         throw new Error('Configuration object is missing.');
       }

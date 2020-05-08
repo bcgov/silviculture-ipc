@@ -24,6 +24,9 @@ const email = {
       const recipients = config.get('server.emailRecipients');
 
       try {
+        context.messageLinkText = 'Please login to view the details of this Silviculture and Planting Operator IPC Attestation';
+        context.messageLinkUrl = 'https://silvicultureoperatorscreening.gov.bc.ca/app/#/admin';
+
         const token = await utils.getKeyCloakToken(username, password, tokenEndpoint);
         const response = await axios.post(apiEndpoint + '/v1/emailMerge', {
           body: emailBody,
@@ -34,7 +37,7 @@ const email = {
               to: recipients.split(',').filter(r => r),
             }
           ],
-          from: 'NR.CommonServiceShowcase@gov.bc.ca',
+          from: 'FP.Engagement@gov.bc.ca',
           priority: 'normal',
           subject: 'Silviculture IPC Form Accepted'
         }, {
@@ -54,22 +57,30 @@ const email = {
   },
 
   /**
-   * @function sendRequest
-   * Sends an email request through CHES
-   * @param {string} comments The sender's unformatted comment text
-   * @param {string} from The sender's registered email
-   * @param {string} idir The sender's IDIR
+   * @function sendReceiptRequest
+   * Sends an email receipt request through CHES to the sender
+   * @param {string} ipcPlanId The sender's ipcPlanId confirmation uuid
+   * @param {string} to The sender's target email address
    */
-  sendRequest: async (comments, from, idir) => {
+  sendReceiptRequest: async (ipcPlanId, to) => {
     try {
       const token = await utils.getKeyCloakToken(username, password, tokenEndpoint);
-      const response = await axios.post(apiEndpoint + '/v1/email', {
-        body: `<p>Message from Silviculture IPC</p> <p><strong>User comments:</strong><br/>${comments}`,
+      const response = await axios.post(apiEndpoint + '/v1/emailMerge', {
+        body: emailBody,
         bodyType: 'html',
-        from: from,
-        priority: 'high',
-        to: ['NR.CommonServiceShowcase@gov.bc.ca'],
-        subject: `Silviculture IPC Message from ${idir}`
+        contexts: [
+          {
+            context: {
+              confirmationNumber: ipcPlanId.split('-')[0].toUpperCase(),
+              messageLinkText: 'Download PDF Receipt',
+              messageLinkUrl: `https://silvicultureoperatorscreening.gov.bc.ca/app/api/v1/ipc/pdf/${ipcPlanId}`
+            },
+            to: [to]
+          }
+        ],
+        from: 'FP.Engagement@gov.bc.ca',
+        priority: 'normal',
+        subject: 'Silviculture IPC Form Receipt'
       }, {
         headers: { Authorization: `Bearer ${token.access_token}` }
       });
