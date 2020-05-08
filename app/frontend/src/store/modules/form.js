@@ -3,6 +3,8 @@ import ipcService from '../../services/ipcService';
 export default {
   namespaced: true,
   state: {
+    getFormError: '',
+    gettingForm: false,
     submitting: false,
     step: 1,
     submissionComplete: false,
@@ -103,6 +105,8 @@ export default {
     }
   },
   getters: {
+    getFormError: state => state.getFormError,
+    gettingForm: state => state.gettingForm,
     step: state => state.step,
     submitting: state => state.submitting,
     submissionComplete: state => state.submissionComplete,
@@ -117,6 +121,12 @@ export default {
     location: state => state.location,
   },
   mutations: {
+    setGetFormError(state, errorMessage) {
+      state.getFormError = errorMessage;
+    },
+    setGettingForm(state, isGetting) {
+      state.gettingForm = isGetting;
+    },
     setSubmitting(state, isSubmitting) {
       state.submitting = isSubmitting;
     },
@@ -153,11 +163,33 @@ export default {
     },
   },
   actions: {
+    async getForm({ commit }, ipcPlanId) {
+      commit('setGettingForm', true);
+      commit('setGetFormError', '');
+      try {
+        const response = await ipcService.getIPCContent(ipcPlanId);
+        if (!response.data) {
+          throw new Error(`Failed to GET for ${ipcPlanId}`);
+        }
+        const data = response.data;
+
+        commit('updateIpcPlan', data.ipcPlan);
+        commit('updateBusiness', data.business);
+        commit('updateContacts', data.contacts[0]);
+        commit('updateCovidContact', data.covidContact);
+        commit('updateLocation', data.location);
+        commit('setSubmissionComplete');
+      } catch (error) {
+        console.error(`Error getting form: ${error}`); // eslint-disable-line no-console
+        commit('setGetFormError', 'An error occurred while attempting to fetch details. Please refresh and try again.');
+      } finally {
+        commit('setGettingForm', false);
+      }
+    },
     async submitForm({ commit, state }) {
       commit('setSubmitting', true);
       commit('setSubmissionError', '');
       try {
-        // TODO: set to FE package version
         commit('updateIpcPlan', { formVersion: process.env.VUE_APP_VERSION });
         const body = {
           business: state.business,

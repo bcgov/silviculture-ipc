@@ -605,7 +605,7 @@ export default {
       set(value) { this.updateLocation({['city']: value}); }
     },
     numberOfWorkers: {
-      get() { return this.location.numberOfWorkers.toString(); },
+      get() { return this.location.numberOfWorkers ? this.location.numberOfWorkers.toString() : ''; },
       set(value) { this.updateLocation({['numberOfWorkers']:
         Number.isNaN(value) ? 0 : Number.parseInt(value)});
       }
@@ -666,10 +666,11 @@ export default {
     }
   },
   mounted() {
-    // Once they've gotten to the form start (step 2) enable the typical "leave site" native browser warning
-    // This gets disabled after form submit in step 6
-    window.onbeforeunload = () => true;
-
+    if(!this.reviewMode) {
+      // Once they've gotten to the form start (step 2) enable the typical "leave site" native browser warning
+      // This gets disabled after form submit in step 6
+      window.onbeforeunload = () => true;
+    }
   }
 };
 </script>

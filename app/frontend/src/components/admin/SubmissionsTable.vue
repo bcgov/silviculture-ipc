@@ -26,13 +26,13 @@
     >
       <template v-slot:item.download="{ item }">
         <GeneratePdfButton :ipcPlanId="item.ipcPlanId">
-          <v-btn text small color="primary"><v-icon class="mr-1">picture_as_pdf</v-icon> PDF</v-btn>
+          <v-btn text small color="textLink"><v-icon class="mr-1">picture_as_pdf</v-icon> PDF</v-btn>
         </GeneratePdfButton>
       </template>
 
       <template v-slot:item.details="{ item }">
         <router-link :to="{ name: 'Submission', params: { ipcPlanId: item.ipcPlanId } }">
-          <v-btn text small color="primary"><v-icon class="mr-1">remove_red_eye</v-icon> VIEW</v-btn>
+          <v-btn text small color="textLink"><v-icon class="mr-1">remove_red_eye</v-icon> VIEW</v-btn>
         </router-link>
       </template>
     </v-data-table>
@@ -42,7 +42,6 @@
 <script>
 import GeneratePdfButton from '@/components/common/GeneratePdfButton.vue';
 import ipcService from '@/services/ipcService';
-import Vue from 'vue';
 
 export default {
   name: 'SubmissionsTable',
@@ -100,10 +99,6 @@ export default {
         .catch(() => {
           this.showTableAlert('error', 'No response from server');
         });
-    },
-    generatePdf(ipcPlanId){
-      const pdf = `${Vue.prototype.$config.basePath}/${Vue.prototype.$config.apiPath}/ipc/pdf/${ipcPlanId}`;
-      window.open(pdf, '_blank');
     },
     showTableAlert(typ, msg) {
       this.showAlert = true;

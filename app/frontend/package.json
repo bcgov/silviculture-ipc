@@ -1,6 +1,6 @@
 {
   "name": "silviculture-ipc",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "private": true,
   "author": "NR Common Service Showcase <NR.CommonServiceShowcase@gov.bc.ca>",
   "bugs": {
@@ -31,6 +31,7 @@
     "@dsb-norge/vue-keycloak-js": "^1.1.2",
     "axios": "^0.19.2",
     "core-js": "^3.6.5",
+    "moment": "^2.25.3",
     "nprogress": "^0.2.0",
     "validator": "^13.0.0",
     "vue": "^2.6.11",
