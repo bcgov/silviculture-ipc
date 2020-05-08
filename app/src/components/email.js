@@ -37,7 +37,7 @@ const email = {
               to: recipients.split(',').filter(r => r),
             }
           ],
-          from: 'NR.CommonServiceShowcase@gov.bc.ca',
+          from: 'FP.Engagement@gov.bc.ca',
           priority: 'normal',
           subject: 'Silviculture IPC Form Accepted'
         }, {
