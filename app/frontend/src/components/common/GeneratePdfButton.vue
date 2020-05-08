@@ -1,6 +1,6 @@
 <template>
   <a v-on:click="generatePdf()" target="_blank">
-    <slot></slot>
+    <slot />
   </a>
 </template>
 
