@@ -22,16 +22,18 @@
         <v-icon large color="primary">email</v-icon>
       </template>
       <template v-slot:text>
-        <label>Send to E-mail Address</label>
-        <v-text-field
-          dense
-          flat
-          outlined
-          solo
-          :rules="emailRules"
-          prepend-inner-icon="email"
-          v-model="to"
-        />
+        <v-form ref="form" v-model="valid">
+          <label>Send to E-mail Address</label>
+          <v-text-field
+            dense
+            flat
+            outlined
+            solo
+            :rules="emailRules"
+            prepend-inner-icon="email"
+            v-model="to"
+          />
+        </v-form>
       </template>
       <template v-slot:button-text-continue>
         <span>SEND</span>
@@ -60,43 +62,50 @@ export default {
       v => !!v || 'E-mail is required',
       v =>
         validator.isEmail(v, { allow_display_name: true }) ||
-        'invalid e-mail format',
-      v => (v && v.length <= 100) || 'E-mail must be less than 100? characters'
+        'invalid e-mail format'
     ],
     resultDialog: false,
     resultDialogMsg: '',
     showDialog: false,
     success: false,
-    to: ''
+    to: '',
+    valid: false
   }),
   methods: {
     displayDialog() {
       this.showDialog = true;
     },
     requestReceipt() {
-      emailService
-        .requestReceiptEmail({
-          ipcPlanId: this.ipcPlanId,
-          to: this.to
-        })
-        .then(() => {
-          this.success = true;
-          this.resultDialogMsg = `An email has been sent to ${this.to}.`;
-        })
-        .catch(() => {
-          this.success = false;
-          this.resultDialogMsg = 'An error occured while attempting to send your email.';
-        })
-        .finally(() => {
-          this.showDialog = false;
-          this.resultDialog = true;
-        });
+      if (this.valid) {
+        emailService
+          .requestReceiptEmail({
+            ipcPlanId: this.ipcPlanId,
+            to: this.to
+          })
+          .then(() => {
+            this.success = true;
+            this.resultDialogMsg = `An email has been sent to ${this.to}.`;
+          })
+          .catch(() => {
+            this.success = false;
+            this.resultDialogMsg =
+              'An error occured while attempting to send your email.';
+          })
+          .finally(() => {
+            this.showDialog = false;
+            this.resultDialog = true;
+          });
+      }
+    },
+    resetDialog() {
+      this.resultDialogMsg = '';
+      this.success = false;
+      this.to = this.email;
+      this.valid = false;
     }
   },
   mounted() {
-    this.resultDialogMsg = '';
-    this.success = false;
-    this.to = this.email;
+    this.resetDialog();
   },
   props: {
     email: {

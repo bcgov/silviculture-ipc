@@ -12,7 +12,11 @@
         <blockquote>{{ confirmationId }}</blockquote>
       </h2>
 
-      <p>Download or email a copy of this form to send to your local health authority contact below:</p>
+      <h2>Download and Notify</h2>
+      <ol class="my-4">
+        <li>Download or email yourself a copy of your form submission.</li>
+        <li>Send a copy of your form submission to the relevant health authority</li>
+      </ol>
 
       <v-row>
         <GeneratePdfButton :ipcPlanId="this.submissionDetails.ipcPlan.ipcPlanId">
@@ -306,9 +310,11 @@ export default {
     }
   },
   mounted() {
-    document.querySelectorAll('.review-form input, .review-form .v-select').forEach(q => {
-      q.setAttribute('readonly', 'true');
-    });
+    document
+      .querySelectorAll('.review-form input, .review-form .v-select')
+      .forEach(q => {
+        q.setAttribute('readonly', 'true');
+      });
   }
 };
 </script>
