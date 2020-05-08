@@ -160,6 +160,9 @@ module.exports = {
               model: db.Location,
             },
             {
+              model: db.MapLocation,
+            },
+            {
               model: db.InspectionStatus
             },
             {
@@ -199,6 +202,9 @@ module.exports = {
             model: db.Location,
           },
           {
+            model: db.MapLocation,
+          },
+          {
             model: db.InspectionStatus
           },
           {
@@ -235,7 +241,7 @@ module.exports = {
     return ipcObjs;
   },
 
-  async save(business, contacts, ipcPlan, location) {
+  async save(business, contacts, ipcPlan, location, mapLocations) {
     let ipcPlanId;
     try {
       await db.sequelize.transaction(async t => {
@@ -249,10 +255,16 @@ module.exports = {
         ipcPlanId = ipcPlanObj.ipcPlanId;
 
         await db.Business.create({...business, ipcPlanId: ipcPlanId}, {transaction: t});
-        await db.Location.create({...location, ipcPlanId: ipcPlanId}, {transaction: t});
+
+        const locationObj = await db.Location.create({...location, ipcPlanId: ipcPlanId}, {transaction: t});
+        let locationId = locationObj.locationId;
 
         await db.Contact.bulkCreate(contacts.map(c => {
           return {...c, ipcPlanId: ipcPlanId};
+        }), {transaction: t});
+
+        await db.MapLocation.bulkCreate(mapLocations.map(ml => {
+          return {...ml, locationId: locationId};
         }), {transaction: t});
 
         await db.InspectionStatus.create({status: 'Submitted', createdBy: 'system', ipcPlanId: ipcPlanId}, {transaction: t});

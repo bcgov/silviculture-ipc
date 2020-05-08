@@ -43,11 +43,15 @@ const transformService = {
       location.startDate = transformService.stringToDate(location.startDate);
       location.endDate = transformService.stringToDate(location.endDate);
 
+      // currently we only have one mapped location (for main accommodation site.)
+      const mapLocations = [{...obj.mapLocations[0]}];
+
       return {
         business: business,
         contacts: contacts,
         ipcPlan: ipcPlan,
-        location: location
+        location: location,
+        mapLocations: mapLocations
       };
     }
   },
@@ -107,6 +111,8 @@ const transformService = {
       result.location.startDate = transformService.dateToString(xform.location.startDate);
       result.location.endDate = transformService.dateToString(xform.location.endDate);
 
+      result.accommodationMapLocation = xform.mapLocations[0];
+
       result.inspectionStatuses = xform.inspectionStatuses;
       result.notes = xform.notes;
       return result;
@@ -120,13 +126,14 @@ const transformService = {
 
   confirmationId: ipcPlan => ipcPlan ? ipcPlan.ipcPlanId.split('-')[0].toUpperCase() : undefined,
 
-  ipcResult: (business, contacts, ipcPlan, location, inspectionStatuses, notes) => {
+  ipcResult: (business, contacts, ipcPlan, location, mapLocations, inspectionStatuses, notes) => {
     return {
       confirmationId: transformService.confirmationId(ipcPlan),
       business: business,
       contacts: contacts,
       ipcPlan: ipcPlan,
       location: location,
+      mapLocations: mapLocations,
       inspectionStatuses: inspectionStatuses,
       notes: notes
     };
@@ -143,6 +150,11 @@ const transformService = {
     const contacts = ipcPlan.Contacts.map(c => {
       return {...c.dataValues};
     });
+
+    const mapLocations = ipcPlan.MapLocations.map(ml => {
+      return {...ml.dataValues};
+    });
+
     const inspectionStatuses = transformService.modelToAPI.inspectionStatuses(ipcPlan.InspectionStatuses);
     const notes = transformService.modelToAPI.notes(ipcPlan.Notes);
     delete ipcPlan.Notes;
@@ -150,8 +162,9 @@ const transformService = {
     delete ipcPlan.Contacts;
     delete ipcPlan.Business;
     delete ipcPlan.Location;
+    delete ipcPlan.MapLocations;
 
-    return transformService.ipcResult(biz, contacts, ipcPlan, location, inspectionStatuses, notes);
+    return transformService.ipcResult(biz, contacts, ipcPlan, location, mapLocations, inspectionStatuses, notes);
   },
 
   transformIPCPlanMeta: obj => {

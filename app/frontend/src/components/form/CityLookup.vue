@@ -83,7 +83,10 @@ export default {
          */
         return Object.assign({
           text: feature.properties.fullAddress,
-          value: feature.properties.fullAddress
+          value: feature.properties.fullAddress,
+          latitude: feature.geometry.coordinates[0],
+          longitude: feature.geometry.coordinates[1],
+          score: feature.properties.score
         });
       });
     },
@@ -99,9 +102,17 @@ export default {
   methods: {
     change: function (value) {
       this.$emit(
-        'update:field-model',
-        // For this use, want to emit just the text
+        'update:city-field-model',
         typeof value === 'object' && value !== null ? value.text : value
+      );
+      this.$emit(
+        'update:latitude-field-model',
+        typeof value === 'object' && value !== null ? value.latitude : value
+      );
+
+      this.$emit(
+        'update:longitude-field-model',
+        typeof value === 'object' && value !== null ? value.longitude : value
       );
     },
   },

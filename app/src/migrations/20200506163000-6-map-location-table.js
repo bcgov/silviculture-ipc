@@ -21,12 +21,12 @@ module.exports = {
           latitude: {
             allowNull: false,
             comment: 'Latitude coordinate of mapped location',
-            type: Sequelize.STRING(255)
+            type: Sequelize.NUMERIC(10,7)
           },
           longitude: {
             allowNull: false,
             comment: 'Longitude coordinate of mapped location',
-            type: Sequelize.STRING(255)
+            type: Sequelize.NUMERIC(10,7)
           },
           createdAt: {
             allowNull: false,
@@ -34,7 +34,8 @@ module.exports = {
           },
           createdBy: {
             allowNull: false,
-            type: Sequelize.STRING(255)
+            type: Sequelize.STRING(255),
+            defaultValue: 'System'
           },
           updatedAt: {
             allowNull: false,
@@ -42,11 +43,13 @@ module.exports = {
           },
           updatedBy: {
             allowNull: false,
-            type: Sequelize.STRING(255)
+            type: Sequelize.STRING(255),
+            defaultValue: 'System'
           },
           deletedBy: {
             allowNull: false,
-            type: Sequelize.STRING(255)
+            type: Sequelize.STRING(255),
+            defaultValue: 'System',
           }
         }, {
           comment: 'List of map location records',

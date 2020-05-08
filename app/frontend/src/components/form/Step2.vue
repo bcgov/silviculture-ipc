@@ -302,7 +302,9 @@
 
             <CityLookup
               v-if="!reviewMode"
-              :field-model.sync="locationCity"
+              :city-field-model.sync="locationCity"
+              :latitude-field-model.sync="latitude"
+              :longitude-field-model.sync="longitude"
               :field-rules="locationCityRules"
             />
             <v-text-field
@@ -314,6 +316,8 @@
               v-model="locationCity"
               :rules="locationCityRules"
             />
+            <v-text-field v-model="latitude" />
+            <v-text-field v-model="longitude" />
           </v-col>
         </v-row>
 
@@ -533,7 +537,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('form', ['business', 'contacts', 'covidContact', 'ipcPlan', 'location']),
+    ...mapGetters('form', ['business', 'contacts', 'covidContact', 'ipcPlan', 'location', 'mapLocation']),
 
     // Business
     businessName: {
@@ -669,9 +673,22 @@ export default {
       set(value) { this.updateLocation({['accWorkersHome']: value}); }
     },
 
+    // location map coordiantes
+    latitude: {
+      get() {
+        return this.mapLocation.latitude;
+      },
+      set(value) { this.updateMapLocation({['latitude']: value}); }
+    },
+    longitude: {
+      get() {
+        return this.mapLocation.longitude;
+      },
+      set(value) { this.updateMapLocation({['longitude']: value}); }
+    },
   },
   methods: {
-    ...mapMutations('form', ['setStep', 'updateBusiness', 'updateContacts', 'updateCovidContact', 'updateIpcPlan', 'updateLocation']),
+    ...mapMutations('form', ['setStep', 'updateBusiness', 'updateContacts', 'updateCovidContact', 'updateIpcPlan', 'updateLocation', 'updateMapLocation']),
     async submit() {
       if(this.$refs.form.validate()) {
         this.setStep(3);
