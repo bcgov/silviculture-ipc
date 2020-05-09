@@ -15,6 +15,8 @@
     <v-alert v-if="showAlert" :type="alertType" tile dense>{{alertMessage}}</v-alert>
     <!-- table header -->
     <v-data-table
+      class="ipc-table"
+      :custom-sort="customSort"
       :headers="headers"
       :items="submissions"
       :items-per-page="10"
@@ -22,7 +24,8 @@
       :loading="loading"
       loading-text="Loading... Please wait"
       item-key="confirmationId"
-      class="ipc-table"
+      sortBy="created"
+      update: sort-desc
     >
       <template v-slot:item.download="{ item }">
         <GeneratePdfButton :ipcPlanId="item.ipcPlanId">
@@ -72,6 +75,25 @@ export default {
     };
   },
   methods: {
+    customSort(items, index, sortDesc) {
+      return items.sort((a, b) => {
+        if (index[0] === 'created') {
+          // Treat created field as date instead of string
+          if (sortDesc[0]) {
+            return new Date(b.created) - new Date(a.created);
+          } else {
+            return new Date(a.created) - new Date(b.created);
+          }
+        } else {
+          // Retain ordering functionality of other columns
+          if (sortDesc[0]) {
+            return b[index] < a[index] ? -1 : 1;
+          } else {
+            return a[index] < b[index] ? -1 : 1;
+          }
+        }
+      });
+    },
     formatDate(date){
       return (date) ? new Date(date).toLocaleString() : 'N/A';
     },
