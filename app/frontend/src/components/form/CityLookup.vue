@@ -83,8 +83,8 @@ export default {
         return Object.assign({
           text: feature.properties.fullAddress,
           value: feature.properties.fullAddress,
-          latitude: feature.geometry.coordinates[0],
-          longitude: feature.geometry.coordinates[1]
+          cityLatitude: feature.geometry.coordinates[0],
+          cityLongitude: feature.geometry.coordinates[1]
         });
       });
     },
@@ -104,13 +104,13 @@ export default {
         typeof value === 'object' && value !== null ? value.text : value
       );
       this.$emit(
-        'update:latitude-field-model',
-        typeof value === 'object' && value !== null ? value.latitude : null
+        'update:city-latitude-field-model',
+        typeof value === 'object' && value !== null ? value.cityLatitude : null
       );
 
       this.$emit(
-        'update:longitude-field-model',
-        typeof value === 'object' && value !== null ? value.longitude : null
+        'update:city-longitude-field-model',
+        typeof value === 'object' && value !== null ? value.cityLongitude : null
       );
     },
   },

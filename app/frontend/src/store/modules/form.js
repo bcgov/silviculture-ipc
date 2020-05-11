@@ -42,6 +42,8 @@ export default {
       addressLine1: '',
       addressLine2: '',
       city: '',
+      cityLatitude: '',
+      cityLongitude: '',
       province: '',
       postalCode: '',
       numberOfWorkers: '',
@@ -56,10 +58,6 @@ export default {
       motelPostalCode: '',
       accWorkersHome: false
     },
-    mapLocations: [{
-      latitude: '',
-      longitude: ''
-    }],
     ipcPlan: {
       sleepingAreaType: 1,
       sharedSleepingPerRoom: 1,

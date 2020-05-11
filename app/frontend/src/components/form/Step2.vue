@@ -293,8 +293,8 @@
             <CityLookup
               v-if="!reviewMode"
               :city-field-model.sync="locationCity"
-              :latitude-field-model.sync="latitude"
-              :longitude-field-model.sync="longitude"
+              :city-latitude-field-model.sync="cityLatitude"
+              :city-longitude-field-model.sync="cityLongitude"
               :field-rules="locationCityRules"
             />
             <v-text-field
@@ -306,8 +306,8 @@
               v-model="locationCity"
               :rules="locationCityRules"
             />
-            <v-text-field v-model="latitude" class="d-none" />
-            <v-text-field v-model="longitude" class="d-none" />
+            <v-text-field v-model="cityLatitude" class="d-none" />
+            <v-text-field v-model="cityLongitude" class="d-none" />
           </v-col>
         </v-row>
 
@@ -527,7 +527,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('form', ['business', 'contacts', 'covidContact', 'ipcPlan', 'location', 'mapLocation']),
+    ...mapGetters('form', ['business', 'contacts', 'covidContact', 'ipcPlan', 'location']),
 
     // Business
     businessName: {
@@ -616,6 +616,18 @@ export default {
       get() { return this.location.city; },
       set(value) { this.updateLocation({['city']: value}); }
     },
+    cityLatitude: {
+      get() {
+        return this.location.cityLatitude;
+      },
+      set(value) { this.updateLocation({['cityLatitude']: value}); }
+    },
+    cityLongitude: {
+      get() {
+        return this.location.cityLongitude;
+      },
+      set(value) { this.updateLocation({['cityLongitude']: value}); }
+    },
     numberOfWorkers: {
       get() { return this.location.numberOfWorkers ? this.location.numberOfWorkers.toString() : ''; },
       set(value) { this.updateLocation({['numberOfWorkers']:
@@ -662,23 +674,9 @@ export default {
       get() { return this.location.accWorkersHome; },
       set(value) { this.updateLocation({['accWorkersHome']: value}); }
     },
-
-    // location map coordiantes
-    latitude: {
-      get() {
-        return this.mapLocation.latitude;
-      },
-      set(value) { this.updateMapLocation({['latitude']: value}); }
-    },
-    longitude: {
-      get() {
-        return this.mapLocation.longitude;
-      },
-      set(value) { this.updateMapLocation({['longitude']: value}); }
-    },
   },
   methods: {
-    ...mapMutations('form', ['setStep', 'updateBusiness', 'updateContacts', 'updateCovidContact', 'updateIpcPlan', 'updateLocation', 'updateMapLocation']),
+    ...mapMutations('form', ['setStep', 'updateBusiness', 'updateContacts', 'updateCovidContact', 'updateIpcPlan', 'updateLocation']),
     async submit() {
       if(this.$refs.form.validate()) {
         this.setStep(3);

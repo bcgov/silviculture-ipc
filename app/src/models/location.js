@@ -35,6 +35,16 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(255),
       unique: false
     },
+    cityLatitude: {
+      allowNull: false,
+      comment: 'Latitude coordinate of city',
+      type: DataTypes.NUMERIC(10,7)
+    },
+    cityLongitude: {
+      allowNull: false,
+      comment: 'Longitude coordinate of city',
+      type: DataTypes.NUMERIC(10,7)
+    },
     province: {
       allowNull: true,
       comment: 'Province',
@@ -127,9 +137,6 @@ module.exports = (sequelize, DataTypes) => {
   Location.associate = models => {
     Location.belongsTo(models.IPCPlan, {
       foreignKey: 'ipcPlanId'
-    });
-    Location.hasMany(models.MapLocation, {
-      foreignKey: 'locationId'
     });
   };
   return Location;

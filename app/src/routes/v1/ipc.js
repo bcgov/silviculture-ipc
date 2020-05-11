@@ -19,7 +19,7 @@ const ipcRateLimiter = rateLimit({
 router.post('/', ipcRateLimiter, async (req, res, next) => {
   try {
     const xform = transformService.apiToModel.postToIPCPlan(req.body);
-    const result = await dataService.save(xform.business, xform.contacts, xform.ipcPlan, xform.location, xform.mapLocations);
+    const result = await dataService.save(xform.business, xform.contacts, xform.ipcPlan, xform.location);
     const data = transformService.modelToAPI.ipcPlanToPost(result);
     email.sendReceipt({ confirmationNumber: data.confirmationId });
     return res.status(201).json(data);
