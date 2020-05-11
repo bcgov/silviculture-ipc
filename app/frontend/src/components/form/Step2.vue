@@ -290,14 +290,24 @@
         <v-row>
           <v-col cols="12" sm="6" lg="5">
             <label>Closest Community / Town / City</label>
+            <CityLookup
+              v-if="!reviewMode"
+              :city-field-model.sync="locationCity"
+              :city-latitude-field-model.sync="cityLatitude"
+              :city-longitude-field-model.sync="cityLongitude"
+              :field-rules="locationCityRules"
+            />
             <v-text-field
-              v-model="locationCity"
-              :rules="locationCityRules"
+              v-if="reviewMode"
               dense
               flat
               outlined
               solo
+              v-model="locationCity"
+              :rules="locationCityRules"
             />
+            <v-text-field v-model="cityLatitude" class="d-none" />
+            <v-text-field v-model="cityLongitude" class="d-none" />
           </v-col>
         </v-row>
 
@@ -418,6 +428,7 @@
 import validator from 'validator';
 import { mapGetters, mapMutations } from 'vuex';
 
+import CityLookup from '@/components/form/CityLookup.vue';
 import OrgBookSearch from '@/components/form/OrgBookSearch.vue';
 
 export default {
@@ -426,6 +437,7 @@ export default {
     reviewMode: Boolean
   },
   components: {
+    CityLookup,
     OrgBookSearch
   },
   data() {
@@ -604,6 +616,14 @@ export default {
       get() { return this.location.city; },
       set(value) { this.updateLocation({['city']: value}); }
     },
+    cityLatitude: {
+      get() { return this.location.cityLatitude; },
+      set(value) { this.updateLocation({['cityLatitude']: value}); }
+    },
+    cityLongitude: {
+      get() { return this.location.cityLongitude; },
+      set(value) { this.updateLocation({['cityLongitude']: value}); }
+    },
     numberOfWorkers: {
       get() { return this.location.numberOfWorkers ? this.location.numberOfWorkers.toString() : ''; },
       set(value) { this.updateLocation({['numberOfWorkers']:
@@ -650,7 +670,6 @@ export default {
       get() { return this.location.accWorkersHome; },
       set(value) { this.updateLocation({['accWorkersHome']: value}); }
     },
-
   },
   methods: {
     ...mapMutations('form', ['setStep', 'updateBusiness', 'updateContacts', 'updateCovidContact', 'updateIpcPlan', 'updateLocation']),

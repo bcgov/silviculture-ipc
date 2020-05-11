@@ -41,7 +41,6 @@ export default {
   computed: {
     items() {
       return this.features.map((feature) => {
-        // we may want to return the coordinates feature.geometry.coordinates?
         /* Example result.
           {
             "type": "Feature",
@@ -83,7 +82,9 @@ export default {
          */
         return Object.assign({
           text: feature.properties.fullAddress,
-          value: feature.properties.fullAddress
+          value: feature.properties.fullAddress,
+          cityLatitude: feature.geometry.coordinates[0],
+          cityLongitude: feature.geometry.coordinates[1]
         });
       });
     },
@@ -99,9 +100,17 @@ export default {
   methods: {
     change: function (value) {
       this.$emit(
-        'update:field-model',
-        // For this use, want to emit just the text
+        'update:city-field-model',
         typeof value === 'object' && value !== null ? value.text : value
+      );
+      this.$emit(
+        'update:city-latitude-field-model',
+        typeof value === 'object' && value !== null ? value.cityLatitude : null
+      );
+
+      this.$emit(
+        'update:city-longitude-field-model',
+        typeof value === 'object' && value !== null ? value.cityLongitude : null
       );
     },
   },

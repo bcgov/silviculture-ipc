@@ -157,7 +157,7 @@ module.exports = {
               model: db.Contact,
             },
             {
-              model: db.Location,
+              model: db.Location
             },
             {
               model: db.InspectionStatus

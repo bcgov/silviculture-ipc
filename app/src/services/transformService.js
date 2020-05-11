@@ -40,6 +40,11 @@ const transformService = {
       const ipcPlan = {...obj.ipcPlan};
 
       const location = {...obj.location};
+      // split city lookup result into city and province
+      // location.city = obj.location.city.substring(0, obj.location.city.lastIndexOf(', '));
+      // location.province = obj.location.city.substring(obj.location.city.lastIndexOf(', ') + 2);
+
+      // format dates
       location.startDate = transformService.stringToDate(location.startDate);
       location.endDate = transformService.stringToDate(location.endDate);
 
@@ -106,7 +111,6 @@ const transformService = {
       result.location = xform.location;
       result.location.startDate = transformService.dateToString(xform.location.startDate);
       result.location.endDate = transformService.dateToString(xform.location.endDate);
-
       result.inspectionStatuses = xform.inspectionStatuses;
       result.notes = xform.notes;
       return result;
@@ -143,6 +147,7 @@ const transformService = {
     const contacts = ipcPlan.Contacts.map(c => {
       return {...c.dataValues};
     });
+
     const inspectionStatuses = transformService.modelToAPI.inspectionStatuses(ipcPlan.InspectionStatuses);
     const notes = transformService.modelToAPI.notes(ipcPlan.Notes);
     delete ipcPlan.Notes;

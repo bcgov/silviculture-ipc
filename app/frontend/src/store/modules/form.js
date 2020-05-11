@@ -42,6 +42,8 @@ export default {
       addressLine1: '',
       addressLine2: '',
       city: '',
+      cityLatitude: '',
+      cityLongitude: '',
       province: '',
       postalCode: '',
       numberOfWorkers: '',
@@ -119,6 +121,7 @@ export default {
     covidContact: state => state.covidContact,
     ipcPlan: state => state.ipcPlan,
     location: state => state.location,
+    mapLocation: state => state.mapLocations[0],
   },
   mutations: {
     setGetFormError(state, errorMessage) {
@@ -161,6 +164,9 @@ export default {
     updateLocation: (state, obj) => {
       Object.assign(state.location, obj);
     },
+    updateMapLocation: (state, obj) => {
+      Object.assign(state.mapLocations[0], obj);
+    },
   },
   actions: {
     async getForm({ commit }, ipcPlanId) {
@@ -196,7 +202,8 @@ export default {
           contacts: state.contacts,
           ipcPlan: state.ipcPlan,
           covidContact: state.covidContact,
-          location: state.location
+          location: state.location,
+          mapLocations: state.mapLocations
         };
         const response = await ipcService.sendIPCContent(body);
         if (!response.data) {
