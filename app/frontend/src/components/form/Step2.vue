@@ -617,15 +617,11 @@ export default {
       set(value) { this.updateLocation({['city']: value}); }
     },
     cityLatitude: {
-      get() {
-        return this.location.cityLatitude;
-      },
+      get() { return this.location.cityLatitude; },
       set(value) { this.updateLocation({['cityLatitude']: value}); }
     },
     cityLongitude: {
-      get() {
-        return this.location.cityLongitude;
-      },
+      get() { return this.location.cityLongitude; },
       set(value) { this.updateLocation({['cityLongitude']: value}); }
     },
     numberOfWorkers: {

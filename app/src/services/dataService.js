@@ -249,13 +249,11 @@ module.exports = {
         ipcPlanId = ipcPlanObj.ipcPlanId;
 
         await db.Business.create({...business, ipcPlanId: ipcPlanId}, {transaction: t});
-
         await db.Location.create({...location, ipcPlanId: ipcPlanId}, {transaction: t});
 
         await db.Contact.bulkCreate(contacts.map(c => {
           return {...c, ipcPlanId: ipcPlanId};
         }), {transaction: t});
-
 
         await db.InspectionStatus.create({status: 'Submitted', createdBy: 'system', ipcPlanId: ipcPlanId}, {transaction: t});
       });
