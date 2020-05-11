@@ -40,6 +40,11 @@ const transformService = {
       const ipcPlan = {...obj.ipcPlan};
 
       const location = {...obj.location};
+
+      // split city lookup result into city and province
+      location.city = obj.location.city.substring(0, obj.location.city.lastIndexOf(', '));
+      location.province = obj.location.city.substring(obj.location.city.lastIndexOf(', ') + 2);
+
       location.startDate = transformService.stringToDate(location.startDate);
       location.endDate = transformService.stringToDate(location.endDate);
 
@@ -151,7 +156,7 @@ const transformService = {
       return {...c.dataValues};
     });
 
-    const mapLocations = ipcPlan.MapLocations.map(ml => {
+    const mapLocations = ipcPlan.Location.MapLocations.map(ml => {
       return {...ml.dataValues};
     });
 

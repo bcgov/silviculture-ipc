@@ -41,7 +41,6 @@ export default {
   computed: {
     items() {
       return this.features.map((feature) => {
-        // we may want to return the coordinates feature.geometry.coordinates?
         /* Example result.
           {
             "type": "Feature",
@@ -85,8 +84,7 @@ export default {
           text: feature.properties.fullAddress,
           value: feature.properties.fullAddress,
           latitude: feature.geometry.coordinates[0],
-          longitude: feature.geometry.coordinates[1],
-          score: feature.properties.score
+          longitude: feature.geometry.coordinates[1]
         });
       });
     },
@@ -107,12 +105,12 @@ export default {
       );
       this.$emit(
         'update:latitude-field-model',
-        typeof value === 'object' && value !== null ? value.latitude : value
+        typeof value === 'object' && value !== null ? value.latitude : null
       );
 
       this.$emit(
         'update:longitude-field-model',
-        typeof value === 'object' && value !== null ? value.longitude : value
+        typeof value === 'object' && value !== null ? value.longitude : null
       );
     },
   },

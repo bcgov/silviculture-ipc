@@ -128,6 +128,9 @@ module.exports = (sequelize, DataTypes) => {
     Location.belongsTo(models.IPCPlan, {
       foreignKey: 'ipcPlanId'
     });
+    Location.hasMany(models.MapLocation, {
+      foreignKey: 'locationId'
+    });
   };
   return Location;
 };

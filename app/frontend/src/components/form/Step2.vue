@@ -290,16 +290,6 @@
         <v-row>
           <v-col cols="12" sm="6" lg="5">
             <label>Closest Community / Town / City</label>
-            <!-- <v-text-field
-              v-model="locationCity"
-              :rules="locationCityRules"
-              dense
-              flat
-              outlined
-              solo
-            />
-            </v-col>-->
-
             <CityLookup
               v-if="!reviewMode"
               :city-field-model.sync="locationCity"
@@ -316,8 +306,8 @@
               v-model="locationCity"
               :rules="locationCityRules"
             />
-            <v-text-field v-model="latitude" />
-            <v-text-field v-model="longitude" />
+            <v-text-field v-model="latitude" class="d-none" />
+            <v-text-field v-model="longitude" class="d-none" />
           </v-col>
         </v-row>
 
