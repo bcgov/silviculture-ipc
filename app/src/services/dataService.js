@@ -269,5 +269,32 @@ module.exports = {
       }
     }
     return await this.getIPCPlan(ipcPlanId);
+  },
+
+  async update(business, contacts, ipcPlan, location, updatedBy) {
+    try {
+      await db.sequelize.transaction(async t => {
+        // currently, we are only allowed to update location data
+        // get the current data...
+        const currentLocation = await db.Location.findByPk(location.locationId);
+        // update the allowed fields...
+        currentLocation.startDate = location.startDate;
+        currentLocation.endDate =  location.endDate;
+        // set the user stamp...
+        currentLocation.updatedBy = updatedBy;
+        // save it...
+        await currentLocation.save({transaction: t});
+      });
+    } catch (e) {
+      log.error('dataService.update', e.message);
+      if (db.isRequiredFieldError(e)) {
+        throw new Problem(422, {detail: `Data cannot be updated. Required field is missing or empty: ${db.isRequiredFieldErrorMessage(e)}`});
+      } else if (db.isSyntaxError(e)) {
+        throw new Problem(422, {detail: `Data cannot be updated. Error with query: ${e.message}`});
+      } else {
+        throw new Problem(500, {detail: `Data cannot be saved. Unexpected error: ${e.message}`});
+      }
+    }
+    return await this.getIPCPlan(ipcPlan.ipcPlanId);
   }
 };

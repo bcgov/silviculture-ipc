@@ -44,6 +44,11 @@ module.exports = (sequelize, DataTypes) => {
       comment: 'Postal code',
       type: DataTypes.STRING(30),
       unique: false
+    },
+    updatedBy: {
+      allowNull: false,
+      type: DataTypes.STRING(255),
+      unique: false
     }
   }, {
     comment: 'List of all businesses',
