@@ -142,7 +142,7 @@
                 <v-btn block outlined color="textLink" v-on="on">VIEW HISTORY</v-btn>
               </template>
 
-              <v-card>
+              <v-card v-if="historyDialog">
                 <v-card-title class="headline grey lighten-3" primary-title>Status History</v-card-title>
 
                 <StatusTable :ipcPlanId="ipcPlanId" class="my-4" />
