@@ -36,14 +36,16 @@ module.exports = (sequelize, DataTypes) => {
       unique: false
     },
     cityLatitude: {
-      allowNull: false,
+      allowNull: true,
       comment: 'Latitude coordinate of city',
-      type: DataTypes.NUMERIC(10,7)
+      type: DataTypes.NUMERIC(10,7),
+      unique: false
     },
     cityLongitude: {
-      allowNull: false,
+      allowNull: true,
       comment: 'Longitude coordinate of city',
-      type: DataTypes.NUMERIC(10,7)
+      type: DataTypes.NUMERIC(10,7),
+      unique: false
     },
     province: {
       allowNull: true,
