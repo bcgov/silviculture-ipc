@@ -16,7 +16,7 @@
       hide-selected
       label="OrgBook Lookup"
       placeholder="Start typing to search the OrgBook database"
-      prepend-icon="mdi-database-search"
+      prepend-inner-icon="mdi-database-search"
       append-icon
     ></v-combobox>
     <!-- Org Book help message -->
