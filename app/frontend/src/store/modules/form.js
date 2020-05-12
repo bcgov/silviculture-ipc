@@ -120,8 +120,7 @@ export default {
     contacts: state => state.contacts[0],
     covidContact: state => state.covidContact,
     ipcPlan: state => state.ipcPlan,
-    location: state => state.location,
-    mapLocation: state => state.mapLocations[0],
+    location: state => state.location
   },
   mutations: {
     setGetFormError(state, errorMessage) {
@@ -163,10 +162,7 @@ export default {
     },
     updateLocation: (state, obj) => {
       Object.assign(state.location, obj);
-    },
-    updateMapLocation: (state, obj) => {
-      Object.assign(state.mapLocations[0], obj);
-    },
+    }
   },
   actions: {
     async getForm({ commit }, ipcPlanId) {
@@ -202,8 +198,7 @@ export default {
           contacts: state.contacts,
           ipcPlan: state.ipcPlan,
           covidContact: state.covidContact,
-          location: state.location,
-          mapLocations: state.mapLocations
+          location: state.location
         };
         const response = await ipcService.sendIPCContent(body);
         if (!response.data) {

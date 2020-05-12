@@ -60,7 +60,7 @@ module.exports = {
       if (db.isRequiredFieldError(e)) {
         throw new Problem(422, {detail: `Note cannot be saved. Required field is missing or empty: ${db.isRequiredFieldErrorMessage(e)}`});
       } else if (db.isSyntaxError(e)) {
-        throw new Problem(422, {detail: `Note cannot be saved. Error with save query: ${e.message}`});
+        throw new Problem(500, {detail: `Note cannot be saved. Error with save query: ${e.message}`});
       } else {
         throw new Problem(500, {detail: `Note cannot be saved. Unexpected error: ${e.message}`});
       }
@@ -82,7 +82,7 @@ module.exports = {
       if (db.isNotFoundError(err)) {
         throw new Problem(404, {detail: `Inspection Status not found for Inspection Status ID ${inspectionStatusId}`});
       } else if (db.isSyntaxError(err)) {
-        throw new Problem(422, {detail: `Inspection Status fetch for Inspection Status ID ${inspectionStatusId} `});
+        throw new Problem(500, {detail: `Inspection Status fetch for Inspection Status ID ${inspectionStatusId} `});
       }
     }
   },
@@ -109,7 +109,7 @@ module.exports = {
       if (db.isNotFoundError(err)) {
         throw new Problem(404, {detail: `Inspection Statuses not found for IPC Plan ID ${ipcPlanId}`});
       } else if (db.isSyntaxError(err)) {
-        throw new Problem(422, {detail: `Inspection Statuses fetch for IPC Plan ID ${ipcPlanId} `});
+        throw new Problem(500, {detail: `Inspection Statuses fetch for IPC Plan ID ${ipcPlanId} `});
       }
     }
   },
@@ -134,7 +134,7 @@ module.exports = {
       if (db.isRequiredFieldError(e)) {
         throw new Problem(422, {detail: `Status cannot be saved. Required field is missing or empty: ${db.isRequiredFieldErrorMessage(e)}`});
       } else if (db.isSyntaxError(e)) {
-        throw new Problem(422, {detail: `Status cannot be saved. Error with save query: ${e.message}`});
+        throw new Problem(500, {detail: `Status cannot be saved. Error with save query: ${e.message}`});
       } else {
         throw new Problem(500, {detail: `Status cannot be saved. Unexpected error: ${e.message}`});
       }
@@ -176,7 +176,7 @@ module.exports = {
       if (db.isNotFoundError(err)) {
         throw new Problem(404, {detail: `IPC Plan ID ${id} not found`});
       } else if (db.isSyntaxError(err)) {
-        throw new Problem(422, {detail: `IPC Plan ID ${id} `});
+        throw new Problem(500, {detail: `IPC Plan ID ${id} `});
       }
     }
   },
@@ -263,7 +263,7 @@ module.exports = {
       if (db.isRequiredFieldError(e)) {
         throw new Problem(422, {detail: `Submission cannot be saved. Required field is missing or empty: ${db.isRequiredFieldErrorMessage(e)}`});
       } else if (db.isSyntaxError(e)) {
-        throw new Problem(422, {detail: `Submission cannot be saved. Error with save query: ${e.message}`});
+        throw new Problem(500, {detail: `Submission cannot be saved. Error with save query: ${e.message}`});
       } else {
         throw new Problem(500, {detail: `Submission cannot be saved. Unexpected error: ${e.message}`});
       }
