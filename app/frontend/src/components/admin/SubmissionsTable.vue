@@ -26,11 +26,7 @@
       item-key="confirmationId"
       sortBy="created"
       update: sort-desc
-      @click:row="clickRow"
     >
-      <template v-slot:item.inspectionStatus="{ item }">
-        <a>{{ item.inspectionStatus }}</a>
-      </template>
 
       <template v-slot:item.download="{ item }">
         <GeneratePdfButton :ipcPlanId="item.ipcPlanId">
@@ -38,6 +34,11 @@
         </GeneratePdfButton>
       </template>
 
+      <template v-slot:item.details="{ item }">
+        <router-link :to="{ name: 'Submission', params: { ipcPlanId: item.ipcPlanId } }">
+          <v-btn text small color="textLink"><v-icon class="mr-1">remove_red_eye</v-icon> VIEW</v-btn>
+        </router-link>
+      </template>
     </v-data-table>
   </div>
 </template>
@@ -66,6 +67,7 @@ export default {
         { text: 'Business Name', align: 'start', value: 'name' },
         { text: 'Confirmation ID', align: 'start', value: 'confirmationId' },
         { text: 'Download', value: 'download', sortable: false },
+        { text: 'Details', value: 'details', sortable: false }
       ],
       submissions: [],
       loading: true,
@@ -75,9 +77,6 @@ export default {
     };
   },
   methods: {
-    clickRow(submission){
-      this.$router.push({ name: 'Submission', params: { ipcPlanId: submission.ipcPlanId } });
-    },
     customSort(items, index, sortDesc) {
       return items.sort((a, b) => {
         if (index[0] === 'created') {
@@ -164,7 +163,6 @@ export default {
 
 .ipc-table {
   clear: both;
-  cursor: pointer;
 }
 /* Want to use scss but the world hates me */
 .ipc-table >>> tbody tr:nth-of-type(odd) {
