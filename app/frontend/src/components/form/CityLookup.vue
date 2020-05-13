@@ -15,7 +15,7 @@
     hide-selected
     label="City Lookup"
     placeholder="Start typing to search for cities in BC"
-    prepend-icon="mdi-database-search"
+    prepend-inner-icon="search"
     append-icon
   ></v-combobox>
 </template>
