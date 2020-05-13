@@ -27,6 +27,7 @@
       sortBy="created"
       update: sort-desc
     >
+
       <template v-slot:item.download="{ item }">
         <GeneratePdfButton :ipcPlanId="item.ipcPlanId">
           <v-btn text small color="textLink"><v-icon class="mr-1">picture_as_pdf</v-icon> PDF</v-btn>
@@ -62,6 +63,7 @@ export default {
       search: '',
       headers: [
         { text: 'Submitted', value: 'created' },
+        { text: 'Status', align: 'start', value: 'inspectionStatus' },
         { text: 'Business Name', align: 'start', value: 'name' },
         { text: 'Confirmation ID', align: 'start', value: 'confirmationId' },
         { text: 'Download', value: 'download', sortable: false },
@@ -111,6 +113,7 @@ export default {
               name: submission.business.name,
               created: this.formatDate(submission.ipcPlan.createdAt),
               confirmationId: submission.confirmationId,
+              inspectionStatus: submission.inspectionStatuses[0].status,
             };
           });
           if (!submissions.length) {
