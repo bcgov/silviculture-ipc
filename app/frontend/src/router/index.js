@@ -30,6 +30,11 @@ const router = new VueRouter({
           component: () => import(/* webpackChunkName: "dashboard" */ '@/views/admin/Dashboard.vue'),
         },
         {
+          path: 'inspection-dashboard',
+          name: 'InspectionDashboard',
+          component: () => import(/* webpackChunkName: "inspection-dashboard" */ '@/views/admin/InspectionDashboard.vue'),
+        },
+        {
           path: 'dev',
           name: 'Dev',
           component: () => import(/* webpackChunkName: "dev" */ '@/views/admin/Dev.vue'),

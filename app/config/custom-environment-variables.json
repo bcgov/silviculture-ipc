@@ -9,6 +9,7 @@
     "apiPath": "FRONTEND_APIPATH",
     "basePath": "FRONTEND_BASEPATH",
     "dashboardUrl": "FRONTEND_DASHBOARDURL",
+    "inspectionDashboardUrl": "FRONTEND_INSPECTION_DASHBOARDURL",
     "geocoder": {
       "endpoint": "FRONTEND_GEOCODER_ENDPOINT"
     },

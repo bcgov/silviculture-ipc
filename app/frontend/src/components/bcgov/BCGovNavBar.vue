@@ -8,6 +8,9 @@
         <li>
           <router-link :to="{ name: 'Dashboard' }">Dashboard</router-link>
         </li>
+        <li v-if="hasRole(role.INSPECTOR)">
+          <router-link :to="{ name: 'InspectionDashboard' }">Inspection Dashboard</router-link>
+        </li>
         <li v-if="hasRole(role.DEVELOPER)">
           <router-link :to="{ name: 'Dev' }">Dev</router-link>
         </li>
