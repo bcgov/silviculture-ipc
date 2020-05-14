@@ -83,8 +83,8 @@ export default {
         return Object.assign({
           text: feature.properties.fullAddress,
           value: feature.properties.fullAddress,
-          cityLatitude: feature.geometry.coordinates[0],
-          cityLongitude: feature.geometry.coordinates[1]
+          cityLatitude: feature.geometry.coordinates[1],
+          cityLongitude: feature.geometry.coordinates[0]
         });
       });
     },
