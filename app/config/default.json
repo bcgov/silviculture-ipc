@@ -6,7 +6,10 @@
   "frontend": {
     "apiPath": "api/v1",
     "basePath" : "/app",
-    "dashboardUrl": "https://metabase-wxpbtr-dev.pathfinder.gov.bc.ca/public/dashboard/57862333-7d2b-4cea-9116-8db60db362a0",
+    "dashboards": {
+      "publicUrl": "https://metabase-wxpbtr-dev.pathfinder.gov.bc.ca/public/dashboard/57862333-7d2b-4cea-9116-8db60db362a0",
+      "inspectionUrl": "https://metabase-wxpbtr-prod.pathfinder.gov.bc.ca/public/dashboard/4f383d10-f6e1-421e-82d9-d21027fc5e94"
+    },
     "geocoder": {
       "endpoint": "https://apps.gov.bc.ca/pub/geocoder"
     },

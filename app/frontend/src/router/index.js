@@ -25,9 +25,14 @@ const router = new VueRouter({
           component: () => import(/* webpackChunkName: "submission-table" */ '@/views/admin/Root.vue')
         },
         {
-          path: 'dashboard',
-          name: 'Dashboard',
-          component: () => import(/* webpackChunkName: "dashboard" */ '@/views/admin/Dashboard.vue'),
+          path: 'dashboard/public',
+          name: 'PublicDashboard',
+          component: () => import(/* webpackChunkName: "public-dashboard" */ '@/views/admin/PublicDashboard.vue'),
+        },
+        {
+          path: 'dashboard/inspection',
+          name: 'InspectionDashboard',
+          component: () => import(/* webpackChunkName: "inspection-dashboard" */ '@/views/admin/InspectionDashboard.vue'),
         },
         {
           path: 'dev',

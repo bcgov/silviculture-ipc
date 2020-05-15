@@ -20,7 +20,8 @@ export NAMESPACE=<yournamespace>
 oc create -n $NAMESPACE configmap silvipc-frontend-config \
   --from-literal=FRONTEND_APIPATH=api/v1 \
   --from-literal=FRONTEND_BASEPATH=/app \
-  --from-literal=FRONTEND_DASHBOARDURL=<yourdashboardurl> \
+  --from-literal=FRONTEND_DASHBOARD_PUBLIC_URL=<yourdashboardurl> \
+  --from-literal=FRONTEND_DASHBOARD_INSPECTION_URL=<yourotherdashboardurl> \
   --from-literal=FRONTEND_GEOCODER_ENDPOINT=https://apps.gov.bc.ca/pub/geocoder \
   --from-literal=FRONTEND_KC_REALM=cp1qly2d \
   --from-literal=FRONTEND_KC_SERVERURL=https://sso-dev.pathfinder.gov.bc.ca/auth \
