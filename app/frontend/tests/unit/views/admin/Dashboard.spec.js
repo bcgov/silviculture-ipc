@@ -14,7 +14,6 @@ describe('PublicDashboard.vue', () => {
       localVue,
       stubs: ['Dashboard', 'BaseSecure']
     });
-
     expect(wrapper.html()).toMatch('');
   });
 });
