@@ -6,7 +6,7 @@
           <router-link :to="{ name: 'Admin' }">Submissions</router-link>
         </li>
         <li>
-          <router-link :to="{ name: 'Dashboard' }">Dashboard</router-link>
+          <router-link :to="{ name: 'PublicDashboard' }">Dashboard</router-link>
         </li>
         <li v-if="hasRole(role.INSPECTOR)">
           <router-link :to="{ name: 'InspectionDashboard' }">Inspection Dashboard</router-link>

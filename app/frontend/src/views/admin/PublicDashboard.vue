@@ -1,6 +1,6 @@
 <template>
   <v-container class="dashboard text-center">
-    <BaseSecure inspector>
+    <BaseSecure>
       <Dashboard :url="dashboardUrl" />
     </BaseSecure>
   </v-container>
@@ -10,13 +10,13 @@
 import Dashboard from '@/components/admin/Dashboard.vue';
 
 export default {
-  name: 'InspectionDashboard',
+  name: 'PublicDashboard',
   components: {
     Dashboard
   },
   computed: {
     dashboardUrl() {
-      return this.$config ? this.$config.dashboards.inspectionUrl : undefined;
+      return this.$config ? this.$config.dashboards.publicUrl : undefined;
     }
   }
 };

@@ -8,8 +8,10 @@
   "frontend": {
     "apiPath": "FRONTEND_APIPATH",
     "basePath": "FRONTEND_BASEPATH",
-    "dashboardUrl": "FRONTEND_DASHBOARDURL",
-    "inspectionDashboardUrl": "FRONTEND_INSPECTION_DASHBOARDURL",
+    "dashboards": {
+      "publicUrl": "FRONTEND_DASHBOARD_PUBLIC_URL",
+      "inspectionUrl": "FRONTEND_DASHBOARD_INSPECTION_URL"
+    },
     "geocoder": {
       "endpoint": "FRONTEND_GEOCODER_ENDPOINT"
     },
