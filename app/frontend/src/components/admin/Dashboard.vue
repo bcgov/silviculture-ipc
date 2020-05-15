@@ -18,8 +18,7 @@ export default {
   name: 'Dashboard',
   props: {
     url: {
-      type: String,
-      required: true
+      required: false
     }
   }
 };

@@ -2,17 +2,17 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuetify from 'vuetify';
 
 import router from '@/router';
-import Dashboard from '@/views/admin/Dashboard.vue';
+import PublicDashboard from '@/views/admin/PublicDashboard.vue';
 
 const localVue = createLocalVue();
 localVue.use(router);
 localVue.use(Vuetify);
 
-describe('Dashboard.vue', () => {
+describe('PublicDashboard.vue', () => {
   it('renders', () => {
-    const wrapper = shallowMount(Dashboard, {
+    const wrapper = shallowMount(PublicDashboard, {
       localVue,
-      stubs: ['BaseSecure']
+      stubs: ['Dashboard', 'BaseSecure']
     });
 
     expect(wrapper.html()).toMatch('');
