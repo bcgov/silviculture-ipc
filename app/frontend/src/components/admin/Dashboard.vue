@@ -1,5 +1,5 @@
 <template>
-  <div v-if="true" class="dashboard-container">
+  <div v-if="typeof url !== 'undefined'" class="dashboard-container">
     <iframe :src="url" />
   </div>
   <div v-else>
