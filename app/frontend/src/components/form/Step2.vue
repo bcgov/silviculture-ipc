@@ -730,7 +730,6 @@ export default {
       if(this.$refs.form.validate()) {
         await this.updateForm();
         if (this.submissionComplete) {
-          console.log('done');
           this.$router.go(-1);
         }
       } else {
@@ -739,7 +738,6 @@ export default {
     },
 
     async scrollToError(){
-      console.log('fun');
       await new Promise(r => setTimeout(r, 200)); //ugh
       const el = document.querySelector('.v-messages.error--text:first-of-type');
       el.scrollIntoView(true);
