@@ -13,7 +13,8 @@ const router = new VueRouter({
     {
       path: '/home',
       name: 'Home',
-      component: () => import(/* webpackChunkName: "home" */ '@/views/Home.vue')
+      component: () => import(/* webpackChunkName: "home" */ '@/views/Home.vue'),
+      props: true
     },
     {
       path: '/admin',
@@ -62,7 +63,16 @@ const router = new VueRouter({
       name: 'NotFound',
       component: () => import(/* webpackChunkName: "not-found" */ '@/views/NotFound.vue')
     }
-  ]
+  ],
+
+  scrollBehavior: function (to, from, savedPosition) { // eslint-disable-line
+    if (to.hash) {
+      return { selector: to.hash };
+    } else {
+      return { x: 0, y: 0 };
+    }
+  },
+
 });
 
 router.beforeEach((to, _from, next) => {

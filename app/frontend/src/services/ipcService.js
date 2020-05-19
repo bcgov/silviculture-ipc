@@ -41,6 +41,16 @@ export default {
   },
 
   /**
+   * @function updateIPCContent
+   * Sends an IPC form submission
+   * @param {object} content An object with business, contacts and ipcPlan attributes
+   * @returns {Promise} An axios response
+   */
+  updateIPCContent(content) {
+    return appAxios().put(`${ApiRoutes.IPC}/${content.ipcPlan.ipcPlanId}`, content);
+  },
+
+  /**
    * @function getIPCInspectionStatuses
    * Fetch the inspection statuses of a specific IPC form submission
    * @param {string} ipcPlanId The guid of a submitted ipcplan from the database

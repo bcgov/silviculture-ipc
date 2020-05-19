@@ -212,6 +212,34 @@ export default {
       } finally {
         commit('setSubmitting', false);
       }
+    },
+
+    async updateForm({ commit, state }) {
+      commit('setSubmitting', true);
+      commit('setSubmissionError', '');
+      try {
+        commit('updateIpcPlan', { formVersion: process.env.VUE_APP_VERSION });
+        const body = {
+          business: state.business,
+          contacts: state.contacts,
+          ipcPlan: state.ipcPlan,
+          covidContact: state.covidContact,
+          location: state.location
+        };
+        const response = await ipcService.updateIPCContent(body);
+        if (!response.data) {
+          throw new Error('No response data from API while submitting update');
+        }
+        //commit('setSubmissionDetails', response.data);
+        commit('setSubmissionComplete');
+        commit('setSubmissionError', 'An error occurred while attempting to update the form. Please try again.');
+      } catch (error) {
+        console.error(`Error submitting update: ${error}`); // eslint-disable-line no-console
+        commit('setSubmissionError', 'An error occurred while attempting to update the form. Please try again.');
+      } finally {
+        commit('setSubmitting', false);
+      }
     }
+
   }
 };

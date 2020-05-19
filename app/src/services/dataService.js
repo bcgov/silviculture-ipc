@@ -274,12 +274,10 @@ module.exports = {
   async update(business, contacts, ipcPlan, location, updatedBy) {
     try {
       await db.sequelize.transaction(async t => {
-        // currently, we are only allowed to update location data
         // get the current data...
         const currentLocation = await db.Location.findByPk(location.locationId);
-        // update the allowed fields...
-        currentLocation.startDate = location.startDate;
-        currentLocation.endDate =  location.endDate;
+        // currently, we are only allowed to update location data
+        Object.assign(currentLocation, location);
         // set the user stamp...
         currentLocation.updatedBy = updatedBy;
         // save it...
