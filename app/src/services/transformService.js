@@ -74,6 +74,9 @@ const transformService = {
 
     inspectionStatus: (obj) => {
       if (obj && !Array.isArray(obj)) {
+        // convert timestamp to string
+        obj.dataValues.inspectionDate = transformService.dateToString(obj.dataValues.inspectionDate);
+
         let notes = [];
         if (obj.Notes) {
           notes = obj.Notes.map(c => { return {...c.dataValues}; });

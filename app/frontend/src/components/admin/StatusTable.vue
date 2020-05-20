@@ -26,7 +26,7 @@
 
       <template v-slot:item.inspectorName="{ item }">{{ item.inspectorName }}</template>
 
-      <template v-slot:item.inspectionDate="{ item }">{{ getLocalDateFromUtc(item.inspectionDate) }}</template>
+      <template v-slot:item.inspectionDate="{ item }">{{ formatDateString(item.inspectionDate) }}</template>
     </v-data-table>
   </v-container>
 </template>
@@ -62,8 +62,15 @@ export default {
     formatDate(date) {
       return date ? new Date(date).toLocaleString() : '';
     },
-    getLocalDateFromUtc(date){
-      return date ? new Date(date).toLocaleDateString() : '';
+    formatDateString(date){
+      if(date){
+        var [yyyy, mm, dd] = date.split('-');
+        var ourFormat = `${mm}/${dd}/${yyyy}`;
+        return ourFormat;
+      }
+      else{
+        return '';
+      }
     },
     getData() {
       ipcService
