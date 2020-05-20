@@ -54,6 +54,8 @@ import AdminReviewSubmission from '@/components/admin/AdminReviewSubmission.vue'
 import GeneratePdfButton from '@/components/common/GeneratePdfButton.vue';
 import InspectionPanel from '@/components/admin/inspection/InspectionPanel.vue';
 import NotesPanel from '@/components/admin/inspection/NotesPanel.vue';
+import LocationEdit from '@/components/admin/inspection/LocationEdit.vue';
+
 import { SilvipcRoles } from '@/utils/constants';
 
 export default {
@@ -62,7 +64,8 @@ export default {
     AdminReviewSubmission,
     GeneratePdfButton,
     InspectionPanel,
-    NotesPanel
+    NotesPanel,
+    LocationEdit
   },
   props: ['ipcPlanId'],
   data() {
@@ -86,6 +89,8 @@ export default {
     refreshNotes() {
       this.$refs.notesPanel.getNotes();
     }
+  },
+  mounted() {
   },
   async created() {
     this.setGettingForm(true);

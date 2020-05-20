@@ -1,255 +1,229 @@
 <template>
   <v-container>
-    <div v-if="updateMode">
-      <v-row>
-        <v-col cols="12" md="10">
-          <h2 class="pb-md-4">Editing Submission for: {{businessName}}</h2>
-        </v-col>
-        <v-col cols="12" md="2">
-          <v-btn color="primary" class="float-md-right" @click="cancelUpdate">Cancel</v-btn>
-        </v-col>
-      </v-row>
-      <hr class="orange" />
-    </div>
-
-    <div v-else class="hide-on-review">
+    <div class="hide-on-review">
       <h2 class="pb-8">Provide your business contact information</h2>
       <hr class="orange" />
     </div>
-
     <v-form ref="form" v-model="step2Valid">
       <v-container>
-        <div v-if="!updateMode">
-          <v-row>
-            <v-col cols="12" lg="10">
-              <h4 class="heading-field-label mb-1">Registered Business Name</h4>
-              <OrgBookSearch
-                v-if="!reviewMode"
-                :field-model.sync="businessName"
-                :field-rules="businessNameRules"
-              />
-              <v-text-field
-                v-if="reviewMode"
-                dense
-                flat
-                outlined
-                solo
-                v-model="businessName"
-                :rules="businessNameRules"
-              />
-            </v-col>
-          </v-row>
-
-          <hr />
-
-          <h4>Primary Contact</h4>
-          <v-row>
-            <v-col cols="12" sm="6" lg="5">
-              <label>First Name</label>
-              <v-text-field dense flat outlined solo v-model="firstName" :rules="firstNameRules" />
-            </v-col>
-            <v-col cols="12" sm="6" lg="5">
-              <label>Last Name</label>
-              <v-text-field dense flat outlined solo v-model="lastName" :rules="lastNameRules" />
-            </v-col>
-          </v-row>
-
-          <v-row>
-            <v-col cols="12" sm="6" lg="5">
-              <label>Phone Number</label>
-              <v-text-field
-                dense
-                flat
-                outlined
-                solo
-                placeholder="000-000-0000"
-                :rules="phone1Rules"
-                prepend-inner-icon="phone"
-                v-model="phone1"
-              />
-            </v-col>
-            <v-col cols="12" sm="6" lg="5">
-              <label>Alternative Phone Number (Optional)</label>
-              <v-text-field
-                dense
-                flat
-                outlined
-                solo
-                placeholder="000-000-0000"
-                prepend-inner-icon="phone"
-                v-model="phone2"
-              />
-            </v-col>
-          </v-row>
-
-          <v-row>
-            <v-col cols="12" sm="6" lg="5">
-              <label>E-mail Address (Primary Contact)</label>
-              <v-text-field
-                dense
-                flat
-                outlined
-                solo
-                placeholder="john.doe@example.com"
-                :rules="emailRules"
-                prepend-inner-icon="email"
-                v-model="email"
-              />
-            </v-col>
-          </v-row>
-
-          <hr />
-
-          <h4>Business Address</h4>
-          <v-row>
-            <v-col cols="12" sm="6" lg="5">
-              <label>Address line 1</label>
-              <v-text-field
-                dense
-                flat
-                outlined
-                solo
-                v-model="businessAddressLine1"
-                :rules="businessAddressLine1Rules"
-              />
-            </v-col>
-            <v-col cols="12" sm="6" lg="5">
-              <label>Address line 2 (Optional)</label>
-              <v-text-field dense flat outlined solo v-model="businessAddressLine2" />
-            </v-col>
-          </v-row>
-
-          <v-row>
-            <v-col cols="12" sm="6" lg="5">
-              <label>City</label>
-              <v-text-field
-                dense
-                flat
-                outlined
-                solo
-                v-model="businessAddressCity"
-                :rules="businessAddressCityRules"
-              />
-            </v-col>
-            <v-col cols="12" sm="3" lg="2">
-              <label>Province</label>
-              <v-select
-                :items="provinces"
-                dense
-                flat
-                outlined
-                solo
-                single-line
-                label="Select"
-                v-model="businessAddressProvince"
-                :rules="businessAddressProvinceRules"
-              />
-            </v-col>
-          </v-row>
-
-          <v-row>
-            <v-col cols="12" sm="3" lg="2">
-              <label>Postal Code</label>
-              <v-text-field
-                dense
-                flat
-                outlined
-                solo
-                v-model="businessAddressPostalCode"
-                :rules="businessAddressPostalCodeRules"
-              />
-            </v-col>
-          </v-row>
-
-          <hr />
-
-          <h4>COVID-19 Coordinator</h4>
-          <v-row>
-            <v-col cols="12" sm="6" lg="5">
-              <label>First Name</label>
-              <v-text-field
-                dense
-                flat
-                outlined
-                solo
-                v-model="covidFirstName"
-                :rules="covidFirstNameRules"
-              />
-            </v-col>
-            <v-col cols="12" sm="6" lg="5">
-              <label>Last Name</label>
-              <v-text-field
-                dense
-                flat
-                outlined
-                solo
-                v-model="covidLastName"
-                :rules="covidLastNameRules"
-              />
-            </v-col>
-          </v-row>
-
-          <v-row>
-            <v-col cols="12" sm="6" lg="5">
-              <label>Phone Number</label>
-              <v-text-field
-                dense
-                flat
-                outlined
-                solo
-                placeholder="000-000-0000"
-                prepend-inner-icon="phone"
-                v-model="covidPhone1"
-                :rules="covidPhone1Rules"
-              />
-            </v-col>
-            <v-col cols="12" sm="6" lg="5">
-              <label>Alternative Phone Number (Optional)</label>
-              <v-text-field
-                dense
-                flat
-                outlined
-                solo
-                placeholder="000-000-0000"
-                prepend-inner-icon="phone"
-                v-model="covidPhone2"
-              />
-            </v-col>
-          </v-row>
-
-          <v-row>
-            <v-col cols="12" sm="6" lg="5">
-              <label>E-mail Address (Primary Contact)</label>
-              <v-text-field
-                dense
-                flat
-                outlined
-                solo
-                placeholder="john.doe@example.com"
-                prepend-inner-icon="email"
-                v-model="covidEmail"
-                :rules="covidEmailRules"
-              />
-            </v-col>
-          </v-row>
-
-          <hr />
-        </div>
-
-        <v-row id="updateDiv">
-          <v-col cols="10" class="pt-3">
-            <h4>Provide your accomodation details</h4>
+        <v-row>
+          <v-col cols="12" lg="10">
+            <h4 class="heading-field-label mb-1">Registered Business Name</h4>
+            <OrgBookSearch
+              v-if="!reviewMode"
+              :field-model.sync="businessName"
+              :field-rules="businessNameRules"
+            />
+            <v-text-field
+              v-if="reviewMode"
+              dense
+              flat
+              outlined
+              solo
+              v-model="businessName"
+              :rules="businessNameRules"
+            />
           </v-col>
-          <v-col cols="2" class="text-right">
-            <v-btn
-              v-if="showEditBtn && !updateMode"
-              color="primary"
-              fab
-              x-small
-              @click="updateStep(2)"
-            >
-              <v-icon>mdi-pencil</v-icon>
-            </v-btn>
+        </v-row>
+
+        <hr />
+
+        <h4>Primary Contact</h4>
+        <v-row>
+          <v-col cols="12" sm="6" lg="5">
+            <label>First Name</label>
+            <v-text-field dense flat outlined solo v-model="firstName" :rules="firstNameRules" />
+          </v-col>
+          <v-col cols="12" sm="6" lg="5">
+            <label>Last Name</label>
+            <v-text-field dense flat outlined solo v-model="lastName" :rules="lastNameRules" />
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col cols="12" sm="6" lg="5">
+            <label>Phone Number</label>
+            <v-text-field
+              dense
+              flat
+              outlined
+              solo
+              placeholder="000-000-0000"
+              :rules="phone1Rules"
+              prepend-inner-icon="phone"
+              v-model="phone1"
+            />
+          </v-col>
+          <v-col cols="12" sm="6" lg="5">
+            <label>Alternative Phone Number (Optional)</label>
+            <v-text-field
+              dense
+              flat
+              outlined
+              solo
+              placeholder="000-000-0000"
+              prepend-inner-icon="phone"
+              v-model="phone2"
+            />
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col cols="12" sm="6" lg="5">
+            <label>E-mail Address (Primary Contact)</label>
+            <v-text-field
+              dense
+              flat
+              outlined
+              solo
+              placeholder="john.doe@example.com"
+              :rules="emailRules"
+              prepend-inner-icon="email"
+              v-model="email"
+            />
+          </v-col>
+        </v-row>
+
+        <hr />
+
+        <h4>Business Address</h4>
+        <v-row>
+          <v-col cols="12" sm="6" lg="5">
+            <label>Address line 1</label>
+            <v-text-field
+              dense
+              flat
+              outlined
+              solo
+              v-model="businessAddressLine1"
+              :rules="businessAddressLine1Rules"
+            />
+          </v-col>
+          <v-col cols="12" sm="6" lg="5">
+            <label>Address line 2 (Optional)</label>
+            <v-text-field dense flat outlined solo v-model="businessAddressLine2" />
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col cols="12" sm="6" lg="5">
+            <label>City</label>
+            <v-text-field
+              dense
+              flat
+              outlined
+              solo
+              v-model="businessAddressCity"
+              :rules="businessAddressCityRules"
+            />
+          </v-col>
+          <v-col cols="12" sm="3" lg="2">
+            <label>Province</label>
+            <v-select
+              :items="provinces"
+              dense
+              flat
+              outlined
+              solo
+              single-line
+              label="Select"
+              v-model="businessAddressProvince"
+              :rules="businessAddressProvinceRules"
+            />
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col cols="12" sm="3" lg="2">
+            <label>Postal Code</label>
+            <v-text-field
+              dense
+              flat
+              outlined
+              solo
+              v-model="businessAddressPostalCode"
+              :rules="businessAddressPostalCodeRules"
+            />
+          </v-col>
+        </v-row>
+
+        <hr />
+
+        <h4>COVID-19 Coordinator</h4>
+        <v-row>
+          <v-col cols="12" sm="6" lg="5">
+            <label>First Name</label>
+            <v-text-field
+              dense
+              flat
+              outlined
+              solo
+              v-model="covidFirstName"
+              :rules="covidFirstNameRules"
+            />
+          </v-col>
+          <v-col cols="12" sm="6" lg="5">
+            <label>Last Name</label>
+            <v-text-field
+              dense
+              flat
+              outlined
+              solo
+              v-model="covidLastName"
+              :rules="covidLastNameRules"
+            />
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col cols="12" sm="6" lg="5">
+            <label>Phone Number</label>
+            <v-text-field
+              dense
+              flat
+              outlined
+              solo
+              placeholder="000-000-0000"
+              prepend-inner-icon="phone"
+              v-model="covidPhone1"
+              :rules="covidPhone1Rules"
+            />
+          </v-col>
+          <v-col cols="12" sm="6" lg="5">
+            <label>Alternative Phone Number (Optional)</label>
+            <v-text-field
+              dense
+              flat
+              outlined
+              solo
+              placeholder="000-000-0000"
+              prepend-inner-icon="phone"
+              v-model="covidPhone2"
+            />
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col cols="12" sm="6" lg="5">
+            <label>E-mail Address (Primary Contact)</label>
+            <v-text-field
+              dense
+              flat
+              outlined
+              solo
+              placeholder="john.doe@example.com"
+              prepend-inner-icon="email"
+              v-model="covidEmail"
+              :rules="covidEmailRules"
+            />
+          </v-col>
+        </v-row>
+
+        <hr />
+
+        <v-row>
+          <v-col cols="12" class="pt-3">
+            <h4>Provide your accomodation details</h4>
           </v-col>
         </v-row>
 
@@ -326,7 +300,6 @@
               :city-latitude-field-model.sync="cityLatitude"
               :city-longitude-field-model.sync="cityLongitude"
               :field-rules="locationCityRules"
-              :fieldModel="locationCity"
             />
             <v-text-field
               v-if="reviewMode"
@@ -429,47 +402,36 @@
           label="Worker's home in community"
         ></v-checkbox>
       </v-container>
-      <div v-if="!updateMode">
-        <div class="hide-on-review">
-          <h2 class="pb-8 mt-8">Provide licencee(s)</h2>
-          <hr class="orange" />
-        </div>
-
-        <v-container>
-          <v-row>
-            <v-col cols="12" lg="10">
-              <h4 class="mb-3">Name of Licencee(s)</h4>
-              <label>Provide the name or names of the licencee(s) that you are conducting the work for</label>
-              <v-text-field dense flat outlined solo v-model="licencees" :rules="licenceesRules" />
-            </v-col>
-          </v-row>
-        </v-container>
+      <div class="hide-on-review">
+        <h2 class="pb-8 mt-8">Provide licencee(s)</h2>
+        <hr class="orange" />
       </div>
+
+      <v-container>
+        <v-row>
+          <v-col cols="12" lg="10">
+            <h4 class="mb-3">Name of Licencee(s)</h4>
+            <label>Provide the name or names of the licencee(s) that you are conducting the work for</label>
+            <v-text-field dense flat outlined solo v-model="licencees" :rules="licenceesRules" />
+          </v-col>
+        </v-row>
+      </v-container>
     </v-form>
 
-    <div v-if="updateMode">
-      <v-btn color="primary" @click="update">Update</v-btn>
-      <v-btn text @click="cancelUpdate">Cancel</v-btn>
-    </div>
-    <div v-else>
-      <div class="hide-on-review">
-        <hr />
-
-        <v-btn color="primary" @click="submit">Go to Step 3</v-btn>
-        <v-btn text @click="setStep(1)">Back</v-btn>
-      </div>
+    <div class="hide-on-review">
+      <hr />
+      <v-btn color="primary" @click="submit">Go to Step 3</v-btn>
+      <v-btn text @click="setStep(1)">Back</v-btn>
     </div>
   </v-container>
 </template>
 
 <script>
 import validator from 'validator';
-import { mapActions, mapGetters, mapMutations } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 import CityLookup from '@/components/form/CityLookup.vue';
 import OrgBookSearch from '@/components/form/OrgBookSearch.vue';
-
-import { SilvipcRoles } from '@/utils/constants';
 
 export default {
   name: 'Step2',
@@ -482,8 +444,6 @@ export default {
   },
   data() {
     return {
-      updateMode: false,
-      showEditBtn: false,
       step2Valid: false,
       validationFailed: false,
       startDateMenu: false,
@@ -569,7 +529,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('form', ['business', 'contacts', 'covidContact', 'ipcPlan', 'location', 'submissionDetails', 'submissionComplete']),
+    ...mapGetters('form', ['business', 'contacts', 'covidContact', 'ipcPlan', 'location']),
     ...mapGetters('auth', ['hasSilvipcRoles']),
 
     // Business
@@ -716,42 +676,16 @@ export default {
   },
   methods: {
     ...mapMutations('form', ['setStep', 'updateBusiness', 'updateContacts', 'updateCovidContact', 'updateIpcPlan', 'updateLocation']),
-    ...mapActions('form', ['updateForm']),
-
     async submit() {
       if(this.$refs.form.validate()) {
         this.setStep(3);
       } else {
-        this.scrollToError();
+        await new Promise(r => setTimeout(r, 200)); //ugh
+        const el = document.querySelector('.v-messages.error--text:first-of-type');
+        el.scrollIntoView(true);
+        window.scrollBy(0, -60); // ugh again
       }
     },
-
-    async update() {
-      if(this.$refs.form.validate()) {
-        await this.updateForm();
-        if (this.submissionComplete) {
-          this.$router.go(-1);
-        }
-      } else {
-        this.scrollToError();
-      }
-    },
-
-    async scrollToError(){
-      await new Promise(r => setTimeout(r, 200)); //ugh
-      const el = document.querySelector('.v-messages.error--text:first-of-type');
-      el.scrollIntoView(true);
-      window.scrollBy(0, -60); // ugh again
-    },
-
-    async cancelUpdate(){
-      this.$router.go(-1);
-    },
-
-    updateStep(step){
-      this.$router.push({ name: 'Home' , query: { mode: 'update' }});
-      this.setStep(step);
-    }
   },
   mounted() {
     if(!this.reviewMode) {
@@ -759,11 +693,6 @@ export default {
       // This gets disabled after form submit in step 6
       window.onbeforeunload = () => true;
     }
-    if(this.$route.query.mode == 'update'){
-      this.showEditBtn == false;
-      this.updateMode = true;
-    }
-    this.showEditBtn = (this.$route.name == 'Submission' && this.hasSilvipcRoles([SilvipcRoles.INSPECTOR])) ? true : false;
   }
 };
 </script>

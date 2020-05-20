@@ -45,7 +45,6 @@ import Step2 from '@/components/form/Step2.vue';
 import Step3 from '@/components/form/Step3.vue';
 import Step4 from '@/components/form/Step4.vue';
 import Step5 from '@/components/form/Step5.vue';
-
 export default {
   name: 'ReviewSubmission',
   components: {
