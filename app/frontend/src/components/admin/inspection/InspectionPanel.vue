@@ -284,7 +284,7 @@ export default {
     },
     showInspector() { return [this.statuses.ASSIGNED, this.statuses.SCHEDULED, this.statuses.FOLLOWUP].includes(this.statusToSet); },
     showInspectionDate() { return [this.statuses.SCHEDULED, this.statuses.FOLLOWUP].includes(this.statusToSet); },
-    inspectionDateDisplay() { return this.currentStatus.inspectionDate ? moment(this.currentStatus.inspectionDatmomente).format('MMMM D YYYY') : 'N/A'; },
+    inspectionDateDisplay() { return this.currentStatus.inspectionDate ? moment(this.currentStatus.inspectionDate).format('MMMM D YYYY') : 'N/A'; },
     showGrade() { return [this.statuses.COMPLETED, this.statuses.FOLLOWUP].includes(this.statusToSet); }
   },
   methods: {
