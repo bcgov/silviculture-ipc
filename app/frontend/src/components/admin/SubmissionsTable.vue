@@ -108,7 +108,7 @@ export default {
           const data = response.data;
           const submissions = Object.keys(data).map(k => {
             let submission = data[k];
-            let inspectorName = (submission.inspectionStatuses[0].inspectorName !== null) ? submission.inspectionStatuses[0].inspectorName : ' - ';
+            const inspectorName = submission.inspectionStatuses[0].inspectorName ? submission.inspectionStatuses[0].inspectorName : ' - ';
 
             return {
               ipcPlanId: submission.ipcPlan.ipcPlanId,
