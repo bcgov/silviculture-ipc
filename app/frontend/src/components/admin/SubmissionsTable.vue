@@ -64,6 +64,7 @@ export default {
       headers: [
         { text: 'Submitted', value: 'created' },
         { text: 'Status', align: 'start', value: 'inspectionStatus' },
+        { text: 'Assigned', align: 'start', value: 'inspectorName' },
         { text: 'Business Name', align: 'start', value: 'name' },
         { text: 'Confirmation ID', align: 'start', value: 'confirmationId' },
         { text: 'Download', value: 'download', sortable: false },
@@ -107,6 +108,8 @@ export default {
           const data = response.data;
           const submissions = Object.keys(data).map(k => {
             let submission = data[k];
+            let inspectorName = (submission.inspectionStatuses[0].inspectorName !== null) ? submission.inspectionStatuses[0].inspectorName : ' - ';
+
             return {
               ipcPlanId: submission.ipcPlan.ipcPlanId,
               pdf: submission.ipcPlan.ipcPlanId,
@@ -114,6 +117,7 @@ export default {
               created: this.formatDate(submission.ipcPlan.createdAt),
               confirmationId: submission.confirmationId,
               inspectionStatus: submission.inspectionStatuses[0].status,
+              inspectorName: inspectorName,
             };
           });
           if (!submissions.length) {
