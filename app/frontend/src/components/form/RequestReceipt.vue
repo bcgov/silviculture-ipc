@@ -22,7 +22,7 @@
         <v-icon large color="primary">email</v-icon>
       </template>
       <template v-slot:text>
-        <v-form ref="form" v-model="valid">
+        <v-form ref="form" v-model="valid" @submit="requestReceipt()" @submit.prevent>
           <label>Send to E-mail Address</label>
           <v-text-field
             dense
