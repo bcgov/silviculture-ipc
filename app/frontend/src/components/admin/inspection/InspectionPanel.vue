@@ -122,7 +122,7 @@
               <label>Note (Optional)</label>
               <v-textarea
                 v-model="note"
-                :rules="v => v.length <= 4000 || 'Max 4000 characters'"
+                :rules="[v => v.length <= 4000 || 'Max 4000 characters']"
                 rows="1"
                 counter
                 auto-grow

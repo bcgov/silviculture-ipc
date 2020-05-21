@@ -28,6 +28,9 @@
                 <v-icon class="mr-1">picture_as_pdf</v-icon>Download PDF
               </v-btn>
             </GeneratePdfButton>
+
+            <v-spacer></v-spacer>
+            <LocationEdit :ipcPlanId="ipcPlan.ipcPlanId" />
           </v-col>
         </v-row>
 
