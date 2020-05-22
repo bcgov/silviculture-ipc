@@ -15,8 +15,8 @@
         <v-card-text>
           <v-container class="pa-0">
 
-            <!-- child Location form component -->
-            <Location :reviewMode="reviewMode"/>
+            <!-- use Location form component -->
+            <Location :reviewMode="false"/>
 
           </v-container>
         </v-card-text>
@@ -30,41 +30,10 @@
 </template>
 
 <script>
-import Vuex from 'vuex';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
+import form from '@/store/modules/form.js';
 
 import Location from '@/components/form/Location.vue';
-import { SilvipcRoles } from '@/utils/constants';
-
-/* eslint-disable */
-import ipcService from '../../../services/ipcService';
-
-const localStore = new Vuex.Store({
-  state: {
-    // copy location state from global store
-    location: this.location
-  },
-  actions: {
-    async updateForm({ commit, state }) {
-
-      console.log(localStore.location);
-
-      try {
-        const body = {
-          location: localStore.location
-        };
-        const response = await ipcService.updateIPCContent(body);
-
-        if (!response.data) {
-          throw new Error('No response data from API while submitting update');
-        }
-      } catch (error) {
-        console.error(`Error submitting update: ${error}`); // eslint-disable-line no-console
-      }
-    }
-
-  }
-})
 
 export default {
   name: 'LocationEdit',
@@ -89,67 +58,21 @@ export default {
   },
   computed: {
     ...mapGetters('form', ['business', 'ipcPlan', 'location', 'submissionComplete']),
-    ...mapGetters('auth', ['hasSilvipcRoles']),
+    ...mapActions('form', ['updateForm']),
 
-    // Business data
+
+    // // Business data
     businessName: {
       get() { return this.business.name; },
     },
 
-    // location data
-    startDate: {
-      get() { return this.location.startDate; },
-    },
-    endDate: {
-      get() { return this.location.endDate; },
-    },
-    locationCity: {
-      get() { return this.location.city; },
-    },
-    cityLatitude: {
-      get() { return this.location.cityLatitude; },
-    },
-    cityLongitude: {
-      get() { return this.location.cityLongitude; },
-    },
-    numberOfWorkers: {
-      get() { return this.location.numberOfWorkers ? this.location.numberOfWorkers.toString() : ''; },
-    },
-    accTents: {
-      get() { return this.location.accTents; },
-    },
-    tentDetails: {
-      get() { return this.location.tentDetails; },
-    },
-    accMotel: {
-      get() { return this.location.accMotel; },
-    },
-    motelName: {
-      get() { return this.location.motelName; },
-    },
-    motelAddressLine1: {
-      get() { return this.location.motelAddressLine1; },
-    },
-    motelAddressLine2: {
-      get() { return this.location.motelAddressLine2; },
-    },
-    motelCity: {
-      get() { return this.location.motelCity; },
-    },
-    motelProvince: {
-      get() { return this.location.motelProvince; },
-    },
-    motelPostalCode: {
-      get() { return this.location.motelPostalCode; },
-    },
-    accWorkersHome: {
-      get() { return this.location.accWorkersHome; },
-    },
   },
   methods: {
 
     async update() {
+
       if(this.$refs.form.validate()) {
+
         await this.updateForm();
         if (this.submissionComplete) {
           this.dialog = false;
@@ -167,19 +90,17 @@ export default {
 
   },
   mounted() {
-    // show edit button for inspectors on submission review page
-    this.showEditBtn = (this.$route.name == 'Submission' && this.hasSilvipcRoles([SilvipcRoles.INSPECTOR])) ? true : false;
   },
   created() {
-    // lazy-load global store
-    if(this.$store.hasModule('localStore')) {
-      this.$store.unregisterModule('localStore');
+    // dynamically register a ephemeral vuex module for this 'edit location' component
+    if(this.$store.hasModule('edit')) {
+      this.$store.unregisterModule('edit');
     }
-    this.$store.registerModule('localStore', localStore);
+    this.$store.registerModule('edit', form);
   },
   beforeDestroy() {
-    // unload store
-    this.$store.unregisterModule('localStore');
+    // unload this store
+    this.$store.unregisterModule('edit');
   },
 
 

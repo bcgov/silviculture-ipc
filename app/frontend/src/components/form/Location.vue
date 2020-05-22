@@ -194,24 +194,9 @@ export default {
       endDateMenu: false,
 
       // Todo: constants file
-      provinces: [
-        'AB',
-        'BC',
-        'MB',
-        'NB',
-        'NL',
-        'NS',
-        'NT',
-        'NU',
-        'ON',
-        'PE',
-        'QC',
-        'SK',
-        'YT'
-      ],
+      provinces: ['AB','BC','MB','NB','NL','NS','NT','NU','ON','PE','QC','SK','YT'],
 
       // Location
-      licenceesRules: [v => !!v || 'Name of licencee(s) required'],
       startDateRules: [v => !!v || 'Start date is required'],
       endDateRules: [v => !!v || 'End date is required'],
       locationCityRules: [
@@ -231,137 +216,71 @@ export default {
 
     // Location
     startDate: {
-      get() {
-        return this.location.startDate;
-      },
-      set(value) {
-        this.updateLocation({ ['startDate']: value });
-      }
+      get() { return this.location.startDate; },
+      set(value) { this.updateLocation({['startDate']: value}); }
     },
     endDate: {
-      get() {
-        return this.location.endDate;
-      },
-      set(value) {
-        this.updateLocation({ ['endDate']: value });
-      }
+      get() { return this.location.endDate; },
+      set(value) { this.updateLocation({['endDate']: value}); }
     },
     locationCity: {
-      get() {
-        return this.location.city;
-      },
-      set(value) {
-        this.updateLocation({ ['city']: value });
-      }
+      get() { return this.location.city; },
+      set(value) { this.updateLocation({['city']: value}); }
     },
     cityLatitude: {
-      get() {
-        return this.location.cityLatitude;
-      },
-      set(value) {
-        this.updateLocation({ ['cityLatitude']: value });
-      }
+      get() { return this.location.cityLatitude; },
+      set(value) { this.updateLocation({['cityLatitude']: value}); }
     },
     cityLongitude: {
-      get() {
-        return this.location.cityLongitude;
-      },
-      set(value) {
-        this.updateLocation({ ['cityLongitude']: value });
-      }
+      get() { return this.location.cityLongitude; },
+      set(value) { this.updateLocation({['cityLongitude']: value}); }
     },
     numberOfWorkers: {
-      get() {
-        return this.location.numberOfWorkers
-          ? this.location.numberOfWorkers.toString()
-          : '';
-      },
-      set(value) {
-        this.updateLocation({
-          ['numberOfWorkers']: Number.isNaN(value) ? 0 : Number.parseInt(value)
-        });
+      get() { return this.location.numberOfWorkers ? this.location.numberOfWorkers.toString() : ''; },
+      set(value) { this.updateLocation({['numberOfWorkers']:
+        Number.isNaN(value) ? 0 : Number.parseInt(value)});
       }
     },
     accTents: {
-      get() {
-        return this.location.accTents;
-      },
-      set(value) {
-        this.updateLocation({ ['accTents']: value });
-      }
+      get() { return this.location.accTents; },
+      set(value) { this.updateLocation({['accTents']: value}); }
     },
     tentDetails: {
-      get() {
-        return this.location.tentDetails;
-      },
-      set(value) {
-        this.updateLocation({ ['tentDetails']: value });
-      }
+      get() { return this.location.tentDetails; },
+      set(value) { this.updateLocation({['tentDetails']: value}); }
     },
     accMotel: {
-      get() {
-        return this.location.accMotel;
-      },
-      set(value) {
-        this.updateLocation({ ['accMotel']: value });
-      }
+      get() { return this.location.accMotel; },
+      set(value) { this.updateLocation({['accMotel']: value}); }
     },
     motelName: {
-      get() {
-        return this.location.motelName;
-      },
-      set(value) {
-        this.updateLocation({ ['motelName']: value });
-      }
+      get() { return this.location.motelName; },
+      set(value) { this.updateLocation({['motelName']: value}); }
     },
     motelAddressLine1: {
-      get() {
-        return this.location.motelAddressLine1;
-      },
-      set(value) {
-        this.updateLocation({ ['motelAddressLine1']: value });
-      }
+      get() { return this.location.motelAddressLine1; },
+      set(value) { this.updateLocation({['motelAddressLine1']: value}); }
     },
     motelAddressLine2: {
-      get() {
-        return this.location.motelAddressLine2;
-      },
-      set(value) {
-        this.updateLocation({ ['motelAddressLine2']: value });
-      }
+      get() { return this.location.motelAddressLine2; },
+      set(value) { this.updateLocation({['motelAddressLine2']: value}); }
     },
     motelCity: {
-      get() {
-        return this.location.motelCity;
-      },
-      set(value) {
-        this.updateLocation({ ['motelCity']: value });
-      }
+      get() { return this.location.motelCity; },
+      set(value) { this.updateLocation({['motelCity']: value}); }
     },
     motelProvince: {
-      get() {
-        return this.location.motelProvince;
-      },
-      set(value) {
-        this.updateLocation({ ['motelProvince']: value });
-      }
+      get() { return this.location.motelProvince; },
+      set(value) { this.updateLocation({['motelProvince']: value}); }
     },
     motelPostalCode: {
-      get() {
-        return this.location.motelPostalCode;
-      },
-      set(value) {
-        this.updateLocation({ ['motelPostalCode']: value });
-      }
+      get() { return this.location.motelPostalCode; },
+      set(value) { this.updateLocation({['motelPostalCode']: value}); }
     },
     accWorkersHome: {
-      get() {
-        return this.location.accWorkersHome;
-      },
-      set(value) {
-        this.updateLocation({ ['accWorkersHome']: value });
-      }
-    }
+      get() { return this.location.accWorkersHome; },
+      set(value) { this.updateLocation({['accWorkersHome']: value}); }
+    },
   },
   methods: {
     ...mapMutations('form', ['setStep', 'updateBusiness', 'updateContacts', 'updateCovidContact', 'updateIpcPlan', 'updateLocation']),

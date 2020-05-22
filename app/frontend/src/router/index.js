@@ -63,15 +63,7 @@ const router = new VueRouter({
       name: 'NotFound',
       component: () => import(/* webpackChunkName: "not-found" */ '@/views/NotFound.vue')
     }
-  ],
-
-  scrollBehavior: function (to, from, savedPosition) { // eslint-disable-line
-    if (to.hash) {
-      return { selector: to.hash };
-    } else {
-      return { x: 0, y: 0 };
-    }
-  },
+  ]
 
 });
 
