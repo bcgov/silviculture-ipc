@@ -58,7 +58,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('form', ['business', 'ipcPlan', 'location']),
+    ...mapGetters('form', ['business', 'contacts', 'covidContact', 'ipcPlan', 'location']),
 
     // Business data
     businessName: {
@@ -86,6 +86,10 @@ export default {
     async updateForm() {
       try {
         const body = {
+          business: this.business,
+          contacts: this.contacts,
+          ipcPlan: this.ipcPlan,
+          covidContact: this.covidContact,
           location: this.location
         };
         const response = await ipcService.updateIPCContent(body);

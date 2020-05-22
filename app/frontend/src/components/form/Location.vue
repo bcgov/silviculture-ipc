@@ -287,6 +287,10 @@ export default {
 
   },
   mounted() {
+    document.querySelectorAll('.review-form input, .review-form .v-select').forEach(q => {
+      q.setAttribute('readonly', 'true');
+      q.style.pointerEvents = 'none';
+    });
   }
 };
 </script>
