@@ -30,7 +30,7 @@
             </GeneratePdfButton>
 
             <v-spacer></v-spacer>
-            <LocationEdit :ipcPlanId="ipcPlan.ipcPlanId" />
+            <LocationEdit v-if="showInspection" :ipcPlanId="ipcPlan.ipcPlanId" />
           </v-col>
         </v-row>
 
