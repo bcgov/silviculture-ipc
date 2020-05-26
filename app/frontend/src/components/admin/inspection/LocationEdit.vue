@@ -58,8 +58,8 @@ export default {
     };
   },
   computed: {
-    // use local 'edit' store
-    ...mapGetters('edit', ['business', 'location']),
+    // use local 'edit' store for variables used in this component
+    ...mapGetters('edit', ['business', 'contacts', 'covidContact', 'ipcPlan', 'location']),
     ...mapMutations('edit', ['updateLocation']),
 
     // Business data
@@ -71,11 +71,10 @@ export default {
     // test - use local store in this component - doesnt work as i hoped
     locationCity: {
       get() {
-        console.log('in edit component, get locationCity: ', this.location.city);
         return this.location.city;
       },
       set(value) {
-        console.log('in set edit component, get locationCity: ', this.location.city);
+        console.log('edit locationCity: ', this.location.city); // eslint-disable-line no-console
         this.updateLocation({['city']: value});
       }
     },

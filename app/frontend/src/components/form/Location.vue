@@ -225,7 +225,7 @@ export default {
     },
     locationCity: {
       get() {
-        console.log('in location component, locationCity: ', this.location.city);
+        console.log('in location component, locationCity: ', this.location.city); // eslint-disable-line no-console
         return this.location.city;
       },
       set(value) { this.updateLocation({['city']: value}); }
