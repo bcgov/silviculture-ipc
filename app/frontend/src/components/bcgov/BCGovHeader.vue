@@ -39,9 +39,9 @@ export default {
     hasRole(role) {
       return this.hasSilvipcRoles([role]);
     },
-    // clicking on banner logo or title goes to /home or /admin if admin user
+    // clicking on banner logo or title goes to /home or /admin if an admin user
     followBannerLink() {
-      if(this.hasRole(this.role.INSPECTOR) || this.hasRole(this.role.DEVELOPER)){
+      if(this.hasRole(this.role.INSPECTOR) & !this.hasRole(this.role.DEVELOPER)){
         this.$router.push({ name: 'Admin' }).catch(() => {});
       }
       else{

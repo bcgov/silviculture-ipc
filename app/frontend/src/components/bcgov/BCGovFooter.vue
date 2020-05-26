@@ -1,6 +1,6 @@
 <template>
   <v-footer class="gov-footer">
-    <v-btn text id="footer-home" @click="followFooterLink()">
+    <v-btn text id="footer-home" @click="goHome()">
       <span>Home</span>
     </v-btn>
     <v-btn text id="footer-about" href="https://www2.gov.bc.ca/gov/content/about-gov-bc-ca">
@@ -27,35 +27,17 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import { SilvipcRoles } from '@/utils/constants';
-
 export default {
   name: 'BCGovFooter',
-  data() {
-    return {
-      role: { ...SilvipcRoles }
-    };
-  },
   computed: {
-    ...mapGetters('auth', ['hasSilvipcRoles']),
-
     appVersion() {
       return process.env.VUE_APP_VERSION;
     }
   },
   methods: {
-    hasRole(role) {
-      return this.hasSilvipcRoles([role]);
-    },
-    // clicking on banner logo or title goes to /home or /admin if admin user
-    followFooterLink() {
-      if(this.hasRole(this.role.INSPECTOR) || this.hasRole(this.role.DEVELOPER)){
-        this.$router.push({ name: 'Admin' }).catch(() => {});
-      }
-      else{
-        this.$router.push({ name: 'Home' }).catch(() => {});
-      }
+    // clicking on 'home' link in footer goes to /home
+    goHome() {
+      this.$router.push({ name: 'Home' }).catch(() => {});
     }
   }
 };
