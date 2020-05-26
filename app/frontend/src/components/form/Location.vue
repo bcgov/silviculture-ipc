@@ -224,7 +224,10 @@ export default {
       set(value) { this.updateLocation({['endDate']: value}); }
     },
     locationCity: {
-      get() { return this.location.city; },
+      get() {
+        console.log('in location component, locationCity: ', this.location.city);
+        return this.location.city;
+      },
       set(value) { this.updateLocation({['city']: value}); }
     },
     cityLatitude: {
@@ -288,7 +291,7 @@ export default {
   },
   mounted() {
     document.querySelectorAll('.review-form input, .review-form .v-select').forEach(q => {
-      q.setAttribute('readonly', 'true');
+      q.setAttribute('readonly', 'false');
       q.style.pointerEvents = 'none';
     });
   }
