@@ -1,21 +1,34 @@
 <template>
   <v-dialog v-model="dialog" max-width="800px">
     <template v-slot:activator="{ on }">
-      <v-btn v-if="true" @click="openDialog" v-on="on" color="primary" class="my-3" small>Edit Submission</v-btn>
+      <v-btn
+        v-if="true"
+        @click="openDialog"
+        v-on="on"
+        text
+        small
+        color="textLink"
+        class="pl-0 my-3"
+      >
+        <v-icon class="mr-1">mdi-pencil</v-icon>Edit Submission
+      </v-btn>
     </template>
     <v-card>
-      <v-form ref="form" v-model="updateValid">
-        <v-card-title>
+      <v-form ref="form">
+        <v-card-title class="pa-3 py-10">
+          <v-alert v-if="updateError" type="error" tile dense>{{ updateError }}</v-alert>
           <span class="headline">
-            Editing submission from:
+            Editing:
             <strong>{{businessName}}</strong>
           </span>
         </v-card-title>
         <v-card-text>
           <v-container class="pa-0">
+            <h2 class="pb-8">Location Details</h2>
+            <hr class="orange" />
 
             <!-- use Location form component -->
-            <Location :reviewMode="false"/>
+            <Location :reviewMode="false" :key="componentKey"/>
 
           </v-container>
         </v-card-text>
@@ -29,11 +42,9 @@
 </template>
 
 <script>
-import form from '@/store/modules/form.js';
-import { mapGetters, mapMutations, mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 import Location from '@/components/form/Location.vue';
-import ipcService from '../../../services/ipcService';
 
 export default {
   name: 'LocationEdit',
@@ -49,40 +60,21 @@ export default {
   data() {
     return {
       dialog: false,
-      updateValid: false,
-      reviewMode: false,
-      updateComplete: false,
-      updateError: '',
-      startDateMenu: false,
-      endDateMenu: false
+      componentKey:0
     };
   },
   computed: {
-    // use local 'edit' store for variables used in this component
-    ...mapGetters('edit', ['business', 'contacts', 'covidContact', 'ipcPlan', 'location']),
-    ...mapMutations('edit', ['updateLocation']),
-
+    ...mapGetters('form', ['business', 'updateComplete', 'updateError']),
     // Business data
     businessName: {
       get() { return this.business.name; },
     },
-
-    // Location
-    // test - use local store in this component - doesnt work as i hoped
-    locationCity: {
-      get() {
-        return this.location.city;
-      },
-      set(value) {
-        console.log('edit locationCity: ', this.location.city); // eslint-disable-line no-console
-        this.updateLocation({['city']: value});
-      }
-    },
   },
   methods: {
-    ...mapActions('form', ['getForm']),
+    ...mapActions('form', ['getForm', 'updateForm']),
 
     openDialog() {
+      this.componentKey=!this.componentKey;
       document.querySelectorAll('.review-form input, .review-form .v-select').forEach(q => {
         q.setAttribute('readonly', 'false');
         q.style.pointerEvents = 'none';
@@ -90,6 +82,7 @@ export default {
     },
 
     async submit() {
+      const modal = document.querySelector('.v-dialog--active');
       if(this.$refs.form.validate()) {
         await this.updateForm();
         if (this.updateComplete) {
@@ -97,51 +90,24 @@ export default {
           // reload form data to show in parent component;
           this.getForm(this.ipcPlanId);
         }
+        else{
+          modal.scrollBy(0, -500);
+        }
       } else {
-        const modal = document.querySelector('.v-dialog--active');
         modal.scrollBy(0, -500);
       }
     },
-
-    async updateForm() {
-      try {
-        const body = {
-          business: this.business,
-          contacts: this.contacts,
-          ipcPlan: this.ipcPlan,
-          covidContact: this.covidContact,
-          location: this.location
-        };
-        const response = await ipcService.updateIPCContent(body);
-        if (!response.data) {
-          throw new Error('No response data from API while submitting update');
-        }
-        this.updateComplete = true;
-      } catch (error) {
-        console.error(`Error submitting update: ${error}`); // eslint-disable-line no-console
-        this.updateError = 'An error occurred while attempting to update the form. Please try again.';
-      }
-    },
-
     cancelUpdate(){
       this.dialog = false;
-      // reload form data in parent component - from the global 'from' state module
+      // reload form data visible in parent component
       this.getForm(this.ipcPlanId);
     },
-
   },
-  // lazy-load a local copy of the 'form' store into the 'edit' namespace
-  beforeCreate() {
-    // dynamically register a local vuex module for this 'edit location' component
-    if(this.$store.hasModule('edit')) {
-      this.$store.unregisterModule('edit');
+  watch: {
+    dialog(val) {
+      !val && this.cancelUpdate();
     }
-    this.$store.registerModule('edit', form);
-  },
-  beforeDestroy() {
-    // unload this store
-    this.$store.unregisterModule('edit');
-  },
+  }
 
 };
 </script>

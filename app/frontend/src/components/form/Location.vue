@@ -1,177 +1,203 @@
 <template>
   <div>
-    <v-row>
-      <v-col cols="12" class="pt-3">
-        <h4>Provide your accomodation details</h4>
-      </v-col>
-    </v-row>
+    <v-container>
+      <v-row>
+        <v-col cols="12" class="pt-3">
+          <h4>Provide your accomodation details</h4>
+        </v-col>
+      </v-row>
 
-    <v-row>
-      <v-col cols="12" sm="6" lg="5">
-        <v-menu
-          v-model="startDateMenu"
-          :close-on-content-click="true"
-          :nudge-right="40"
-          transition="scale-transition"
-          offset-y
-          min-width="290px"
-        >
-          <template v-slot:activator="{ on }">
-            <label>Operation Start Date</label>
-            <v-text-field
+      <v-row>
+        <v-col cols="12" sm="6" lg="5">
+          <v-menu
+            v-model="startDateMenu"
+            :close-on-content-click="true"
+            :nudge-right="40"
+            transition="scale-transition"
+            offset-y
+            min-width="290px"
+          >
+            <template v-slot:activator="{ on }">
+              <label>Operation Start Date</label>
+              <v-text-field
+                v-model="startDate"
+                :rules="startDateRules"
+                placeholder="yyyy-mm-dd"
+                append-icon="event"
+                v-on:click:append="startDateMenu=true"
+                readonly
+                v-on="on"
+                dense
+                flat
+                outlined
+                solo
+              ></v-text-field>
+            </template>
+            <v-date-picker
               v-model="startDate"
-              :rules="startDateRules"
-              placeholder="yyyy-mm-dd"
-              append-icon="event"
-              v-on:click:append="startDateMenu=true"
-              readonly
-              v-on="on"
-              dense
-              flat
-              outlined
-              solo
-            ></v-text-field>
-          </template>
-          <v-date-picker v-model="startDate" @input="startDateMenu = false" :readonly="reviewMode"></v-date-picker>
-        </v-menu>
-      </v-col>
-
-      <v-col cols="12" sm="6" lg="5">
-        <v-menu
-          v-model="endDateMenu"
-          :close-on-content-click="true"
-          :nudge-right="40"
-          transition="scale-transition"
-          offset-y
-          min-width="290px"
-        >
-          <template v-slot:activator="{ on }">
-            <label>Operation End Date</label>
-            <v-text-field
-              v-model="endDate"
-              :rules="endDateRules"
-              placeholder="yyyy-mm-dd"
-              append-icon="event"
-              v-on:click:append="endDateMenu=true"
-              readonly
-              v-on="on"
-              dense
-              flat
-              outlined
-              solo
-            ></v-text-field>
-          </template>
-          <v-date-picker v-model="endDate" @input="endDateMenu = false" :readonly="reviewMode"></v-date-picker>
-        </v-menu>
-      </v-col>
-    </v-row>
-
-    <v-row>
-      <v-col cols="12" sm="6" lg="5">
-        <label>Closest Community / Town / City</label>
-        <CityLookup
-          v-if="!reviewMode"
-          :city-field-model.sync="locationCity"
-          :city-latitude-field-model.sync="cityLatitude"
-          :city-longitude-field-model.sync="cityLongitude"
-          :field-rules="locationCityRules"
-        />
-        <v-text-field
-          v-if="reviewMode"
-          dense
-          flat
-          outlined
-          solo
-          v-model="locationCity"
-          :rules="locationCityRules"
-        />
-        <v-text-field v-model="cityLatitude" class="d-none" />
-        <v-text-field v-model="cityLongitude" class="d-none" />
-      </v-col>
-    </v-row>
-
-    <v-row>
-      <v-col cols="12" sm="4" lg="3">
-        <label>Number of workers at this location</label>
-        <v-text-field
-          v-model="numberOfWorkers"
-          :rules="numberOfWorkersRules"
-          type="number"
-          min="1"
-          dense
-          flat
-          outlined
-          solo
-        />
-      </v-col>
-    </v-row>
-
-    <h4>Type of accommodation for workers at this location (check all that apply)</h4>
-
-    <v-checkbox v-model="accTents" :readonly="reviewMode" label="Tents near worksite"></v-checkbox>
-
-    <div v-if="accTents">
-      <v-row>
-        <v-col cols="12" lg="10">
-          <label>
-            Details (eg:
-            <em>"1km from HWY 1 at 100 mile house north on Logging Road"</em>)
-          </label>
-          <v-text-field v-model="tentDetails" dense flat outlined solo />
+              @input="startDateMenu = false"
+              :readonly="reviewMode"
+            ></v-date-picker>
+          </v-menu>
         </v-col>
-      </v-row>
-    </div>
 
-    <v-checkbox v-model="accMotel" :readonly="reviewMode" label="Motel / Hotel in town"></v-checkbox>
-    <div v-if="accMotel">
-      <v-row>
         <v-col cols="12" sm="6" lg="5">
-          <label>Name</label>
-          <v-text-field v-model="motelName" dense flat outlined solo />
+          <v-menu
+            v-model="endDateMenu"
+            :close-on-content-click="true"
+            :nudge-right="40"
+            transition="scale-transition"
+            offset-y
+            min-width="290px"
+          >
+            <template v-slot:activator="{ on }">
+              <label>Operation End Date</label>
+              <v-text-field
+                v-model="endDate"
+                :rules="endDateRules"
+                placeholder="yyyy-mm-dd"
+                append-icon="event"
+                v-on:click:append="endDateMenu=true"
+                readonly
+                v-on="on"
+                dense
+                flat
+                outlined
+                solo
+              ></v-text-field>
+            </template>
+            <v-date-picker v-model="endDate" @input="endDateMenu = false" :readonly="reviewMode"></v-date-picker>
+          </v-menu>
         </v-col>
       </v-row>
 
       <v-row>
         <v-col cols="12" sm="6" lg="5">
-          <label>Address line 1</label>
-          <v-text-field v-model="motelAddressLine1" dense flat outlined solo />
-        </v-col>
-
-        <v-col cols="12" sm="6" lg="5">
-          <label>Address line 2 (Optional)</label>
-          <v-text-field v-model="motelAddressLine2" dense flat outlined solo />
-        </v-col>
-      </v-row>
-
-      <v-row>
-        <v-col cols="12" sm="6" lg="5">
-          <label>City</label>
-          <v-text-field v-model="motelCity" dense flat outlined solo />
-        </v-col>
-        <v-col cols="12" sm="3" lg="2">
-          <label>Province</label>
-          <v-select
+          <label>Closest Community / Town / City</label>
+          <CityLookup
+            v-if="true"
+            :city-field-model.sync="locationCity"
+            :city-latitude-field-model.sync="cityLatitude"
+            :city-longitude-field-model.sync="cityLongitude"
+            :field-rules="locationCityRules"
+            :value="locationCity"
+          />
+          <v-text-field
+            v-if="true"
             dense
             flat
             outlined
             solo
-            single-line
-            label="select"
-            v-model="motelProvince"
-            :items="provinces"
+            v-model="locationCity"
+            :rules="locationCityRules"
           />
+          <v-text-field v-model="cityLatitude" class="d-nonee" />
+          <v-text-field v-model="cityLongitude" class="d-nonee" />
         </v-col>
       </v-row>
 
       <v-row>
-        <v-col cols="12" sm="3" lg="2">
-          <label>Postal Code</label>
-          <v-text-field v-model="motelPostalCode" dense flat outlined solo />
+        <v-col cols="12" sm="4" lg="3">
+          <label>Number of workers at this location</label>
+          <v-text-field
+            v-model="numberOfWorkers"
+            :rules="numberOfWorkersRules"
+            type="number"
+            min="1"
+            dense
+            flat
+            outlined
+            solo
+          />
         </v-col>
       </v-row>
+
+      <h4>Type of accommodation for workers at this location (check all that apply)</h4>
+
+      <v-checkbox v-model="accTents" :readonly="reviewMode" label="Tents near worksite"></v-checkbox>
+
+      <div v-if="accTents">
+        <v-row>
+          <v-col cols="12" lg="10">
+            <label>
+              Details (eg:
+              <em>"1km from HWY 1 at 100 mile house north on Logging Road"</em>)
+            </label>
+            <v-text-field v-model="tentDetails" dense flat outlined solo />
+          </v-col>
+        </v-row>
+      </div>
+
+      <v-checkbox v-model="accMotel" :readonly="reviewMode" label="Motel / Hotel in town"></v-checkbox>
+      <div v-if="accMotel">
+        <v-row>
+          <v-col cols="12" sm="6" lg="5">
+            <label>Name</label>
+            <v-text-field v-model="motelName" dense flat outlined solo />
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col cols="12" sm="6" lg="5">
+            <label>Address line 1</label>
+            <v-text-field v-model="motelAddressLine1" dense flat outlined solo />
+          </v-col>
+
+          <v-col cols="12" sm="6" lg="5">
+            <label>Address line 2 (Optional)</label>
+            <v-text-field v-model="motelAddressLine2" dense flat outlined solo />
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col cols="12" sm="6" lg="5">
+            <label>City</label>
+            <v-text-field v-model="motelCity" dense flat outlined solo />
+          </v-col>
+          <v-col cols="12" sm="3" lg="2">
+            <label>Province</label>
+            <v-select
+              dense
+              flat
+              outlined
+              solo
+              single-line
+              label="select"
+              v-model="motelProvince"
+              :items="provinces"
+            />
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col cols="12" sm="3" lg="2">
+            <label>Postal Code</label>
+            <v-text-field v-model="motelPostalCode" dense flat outlined solo />
+          </v-col>
+        </v-row>
+      </div>
+
+      <v-checkbox
+        v-model="accWorkersHome"
+        :readonly="reviewMode"
+        label="Worker's home in community"
+      ></v-checkbox>
+    </v-container>
+
+    <div class="hide-on-review">
+      <h2 class="pb-8 mt-8">Provide licencee(s)</h2>
+      <hr class="orange" />
     </div>
 
-    <v-checkbox v-model="accWorkersHome" :readonly="reviewMode" label="Worker's home in community"></v-checkbox>
+    <v-container>
+      <v-row>
+        <v-col cols="12" lg="10">
+          <h4 class="mb-3">Name of Licencee(s)</h4>
+          <label>Provide the name or names of the licencee(s) that you are conducting the work for</label>
+          <v-text-field dense flat outlined solo v-model="licencees" :rules="licenceesRules" />
+        </v-col>
+      </v-row>
+    </v-container>
   </div>
 </template>
 
@@ -207,7 +233,11 @@ export default {
         v => new RegExp('^[-+]?\\d+$').test(v) || 'invalid # of workers',
         v => v > 0 || '# of workers must be greater than 0',
         v => v < 9999 || '# of workers must 9999 or less'
-      ]
+      ],
+      // Licencee
+      licenceesRules: [
+        v => !!v || 'Name of licencee(s) required'
+      ],
     };
   },
   computed: {
@@ -224,10 +254,7 @@ export default {
       set(value) { this.updateLocation({['endDate']: value}); }
     },
     locationCity: {
-      get() {
-        console.log('in location component, locationCity: ', this.location.city); // eslint-disable-line no-console
-        return this.location.city;
-      },
+      get() { return this.location.city; },
       set(value) { this.updateLocation({['city']: value}); }
     },
     cityLatitude: {
@@ -284,10 +311,13 @@ export default {
       get() { return this.location.accWorkersHome; },
       set(value) { this.updateLocation({['accWorkersHome']: value}); }
     },
+    licencees: {
+      get() { return this.location.licencees; },
+      set(value) { this.updateLocation({['licencees']: value}); }
+    },
   },
   methods: {
-    ...mapMutations('form', ['setStep', 'updateBusiness', 'updateContacts', 'updateCovidContact', 'updateIpcPlan', 'updateLocation']),
-
+    ...mapMutations('form', ['updateLocation'])
   },
   mounted() {
     document.querySelectorAll('.review-form input, .review-form .v-select').forEach(q => {

@@ -10,6 +10,8 @@ export default {
     submissionComplete: false,
     submissionDetails: null,
     submissionError: '',
+    updateComplete: false,
+    updateError: '',
 
     // Form schema
     business: {
@@ -114,6 +116,8 @@ export default {
     submissionComplete: state => state.submissionComplete,
     submissionDetails: state => state.submissionDetails,
     submissionError: state => state.submissionError,
+    updateComplete: state => state.updateComplete,
+    updateError: state => state.updateError,
 
     // Form objects
     business: state => state.business,
@@ -145,6 +149,13 @@ export default {
     },
     setSubmissionError(state, errorMessage) {
       state.submissionError = errorMessage;
+    },
+    setUpdateComplete(state) {
+      state.updateComplete = true;
+      window.scrollTo(0, 0);
+    },
+    setUpdateError(state, errorMessage) {
+      state.updateError = errorMessage;
     },
 
     // Form updates
@@ -211,6 +222,28 @@ export default {
         commit('setSubmissionError', 'An error occurred while attempting to submit the form. Please try again.');
       } finally {
         commit('setSubmitting', false);
+      }
+    },
+
+    async updateForm({ commit, state }) {
+      commit('setUpdateError', '');
+      try {
+        commit('updateIpcPlan', { formVersion: process.env.VUE_APP_VERSION });
+        const body = {
+          business: state.business,
+          contacts: state.contacts,
+          ipcPlan: state.ipcPlan,
+          covidContact: state.covidContact,
+          location: state.location
+        };
+        const response = await ipcService.updateIPCContent(body);
+        if (!response.data) {
+          throw new Error('No response data from API while submitting update');
+        }
+        commit('setUpdateComplete');
+      } catch (error) {
+        console.error(`Error submitting update: ${error}`); // eslint-disable-line no-console
+        commit('setUpdateError', 'An error occurred while attempting to update the form. Please try again.');
       }
     }
 

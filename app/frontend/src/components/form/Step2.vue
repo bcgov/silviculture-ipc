@@ -218,27 +218,11 @@
             />
           </v-col>
         </v-row>
-
-        <hr />
-
-        <!-- child Location form component -->
-        <Location :reviewMode="reviewMode"/>
-
       </v-container>
-      <div class="hide-on-review">
-        <h2 class="pb-8 mt-8">Provide licencee(s)</h2>
-        <hr class="orange" />
-      </div>
+      <hr class="mb-0"/>
 
-      <v-container>
-        <v-row>
-          <v-col cols="12" lg="10">
-            <h4 class="mb-3">Name of Licencee(s)</h4>
-            <label>Provide the name or names of the licencee(s) that you are conducting the work for</label>
-            <v-text-field dense flat outlined solo v-model="licencees" :rules="licenceesRules" />
-          </v-col>
-        </v-row>
-      </v-container>
+      <!-- child Location form component -->
+      <Location :reviewMode="reviewMode" />
     </v-form>
 
     <div class="hide-on-review">
@@ -327,11 +311,6 @@ export default {
         v=> validator.isEmail(v, { allow_display_name: true }) || 'invalid e-mail format',
         v => (v && v.length <= 100) || 'E-mail must be less than 100? characters',
       ],
-
-      // Licencee
-      licenceesRules: [
-        v => !!v || 'Name of licencee(s) required'
-      ],
     };
   },
   computed: {
@@ -407,15 +386,10 @@ export default {
       get() { return this.covidContact.email; },
       set(value) { this.updateCovidContact({['email']: value}); }
     },
-    // Licencee
-    licencees: {
-      get() { return this.location.licencees; },
-      set(value) { this.updateLocation({['licencees']: value}); }
-    },
 
   },
   methods: {
-    ...mapMutations('form', ['setStep', 'updateBusiness', 'updateContacts', 'updateCovidContact', 'updateIpcPlan', 'updateLocation']),
+    ...mapMutations('form', ['setStep', 'updateBusiness', 'updateContacts', 'updateCovidContact', 'updateIpcPlan']),
     async submit() {
       if(this.$refs.form.validate()) {
         this.setStep(3);
