@@ -80,7 +80,7 @@
             :city-latitude-field-model.sync="cityLatitude"
             :city-longitude-field-model.sync="cityLongitude"
             :field-rules="locationCityRules"
-            :value="locationCity"
+            :currentValue="locationCity"
           />
           <v-text-field
             v-if="reviewMode"
