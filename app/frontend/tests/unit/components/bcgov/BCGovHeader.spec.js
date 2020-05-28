@@ -13,7 +13,10 @@ describe('BCGovHeader.vue', () => {
   it('renders', () => {
     const wrapper = shallowMount(BCGovHeader, {
       vuetify,
-      stubs: ['BaseAuthButton']
+      stubs: ['BaseAuthButton'],
+      computed: {
+        home: 'Home'
+      }
     });
 
     expect(wrapper.text()).toMatch('');
