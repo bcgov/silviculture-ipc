@@ -2,7 +2,7 @@
   <header class="gov-header">
     <v-toolbar color="#003366" flat>
       <!-- Navbar content -->
-      <router-link :to="{ name: home }" class="hidden-xs-only">
+      <a class="hidden-xs-only" @click="followBannerLink()">
         <v-img
           alt="B.C. Government Logo"
           contain
@@ -10,10 +10,8 @@
           src="@/assets/images/17_gov3_bc_logo.svg"
           width="10rem"
         />
-      </router-link>
-      <router-link :to="{ name: home }">
-        <v-toolbar-title class="title">{{ appTitle }}</v-toolbar-title>
-      </router-link>
+      </a>
+      <v-toolbar-title class="title" @click="followBannerLink()">{{ appTitle }}</v-toolbar-title>
       <v-spacer />
       <BaseAuthButton />
     </v-toolbar>
@@ -28,23 +26,28 @@ export default {
   name: 'BCGovHeader',
   data() {
     return {
-      role: { ...SilvipcRoles },
+      role: { ...SilvipcRoles }
     };
   },
   computed: {
     ...mapGetters('auth', ['hasSilvipcRoles']),
     appTitle() {
       return process.env.VUE_APP_TITLE;
-    },
-    // clicking on banner logo or title goes to /home or /admin if an admin user
-    home() {
-      return (this.hasRole(this.role.INSPECTOR) & !this.hasRole(this.role.DEVELOPER)) ? 'Admin' : 'Home';
     }
   },
   methods: {
     hasRole(role) {
       return this.hasSilvipcRoles([role]);
     },
+    // clicking on banner logo or title goes to /home or /admin if an admin user
+    followBannerLink() {
+      if(this.hasRole(this.role.INSPECTOR) & !this.hasRole(this.role.DEVELOPER)){
+        this.$router.push({ name: 'Admin' }).catch(() => {});
+      }
+      else{
+        this.$router.push({ name: 'Home' }).catch(() => {});
+      }
+    }
   }
 };
 </script>
