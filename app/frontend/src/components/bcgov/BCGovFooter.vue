@@ -1,6 +1,6 @@
 <template>
   <v-footer class="gov-footer">
-    <v-btn text id="footer-home" href="https://www.gov.bc.ca/">
+    <v-btn text id="footer-home" @click="goHome()">
       <span>Home</span>
     </v-btn>
     <v-btn text id="footer-about" href="https://www2.gov.bc.ca/gov/content/about-gov-bc-ca">
@@ -32,6 +32,12 @@ export default {
   computed: {
     appVersion() {
       return process.env.VUE_APP_VERSION;
+    }
+  },
+  methods: {
+    // clicking on 'home' link in footer goes to /home
+    goHome() {
+      this.$router.push({ name: 'Home' }).catch(() => {});
     }
   }
 };

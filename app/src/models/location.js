@@ -130,6 +130,11 @@ module.exports = (sequelize, DataTypes) => {
       comment: 'Number (integer) of workers working at the location',
       type: DataTypes.INTEGER,
       unique: false
+    },
+    updatedBy: {
+      allowNull: true,
+      type: DataTypes.STRING(255),
+      unique: false
     }
   },
   {

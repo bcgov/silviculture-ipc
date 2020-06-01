@@ -102,4 +102,17 @@ router.post('/:ipcPlanId/notes', keycloak.protect(`${clientId}:inspector`), asyn
   }
 });
 
+router.put('/:ipcPlanId', keycloak.protect(`${clientId}:inspector`), async (req, res, next) => {
+  try {
+    const updatedBy = req.kauth.grant.access_token.content.preferred_username;
+    const xform = transformService.apiToModel.postToIPCPlan(req.body);
+    const result = await dataService.update(xform.business, xform.contacts, xform.ipcPlan, xform.location, updatedBy);
+    const data = transformService.modelToAPI.ipcPlanToPost(result);
+    return res.status(200).json(data);
+  } catch (err) {
+    next(err);
+  }
+});
+
+
 module.exports = router;

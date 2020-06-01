@@ -13,7 +13,8 @@ const router = new VueRouter({
     {
       path: '/home',
       name: 'Home',
-      component: () => import(/* webpackChunkName: "home" */ '@/views/Home.vue')
+      component: () => import(/* webpackChunkName: "home" */ '@/views/Home.vue'),
+      props: true
     },
     {
       path: '/admin',
@@ -63,6 +64,7 @@ const router = new VueRouter({
       component: () => import(/* webpackChunkName: "not-found" */ '@/views/NotFound.vue')
     }
   ]
+
 });
 
 router.beforeEach((to, _from, next) => {

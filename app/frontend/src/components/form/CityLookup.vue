@@ -26,7 +26,11 @@ import Vue from 'vue';
 export default {
   name: 'CityLookup',
   props: {
-    fieldModel: String,
+    currentValue: {
+      type: String,
+      default: ''
+    },
+    fieldModel:String,
     fieldRules: Array,
   },
   data() {
@@ -34,7 +38,7 @@ export default {
       isLoading: false,
       features: [],
       search: null,
-      model: this.fieldModel,
+      model: (this.fieldModel) ? this.fieldModel : this.currentValue,
       rules: this.fieldRules,
     };
   },
