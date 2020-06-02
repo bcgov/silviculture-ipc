@@ -139,7 +139,7 @@
               <h3>South:</h3>
               <p class="mb-0 mt-1">
                 Nina Sigloch
-                <br />778-362-2137
+                <br />778-362-7213
               </p>
             </v-col>
           </v-row>
