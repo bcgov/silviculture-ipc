@@ -3,10 +3,10 @@
     <div class="hide-on-review">
       <h2
         class="mb-8"
-      >Protect silviculture employees, contractors, and employers, during the COVID-19 pandemic</h2>
+      >Protect employees, contractors, and employers, during the COVID-19 pandemic</h2>
       <p
         class="mb-8"
-      >The Province of British Columbia has initiated emergency measures to slow the spread of COVID-19. Silviculture and Planting operators must ensure a safe workplace for their workers and demonstrate proof of an Infection Prevention Control protocol (IPCP).</p>
+      >The Province of British Columbia has initiated emergency measures to slow the spread of COVID-19. Forestry Sector operators must ensure a safe workplace for their workers and demonstrate proof of an Infection Prevention Control protocol (IPCP).</p>
 
       <BaseWarningCard class="my-6">
         <h3>This attestation form must be completed once for each accommodation location.</h3>
@@ -56,7 +56,7 @@
             <v-expansion-panels>
               <v-expansion-panel>
                 <v-expansion-panel-header>
-                  <strong>Complete a COVID-19 risk assessment of your silviculture camps by following the directions in the guidance document.</strong>
+                  <strong>Complete a COVID-19 risk assessment of your forestry camps by following the directions in the guidance document.</strong>
                 </v-expansion-panel-header>
                 <v-expansion-panel-content>
                   <p>
@@ -70,7 +70,7 @@
                     </p>
                     <p
                       class="mb-0"
-                    >Silviculture and Planting operators can take practical actions to reduce the risk of disease transmission (see section 7).</p>
+                    >Forestry Sector operators can take practical actions to reduce the risk of disease transmission (see section 7).</p>
                   </BaseInfoCard>
 
                   <p class="mt-5">
@@ -118,32 +118,11 @@
 
     <div class="hide-on-review">
       <div class="my-12">
-        <BaseContactCard>
-          <h3>If you need assistance completing these risk assessment or infection prevention tasks, please contact the FLNRO Contact for your region:</h3>
-          <v-row>
-            <v-col cols="12" md="4" class="mb-0">
-              <h3>Coast:</h3>
-              <p class="mb-0 mt-1">
-                Ritchard LaBoucane
-                <br />250-739-8706
-              </p>
-            </v-col>
-            <v-col cols="12" md="4" class="mb-0">
-              <h3>North:</h3>
-              <p class="mb-0 mt-1">
-                John Huybers
-                <br />250-552-2364
-              </p>
-            </v-col>
-            <v-col cols="12" md="4" class="mb-0">
-              <h3>South:</h3>
-              <p class="mb-0 mt-1">
-                Nina Sigloch
-                <br />778-362-7213
-              </p>
-            </v-col>
-          </v-row>
-        </BaseContactCard>
+        <BaseInfoCard class="pt-3">
+          <p>
+            If you need assistance completing these risk assessment or infection prevention tasks, please email <strong>FP.Engagement@gov.bc.ca</strong>
+          </p>
+        </BaseInfoCard>
       </div>
 
       <h3 class="mb-2">After submitting this form, you will be subject to a site inspection:</h3>
@@ -168,8 +147,8 @@ export default {
   name: 'Step1',
   data() {
     return {
-      docTitle: 'Protecting Employees, Contractors, and Employers Working in the Silviculture Sector During the COVID-19 Pandemic.',
-      docShortTitle: 'COVID-19 Guidelines for Silviculture Work Camps.'
+      docTitle: 'Protecting Employees, Contractors, and Employers Working in the Forestry Sector During the COVID-19 Pandemic.',
+      docShortTitle: 'COVID-19 Guidelines for Forestry Sector Work Camps.'
     };
   },
   methods: {

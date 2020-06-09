@@ -24,7 +24,7 @@ const email = {
       const recipients = config.get('server.emailRecipients');
 
       try {
-        context.messageLinkText = 'Please login to view the details of this Silviculture and Planting Operator IPC Attestation';
+        context.messageLinkText = 'Please login to view the details of this Forestry Sector Operator IPC Attestation';
         context.messageLinkUrl = 'https://silvicultureoperatorscreening.gov.bc.ca/app/#/admin';
 
         const token = await utils.getKeyCloakToken(username, password, tokenEndpoint);
@@ -39,7 +39,7 @@ const email = {
           ],
           from: 'FP.Engagement@gov.bc.ca',
           priority: 'normal',
-          subject: 'Silviculture IPC Form Accepted'
+          subject: 'Forestry Operator IPC Form Accepted'
         }, {
           headers: { Authorization: `Bearer ${token.access_token}` }
         });
@@ -72,7 +72,7 @@ const email = {
           {
             context: {
               confirmationNumber: ipcPlanId.split('-')[0].toUpperCase(),
-              messageLinkText: 'Download PDF Receipt',
+              messageLinkText: 'Download your submission as a PDF',
               messageLinkUrl: `https://silvicultureoperatorscreening.gov.bc.ca/app/api/v1/ipc/pdf/${ipcPlanId}`
             },
             to: [to]
@@ -80,7 +80,7 @@ const email = {
         ],
         from: 'FP.Engagement@gov.bc.ca',
         priority: 'normal',
-        subject: 'Silviculture IPC Form Receipt'
+        subject: 'Forestry operator IPC submitted'
       }, {
         headers: { Authorization: `Bearer ${token.access_token}` }
       });

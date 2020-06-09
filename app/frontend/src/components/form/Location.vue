@@ -112,9 +112,9 @@
         </v-col>
       </v-row>
 
-      <h4>Type of accommodation for workers at this location (check all that apply)</h4>
+      <h4>Type of accommodations provided by employers for workers at this location (check all that apply)</h4>
 
-      <v-checkbox v-model="accTents" :readonly="reviewMode" label="Tents near worksite"></v-checkbox>
+      <v-checkbox v-model="accTents" :readonly="reviewMode" label="Tent or trailer sites"></v-checkbox>
 
       <div v-if="accTents">
         <v-row>
@@ -123,12 +123,16 @@
               Details (eg:
               <em>"1km from HWY 1 at 100 mile house north on Logging Road"</em>)
             </label>
-            <v-text-field v-model="tentDetails" dense flat outlined solo />
+            <v-text-field
+              v-model="tentDetails"
+              :rules="[v => v.length <= 255 || 'Please enter 255 characters or less']"
+              dense flat outlined solo
+            />
           </v-col>
         </v-row>
       </div>
 
-      <v-checkbox v-model="accMotel" :readonly="reviewMode" label="Motel / Hotel in town"></v-checkbox>
+      <v-checkbox v-model="accMotel" :readonly="reviewMode" label="Worker’s Lodging Location (Motel, hotel, or other lodging)"></v-checkbox>
       <div v-if="accMotel">
         <v-row>
           <v-col cols="12" sm="6" lg="5">
