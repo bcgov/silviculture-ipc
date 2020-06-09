@@ -3,7 +3,7 @@
     <v-container>
       <v-row>
         <v-col cols="12" class="pt-3">
-          <h4>Provide your accomodation details</h4>
+          <h4>Operation Details</h4>
         </v-col>
       </v-row>
 

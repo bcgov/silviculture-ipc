@@ -147,7 +147,7 @@ export default {
   name: 'Step1',
   data() {
     return {
-      docTitle: 'Protecting Employees, Contractors, and Employers Working in the Forestry Sector During the COVID-19 Pandemic.',
+      docTitle: 'Protecting Employees, Contractors, and Employers Working ... During the COVID-19 Pandemic.',
       docShortTitle: 'COVID-19 Guidelines for Forestry Sector Work Camps.'
     };
   },
