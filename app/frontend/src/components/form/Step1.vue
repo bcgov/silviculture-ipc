@@ -1,9 +1,7 @@
 <template>
   <v-container>
     <div class="hide-on-review">
-      <h2
-        class="mb-8"
-      >Protect employees, contractors, and employers, during the COVID-19 pandemic</h2>
+      <h2 class="mb-8">Protect employees, contractors, and employers, during the COVID-19 pandemic</h2>
       <p
         class="mb-8"
       >The Province of British Columbia has initiated emergency measures to slow the spread of COVID-19. Forestry Sector operators must ensure a safe workplace for their workers and demonstrate proof of an Infection Prevention Control protocol (IPCP).</p>
@@ -120,7 +118,8 @@
       <div class="my-12">
         <BaseInfoCard class="pt-3">
           <p>
-            If you need assistance completing these risk assessment or infection prevention tasks, please email <strong>FP.Engagement@gov.bc.ca</strong>
+            If you need assistance completing these risk assessment or infection prevention tasks, please email
+            <strong>FP.Engagement@gov.bc.ca</strong>
           </p>
         </BaseInfoCard>
       </div>
@@ -133,26 +132,69 @@
       <BaseWarningCard class="my-6">
         <h3>If you fail to comply with these requirements, the Provincial Health Officer order enables the authority to take enforcement action against you under Part 4, Division 6 of the Public Health Act.</h3>
       </BaseWarningCard>
-
-      <hr />
-      <v-btn color="primary" @click="setStep(2)">Go to Step 2</v-btn>
     </div>
+
+    <!-- operation type -->
+    <v-form ref="form">
+      <div class="d-sm-flex flex-row">
+        <div class="pt-sm-7 pr-sm-5 pb-0">Please select your Operation Type:</div>
+        <div class="pt-sm-5 pb-0">
+          <v-select
+            :items="operationTypes"
+            item-text="display"
+            item-value="type"
+            v-model="opType"
+            :rules="[v => !!v || 'Operation Type is required']"
+            dense
+            flat
+            outlined
+            solo
+            single-line
+          />
+        </div>
+      </div>
+      <div class="my-6 hide-on-review">
+        <v-btn class="px-12" color="primary" @click="setStep(2)">Go to Step 2</v-btn>
+      </div>
+    </v-form>
   </v-container>
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   name: 'Step1',
   data() {
     return {
       docTitle: 'Protecting Employees, Contractors, and Employers Working ... During the COVID-19 Pandemic.',
-      docShortTitle: 'COVID-19 Guidelines for Forestry Sector Work Camps.'
+      docShortTitle: 'COVID-19 Guidelines for Forestry Sector Work Camps.',
+      operationTypes: [
+        { type:'BRUSHING', display: 'Brushing', enabled: true },
+        { type:'CONE_PICKING', display: 'Cone Picking', enabled: true },
+        { type:'ENGINEERING', display: 'Engineering', enabled: true },
+        { type:'LAYOUT', display: 'Layout/Timber Cruising', enabled: true },
+        { type:'LOGGING', display: 'Logging', enabled: true },
+        { type:'PRUNING', display: 'Pruning', enabled: true },
+        { type:'RESEARCH', display: 'Research', enabled: true },
+        { type:'SILVICULTURE', display: 'Silviculture', enabled: true },
+        { type:'SPACING', display: 'Spacing', enabled: true },
+        { type:'SURVEYING', display: 'Surveying', enabled: true },
+        { type:'VEGETATION_MANAGEMENT', display: 'Vegetation Management', enabled: true },
+        { type:'WILDFIRE_CAMPS', display: 'Wildfire Camps', enabled: true },
+        { type:'OTHER', display: 'Other', enabled: true }
+      ]
     };
   },
+  computed: {
+    ...mapGetters('form', ['operationType']),
+    opType: {
+      get() { return this.operationType; },
+      set(value) { this.setOperationType(value); }
+    }
+  },
   methods: {
-    ...mapMutations('form', ['setStep']),
+    ...mapMutations('form', ['setStep', 'setOperationType']),
   }
 };
 </script>

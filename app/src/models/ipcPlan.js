@@ -279,6 +279,13 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(30),
       unique: false,
       defaultValue: '1.0.0'
+    },
+    operationType: {
+      allowNull: true,
+      comment: 'Forestry Operation Type for this plan',
+      type: DataTypes.STRING(30),
+      unique: false,
+      defaultValue: 'SILVICULTURE'
     }
   }, {
     comment: 'List of all IPC plan answers',
