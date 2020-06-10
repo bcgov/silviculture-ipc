@@ -132,7 +132,7 @@
         </v-row>
       </div>
 
-      <v-checkbox v-model="accMotel" :readonly="reviewMode" label="Worker’s Lodging Location (Motel, hotel, or other lodging)"></v-checkbox>
+      <v-checkbox v-model="accMotel" :readonly="reviewMode" label="Worker's Lodging Location (Motel, hotel, or other lodging)"></v-checkbox>
       <div v-if="accMotel">
         <v-row>
           <v-col cols="12" sm="6" lg="5">
