@@ -65,7 +65,7 @@ import InspectionPanel from '@/components/admin/inspection/InspectionPanel.vue';
 import NotesPanel from '@/components/admin/inspection/NotesPanel.vue';
 import LocationEdit from '@/components/admin/inspection/LocationEdit.vue';
 
-import { SilvipcRoles } from '@/utils/constants';
+import { SilvipcRoles, OperationTypes } from '@/utils/constants';
 
 export default {
   name: 'Submission',
@@ -83,21 +83,7 @@ export default {
       ipcPlanData: {},
       showFv: false,
       // quick fix for getting display name
-      operationTypes: [
-        { type:'BRUSHING', display: 'Brushing', enabled: true },
-        { type:'CONE_PICKING', display: 'Cone Picking', enabled: true },
-        { type:'ENGINEERING', display: 'Engineering', enabled: true },
-        { type:'LAYOUT', display: 'Layout/Timber Cruising', enabled: true },
-        { type:'LOGGING', display: 'Logging', enabled: true },
-        { type:'PRUNING', display: 'Pruning', enabled: true },
-        { type:'RESEARCH', display: 'Research', enabled: true },
-        { type:'SILVICULTURE', display: 'Silviculture', enabled: true },
-        { type:'SPACING', display: 'Spacing', enabled: true },
-        { type:'SURVEYING', display: 'Surveying', enabled: true },
-        { type:'VEGETATION_MANAGEMENT', display: 'Vegetation Management', enabled: true },
-        { type:'WILDFIRE_CAMPS', display: 'Wildfire Camps', enabled: true },
-        { type:'OTHER', display: 'Other', enabled: true }
-      ]
+      operationTypes: OperationTypes
     };
   },
   computed: {
@@ -115,10 +101,8 @@ export default {
       this.$refs.notesPanel.getNotes();
     },
     operationTypeDisplayName(operationType){
-      const obj =  this.operationTypes.filter( function(el){
-        return el.type == operationType;
-      });
-      return obj[0].display;
+      const obj =  this.operationTypes.find( ({ type })  => type === operationType);
+      return obj.display;
     }
   },
   mounted() {

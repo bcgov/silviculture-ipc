@@ -122,7 +122,6 @@ export default {
     updateError: state => state.updateError,
 
     // Form objects
-    operationType: state => state.ipcPlan.operationType,
     business: state => state.business,
     contacts: state => state.contacts[0],
     covidContact: state => state.covidContact,
@@ -162,9 +161,6 @@ export default {
     },
 
     // Form updates
-    setOperationType(state, operationType) {
-      state.ipcPlan.operationType = operationType;
-    },
     updateBusiness: (state, obj) => {
       Object.assign(state.business, obj);
     },

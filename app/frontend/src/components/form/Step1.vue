@@ -154,7 +154,7 @@
         </div>
       </div>
       <div class="my-6 hide-on-review">
-        <v-btn class="px-12" color="primary" @click="setStep(2)">Go to Step 2</v-btn>
+        <v-btn class="px-12" color="primary" @click="submit">Go to Step 2</v-btn>
       </div>
     </v-form>
   </v-container>
@@ -162,6 +162,7 @@
 
 <script>
 import { mapGetters, mapMutations } from 'vuex';
+import { OperationTypes } from '@/utils/constants';
 
 export default {
   name: 'Step1',
@@ -169,32 +170,23 @@ export default {
     return {
       docTitle: 'Protecting Employees, Contractors, and Employers Working ... During the COVID-19 Pandemic.',
       docShortTitle: 'COVID-19 Guidelines for Forestry Sector Work Camps.',
-      operationTypes: [
-        { type:'BRUSHING', display: 'Brushing', enabled: true },
-        { type:'CONE_PICKING', display: 'Cone Picking', enabled: true },
-        { type:'ENGINEERING', display: 'Engineering', enabled: true },
-        { type:'LAYOUT', display: 'Layout/Timber Cruising', enabled: true },
-        { type:'LOGGING', display: 'Logging', enabled: true },
-        { type:'PRUNING', display: 'Pruning', enabled: true },
-        { type:'RESEARCH', display: 'Research', enabled: true },
-        { type:'SILVICULTURE', display: 'Silviculture', enabled: true },
-        { type:'SPACING', display: 'Spacing', enabled: true },
-        { type:'SURVEYING', display: 'Surveying', enabled: true },
-        { type:'VEGETATION_MANAGEMENT', display: 'Vegetation Management', enabled: true },
-        { type:'WILDFIRE_CAMPS', display: 'Wildfire Camps', enabled: true },
-        { type:'OTHER', display: 'Other', enabled: true }
-      ]
+      operationTypes: OperationTypes
     };
   },
   computed: {
-    ...mapGetters('form', ['operationType']),
+    ...mapGetters('form', ['ipcPlan']),
     opType: {
-      get() { return this.operationType; },
-      set(value) { this.setOperationType(value); }
+      get() { return this.ipcPlan.operationType; },
+      set(value) { this.updateIpcPlan({['operationType']: value}); }
     }
   },
   methods: {
-    ...mapMutations('form', ['setStep', 'setOperationType']),
+    ...mapMutations('form', ['setStep', 'updateIpcPlan']),
+    submit(){
+      if(this.$refs.form.validate()) {
+        this.setStep(2);
+      }
+    }
   }
 };
 </script>
