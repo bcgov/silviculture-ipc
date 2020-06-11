@@ -18,6 +18,10 @@
               <span>{{ ipcPlan.ipcPlanId ? ipcPlan.ipcPlanId.split('-')[0].toUpperCase() : '' }}</span>
             </h4>
             <h4 class="heading-detail">
+              Operation Type:
+              <span>{{ operationTypeDisplayName(ipcPlan.operationType) }}</span>
+            </h4>
+            <h4 class="heading-detail">
               Operation Dates:
               <span>{{ location.startDate }} - {{ location.endDate }}</span>
             </h4>
@@ -61,7 +65,7 @@ import InspectionPanel from '@/components/admin/inspection/InspectionPanel.vue';
 import NotesPanel from '@/components/admin/inspection/NotesPanel.vue';
 import LocationEdit from '@/components/admin/inspection/LocationEdit.vue';
 
-import { SilvipcRoles } from '@/utils/constants';
+import { SilvipcRoles, OperationTypes } from '@/utils/constants';
 
 export default {
   name: 'Submission',
@@ -77,7 +81,9 @@ export default {
     return {
       error: false,
       ipcPlanData: {},
-      showFv: false
+      showFv: false,
+      // quick fix for getting display name
+      operationTypes: OperationTypes
     };
   },
   computed: {
@@ -93,6 +99,10 @@ export default {
     ...mapActions('form', ['getForm']),
     refreshNotes() {
       this.$refs.notesPanel.getNotes();
+    },
+    operationTypeDisplayName(operationType){
+      const obj =  this.operationTypes.find( ({ type })  => type === operationType);
+      return (obj) ? obj.display: 'not specified';
     }
   },
   mounted() {

@@ -61,6 +61,8 @@ export default {
       accWorkersHome: false
     },
     ipcPlan: {
+      operationType: '',
+
       sleepingAreaType: 1,
       sharedSleepingPerRoom: 1,
       sharedSleepingDistancing: false,

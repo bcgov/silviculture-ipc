@@ -2,12 +2,13 @@ const path = require('path');
 const cdogsService = require('./cdogsService');
 const dataService = require('../services/dataService');
 const transformService = require('../services/transformService');
+const constants = require('./constants');
 
 const templateJson = require('../assets/forestry-ipc-template-b.json');
 
 module.exports = {
   generate: async ipcPlanId => {
-    const docx = path.join(__dirname, '..', 'assets', 'forestry-ipc-template-k.docx');
+    const docx = path.join(__dirname, '..', 'assets', 'forestry-ipc-template-l.docx');
 
     let templateId = await cdogsService.getHash(docx);
     const templateResult = await cdogsService.getTemplate(templateId);
@@ -21,7 +22,11 @@ module.exports = {
     const ipcPlanData = transformService.modelToAPI.ipcPlanToPost(ipcPlan);
 
     const body = { ...templateJson };
-    body.data = { ...ipcPlanData };
+
+    // quick fix: update operationType with display name
+    const OperationTypes = constants.OperationTypes;
+
+    body.data = { ...ipcPlanData, ipcPlan : {operationType: OperationTypes[ipcPlanData.ipcPlan.operationType] } };
 
     return await cdogsService.templateRender(templateId, body);
   }
