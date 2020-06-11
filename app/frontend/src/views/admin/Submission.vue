@@ -102,7 +102,7 @@ export default {
     },
     operationTypeDisplayName(operationType){
       const obj =  this.operationTypes.find( ({ type })  => type === operationType);
-      return (obj !== null) ? obj.display: 'not specified';
+      return (obj) ? obj.display: 'not specified';
     }
   },
   mounted() {
