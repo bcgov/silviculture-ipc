@@ -8,7 +8,7 @@ const templateJson = require('../assets/forestry-ipc-template-b.json');
 
 module.exports = {
   generate: async ipcPlanId => {
-    const docx = path.join(__dirname, '..', 'assets', 'forestry-ipc-template-l.docx');
+    const docx = path.join(__dirname, '..', 'assets', 'forestry-ipc-template-m.docx');
 
     let templateId = await cdogsService.getHash(docx);
     const templateResult = await cdogsService.getTemplate(templateId);
