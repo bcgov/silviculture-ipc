@@ -25,8 +25,10 @@ module.exports = {
 
     // quick fix: update operationType with display name
     const OperationTypes = constants.OperationTypes;
+    // add operation Type to ipcPlanData
+    ipcPlanData.ipcPlan.operationType = OperationTypes[ipcPlanData.ipcPlan.operationType];
 
-    body.data = { ...ipcPlanData, ipcPlan : {operationType: OperationTypes[ipcPlanData.ipcPlan.operationType] } };
+    body.data = { ...ipcPlanData  };
 
     return await cdogsService.templateRender(templateId, body);
   }
