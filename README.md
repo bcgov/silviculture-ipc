@@ -2,6 +2,10 @@
 
 Silviculture and Planting Operator Infection Prevention and Control (SilvIPC)
 
+## WARNING: This project has been deprecated
+
+This application will no longer be maintained. The form will continue to be supported through [common-forms-toolkit](https://github.com/bcgov/common-forms-toolkit) under `forestrysectoropscreening`.
+
 ## Directory Structure
 
     .github/                   - PR and Issue templates

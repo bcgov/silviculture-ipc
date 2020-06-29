@@ -15,6 +15,12 @@
       <v-spacer />
       <BaseAuthButton />
     </v-toolbar>
+    <v-alert
+      type="warning"
+      color="#fcba19"
+      class="mb-0"
+      tile
+    >NOTICE: The Silviculture Workplace Safety application will be undergoing manintenance at 5PM PST today. There may be brief outages between 5PM and 6PM.</v-alert>
   </header>
 </template>
 
